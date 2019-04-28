@@ -1,0 +1,27 @@
+<resources>
+    <string name="app_name">楚禹水务</string>
+    <string name="title_home">首页</string>
+    <string name="title_notify">通知</string>
+    <string name="title_task">任务</string>
+    <string name="title_friends">交流</string>
+    <string name="title_myself">我的</string>
+    <string name="title_activity_login">登录</string>
+    <!-- Strings related to login -->
+    <string name="prompt_account">账号</string>
+    <string name="prompt_password">密码</string>
+    <string name="action_sign_in">登录</string>
+    <string name="action_sign_in_short">登录</string>
+    <string name="error_incorrect_password">账号或密码错误</string>
+    <string name="account_field_required">账号不能为空</string>
+    <string name="password_field_required">密码不能为空</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="title_activity_full_video">FullVideoActivity</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
+
+    <string name="title_activity_full_image">FullImageActivity</string>
+
+</resources>
