@@ -78,9 +78,7 @@ public class Requests {
         }
         System.out.println("uploadmedia:"+json);
     }
-
-
-
+    
     public static void signOut(final Observer<String> observer,String token, double  longitude, double latitude) {
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("Token", token);
