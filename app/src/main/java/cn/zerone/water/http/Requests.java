@@ -2,8 +2,6 @@ package cn.zerone.water.http;
 
 import android.util.Base64;
 
-
-import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 
@@ -13,17 +11,14 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
-import cn.zerone.water.activity.DialogActivity;
 import cn.zerone.water.model.EngineeringStation;
-import io.reactivex.Observable;
-import io.reactivex.ObservableEmitter;
-import io.reactivex.ObservableOnSubscribe;
+
 import io.reactivex.Observer;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.Disposable;
-import io.reactivex.schedulers.Schedulers;
-import okhttp3.Response;
+
+import static cn.zerone.water.http.Https.baseJSONArray;
+import static cn.zerone.water.http.Https.baseJSONObject;
+import static cn.zerone.water.http.Https.baseString;
 
 /**
  * Created by zero on 2018/11/29.
@@ -54,49 +49,7 @@ public class Requests {
     public  static<T>   void getUserList(Observer<JSONArray> observer){
         baseJSONArray(observer,"getuserlist",new JSONObject());
     }
-    public static <T>  void baseJSONObject(final Observer<JSONObject> observer, final String cmd, final JSONObject json){
-        System.out.println("request:"+"cmd:"+cmd+",json:"+json);
-        Observable<T> oble = Observable.create(new ObservableOnSubscribe<T>() {
-            @Override
-            public void subscribe(@NonNull ObservableEmitter<T> e) throws Exception {
-                Thread.sleep(2000);
-                Response response = Https.post(cmd, json.toJSONString());
-                if(response!=null&&response.code()==200){
-                    String json = response.body().string();
-                    System.out.println("baseJSONObject:"+json);
-                    e.onNext((T) JSON.parseObject(json));
-                    e.onComplete();
-                }else{
-                    e.onError(new IOException());
-                }
 
-            }
-        }).subscribeOn(Schedulers.newThread())
-                .observeOn(AndroidSchedulers.mainThread());
-        Observer oser = observer;
-        oble.subscribe(oser);
-    }
-    public static   void baseJSONArray(final Observer<JSONArray> observer, final String cmd, final JSONObject json){
-        Observable oble = Observable.create(new ObservableOnSubscribe<JSONArray>() {
-            @Override
-            public void subscribe(@NonNull ObservableEmitter<JSONArray> e) throws Exception {
-                Thread.sleep(2000);
-                Response response = Https.post(cmd, json.toJSONString());
-                if(response.code()==200){
-                    String json = response.body().string();
-                    System.out.println("baseJSONObject:"+json);
-                    e.onNext( JSON.parseArray(json));
-                    e.onComplete();
-                }else{
-                    throw new IOException();
-                }
-
-            }
-        }).subscribeOn(Schedulers.newThread())
-                .observeOn(AndroidSchedulers.mainThread());
-        Observer oser = observer;
-        oble.subscribe(oser);
-    }
 
     public static void getSystemMessages(final Observer<JSONObject> observer,String token) {
         JSONObject jsonObject = new JSONObject();
@@ -125,30 +78,7 @@ public class Requests {
         }
         System.out.println("uploadmedia:"+json);
     }
-
-    private static void baseString(Observer<String> observer, final String cmd, final JSONObject json) {
-        System.out.println("request:"+"cmd:"+cmd+",json:"+json);
-        Observable oble = Observable.create(new ObservableOnSubscribe<String>() {
-            @Override
-            public void subscribe(@NonNull ObservableEmitter<String> e) throws Exception {
-                Response response = Https.post(cmd, json.toJSONString());
-                int code = response.code();
-                if(code ==200){
-                    String json = response.body().string();
-                    System.out.println("baseString:"+json);
-                    e.onNext(json);
-                    e.onComplete();
-                }else{
-                    System.out.println("request:"+cmd+"code:"+code+"string:"+response.body().string());
-                    throw new IOException();
-                }
-            }
-        }).subscribeOn(Schedulers.newThread())
-                .observeOn(AndroidSchedulers.mainThread());
-        Observer oser = observer;
-        oble.subscribe(oser);
-    }
-
+    
     public static void signOut(final Observer<String> observer,String token, double  longitude, double latitude) {
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("Token", token);
