@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="cn.zerone.water.FullImageActivity">
+    tools:context="cn.zerone.water.activity.FullImageActivity">
     <com.facebook.drawee.view.SimpleDraweeView
         android:id="@+id/iv_photo"
         android:layout_width="match_parent"

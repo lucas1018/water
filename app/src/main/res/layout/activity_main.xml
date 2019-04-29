@@ -6,7 +6,7 @@
     android:background="#FFFFFF"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="cn.zerone.water.MainActivity">
+    tools:context="cn.zerone.water.activity.MainActivity">
     <FrameLayout
         android:orientation="horizontal"
         android:id="@+id/fragment_container"

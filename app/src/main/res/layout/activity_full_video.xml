@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#0099cc"
-    tools:context="cn.zerone.water.FullVideoActivity">
+    tools:context="cn.zerone.water.activity.FullVideoActivity">
     <SurfaceView
         android:id="@+id/vv_play"
         android:layout_width="match_parent"
