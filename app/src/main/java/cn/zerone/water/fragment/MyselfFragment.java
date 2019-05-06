@@ -16,6 +16,7 @@ import java.util.List;
 
 import cn.zerone.water.R;
 import cn.zerone.water.activity.PasswordModifiedActivity;
+import cn.zerone.water.activity.PhoneNumberModifiedActivity;
 
 /**
  * Created by zero on 2018/12/3.
@@ -46,15 +47,19 @@ public class MyselfFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                  if (position==4){
-                     Toast.makeText(getContext(),"还没有实现",Toast.LENGTH_SHORT).show();
+                     Intent i=new Intent(getContext(),PasswordModifiedActivity.class);
+                     getContext().startActivity(i);
                  }
                  if (position==5){
                      Intent i=new Intent(getContext(),PasswordModifiedActivity.class);
                      getContext().startActivity(i);
                  }
+                 else {
+                     Toast.makeText(getContext(),"还没有实现",Toast.LENGTH_SHORT).show();
+                 }
 
 
-                Toast.makeText(getContext(),"name="+myItemList.get(position).getItemLab(),Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getContext(),"name="+myItemList.get(position).getItemLab(),Toast.LENGTH_SHORT).show();
             }
         });
     }
