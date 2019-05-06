@@ -32,6 +32,7 @@ import cn.zerone.water.utils.BottomNavigationViewHelper;
 import io.reactivex.Observer;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.Disposable;
+
 public class MainActivity extends AppCompatActivity {
     public static MainActivity activity;
     Fragment[] fragments = new Fragment[]{new HomeFragment(),new SystemMessagesActivity(),new FriendsFragment(),new JobListFragment(),new MyselfFragment()};

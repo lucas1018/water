@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="meal_category">
+        <item>餐费</item>
+        <item>招待客户</item>
+        <item>加班聚餐</item>
+    </string-array>
+</resources>

@@ -54,10 +54,10 @@
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+<<<<<<< HEAD
         <activity
             android:name=".ChatActivity"
             android:configChanges="keyboard|keyboardHidden|orientation|screenSize" />
@@ -72,6 +72,13 @@
             android:name="com.baidu.location.f"
             android:enabled="true"
             android:process=":remote">
+=======
+        <activity android:name=".activity.ChatActivity"    android:configChanges="keyboard|keyboardHidden|orientation|screenSize" />
+        <activity android:name=".activity.WebActivity"    android:configChanges="keyboard|keyboardHidden|orientation|screenSize" />
+        <activity android:name=".activity.StepActivity"    android:configChanges="keyboard|keyboardHidden|orientation|screenSize" />
+        <activity android:name=".activity.MealActivity"    android:configChanges="keyboard|keyboardHidden|orientation|screenSize" />
+        <service android:name="com.baidu.location.f" android:enabled="true" android:process=":remote">
+>>>>>>> efe973dc2442c6d69a9d30a98d565a5aa2a771b7
             <intent-filter>
                 <action android:name="com.baidu.location.service_v2.2" />
             </intent-filter>
