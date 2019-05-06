@@ -9,31 +9,35 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:background="@drawable/toop">
+        android:background="#008ACA"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="wrap_content"
+            android:src="@drawable/back" />
 
         <TextView
             android:id="@+id/title"
-            android:layout_width="wrap_content"
+            android:layout_width="288dp"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:minHeight="50dp"
-            android:textColor="#FFFFFF"
-            android:textSize="18sp"
             android:text="我的工作餐"
-            />
+            android:textAlignment="center"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp" />
 
         <Button
             android:id="@+id/month"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/toop"
+            android:background="#008ACA"
             android:gravity="right"
             android:minHeight="50dp"
-            android:textColor="#FFFFFF"
-            android:textSize="18sp"
             android:text="月份详情"
-            />
+            android:textColor="#FFFFFF"
+            android:textSize="18sp" />
     </LinearLayout>
 
     <TextView
@@ -41,9 +45,8 @@
         android:layout_height="wrap_content"
         android:gravity="left|center_vertical"
         android:minHeight="50dp"
-        android:textSize="18sp"
-        android:text=" | 记录工作餐"
-        />
+        android:textSize="18dp"
+        android:text="  | 记录工作餐" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -57,6 +60,7 @@
             android:gravity="center"
             android:minHeight="50dp"
             android:singleLine="true"
+            android:textSize="18dp"
             android:text="工作日期" />
 
         <EditText
@@ -80,14 +84,16 @@
             android:gravity="center"
             android:minHeight="50dp"
             android:singleLine="true"
-            android:text="餐费类别" />
+            android:text="餐费类别"
+            android:textSize="18dp" />
 
         <Spinner
             android:id="@+id/meal_category"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="212dp"
+            android:layout_height="36dp"
             android:layout_weight="1"
             android:ems="10"
+            android:dropDownWidth="36dp"
             android:entries="@array/meal_category" />
     </LinearLayout>
 
@@ -103,6 +109,7 @@
             android:gravity="center"
             android:minHeight="50dp"
             android:singleLine="true"
+            android:textSize="18dp"
             android:text="消费金额" />
 
         <EditText
@@ -113,5 +120,56 @@
             android:ems="10"
             android:hint="请输入金额" />
     </LinearLayout>
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="290dp"
+        android:layout_height="wrap_content"
+        android:background="#008ACA"
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:textColor="#FFFFFF"
+        android:textSize="16dp"
+        android:text="添加" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="left|center_vertical"
+        android:minHeight="50dp"
+        android:text="  | 近期月统计"
+        android:textSize="18dp" />
+
+    <LinearLayout
+        android:id="@+id/lin_year_title"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tv_data"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="月份"/>
+
+        <View
+            android:layout_width="1px"
+            android:layout_height="50dp"
+            android:background="#cccccc"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="总金额（元）"/>
+
+    </LinearLayout>
+
+
 
 </LinearLayout>
