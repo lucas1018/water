@@ -9,6 +9,7 @@ import android.text.InputType;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 
 import java.text.DateFormat;
 import java.util.Calendar;
@@ -25,7 +26,16 @@ public class MealActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_meal);
 
-        DatePicker datepicker = findViewById(R.id.current_date);
+        //返回上一级页面
+        ImageView meal_back = (ImageView) findViewById(R.id.meal_back);
+        meal_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
+//        DatePicker datepicker = findViewById(R.id.current_date);
         dateText.setInputType(InputType.TYPE_NULL);
         dateText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
 
