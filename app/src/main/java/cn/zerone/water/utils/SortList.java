@@ -12,7 +12,7 @@ public class SortList<E> {
             public int compare(Object a, Object b) {
                 int ret = 0;
                 try {
-                    Method m1 = ((E) a).getClass().getMethod(method, null);
+                    Method m1 = ((E) a).getClass().getMethod(method,  null);
                     Method m2 = ((E) b).getClass().getMethod(method, null);
                     if (sort != null && "desc".equals(sort))// 倒序
                         ret = m2.invoke(((E) b), null).toString()
