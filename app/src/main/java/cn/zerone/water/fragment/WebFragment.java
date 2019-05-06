@@ -45,7 +45,7 @@ public  class WebFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return View.inflate(getActivity(),R.layout.fragment_web,null);
+        return View.inflate(getActivity(), R.layout.fragment_web,null);
     }
     public void changeUrl(final String url){
         getActivity().runOnUiThread(new Runnable() {
@@ -63,7 +63,8 @@ public  class WebFragment extends Fragment {
          webView = view.findViewById(R.id.webview);
          title = view.findViewById(R.id.title);
         title.setText(title());
-        webView.getSettings().setJavaScriptEnabled(true);
+
+        /*webView.getSettings().setJavaScriptEnabled(true);
         webView.setWebViewClient(new WebViewClient(){
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
@@ -94,7 +95,7 @@ public  class WebFragment extends Fragment {
 
         System.out.println("loadURL:"+getArguments().getString("url"));
         webView.loadUrl(getArguments().getString("url"));
-        webView.addJavascriptInterface(new Callback(),"JSEx");
+        webView.addJavascriptInterface(new Callback(),"JSEx");*/
 
     }
     public String title(){
@@ -133,7 +134,7 @@ public  class WebFragment extends Fragment {
                             public void onComplete() {
                                 App.isUploadGps=true;
                                 Toast.makeText(getActivity(), "签到成功", Toast.LENGTH_SHORT).show();
-                                flashWebView();
+                                //flashWebView();
 
                             }
                         },App.token,App.lastDBLocation.getLatitude(),App.lastDBLocation.getLongitude());
@@ -162,7 +163,7 @@ public  class WebFragment extends Fragment {
                             public void onComplete() {
                                 App.isUploadGps=false;
                                 Toast.makeText(getActivity(), "签退成功", Toast.LENGTH_SHORT).show();
-                                flashWebView();
+                                //flashWebView();
 
                             }
                         },App.token,App.lastDBLocation.getLatitude(),App.lastDBLocation.getLongitude());
@@ -191,7 +192,7 @@ public  class WebFragment extends Fragment {
                     Toast.makeText(getActivity(), jsonArray.getString(0), Toast.LENGTH_SHORT).show();
                     break;
                 case "GoJob":
-                    if(getActivity() instanceof MainActivity){
+                    if(getActivity() instanceof  MainActivity){
                         String url = null;
                         if(jsonArray!=null){
                             url = jsonArray.getString(0);
@@ -296,7 +297,7 @@ public  class WebFragment extends Fragment {
 
                         @Override
                         public void onComplete() {
-                            flashWebView();
+                            //flashWebView();
                             Toast.makeText(getActivity(), "上传头像成功", Toast.LENGTH_LONG).show();
                         }
                     },App.token,url);
@@ -313,13 +314,13 @@ public  class WebFragment extends Fragment {
                 }
             },App.token,file);
         }else if(requestCode==777){
-            flashWebView();
+            //flashWebView();
         }else if(requestCode==999){
-            flashWebView();
+            //flashWebView();
         }
     }
 
-    private void flashWebView() {
+    /*private void flashWebView() {
         handler.postDelayed(new Runnable() {
              @Override
              public void run() {
@@ -328,5 +329,5 @@ public  class WebFragment extends Fragment {
          },2000);
     }
 
-    Handler handler  =new Handler(Looper.getMainLooper());
+    Handler handler  =new Handler(Looper.getMainLooper());*/
 }

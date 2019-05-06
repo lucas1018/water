@@ -288,6 +288,7 @@ public class LoginActivity extends AppCompatActivity  {
     }
 
 
+    //为了选择下拉账号列表
     private void addEmailsToAutoComplete(List<String> emailAddressCollection) {
         //Create adapter to tell the AutoCompleteTextView what to show in its dropdown list.
         ArrayAdapter<String> adapter =

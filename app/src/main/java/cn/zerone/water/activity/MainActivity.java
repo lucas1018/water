@@ -20,23 +20,13 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.alibaba.fastjson.JSONObject;
-import com.ashokvarma.bottomnavigation.BottomNavigationItem;
 import com.uuzuche.lib_zxing.activity.CodeUtils;
-
-import java.util.ArrayList;
-import java.util.List;
-
 import cn.zerone.water.App;
 import cn.zerone.water.R;
-import cn.zerone.water.fragment.FriendsFragment;
 import cn.zerone.water.fragment.HomeFragment;
-import cn.zerone.water.fragment.JobListFragment;
-import cn.zerone.water.fragment.MyselfFragment;
-import cn.zerone.water.fragment.WebFragment;
 import cn.zerone.water.http.Requests;
 import cn.zerone.water.utils.BottomNavigationViewHelper;
 import io.reactivex.Observer;
@@ -45,17 +35,20 @@ import io.reactivex.disposables.Disposable;
 public class MainActivity extends AppCompatActivity {
     public static MainActivity activity;
     Fragment[] fragments = new Fragment[]{new HomeFragment(),new SystemMessagesActivity(),new FriendsFragment(),new JobListFragment(),new MyselfFragment()};
-    {
+    /*{
         Bundle args = new Bundle();
         fragments[0].setArguments(args);
+
          args = new Bundle();
         fragments[3].setArguments(args);
-         args = new Bundle();
+
+        args = new Bundle();
         fragments[4].setArguments(args);
+
         fragments[0].getArguments().putString("url","http://124.237.77.232:50180/CWeb/Home.aspx?token="+App.token);
         fragments[3].getArguments().putString("url","http://124.237.77.232:50180/CWeb/JobList.aspx?token="+App.token);
         fragments[4].getArguments().putString("url","http://124.237.77.232:50180/CWeb/My.aspx?token="+App.token);
-    }
+    }*/
     public synchronized void changeTab(int index,String url){
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         for (int i = 0; i <5; i++) {
@@ -66,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
             }
         }
         transaction.commit();
-        if(url!=null&&fragments[index] instanceof WebFragment){
+       /* if(url!=null&&fragments[index] instanceof  WebFragment){
             ((WebFragment) fragments[index]).changeUrl(url);
             if(index==3){
                 runOnUiThread(new Runnable() {
@@ -92,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
 
                 ;
             });
-        }
+        }*/
 
     }
     public void setNotifyReadView(final boolean isShow){
@@ -165,7 +158,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         ((App)getApplication()).mapInit();
         ((App)getApplication()).tokenInit();
-         navigation = (BottomNavigationView) findViewById(R.id.navigation);
+        navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         BottomNavigationViewHelper.disableShiftMode(navigation);
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
@@ -176,6 +169,7 @@ public class MainActivity extends AppCompatActivity {
         transaction.add(R.id.fragment_container,fragments[4] );
         transaction.commit();
         changeTab(0,null);
+
         MainActivity.activity = this;
         BottomNavigationMenuView menuView  = (BottomNavigationMenuView) navigation.getChildAt(0);
         View tab = menuView.getChildAt(1);
@@ -186,6 +180,7 @@ public class MainActivity extends AppCompatActivity {
          itemView = (BottomNavigationItemView) tab;
         msgBadge= LayoutInflater.from(this).inflate(R.layout.menu_badge, null, false);
         itemView.addView(msgBadge);
+
         if( App.sharedPreferences.getBoolean("isRead",false)){
             setNotifyReadView(true);
         }else{
@@ -221,8 +216,8 @@ public class MainActivity extends AppCompatActivity {
         }
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         View view = View.inflate(this, R.layout.dialog_back, null);
-        builder.setView(view,-1,-1,-1,-1);
-         dialog = builder.create();
+//        builder.setView(view,-1,-1,-1,-1);
+        dialog = builder.create();
         dialog.setCancelable(false);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(0x00000000));
         ((TextView)view.findViewById(R.id.message)).setText(message);
