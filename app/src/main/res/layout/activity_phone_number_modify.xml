@@ -13,6 +13,8 @@
             android:layout_height="20dp"
             android:id="@+id/phone_number_modify_back"
             android:src="@drawable/back"
+            android:focusable="true"
+            android:clickable="true"
             android:layout_centerVertical="true"
             android:layout_alignParentLeft="true"
             android:layout_marginLeft="10dp"/>

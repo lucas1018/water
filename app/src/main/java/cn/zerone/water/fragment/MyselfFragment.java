@@ -60,9 +60,9 @@ public class MyselfFragment extends Fragment {
                     Intent i=new Intent(getContext(),SystemUpdateActivity.class);
                     getContext().startActivity(i);
                 }
-                 else {
-                     Toast.makeText(getContext(),"还没有实现",Toast.LENGTH_SHORT).show();
-                 }
+//                 else {
+//                     Toast.makeText(getContext(),"还没有实现",Toast.LENGTH_SHORT).show();
+//                 }
 
 
 //                Toast.makeText(getContext(),"name="+myItemList.get(position).getItemLab(),Toast.LENGTH_SHORT).show();
@@ -72,19 +72,19 @@ public class MyselfFragment extends Fragment {
 
     public void initData(){
         myItemList=new ArrayList<>();
-        MyItem myItem_1=new MyItem("我的审批",R.mipmap.setting);
+        MyItem myItem_1=new MyItem("我的审批",R.drawable.trues);
         myItemList.add(myItem_1);
-        MyItem myItem_2=new MyItem("我的工作日志",R.mipmap.setting);
+        MyItem myItem_2=new MyItem("我的工作日志",R.drawable.pen);
         myItemList.add(myItem_2);
-        MyItem myItem=new MyItem("我的安全检查",R.mipmap.setting);
+        MyItem myItem=new MyItem("我的安全检查",R.drawable.date);
         myItemList.add(myItem);
-        MyItem myItem_3=new MyItem("我的工作餐",R.mipmap.lunch);
+        MyItem myItem_3=new MyItem("我的工作餐",R.drawable.coffee);
         myItemList.add(myItem_3);
-        MyItem myItem_4=new MyItem("修改手机号",R.mipmap.setting);
+        MyItem myItem_4=new MyItem("修改手机号",R.drawable.phone);
         myItemList.add(myItem_4);
-        MyItem myItem_5=new MyItem("修改密码",R.mipmap.setting);
+        MyItem myItem_5=new MyItem("修改密码",R.drawable.password);
         myItemList.add(myItem_5);
-        MyItem myItem_6=new MyItem("系统更新",R.mipmap.setting);
+        MyItem myItem_6=new MyItem("系统更新",R.drawable.setting);
         myItemList.add(myItem_6);
     }
 }
