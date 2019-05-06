@@ -26,8 +26,7 @@
             android:textStyle="bold"
             android:textColor="#fff"
             android:paddingBottom="10dp"
-            android:text="修改手机号码"
-            />
+            android:text="修改手机号码" />
     </RelativeLayout>
     <LinearLayout
         android:layout_width="match_parent"
@@ -37,24 +36,53 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:layout_marginTop="3dp"
             android:background="#fff">
             <TextView
-                android:id="@+id/user_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
+                android:layout_marginLeft="5dp"
+                android:text="更换手机号后，下次登陆可使用新手机号。当前手机号："
+                android:textSize="18dp"
+                android:textColor="#201f1f"
+                android:layout_centerInParent="true"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="#fff">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="20dp"
+                android:text="15555000055"
+                android:textSize="18dp"
+                android:textColor="#201f1f"
+                android:layout_centerInParent="true"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="2dp"
+            android:background="#fff">
+            <TextView
+                android:id="@+id/new_phone"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
                 android:layout_marginLeft="10dp"
-                android:text="用户名"
-                android:textSize="24dp"
+                android:text="新手机号"
+                android:textSize="18dp"
                 android:textColor="#000"
                 android:layout_centerInParent="true"/>
             <EditText
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toRightOf="@id/user_name"
+                android:layout_toRightOf="@id/new_phone"
                 android:layout_centerInParent="true"
-                android:text="18811737856"
                 android:layout_marginLeft="10dp"
                 android:background="@null"/>
 
@@ -62,51 +90,41 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:layout_marginTop="3dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginBottom="2dp"
             android:background="#fff">
             <TextView
-                android:id="@+id/new_password"
-                android:layout_width="wrap_content"
+                android:id="@+id/affirm_number"
+                android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_marginLeft="10dp"
-                android:text="用户名"
-                android:textSize="24dp"
+                android:text="验证码"
+                android:textSize="18dp"
                 android:textColor="#000"
                 android:layout_centerInParent="true"/>
             <EditText
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toRightOf="@id/new_password"
+                android:layout_toRightOf="@id/affirm_number"
                 android:layout_centerInParent="true"
-                android:text="18811737856"
                 android:layout_marginLeft="10dp"
                 android:background="@null"/>
 
-        </RelativeLayout>
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginTop="3dp"
-            android:background="#fff">
-            <TextView
-                android:id="@+id/affirm_new_password"
+            <Button
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_marginLeft="10dp"
-                android:text="用户名"
-                android:textSize="24dp"
-                android:textColor="#000"
-                android:layout_centerInParent="true"/>
-            <EditText
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_toRightOf="@id/affirm_new_password"
-                android:layout_centerInParent="true"
-                android:text="18811737856"
-                android:layout_marginLeft="10dp"
-                android:background="@null"/>
+                android:layout_height="50dp"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentEnd="true"
+                android:layout_gravity="center"
+                android:background="@drawable/modify_button"
+                android:gravity="center"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:text="获取验证码"
+                android:textColor="#fff"
+                android:textSize="20dp"
+                android:textStyle="bold" />
 
         </RelativeLayout>
 
@@ -118,6 +136,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="确认修改密码"
+        android:layout_marginTop="10dp"
         android:gravity="center"
         android:layout_gravity="center"
         android:textColor="#fff"

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +18,7 @@ import java.util.List;
 import cn.zerone.water.R;
 import cn.zerone.water.activity.PasswordModifiedActivity;
 import cn.zerone.water.activity.PhoneNumberModifiedActivity;
+import cn.zerone.water.activity.SystemUpdateActivity;
 
 /**
  * Created by zero on 2018/12/3.
@@ -47,13 +49,17 @@ public class MyselfFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                  if (position==4){
-                     Intent i=new Intent(getContext(),PasswordModifiedActivity.class);
+                     Intent i=new Intent(getContext(),PhoneNumberModifiedActivity.class);
                      getContext().startActivity(i);
                  }
                  if (position==5){
                      Intent i=new Intent(getContext(),PasswordModifiedActivity.class);
                      getContext().startActivity(i);
                  }
+                if (position==6){
+                    Intent i=new Intent(getContext(),SystemUpdateActivity.class);
+                    getContext().startActivity(i);
+                }
                  else {
                      Toast.makeText(getContext(),"还没有实现",Toast.LENGTH_SHORT).show();
                  }
