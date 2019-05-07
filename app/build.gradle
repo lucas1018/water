@@ -1,5 +1,12 @@
 apply plugin: 'com.android.application'
 apply plugin: 'org.greenrobot.greendao' // apply plugin
+//apply plugin: 'com.mob.sdk'
+//
+//MobSDK {
+//    appKey "2b0d4a019ad45"
+//    appSecret "d232b227337010e904bf5403384cfc39"
+//    SMSSDK {}
+//}
 
 android {
     compileSdkVersion 26
@@ -56,5 +63,4 @@ dependencies {
     implementation 'com.ashokvarma.android:bottom-navigation-bar:2.0.0'
     implementation 'cn.yipianfengye.android:zxing-library:2.2'
     implementation 'com.alibaba:fastjson:1.1.70.android'
-    implementation files('libs/commons-io-2.5.jar')
 }
