@@ -3,12 +3,13 @@
 buildscript {
     repositories {
         mavenCentral() // add repository
-        jcenter()
         google()
+        jcenter()
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.2.0'
         classpath 'org.greenrobot:greendao-gradle-plugin:3.2.2' // add plugin
+//        classpath 'com.mob.sdk:MobSDK-Impl:2019.0412.1846'
     }
 }
 
