@@ -19,7 +19,7 @@ import cn.zerone.water.R;
 
 public class MealActivity extends AppCompatActivity {
 
-    private static EditText dateText;
+//    private static EditText dateText;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -36,39 +36,39 @@ public class MealActivity extends AppCompatActivity {
         });
 
 //        DatePicker datepicker = findViewById(R.id.current_date);
-        dateText.setInputType(InputType.TYPE_NULL);
-        dateText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+//        dateText.setInputType(InputType.TYPE_NULL);
+//        dateText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+//
+//            @Override
+//            public void onFocusChange(View v, boolean hasFocus) {
+//                // TODO Auto-generated method stub
+//                if(hasFocus){
+//                    showDatePickerDialog();
+//                }
+//            }
+//        });
 
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                // TODO Auto-generated method stub
-                if(hasFocus){
-                    showDatePickerDialog();
-                }
-            }
-        });
-
-        dateText.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showDatePickerDialog();
-            }
-        });
+//        dateText.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                showDatePickerDialog();
+//            }
+//        });
     }
 
     /**
      * 展示日期选择对话框
      */
-    private void showDatePickerDialog() {
-        Calendar c = Calendar.getInstance();
-        new DatePickerDialog(MealActivity.this, new DatePickerDialog.OnDateSetListener() {
-
-            @Override
-            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                // TODO Auto-generated method stub
-                dateText.setText(year+"-"+(monthOfYear+1)+"-"+dayOfMonth);
-            }
-        }, c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH)).show();
-
-    }
+//    private void showDatePickerDialog() {
+//        Calendar c = Calendar.getInstance();
+//        new DatePickerDialog(MealActivity.this, new DatePickerDialog.OnDateSetListener() {
+//
+//            @Override
+//            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+//                // TODO Auto-generated method stub
+//                dateText.setText(year+"-"+(monthOfYear+1)+"-"+dayOfMonth);
+//            }
+//        }, c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH)).show();
+//
+//    }
 }
