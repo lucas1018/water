@@ -9,7 +9,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.support.v7.app.AppCompatActivity;
 
@@ -36,7 +38,10 @@ import io.reactivex.disposables.Disposable;
 public class MyselfFragment extends Fragment {
     private ListView listView;
     private List<MyItem> myItemList;
+
     private Integer userId;
+    private TextView userName;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -49,6 +54,8 @@ public class MyselfFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         initData();
         listView=view.findViewById(R.id.list_view);
+        userName = view.findViewById(R.id.user_name);
+        userName.setText(App.username);
     }
 
     @Override
