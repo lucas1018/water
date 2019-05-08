@@ -11,15 +11,23 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
+import android.support.v7.app.AppCompatActivity;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import cn.zerone.water.App;
 import cn.zerone.water.R;
 import cn.zerone.water.activity.MealActivity;
 import cn.zerone.water.activity.PasswordModifiedActivity;
 import cn.zerone.water.activity.PhoneNumberModifiedActivity;
 import cn.zerone.water.activity.SystemUpdateActivity;
+import cn.zerone.water.http.Requests;
+import io.reactivex.Observer;
+import io.reactivex.disposables.Disposable;
 
 /**
  * Created by zero on 2018/12/3.
@@ -28,6 +36,7 @@ import cn.zerone.water.activity.SystemUpdateActivity;
 public class MyselfFragment extends Fragment {
     private ListView listView;
     private List<MyItem> myItemList;
+    private Integer userId;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -40,6 +49,30 @@ public class MyselfFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         initData();
         listView=view.findViewById(R.id.list_view);
+        class temp = new AppCompatActivity.getIntent();
+        userId = getIntent().getExtras().getString("userId");
+        Requests.getUserInfo(new Observer<com.alibaba.fastjson.JSONObject>() {
+            @Override
+            public void onSubscribe(Disposable d) {
+
+            }
+
+            @Override
+            public void onNext(com.alibaba.fastjson.JSONObject jsonObject) {
+                System.out.println("getUserInfo:"+jsonObject);
+                System.out.println("2222222222");
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                Toast.makeText(getActivity(), "失败", Toast.LENGTH_LONG).show();
+            }
+
+            @Override
+            public void onComplete() {
+                Toast.makeText(getActivity(), "成功", Toast.LENGTH_LONG).show();
+            }
+        },userId);
     }
 
     @Override
