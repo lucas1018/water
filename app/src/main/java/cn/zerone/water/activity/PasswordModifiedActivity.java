@@ -90,7 +90,6 @@ public class PasswordModifiedActivity extends AppCompatActivity {
 //    从SharedPreferences中读取原始密码
     private String readPsw() {
         SharedPreferences sp = getSharedPreferences("loginInfo",MODE_PRIVATE);
-        System.out.println("00000");
         String spPsw = sp.getString(userName,"");
         System.out.println(spPsw);
         return spPsw;
