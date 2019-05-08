@@ -38,7 +38,7 @@ import io.reactivex.disposables.Disposable;
 
 public class MainActivity extends AppCompatActivity {
     public static MainActivity activity;
-    Fragment[] fragments = new Fragment[]{new HomeFragment(),new SystemMessagesActivity(),new FriendsFragment(),new JobListFragment(),new MyselfFragment()};
+    Fragment[] fragments = new Fragment[]{new SystemMessagesActivity(), new JobListFragment(), new HomeFragment(),new FriendsFragment(),new MyselfFragment()};
     /*{
         Bundle args = new Bundle();
         fragments[0].setArguments(args);
@@ -53,10 +53,10 @@ public class MainActivity extends AppCompatActivity {
         fragments[3].getArguments().putString("url","http://124.237.77.232:50180/CWeb/JobList.aspx?token="+App.token);
         fragments[4].getArguments().putString("url","http://124.237.77.232:50180/CWeb/My.aspx?token="+App.token);
     }*/
-    public synchronized void changeTab(int index,String url){
+    public synchronized void changeTab(int index, String url){
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        for (int i = 0; i <5; i++) {
-            if(i==index){
+        for (int i = 0; i < 5; i++) {
+            if(i == index){
                 transaction.show(fragments[i]);
             }else{
                 transaction.hide(fragments[i]);
@@ -107,7 +107,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
     public void setMsgReadView(final boolean isShow){
-        if(activity!=null)
+        if(activity != null)
             activity.runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
@@ -132,22 +132,22 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
-                case R.id.navigation_home:
+                case R.id.navigation_notify:
+                    setNotifyReadView(false);
                     changeTab(0,null);
+                    return true;
+                case R.id.navigation_task:
+                    changeTab(1,null);
+                    return true;
+                case R.id.navigation_home:
+                    changeTab(2,null);
                     return true;
                 case R.id.navigation_friends:
                     setMsgReadView(false);
-                    changeTab(2,null);
+                    changeTab(3,null);
                     return true;
                 case R.id.navigation_myself:
                     changeTab(4,null);
-                    return true;
-                case R.id.navigation_notify:
-                    setNotifyReadView(false);
-                    changeTab(1,null);
-                    return true;
-                case R.id.navigation_task:
-                    changeTab(3,null);
                     return true;
             }
             return false;
