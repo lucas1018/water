@@ -49,30 +49,6 @@ public class MyselfFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         initData();
         listView=view.findViewById(R.id.list_view);
-        class temp = new AppCompatActivity.getIntent();
-        userId = getIntent().getExtras().getString("userId");
-        Requests.getUserInfo(new Observer<com.alibaba.fastjson.JSONObject>() {
-            @Override
-            public void onSubscribe(Disposable d) {
-
-            }
-
-            @Override
-            public void onNext(com.alibaba.fastjson.JSONObject jsonObject) {
-                System.out.println("getUserInfo:"+jsonObject);
-                System.out.println("2222222222");
-            }
-
-            @Override
-            public void onError(Throwable e) {
-                Toast.makeText(getActivity(), "失败", Toast.LENGTH_LONG).show();
-            }
-
-            @Override
-            public void onComplete() {
-                Toast.makeText(getActivity(), "成功", Toast.LENGTH_LONG).show();
-            }
-        },userId);
     }
 
     @Override
