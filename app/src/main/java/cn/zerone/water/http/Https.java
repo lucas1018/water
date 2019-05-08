@@ -5,7 +5,13 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 
 import java.io.IOException;
+import java.lang.reflect.Array;
+import java.nio.file.attribute.UserDefinedFileAttributeView;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
+import cn.zerone.water.App;
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
@@ -27,7 +33,7 @@ public class Https {
     public static final String CMD_LOGIN="login";
 
     public static <T>  void baseJSONObject(final Observer<JSONObject> observer, final String cmd, final JSONObject json){
-        System.out.println("request:"+"cmd:"+cmd+",json:"+json);
+//        System.out.println("request:"+"cmd:"+cmd+",json:"+json);
         Observable<T> oble = Observable.create(new ObservableOnSubscribe<T>() {
             @Override
             public void subscribe(@NonNull ObservableEmitter<T> e) throws Exception {
@@ -35,7 +41,6 @@ public class Https {
                 Response response = post(cmd, json.toJSONString());
                 if(response!=null&&response.code()==200){
                     String json = response.body().string();
-                    System.out.println("aaaaaaaaaaaa3");
                     System.out.println("baseJSONObject:"+json);
                     e.onNext((T) JSON.parseObject(json));
                     e.onComplete();
@@ -53,12 +58,19 @@ public class Https {
         Observable oble = Observable.create(new ObservableOnSubscribe<JSONArray>() {
             @Override
             public void subscribe(@NonNull ObservableEmitter<JSONArray> e) throws Exception {
-                Thread.sleep(2000);
                 Response response = post(cmd, json.toJSONString());
                 if(response.code() == 200){
                     String json = response.body().string();
-                    System.out.println("aaaaaaaaaaaaaaa2");
-                    System.out.println("baseJSONObject:"+json);
+                    System.out.println("baseJSONArray:"+json);
+                    List lists = JSON.parseArray(json);
+                    for (Object obj: lists) {
+                        Map entry =(Map)obj;
+                        String str = entry.get("UserName").toString();
+                        if (str.equals(App.username)) {
+                            App.userId = (Integer) entry.get("UserId");
+                            break;
+                        }
+                    }
                     e.onNext(JSON.parseArray(json));
                     e.onComplete();
                 }else{

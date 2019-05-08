@@ -1,6 +1,7 @@
 package cn.zerone.water.fragment;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -10,24 +11,31 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.support.v7.app.AppCompatActivity;
 
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
+
 import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import cn.zerone.water.App;
 import cn.zerone.water.R;
+import cn.zerone.water.activity.LoginActivity;
+import cn.zerone.water.activity.MainActivity;
 import cn.zerone.water.activity.MealActivity;
 import cn.zerone.water.activity.PasswordModifiedActivity;
 import cn.zerone.water.activity.PhoneNumberModifiedActivity;
 import cn.zerone.water.activity.SystemUpdateActivity;
 import cn.zerone.water.http.Requests;
+import cn.zerone.water.model.Friend;
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 
@@ -39,8 +47,9 @@ public class MyselfFragment extends Fragment {
     private ListView listView;
     private List<MyItem> myItemList;
 
-    private Integer userId;
     private TextView userName;
+    private ImageView headImg;
+    private TextView nickName;
 
     @Nullable
     @Override
@@ -55,9 +64,51 @@ public class MyselfFragment extends Fragment {
         initData();
         listView=view.findViewById(R.id.list_view);
         userName = view.findViewById(R.id.user_name);
-        userName.setText(App.username);
-    }
+        headImg = view.findViewById(R.id.myself_image);
+        nickName = view.findViewById(R.id.nick_name);
+        Requests.getUserList(new Observer<JSONArray>() {
+            @Override
+            public void onSubscribe(Disposable d) {
+            }
 
+            @Override
+            public void onNext(JSONArray friends) {
+
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                System.out.println("onError");
+            }
+
+            @Override
+            public void onComplete() {
+                Requests.getUserInfo(new Observer<JSONObject>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+                    }
+                    @Override
+                    public void onNext(JSONObject jsonObject) {
+                        System.out.println("getUserInfo:"+jsonObject);
+                        Map entry = (Map)jsonObject;
+                        String str =(String) entry.get("UserName");
+                        userName.setText(str);
+                        String HeadImg = (String) entry.get("HeadImg");
+                        headImg.setImageURI(Uri.parse("http://img4.imgtn.bdimg.com/it/u=3590849871,3724521821&fm=26&gp=0.jpg"));
+                        String nickname = (String) entry.get("NickName");
+                        nickName.setText(nickname);
+                    }
+                    @Override
+                    public void onError(Throwable e) {
+                        e.printStackTrace();
+                    }
+                    @Override
+                    public void onComplete() {
+                    }
+                },App.userId);
+            }
+        });
+    }
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
@@ -86,12 +137,6 @@ public class MyselfFragment extends Fragment {
                     default:
                         break;
                 }
-//                 else {
-//                     Toast.makeText(getContext(),"还没有实现",Toast.LENGTH_SHORT).show();
-//                 }
-
-
-//                Toast.makeText(getContext(),"name="+myItemList.get(position).getItemLab(),Toast.LENGTH_SHORT).show();
             }
         });
     }

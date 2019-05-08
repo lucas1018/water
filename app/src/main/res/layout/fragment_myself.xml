@@ -28,8 +28,7 @@
         <ImageView
             android:layout_width="80dp"
             android:layout_height="80dp"
-            android:id="@+id/password_modify_back"
-            android:src="@drawable/touxiang"
+            android:id="@+id/myself_image"
             android:layout_centerVertical="true"
             android:layout_alignParentLeft="true"
             android:layout_marginLeft="30dp"/>
@@ -49,11 +48,11 @@
                 android:textSize="18dp"/>
 
             <TextView
+                android:id="@+id/nick_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:layout_marginLeft="20dp"
-                android:text="账号：15500445500"
                 android:textColor="#999"
                 android:textSize="18dp"/>
         </LinearLayout>

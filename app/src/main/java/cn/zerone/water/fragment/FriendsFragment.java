@@ -144,47 +144,47 @@ public class FriendsFragment extends Fragment {
                 swipeLoading.setRefreshing(false);
             }
         });
-        Requests.getUserList(new Observer<JSONArray>() {
-
-
-            @Override
-            public void onSubscribe(Disposable d) {
-
-            }
-
-            @Override
-            public void onNext(JSONArray friends) {
-                tempFriends = friends;
-            }
-
-            @Override
-            public void onError(Throwable e) {
-                tempFriends = null;
-                swipeLoading.setRefreshing(false);
-                System.out.println("onError");
-            }
-
-            @Override
-            public void onComplete() {
-                try {
-                    FriendsFragment.this.friends.clear();
-                    for (int i = 0; i < tempFriends.size(); i++) {
-                        String userName = tempFriends.getJSONObject(i).getString("UserName");
-                        if (App.username != null && App.username.equals(userName)) {
-                            continue;
-                        }
-                        FriendsFragment.this.friends.add(new Friend(userName, tempFriends.getJSONObject(i).getString("HeadImg"), tempFriends.getJSONObject(i).getString("UserId")));
-                    }
-                    updateLastMessage(FriendsFragment.this.friends);
-
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-                swipeLoading.setRefreshing(false);
-                System.out.println("onComplete:" + tempFriends);
-            }
-        });
-        Requests.getchatinfo(new GetMsgObserver(), App.token);
+//        Requests.getUserList(new Observer<JSONArray>() {
+//
+//
+//            @Override
+//            public void onSubscribe(Disposable d) {
+//
+//            }
+//
+//            @Override
+//            public void onNext(JSONArray friends) {
+//                tempFriends = friends;
+//            }
+//
+//            @Override
+//            public void onError(Throwable e) {
+//                tempFriends = null;
+//                swipeLoading.setRefreshing(false);
+//                System.out.println("onError");
+//            }
+//
+//            @Override
+//            public void onComplete() {
+//                try {
+//                    FriendsFragment.this.friends.clear();
+//                    for (int i = 0; i < tempFriends.size(); i++) {
+//                        String userName = tempFriends.getJSONObject(i).getString("UserName");
+//                        if (App.username != null && App.username.equals(userName)) {
+//                            continue;
+//                        }
+//                        FriendsFragment.this.friends.add(new Friend(userName, tempFriends.getJSONObject(i).getString("HeadImg"), tempFriends.getJSONObject(i).getString("UserId")));
+//                    }
+//                    updateLastMessage(FriendsFragment.this.friends);
+//
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                }
+//                swipeLoading.setRefreshing(false);
+//                System.out.println("onComplete:" + tempFriends);
+//            }
+//        });
+//        Requests.getchatinfo(new GetMsgObserver(), App.token);
     }
 
     private String getMyHeadImg() {
