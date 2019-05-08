@@ -9,12 +9,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import cn.zerone.water.App;
 import cn.zerone.water.R;
 import cn.zerone.water.activity.MealActivity;
 import cn.zerone.water.activity.PasswordModifiedActivity;
@@ -28,6 +31,7 @@ import cn.zerone.water.activity.SystemUpdateActivity;
 public class MyselfFragment extends Fragment {
     private ListView listView;
     private List<MyItem> myItemList;
+    private TextView userName;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -40,6 +44,8 @@ public class MyselfFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         initData();
         listView=view.findViewById(R.id.list_view);
+        userName = view.findViewById(R.id.user_name);
+        userName.setText(App.username);
     }
 
     @Override
