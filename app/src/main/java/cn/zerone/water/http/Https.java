@@ -35,6 +35,7 @@ public class Https {
                 Response response = post(cmd, json.toJSONString());
                 if(response!=null&&response.code()==200){
                     String json = response.body().string();
+                    System.out.println("oooooooooo");
                     System.out.println("baseJSONObject:"+json);
                     e.onNext((T) JSON.parseObject(json));
                     e.onComplete();
@@ -56,6 +57,7 @@ public class Https {
                 Response response = post(cmd, json.toJSONString());
                 if(response.code() == 200){
                     String json = response.body().string();
+                    System.out.println("iiiiiiiiiiiii");
                     System.out.println("baseJSONObject:"+json);
                     e.onNext(JSON.parseArray(json));
                     e.onComplete();
@@ -79,6 +81,7 @@ public class Https {
                 int code = response.code();
                 if(code ==200){
                     String json = response.body().string();
+                    System.out.println("mmmmmmm");
                     System.out.println("baseString:"+json);
                     e.onNext(json);
                     e.onComplete();
