@@ -102,7 +102,7 @@ public class Https {
             String md5 = cmd+json+"d8sd19k09d1dc6";
             builder.add("Md5","");
             builder.add("Json",json);
-            body= builder.build();
+            body = builder.build();
             return okHttpClient.newCall(new Request.Builder().url("http://124.237.77.232:50180/cweb/req.aspx").post(body).build()).execute();
         } catch (IOException e) {
             e.printStackTrace();

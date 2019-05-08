@@ -116,6 +116,7 @@
                 android:inputType="number" />
 
             <Button
+                android:id="@+id/login_verificate_code"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"

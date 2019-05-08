@@ -22,11 +22,13 @@ import com.baidu.location.BDLocation;
 import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
 import com.baidu.location.service.LocationService;
+import com.example.jpushdemo.Logger;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.uuzuche.lib_zxing.activity.ZXingLibrary;
 import java.util.ArrayList;
 import java.util.List;
 
+import cn.jpush.android.api.JPushInterface;
 import cn.zerone.water.activity.DialogActivity;
 import cn.zerone.water.activity.MainActivity;
 import cn.zerone.water.http.Requests;
@@ -38,6 +40,8 @@ import cn.zerone.water.model.SystemMessageDao;
 import cn.zerone.water.utils.MD5Utils;
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
+
+
 
 /**
  * Created by zero on 2018/11/29.
@@ -55,9 +59,14 @@ public class App extends Application {
     boolean isTest =false;
     private LocationService locationService;
     public EngineeringStation  engineeringStation = null;
+    private static final String TAG = "JIGUANG-Example";
     @Override
     public void onCreate() {
+        Logger.d(TAG, "[ExampleApplication] onCreate");
         super.onCreate();
+        JPushInterface.setDebugMode(true); //正式环境时去掉此行代码
+        JPushInterface.init(this);
+
         context = this;
         Fresco.initialize(this);
         locationService = new LocationService(getApplicationContext());
