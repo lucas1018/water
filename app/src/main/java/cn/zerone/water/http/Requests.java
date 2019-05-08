@@ -157,4 +157,11 @@ public class Requests {
         baseString(observer, "uploadjobstepinfo", jsonObject);
     }
 
+    public static void getUserInfo(Observer<JSONObject> observer, Integer userId) {
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("userId", userId);
+        baseJSONObject(observer,"getUserInfo",jsonObject);
+    }
+
+
 }
