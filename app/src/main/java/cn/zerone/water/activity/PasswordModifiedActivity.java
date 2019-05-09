@@ -2,6 +2,7 @@ package cn.zerone.water.activity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -12,9 +13,18 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.alibaba.fastjson.JSONObject;
+
+import java.util.Map;
+
+import cn.zerone.water.App;
 import cn.zerone.water.R;
 import cn.zerone.water.fragment.MyselfFragment;
+import cn.zerone.water.http.Requests;
 import cn.zerone.water.utils.MD5Utils;
+import io.reactivex.Observer;
+import io.reactivex.disposables.Disposable;
+import okhttp3.Request;
 
 
 public class PasswordModifiedActivity extends AppCompatActivity {
@@ -57,46 +67,55 @@ public class PasswordModifiedActivity extends AppCompatActivity {
                 getEditString();
                 if (TextUtils.isEmpty(originalPsw)){
                     Toast.makeText(PasswordModifiedActivity.this,"请输入原始密码",Toast.LENGTH_SHORT).show();
-                }else if (!originalPsw.equals(readPsw())){
-                    Toast.makeText(PasswordModifiedActivity.this,"输入的密码与原始密码不一致",Toast.LENGTH_SHORT).show();
-                }else if (newPsw.equals(readPsw())){
-                    Toast.makeText(PasswordModifiedActivity.this,"输入的新密码与原始密码不能一致",Toast.LENGTH_SHORT).show();
                 }else if (TextUtils.isEmpty(newPsw)){
                     Toast.makeText(PasswordModifiedActivity.this,"请输入新密码",Toast.LENGTH_SHORT).show();
                 }else if (TextUtils.isEmpty(newPswAgain)){
                     Toast.makeText(PasswordModifiedActivity.this,"请再次输入新密码",Toast.LENGTH_SHORT).show();
                 }else if (!newPsw.equals(newPswAgain)){
                     Toast.makeText(PasswordModifiedActivity.this,"两次输入的新密码不一致",Toast.LENGTH_SHORT).show();
+                }else if (newPsw.equals(newPswAgain) && newPsw.length() < 6){
+                    Toast.makeText(PasswordModifiedActivity.this,"密码必须至少6个字符",Toast.LENGTH_SHORT).show();
                 }else{
-                    Toast.makeText(PasswordModifiedActivity.this,"新密码设置成功",Toast.LENGTH_SHORT).show();
-                    //修改登录成功后保存在SharedPreferences中的密码
-                    modifyPsw(newPsw);
-                    Intent intent = new Intent(PasswordModifiedActivity.this,LoginActivity.class);
-                    startActivity(intent);
-                    PasswordModifiedActivity.this.finish();//关闭当前界面
+                    modifyPsw(newPsw, newPswAgain, originalPsw);
+//                    Toast.makeText(PasswordModifiedActivity.this,"新密码设置成功",Toast.LENGTH_SHORT).show();
+//                    //修改登录成功后保存在SharedPreferences中的密码
+//                    modifyPsw(newPsw);
+//                    Intent intent = new Intent(PasswordModifiedActivity.this,LoginActivity.class);
+//                    startActivity(intent);
+//                    PasswordModifiedActivity.this.finish();//关闭当前界面
                 }
             }
         });
 
     }
 //    修改登录成功后保存在SharedPreferences中的密码
-    private void modifyPsw(String newPsw) {
-        SharedPreferences sp = getSharedPreferences("loginInfo",MODE_PRIVATE);
-        SharedPreferences.Editor editor = sp.edit();//获取编辑器
-        editor.putString(userName,newPsw);
-        editor.commit();
+    private void modifyPsw(String p1, String p2, String p3) {
+        Integer id = (Integer) App.userId;
+        Requests.updatePWD(new Observer<String>() {
+            @Override
+            public void onSubscribe(Disposable d) {
+
+            }
+
+            @Override
+            public void onNext(String str) {
+                System.out.println("updatePWD" + str);
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+
+            @Override
+            public void onComplete() {
+                Toast.makeText(PasswordModifiedActivity.this,"新密码设置成功",Toast.LENGTH_SHORT).show();
+            }
+        },id,p1,p2,p3);
 
     }
-//    从SharedPreferences中读取原始密码
-    private String readPsw() {
-        SharedPreferences sp = getSharedPreferences("loginInfo",MODE_PRIVATE);
-        String spPsw = sp.getString(userName,"");
-        System.out.println(spPsw);
-        return spPsw;
 
-    }
-
-    //h获取控件上的字符串
+    //获取控件上的字符串
     private void getEditString() {
         originalPsw = et_original_psw.getText().toString().trim();
         newPsw = et_new_psw.getText().toString().trim();
