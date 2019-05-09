@@ -130,7 +130,7 @@
     <Button
         android:id="@+id/button"
         android:layout_width="190dp"
-        android:layout_height="wrap_content"
+                        android:layout_height="wrap_content"
         android:background="#008ACA"
         android:gravity="center"
         android:layout_gravity="center"

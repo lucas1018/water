@@ -23,8 +23,8 @@ android {
         disable 'RestrictedApi'
     }
 
-    sourceSets{
-        main{
+    sourceSets {
+        main {
             jniLibs.srcDir 'libs'
             jni.srcDirs = []    //disable automatic ndk-build
         }
@@ -57,4 +57,5 @@ dependencies {
     implementation 'cn.yipianfengye.android:zxing-library:2.2'
     implementation 'com.alibaba:fastjson:1.1.70.android'
     implementation files('libs/commons-io-2.5.jar')
+    implementation 'com.prolificinteractive:material-calendarview:1.4.0'
 }

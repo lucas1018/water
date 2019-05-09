@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.text.InputType;
 import android.view.View;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -34,6 +35,9 @@ public class MealActivity extends AppCompatActivity {
                 finish();
             }
         });
+
+
+
 
 //        DatePicker datepicker = findViewById(R.id.current_date);
 //        dateText.setInputType(InputType.TYPE_NULL);
