@@ -172,5 +172,8 @@ public class Requests {
         baseString(observer,"UpdataPwd",jsonObject);
     }
 
+    public  static void getCheckedList(Observer<JSONArray> observer){
+        baseJSONArray(observer,"EngineeringFileCheck_GetList",new JSONObject());
+    }
 
 }

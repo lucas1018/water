@@ -30,6 +30,7 @@ import java.util.Map;
 
 import cn.zerone.water.App;
 import cn.zerone.water.R;
+import cn.zerone.water.activity.CheckActivity;
 import cn.zerone.water.activity.LoginActivity;
 import cn.zerone.water.activity.MainActivity;
 import cn.zerone.water.activity.MealActivity;
@@ -128,6 +129,10 @@ public class MyselfFragment extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent i;
                 switch (position) {
+                    case 0:
+                        i = new Intent(getContext(), CheckActivity.class);
+                        getContext().startActivity(i);
+                        break;
                     case 3:
                         i = new Intent(getContext(), MealActivity.class);
                         getContext().startActivity(i);
