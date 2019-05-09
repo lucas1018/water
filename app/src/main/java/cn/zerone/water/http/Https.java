@@ -37,7 +37,6 @@ public class Https {
         Observable<T> oble = Observable.create(new ObservableOnSubscribe<T>() {
             @Override
             public void subscribe(@NonNull ObservableEmitter<T> e) throws Exception {
-                Thread.sleep(2000);
                 Response response = post(cmd, json.toJSONString());
                 if(response!=null&&response.code()==200){
                     String json = response.body().string();
@@ -90,8 +89,9 @@ public class Https {
             @Override
             public void subscribe(@NonNull ObservableEmitter<String> e) throws Exception {
                 Response response = post(cmd, json.toJSONString());
+                System.out.println("ppppppp" + response);
                 int code = response.code();
-                if(code ==200){
+                if(code == 200){
                     String json = response.body().string();
                     System.out.println("baseString:"+json);
                     e.onNext(json);
