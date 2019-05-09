@@ -1,8 +1,10 @@
 package cn.zerone.water.fragment;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -36,6 +38,7 @@ import cn.zerone.water.activity.PhoneNumberModifiedActivity;
 import cn.zerone.water.activity.SystemUpdateActivity;
 import cn.zerone.water.http.Requests;
 import cn.zerone.water.model.Friend;
+import cn.zerone.water.utils.ImageUtil;
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 
@@ -61,6 +64,10 @@ public class MyselfFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        if (android.os.Build.VERSION.SDK_INT > 9) {
+            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+            StrictMode.setThreadPolicy(policy);
+        }
         initData();
         listView=view.findViewById(R.id.list_view);
         userName = view.findViewById(R.id.user_name);
@@ -93,8 +100,11 @@ public class MyselfFragment extends Fragment {
                         Map entry = (Map)jsonObject;
                         String str =(String) entry.get("UserName");
                         userName.setText(str);
-                        String HeadImg = (String) entry.get("HeadImg");
-                        headImg.setImageURI(Uri.parse("http://img4.imgtn.bdimg.com/it/u=3590849871,3724521821&fm=26&gp=0.jpg"));
+                        String imgUrl = (String) entry.get("HeadImg");
+                        ImageUtil imageUtil = ImageUtil.getIntance();
+                        Bitmap temp_bitmap = imageUtil.getBitMBitmap(imgUrl);
+                        Bitmap bitmap = imageUtil.comp(temp_bitmap);
+                        headImg.setImageBitmap(bitmap);
                         String nickname = (String) entry.get("NickName");
                         nickName.setText(nickname);
                     }
