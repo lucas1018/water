@@ -61,15 +61,6 @@ public class Https {
                 if(response.code() == 200){
                     String json = response.body().string();
                     System.out.println("baseJSONArray:"+json);
-                    List lists = JSON.parseArray(json);
-                    for (Object obj: lists) {
-                        Map entry =(Map)obj;
-                        String str = entry.get("UserName").toString();
-                        if (str.equals(App.username)) {
-                            App.userId = (Integer) entry.get("UserId");
-                            break;
-                        }
-                    }
                     e.onNext(JSON.parseArray(json));
                     e.onComplete();
                 }else{

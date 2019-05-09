@@ -19,11 +19,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.support.v7.app.AppCompatActivity;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 
 import org.json.JSONException;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -80,9 +82,19 @@ public class MyselfFragment extends Fragment {
             }
 
             @Override
-            public void onNext(JSONArray friends) {
-
-            }
+                public void onNext(JSONArray friends) {
+                    System.out.println("fridens" + friends.toJSONString());
+                    List lists = JSON.parseArray(friends.toJSONString());
+                    for (Object obj: lists) {
+                        System.out.println("1111:" + obj);
+                        Map entry =(Map)obj;
+                        String str = entry.get("UserName").toString();
+                        if (str.equals(App.username)) {
+                            App.userId = (Integer) entry.get("UserId");
+                            break;
+                        }
+                    }
+                }
 
             @Override
             public void onError(Throwable e) {
