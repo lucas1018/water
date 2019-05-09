@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+   >
+
+    <TextView
+        android:layout_width="384dp"
+        android:layout_height="wrap_content"
+        android:background="#008aca"
+        android:gravity="center"
+        android:text="工作餐类型"
+        android:textColor="#FFFFFF"
+        android:textSize="18dp" />
+
+    <ListView
+        android:id="@+id/meal_list_type"
+        android:divider="@color/black_overlay"
+        android:dividerHeight="3px"
+        android:footerDividersEnabled="false"
+        android:headerDividersEnabled="false"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+
+
+</LinearLayout>
