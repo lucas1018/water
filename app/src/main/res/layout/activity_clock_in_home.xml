@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="cn.zerone.water.activity.MealActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="#008aca">
+
+        <ImageView
+            android:id="@+id/home_back"
+            android:layout_width="30dp"
+            android:layout_height="17dp"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="0dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:src="@drawable/back" />
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="安全到家"
+            android:textColor="#fff"
+            android:textSize="18dp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/button2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:background="#008aca"
+            android:text="历史纪录"
+            android:textColor="#fff"
+            android:textSize="18dp" />
+
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:gravity="center"
+            android:text="安全到家" />
+
+        <TextClock
+            android:id="@+id/finish_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center"
+            android:format24Hour="HH:mm:ss"
+            android:textColor="#000000"
+            android:textSize="18dp" />
+
+        <Button
+            android:id="@+id/button"
+            android:layout_width="190dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="#008ACA"
+            android:gravity="center"
+            android:text="安全到家"
+            android:textColor="#FFFFFF"
+            android:textSize="16dp" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="match_parent"
+            android:gravity="center_vertical|left"
+            android:layout_height="50dp"
+            android:background="#bbbbbb"
+            android:layout_marginTop="20dp"
+            android:text="本月安全到家记录" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+    </LinearLayout>
+
+
+</LinearLayout>

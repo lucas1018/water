@@ -6,14 +6,44 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.content.Intent;
+
+import cn.zerone.water.R;
+import cn.zerone.water.activity.ClockInCarActivity;
+import cn.zerone.water.activity.ClockInFinishActivity;
+import cn.zerone.water.activity.ClockInHomeActivity;
+
 /**
  * Created by zero on 2018/12/3.
  */
 
-public class HomeFragment extends WebFragment {
+public class HomeFragment extends Fragment {
+    @Nullable
     @Override
-    public String title() {
-        return  "首页";
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View view=inflater.inflate(R.layout.fragment_home,null);
+        Button car_btn = (Button) view.findViewById(R.id.car_button);
+        car_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getContext(), ClockInCarActivity.class));
+            }
+        });
+        Button finish_btn = (Button) view.findViewById(R.id.finish_button);
+        finish_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getContext(), ClockInFinishActivity.class));
+            }
+        });
+        Button home_btn = (Button) view.findViewById(R.id.home_button);
+        home_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getContext(), ClockInHomeActivity.class));
+            }
+        });
+        return view;
     }
-
 }

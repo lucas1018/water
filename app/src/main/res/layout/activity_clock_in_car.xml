@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="cn.zerone.water.activity.MealActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="#008aca">
+
+        <ImageView
+            android:id="@+id/car_back"
+            android:layout_width="30dp"
+            android:layout_height="17dp"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="0dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:src="@drawable/back" />
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_centerVertical="true"
+            android:text="车辆打卡"
+            android:textColor="#fff"
+            android:textSize="18dp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/button2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:background="#008aca"
+            android:text="历史纪录"
+            android:textColor="#fff"
+            android:textSize="18dp" />
+
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="54dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:minHeight="50dp"
+            android:singleLine="true"
+            android:text="车牌号码"
+            android:textSize="18dp" />
+
+        <EditText
+            android:id="@+id/brand_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ems="10"
+            android:inputType="text" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="54dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:minHeight="50dp"
+            android:singleLine="true"
+            android:text="车型"
+            android:textSize="18dp" />
+
+        <EditText
+            android:id="@+id/car_type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ems="10"
+            android:inputType="text" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="54dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:minHeight="50dp"
+            android:singleLine="true"
+            android:text="所属项目"
+            android:textSize="18dp" />
+
+        <EditText
+            android:id="@+id/related_project"
+            android:layout_width="182dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ems="10"
+            android:inputType="text" />
+
+        <ImageView
+            android:id="@+id/item_go"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="8dp"
+            android:src="@mipmap/my_approval"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="54dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:minHeight="50dp"
+            android:singleLine="true"
+            android:text="所在站点"
+            android:textSize="18dp" />
+
+        <EditText
+            android:id="@+id/related_station"
+            android:layout_width="182dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ems="10"
+            android:inputType="text" />
+
+        <ImageView
+            android:id="@+id/item2_go"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="8dp"
+            android:src="@mipmap/my_approval" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="54dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:minHeight="50dp"
+            android:singleLine="true"
+            android:text="打卡类型"
+            android:textSize="18dp" />
+
+        <EditText
+            android:id="@+id/clock_in_type"
+            android:layout_width="182dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ems="10"
+            android:inputType="text" />
+
+        <ImageView
+            android:id="@+id/item3_go"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="8dp"
+            android:src="@mipmap/my_approval"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="54dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:minHeight="50dp"
+            android:singleLine="true"
+            android:text="所在位置"
+            android:textSize="18dp" />
+
+        <EditText
+            android:id="@+id/location"
+            android:layout_width="182dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ems="10"
+            android:inputType="text" />
+
+        <ImageView
+            android:id="@+id/item4_go"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="8dp"
+            android:src="@mipmap/my_approval"/>
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="112dp"
+        android:layout_height="50dp"
+        android:gravity="center"
+        android:singleLine="true"
+        android:text="现场照片"
+        android:textSize="18dp" />
+
+    <ImageButton
+        android:id="@+id/imageButton3"
+        android:layout_margin="20dp"
+        android:layout_width="60dp"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/ic_camera" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="190dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="#008ACA"
+        android:gravity="center"
+        android:text="车辆打卡"
+        android:textColor="#FFFFFF"
+        android:textSize="16dp" />
+
+
+</LinearLayout>

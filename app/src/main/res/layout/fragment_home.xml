@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/top"
+        android:gravity="center"
+        android:minHeight="50dp"
+        android:paddingBottom="10dp"
+        android:text="@string/title_home"
+        android:textSize="18dp"
+        android:textStyle="bold" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/clock_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="考勤" />
+
+        <Button
+            android:id="@+id/car_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="车辆"
+            tools:layout_editor_absoluteX="0dp"
+            tools:layout_editor_absoluteY="0dp" />
+
+        <Button
+            android:id="@+id/finish_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="完工" />
+
+        <Button
+            android:id="@+id/home_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="到家" />
+    </LinearLayout>
+
+    <WebView
+        android:layout_width="match_parent"
+        android:id="@+id/webview"
+        android:layout_height="match_parent">
+
+    </WebView>
+</LinearLayout>

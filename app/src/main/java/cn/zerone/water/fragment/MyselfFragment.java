@@ -28,6 +28,7 @@ import java.util.Map;
 
 import cn.zerone.water.App;
 import cn.zerone.water.R;
+import cn.zerone.water.activity.ClockInCarActivity;
 import cn.zerone.water.activity.LoginActivity;
 import cn.zerone.water.activity.MainActivity;
 import cn.zerone.water.activity.MealActivity;
