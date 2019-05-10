@@ -1,44 +1,65 @@
 package cn.zerone.water.activity;
 
 import android.app.AlertDialog;
-import android.app.DatePickerDialog;
-import android.app.Dialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
-import android.renderscript.ScriptGroup;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.text.InputType;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.Toast;
 
-import java.text.DateFormat;
 import java.util.Calendar;
-import java.util.Date;
 
+import cn.zerone.water.App;
 import cn.zerone.water.R;
+import cn.zerone.water.http.Requests;
+import io.reactivex.Observer;
+import io.reactivex.disposables.Disposable;
 
 public class MealActivity extends AppCompatActivity {
     private EditText dateText;
     private EditText mealText;
-    private ListView listView=null;
+    private EditText mealMoney;
+    private EditText mealRemark;
+    private ImageView meal_back;
+    private Button btn_add;
+    private String meal_date;
+    private String meal_type;
+    private String meal_mount;
+    private String meal_remark;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_meal);
+        meal_back = findViewById(R.id.meal_back);//返回上一级按钮
+        mealText = findViewById(R.id.meal_type);// 工作餐类型
+        dateText = findViewById(R.id.current_date);// 工作餐日期
+        mealMoney = findViewById(R.id.consume_money);//餐费金额
+        mealRemark = findViewById(R.id.remark);//备注
+        btn_add = findViewById(R.id.add_meal);//添加按钮
+        //初始化参数值
+        init();
+        btn_add.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //获取参数值
+                getEditString();
+                //调用接口请求
+                addFeeForMeal( meal_date, meal_type, meal_mount, meal_remark);
+            }
+        });
+    }
 
-
+    private void init() {
         //返回上一级页面
-        final ImageView meal_back = (ImageView) findViewById(R.id.meal_back);
         meal_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -46,8 +67,7 @@ public class MealActivity extends AppCompatActivity {
             }
         });
 
-        // 工作餐类型
-        mealText = (EditText) findViewById(R.id.meal_type);
+        //获取工作餐类型
         mealText.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent motionEvent) {
@@ -80,23 +100,8 @@ public class MealActivity extends AppCompatActivity {
             }
 
         });
-//        mealText.setOnTouchListener(new View.OnTouchListener() {
-//            @Override
-//            public boolean onTouch(View v, MotionEvent event) {
-//                if (event.getAction() == MotionEvent.ACTION_DOWN){
-//                    Intent intent = new Intent(MealActivity.this, MealTypeActivity.class);
-//                    startActivity(intent);
-//                }
-//
-//                return true;
-//            }
-//        });
-//        Intent intent = getIntent();
-//        String result = intent.getStringExtra("meal_type");
-//        mealText.setText(result);
-        //dateText.requestFocus();
-        // 工作餐日期
-        dateText = (EditText) findViewById(R.id.current_date);
+
+        //获取日期
         dateText.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -110,7 +115,7 @@ public class MealActivity extends AppCompatActivity {
                     cal.setTimeInMillis(System.currentTimeMillis());
                     datePicker.init(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH),null);
                     datePicker.setMaxDate(cal.getTime().getTime());
-                    if(cal.get(Calendar.DAY_OF_MONTH)>10){
+                    if(cal.get(Calendar.DAY_OF_MONTH) > 10){
                         cal.set(Calendar.DAY_OF_MONTH, 1);
                         datePicker.setMinDate(cal.getTimeInMillis());
                     }
@@ -154,7 +159,39 @@ public class MealActivity extends AppCompatActivity {
             }
 
         });
+    }
 
+    private void getEditString() {
+        meal_date = dateText.getText().toString().trim();
+        meal_type = mealText.getText().toString().trim();
+        meal_mount = mealMoney.getText().toString().trim();
+        meal_remark = mealRemark.getText().toString().trim();
+    }
+
+    //    修改登录成功后保存在SharedPreferences中的密码
+    private void addFeeForMeal(String meal_date, String meal_type, String meal_mount, String meal_remark) {
+        Integer uid = (Integer) App.userId;
+        Requests.FeesForMeals_SaveBLL(new Observer<String>() {
+            @Override
+            public void onSubscribe(Disposable d) {
+
+            }
+
+            @Override
+            public void onNext(String str) {
+                System.out.println("addFeeForMeal" + str);
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+
+            @Override
+            public void onComplete() {
+                Toast.makeText(MealActivity.this,"工作餐添加成功", Toast.LENGTH_SHORT).show();
+            }
+        },uid, meal_date, meal_type, meal_mount, meal_remark);
     }
 
 }

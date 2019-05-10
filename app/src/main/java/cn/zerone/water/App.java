@@ -48,9 +48,9 @@ import io.reactivex.disposables.Disposable;
  */
 
 public class App extends Application {
-    public static java.lang.String username = null;
-    public static java.lang.String token = null;
-    public static java.lang.Integer userId = null;
+    public static String username = null;
+    public static String token = null;
+    public static Integer userId = null;
     public static boolean isUploadGps = false;
     public static BDLocation lastDBLocation = null;
     public static String baseUrl = "http://124.237.77.232:50180/";

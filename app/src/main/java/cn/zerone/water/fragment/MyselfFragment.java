@@ -57,7 +57,7 @@ public class MyselfFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view=inflater.inflate(R.layout.fragment_myself,null);
+        View view = inflater.inflate(R.layout.fragment_myself,null);
         return view;
     }
 
@@ -96,7 +96,6 @@ public class MyselfFragment extends Fragment {
                     }
                     @Override
                     public void onNext(JSONObject jsonObject) {
-                        System.out.println("getUserInfo:"+jsonObject);
                         Map entry = (Map)jsonObject;
                         String str =(String) entry.get("UserName");
                         userName.setText(str);

@@ -42,8 +42,6 @@
             android:textSize="18dp"
             android:background="#008aca"
             android:textColor="#fff"/>
-
-
     </RelativeLayout>
 
     <TextView
@@ -76,6 +74,7 @@
             android:ems="10"
             android:inputType="date" />
     </LinearLayout>
+    
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -96,13 +95,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:ems="10" />
-
-
     </LinearLayout>
-
-
-
-
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -128,8 +121,32 @@
             android:hint="请输入金额" />
     </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="54dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:minHeight="50dp"
+            android:singleLine="true"
+            android:textSize="18dp"
+            android:text="备注" />
+
+        <EditText
+            android:id="@+id/remark"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ems="10"
+            android:maxLines="2" />
+    </LinearLayout>
+
     <Button
-        android:id="@+id/button"
+        android:id="@+id/add_meal"
         android:layout_width="190dp"
         android:layout_height="wrap_content"
         android:background="#008ACA"
@@ -174,9 +191,6 @@
             android:layout_gravity="center"
             android:gravity="center"
             android:text="总金额（元）"/>
-
     </LinearLayout>
-
-
 
 </LinearLayout>
