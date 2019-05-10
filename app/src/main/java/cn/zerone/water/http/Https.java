@@ -80,7 +80,7 @@ public class Https {
             @Override
             public void subscribe(@NonNull ObservableEmitter<String> e) throws Exception {
                 Response response = post(cmd, json.toJSONString());
-                System.out.println("ppppppp" + response);
+                System.out.println(response);
                 int code = response.code();
                 if(code == 200){
                     String json = response.body().string();
