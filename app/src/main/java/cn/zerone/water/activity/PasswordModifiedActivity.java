@@ -45,22 +45,21 @@ public class PasswordModifiedActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_password_modified);
         init();
-//        userName = AnalysisUtils.readLoginUserName(this);
     }
     //  获取界面控件并处理相关控件的处理事件
     private void init() {
         //返回我的页面
-        ImageView pwd_modify_back = (ImageView) findViewById(R.id.pwd_modify_back);
+        ImageView pwd_modify_back = findViewById(R.id.pwd_modify_back);
         pwd_modify_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
             }
         });
-        et_original_psw = (EditText) findViewById(R.id.et_original_psw);
-        et_new_psw = (EditText) findViewById(R.id.et_new_psw);
-        et_new_psw_again = (EditText) findViewById(R.id.et_new_psw_again);
-        btn_save = (Button)  findViewById(R.id.btn_save);
+        et_original_psw = findViewById(R.id.et_original_psw);
+        et_new_psw = findViewById(R.id.et_new_psw);
+        et_new_psw_again = findViewById(R.id.et_new_psw_again);
+        btn_save = findViewById(R.id.btn_save);
         btn_save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -77,12 +76,6 @@ public class PasswordModifiedActivity extends AppCompatActivity {
                     Toast.makeText(PasswordModifiedActivity.this,"密码必须至少6个字符",Toast.LENGTH_SHORT).show();
                 }else{
                     modifyPsw(newPsw, newPswAgain, originalPsw);
-//                    Toast.makeText(PasswordModifiedActivity.this,"新密码设置成功",Toast.LENGTH_SHORT).show();
-//                    //修改登录成功后保存在SharedPreferences中的密码
-//                    modifyPsw(newPsw);
-//                    Intent intent = new Intent(PasswordModifiedActivity.this,LoginActivity.class);
-//                    startActivity(intent);
-//                    PasswordModifiedActivity.this.finish();//关闭当前界面
                 }
             }
         });

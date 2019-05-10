@@ -13,6 +13,7 @@ import java.net.URLConnection;
  */
 public class ImageUtil {
     private int picType;//0表示默认png图片；1表示jpg或者jpeg
+
     public static ImageUtil getIntance(){
         return new ImageUtil();
     }
@@ -23,7 +24,7 @@ public class ImageUtil {
     public Bitmap compressImage(Bitmap image) {
 
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        Bitmap.CompressFormat Type=picType==0?Bitmap.CompressFormat.PNG:Bitmap.CompressFormat.JPEG;
+        Bitmap.CompressFormat Type = picType == 0 ? Bitmap.CompressFormat.PNG : Bitmap.CompressFormat.JPEG;
         //image.compress(Bitmap.CompressFormat.JPEG, 100, baos);//质量压缩方法，这里100表示不压缩，把压缩后的数据存放到baos中
         image.compress(Type, 100, baos);//质量压缩方法，这里100表示不压缩，把压缩后的数据存放到baos中
         int options = 100;
@@ -76,7 +77,6 @@ public class ImageUtil {
         bitmap = BitmapFactory.decodeStream(isBm, null, newOpts);
         return compressImage(bitmap);//压缩好比例大小后再进行质量压缩
     }
-
 
     /**通过图片url生成Bitmap对象
      * @param urlpath

@@ -172,8 +172,18 @@ public class Requests {
         baseString(observer,"UpdataPwd",jsonObject);
     }
 
-    public  static void getCheckedList(Observer<JSONArray> observer){
-        baseJSONArray(observer,"EngineeringFileCheck_GetList",new JSONObject());
+    public  static void getCheckedList(Observer<JSONArray> observer) {
+        baseJSONArray(observer, "EngineeringFileCheck_GetList", new JSONObject());
+    }
+
+    public static void feesForMeals_SaveBLL(Observer<String> observer, Integer id, String meal_date, String meal_type, String meal_mount, String meal_remark) {
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("CreateUserId", id);//用户id
+        jsonObject.put("Date", meal_date);//餐费日期
+        jsonObject.put("Name", meal_type);//餐费类型
+        jsonObject.put("Cost", meal_mount);//餐费金额
+        jsonObject.put("Remark", meal_remark);//备注
+        baseString(observer, "FeesForMeals_SaveBLL", jsonObject);
     }
 
 }
