@@ -39,10 +39,10 @@ public class Requests {
         baseJSONObject(observer, "Loging", requestBody);
     }
 
-//    public static <T>  void scan(Observer<JSONObject> observer,String token,String barcode){
+//    public static <T>  void scan(Observer<JSONObject> observer,String userId,String barcode){
 //
 //        JSONObject jsonObject = new JSONObject();
-//        jsonObject.put("Token", token);
+//        jsonObject.put("userId", userId);
 //        jsonObject.put("State","3");
 //        jsonObject.put("BarCode",barcode);
 //        baseJSONObject(observer,"scancode",jsonObject);
@@ -52,30 +52,30 @@ public class Requests {
 //    }
 
 
-    public static void getSystemMessages(final Observer<JSONObject> observer,String token) {
+    public static void getSystemMessages(final Observer<JSONObject> observer,String userId) {
         RequestBody requestBody = new FormBody.Builder()
-                .add("Token", token)
+                .add("userId", userId)
                 .build();
 //        JSONObject jsonObject = new JSONObject();
-//        jsonObject.put("Token", token);
+//        jsonObject.put("userId", userId);
         baseJSONObject(observer,"getmsg", requestBody);
     }
 
-    public static void signIn(final Observer<String> observer,String token, double  longitude, double latitude) {
+    public static void signIn(final Observer<String> observer,String userId, double  longitude, double latitude) {
         RequestBody requestBody = new FormBody.Builder()
-                .add("Token", token)
+                .add("userId", userId)
                 .add("x", String.valueOf(latitude))
                 .add("y", String.valueOf(longitude))
                 .build();
 //        JSONObject jsonObject = new JSONObject();
-//        jsonObject.put("Token", token);
+//        jsonObject.put("userId", userId);
 //        jsonObject.put("x",latitude);
 //        jsonObject.put("y",longitude);
         baseString(observer,"sign_in", requestBody);
     }
-//    public static void upload(Observer<JSONObject> observer, String token, File file){
+//    public static void upload(Observer<JSONObject> observer, String userId, File file){
 //       final JSONObject json = new JSONObject();
-//        json.put("Token", token);
+//        json.put("userId", userId);
 //        try {
 //            json.put("MediaType",file.getName().substring(file.getName().indexOf(".")+1,file.getName().length()));
 //            byte[] bytes = FileUtils.readFileToByteArray(file);
@@ -88,17 +88,18 @@ public class Requests {
 //        System.out.println("uploadmedia:"+json);
 //    }
     
-    public static void signOut(final Observer<String> observer,String token, double  longitude, double latitude) {
+    public static void signOut(final Observer<String> observer,String userId, double  longitude, double latitude) {
         RequestBody requestBody = new FormBody.Builder()
+                .add("userId", userId)
                 .add("x", String.valueOf(latitude))
                 .add("y", String.valueOf(longitude))
                 .build();
         baseString(observer,"sign_out", requestBody);
     }
 
-//    public static void sendChatinfo(final Observer<String> observer, String token, String toUsername, String text, EngineeringStation engineeringStation) {
+//    public static void sendChatinfo(final Observer<String> observer, String userId, String toUsername, String text, EngineeringStation engineeringStation) {
 //        JSONObject jsonObject = new JSONObject();
-//        jsonObject.put("Token", token);
+//        jsonObject.put("userId", userId);
 //        jsonObject.put("ToUserId",toUsername);
 //        jsonObject.put("Msg",text);
 //        try{
@@ -114,20 +115,20 @@ public class Requests {
 //        baseString(observer,"sendchatinfo",jsonObject);
 //    }
 
-//    public static void getchatinfo(final Observer<JSONArray> observer,String token) {
+//    public static void getchatinfo(final Observer<JSONArray> observer,String userId) {
 //        JSONObject jsonObject = new JSONObject();
-//        jsonObject.put("Token", token);
+//        jsonObject.put("userId", userId);
 //        baseJSONArray(observer,"getchatinfo",jsonObject);
 //    }
 
-    public static void uploadGps(String token,double y,double x) {
+    public static void uploadGps(String userId,double y,double x) {
         RequestBody requestBody = new FormBody.Builder()
-                .add("Token", token)
+                .add("userId", userId)
                 .add("X", String.valueOf(x))
                 .add("Y",String.valueOf(y))
                 .build();
 //        JSONObject jsonObject = new JSONObject();
-//        jsonObject.put("Token", token);
+//        jsonObject.put("userId", userId);
 //        jsonObject.put("X", x);
 //        jsonObject.put("Y", y);
         baseString(new Observer<String>() {
@@ -152,18 +153,18 @@ public class Requests {
         }, "uploadgps", requestBody);
     }
 
-//    public static void updateuserinfo(Observer<String> observer, String token, String headImg) {
+//    public static void updateuserinfo(Observer<String> observer, String userId, String headImg) {
 //        JSONObject jsonObject = new JSONObject();
-//        jsonObject.put("Token", token);
+//        jsonObject.put("userId", userId);
 //        jsonObject.put("NickName", "");
 //        jsonObject.put("Password", "");
 //        jsonObject.put("HeadImg", headImg);
 //        baseString(observer, "updateuserinfo", jsonObject);
 //    }
 //
-//    public static void uploadjobstepinfo(Observer<String> observer, String token,String jobId,String stepId,List<String> imageList,List<String> videoList,String text) {
+//    public static void uploadjobstepinfo(Observer<String> observer, String userId,String jobId,String stepId,List<String> imageList,List<String> videoList,String text) {
 //        JSONObject jsonObject = new JSONObject();
-//        jsonObject.put("Token", token);
+//        jsonObject.put("userId", userId);
 //        jsonObject.put("JobId", jobId);
 //        jsonObject.put("StepId",stepId);
 //        jsonObject.put("Text",text);

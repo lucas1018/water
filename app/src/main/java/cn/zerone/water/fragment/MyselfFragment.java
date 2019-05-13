@@ -75,6 +75,7 @@ public class MyselfFragment extends Fragment {
                 String str = jsonObject.getString("Data");
                 JSONObject json = JSONArray.parseArray(str).getJSONObject(0);
                 String username = json.getString("LOGIN_NAME");
+                App.username = username;
                 userName.setText(username);
                 String imgUrl = json.getString("Photo");
                 ImageUtil imageUtil = ImageUtil.getIntance();

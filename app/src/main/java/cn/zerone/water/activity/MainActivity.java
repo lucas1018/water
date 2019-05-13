@@ -39,20 +39,6 @@ import io.reactivex.disposables.Disposable;
 public class MainActivity extends AppCompatActivity {
     public static MainActivity activity;
     Fragment[] fragments = new Fragment[]{new SystemMessagesActivity(), new JobListFragment(), new HomeFragment(),new FriendsFragment(),new MyselfFragment()};
-    /*{
-        Bundle args = new Bundle();
-        fragments[0].setArguments(args);
-
-         args = new Bundle();
-        fragments[3].setArguments(args);
-
-        args = new Bundle();
-        fragments[4].setArguments(args);
-
-        fragments[0].getArguments().putString("url","http://124.237.77.232:50180/CWeb/Home.aspx?token="+App.token);
-        fragments[3].getArguments().putString("url","http://124.237.77.232:50180/CWeb/JobList.aspx?token="+App.token);
-        fragments[4].getArguments().putString("url","http://124.237.77.232:50180/CWeb/My.aspx?token="+App.token);
-    }*/
     public synchronized void changeTab(int index, String url){
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         for (int i = 0; i < 5; i++) {
@@ -161,7 +147,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ((App)getApplication()).mapInit();
-        ((App)getApplication()).tokenInit();
+        ((App)getApplication()).userInit();
         navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         BottomNavigationViewHelper.disableShiftMode(navigation);
@@ -279,7 +265,7 @@ public class MainActivity extends AppCompatActivity {
 //                            public void onComplete() {
 //                                Toast.makeText(MainActivity.this, "解析结果:" + result, Toast.LENGTH_LONG).show();
 //                            }
-//                        },App.token,result);
+//                        },App.userId,result);
                     } else if (bundle.getInt(CodeUtils.RESULT_TYPE) == CodeUtils.RESULT_FAILED) {
                         Toast.makeText(MainActivity.this, "解析二维码失败", Toast.LENGTH_LONG).show();
                     }

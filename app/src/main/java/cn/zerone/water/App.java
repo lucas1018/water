@@ -49,7 +49,6 @@ import io.reactivex.disposables.Disposable;
 
 public class App extends Application {
     public static String username = null;
-    public static String token = null;
     public static String userId = null;
     public static boolean isUploadGps = false;
     public static BDLocation lastDBLocation = null;
@@ -72,10 +71,6 @@ public class App extends Application {
         Fresco.initialize(this);
         locationService = new LocationService(getApplicationContext());
         sharedPreferences = getSharedPreferences("config", Context.MODE_PRIVATE);
-        token = sharedPreferences.getString("token", "");
-        if (token == "") {
-            token = null;
-        }
         username = sharedPreferences.getString("username", "");
         if (username == "") {
             username = null;
@@ -85,11 +80,6 @@ public class App extends Application {
         }catch (Exception e){
             e.printStackTrace();
         }
-    }
-
-    public void clearLoginToken() {
-        token = "";
-        sharedPreferences.edit().putString("token", "").commit();
     }
 
     public void mapInit() {
@@ -108,7 +98,7 @@ public class App extends Application {
                     lastUpdateGps = System.currentTimeMillis();
                     System.out.println("上传 GPS中");
                     try {
-                        Requests.uploadGps(App.token, bdLocation.getLatitude(), bdLocation.getLongitude());
+                        Requests.uploadGps(App.userId, bdLocation.getLatitude(), bdLocation.getLongitude());
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -190,7 +180,7 @@ public class App extends Application {
             handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
-//                    Requests.getSystemMessages(new GetSystemMessages(), App.token);
+//                    Requests.getSystemMessages(new GetSystemMessages(), App.userId);
                 }
             },10*1000);
             e.printStackTrace();
@@ -223,20 +213,20 @@ public class App extends Application {
             handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
-//                    Requests.getSystemMessages(new GetSystemMessages(), App.token);
+//                    Requests.getSystemMessages(new GetSystemMessages(), App.userId);
                 }
             },10*1000);
             ;
         }
     }
     Handler handler = new Handler(Looper.getMainLooper());
-    public void tokenInit() {
+    public void userInit() {
         DaoMaster.DevOpenHelper devOpenHelper = new DaoMaster.DevOpenHelper(getApplicationContext(), username);
         SQLiteDatabase db = devOpenHelper.getWritableDatabase();
         DaoMaster daoMaster = new DaoMaster(db);
         DaoSession daoSession = daoMaster.newSession();
         systemMessageDao = daoSession.getSystemMessageDao();
-//        Requests.getSystemMessages(new GetSystemMessages(), App.token);
+//        Requests.getSystemMessages(new GetSystemMessages(), App.userId);
         try{
             SharedPreferences sp = getSharedPreferences(MD5Utils.encode2hex(App.username), Context.MODE_PRIVATE);
             String engineeringStationString = sp.getString("engineeringStation", null);

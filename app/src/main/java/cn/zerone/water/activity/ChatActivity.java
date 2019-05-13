@@ -129,9 +129,9 @@ public class ChatActivity extends AppCompatActivity {
             return ;
         }
         if(tempEngineeringStation!=null){
-//            Requests.sendChatinfo(new SendObserver(text), App.token, toUserId, text,tempEngineeringStation);
+//            Requests.sendChatinfo(new SendObserver(text), App.userId, toUserId, text,tempEngineeringStation);
         }else{
-//            Requests.sendChatinfo(new SendObserver(text), App.token, toUserId, text,((App) getApplication()).engineeringStation);
+//            Requests.sendChatinfo(new SendObserver(text), App.userId, toUserId, text,((App) getApplication()).engineeringStation);
         }
         listView.setSelection(chatMessages.size());
         edText.setText("");
@@ -150,9 +150,9 @@ public class ChatActivity extends AppCompatActivity {
 //                String nativeUrl = "[图片]" + imgPath;
 //                String msg = "[图片]" + url;
 //                if(tempEngineeringStation!=null){
-//                    Requests.sendChatinfo(new SendObserver(nativeUrl), App.token, toUserId, msg, tempEngineeringStation);
+//                    Requests.sendChatinfo(new SendObserver(nativeUrl), App.userId, toUserId, msg, tempEngineeringStation);
 //                }else{
-//                    Requests.sendChatinfo(new SendObserver(nativeUrl), App.token, toUserId, msg, ((App) getApplication()).engineeringStation);
+//                    Requests.sendChatinfo(new SendObserver(nativeUrl), App.userId, toUserId, msg, ((App) getApplication()).engineeringStation);
 //                }
 //            }
 //
@@ -165,7 +165,7 @@ public class ChatActivity extends AppCompatActivity {
 //            public void onComplete() {
 //
 //            }
-//        },App.token,new File(imgPath));
+//        },App.userId,new File(imgPath));
     }
 
     private void sendVideo(final String videoUrl) {
@@ -182,9 +182,9 @@ public class ChatActivity extends AppCompatActivity {
 //                String nativeUrl = "[视频]" + videoUrl;
 //                String msg = "[视频]" + url;
 //                if(tempEngineeringStation!=null){
-//                    Requests.sendChatinfo(new SendObserver(nativeUrl), App.token, toUserId, msg, tempEngineeringStation);
+//                    Requests.sendChatinfo(new SendObserver(nativeUrl), App.userId, toUserId, msg, tempEngineeringStation);
 //                }else{
-//                    Requests.sendChatinfo(new SendObserver(nativeUrl), App.token, toUserId, msg, ((App)getApplication()).engineeringStation);
+//                    Requests.sendChatinfo(new SendObserver(nativeUrl), App.userId, toUserId, msg, ((App)getApplication()).engineeringStation);
 //                }
 //            }
 //            @Override
@@ -196,7 +196,7 @@ public class ChatActivity extends AppCompatActivity {
 //            public void onComplete() {
 //
 //            }
-//        },App.token,new File(videoUrl));
+//        },App.userId,new File(videoUrl));
 
     }
     public void notifyDataSetChanged() {

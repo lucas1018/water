@@ -79,11 +79,11 @@ public class StepActivity extends Activity {
                 }
                 for (int i = 0; i < gvImageList.size() - 1; i++) {
                     File o = gvImageList.get(i);
-//                    Requests.upload(new UploadObserver(o), App.token, o);
+//                    Requests.upload(new UploadObserver(o), App.userId, o);
                 }
                 for (int i = 0; i < gvVideoList.size() - 1; i++) {
                     File o = gvVideoList.get(i);
-//                    Requests.upload(new UploadObserver(o), App.token, o);
+//                    Requests.upload(new UploadObserver(o), App.userId, o);
                 }
 
             }
@@ -269,6 +269,6 @@ public class StepActivity extends Activity {
 //                DialogActivity.dismiss();
 //                finish();
 //            }
-//        }, App.token, jobId, stepId, imageList, videoList, text);
+//        }, App.userId, jobId, stepId, imageList, videoList, text);
     }
 }
