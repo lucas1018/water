@@ -2,26 +2,25 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/navigation_home"
-        android:icon="@drawable/home"
-        android:title="@string/title_home" />
-
-    <item
         android:id="@+id/navigation_notify"
-        android:icon="@drawable/notice"
+        android:icon="@mipmap/notice"
         android:title="@string/title_notify" />
     <item
         android:id="@+id/navigation_task"
-        android:icon="@drawable/task"
+        android:icon="@mipmap/task"
         android:title="@string/title_task" />
+    <item
+        android:id="@+id/navigation_home"
+        android:icon="@mipmap/homepage_blue"
+        android:title="@string/title_home" />
 
     <item
         android:id="@+id/navigation_friends"
-        android:icon="@drawable/contact"
-        android:title="@string/title_friends" />
+        android:icon="@mipmap/broadcast"
+        android:title="@string/Live_broadcast" />
     <item
         android:id="@+id/navigation_myself"
-        android:icon="@drawable/my"
+        android:icon="@mipmap/myself"
         android:title="@string/title_myself" />
 
 </menu>
