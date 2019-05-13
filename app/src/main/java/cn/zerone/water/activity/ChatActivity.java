@@ -129,74 +129,74 @@ public class ChatActivity extends AppCompatActivity {
             return ;
         }
         if(tempEngineeringStation!=null){
-            Requests.sendChatinfo(new SendObserver(text), App.token, toUserId, text,tempEngineeringStation);
+//            Requests.sendChatinfo(new SendObserver(text), App.userId, toUserId, text,tempEngineeringStation);
         }else{
-            Requests.sendChatinfo(new SendObserver(text), App.token, toUserId, text,((App) getApplication()).engineeringStation);
+//            Requests.sendChatinfo(new SendObserver(text), App.userId, toUserId, text,((App) getApplication()).engineeringStation);
         }
         listView.setSelection(chatMessages.size());
         edText.setText("");
         setResult(2,new Intent());
     }
     private void sendImage(final String imgPath) {
-        Requests.upload(new Observer<JSONObject>() {
-            @Override
-            public void onSubscribe(Disposable d) {
-
-            }
-            @Override
-            public void onNext(JSONObject s) {
-                System.out.println(s);
-                String url = s.getString("Url");
-                String nativeUrl = "[图片]" + imgPath;
-                String msg = "[图片]" + url;
-                if(tempEngineeringStation!=null){
-                    Requests.sendChatinfo(new SendObserver(nativeUrl), App.token, toUserId, msg, tempEngineeringStation);
-                }else{
-                    Requests.sendChatinfo(new SendObserver(nativeUrl), App.token, toUserId, msg, ((App) getApplication()).engineeringStation);
-                }
-            }
-
-            @Override
-            public void onError(Throwable e) {
-            e.printStackTrace();
-            }
-
-            @Override
-            public void onComplete() {
-
-            }
-        },App.token,new File(imgPath));
+//        Requests.upload(new Observer<JSONObject>() {
+//            @Override
+//            public void onSubscribe(Disposable d) {
+//
+//            }
+//            @Override
+//            public void onNext(JSONObject s) {
+//                System.out.println(s);
+//                String url = s.getString("Url");
+//                String nativeUrl = "[图片]" + imgPath;
+//                String msg = "[图片]" + url;
+//                if(tempEngineeringStation!=null){
+//                    Requests.sendChatinfo(new SendObserver(nativeUrl), App.userId, toUserId, msg, tempEngineeringStation);
+//                }else{
+//                    Requests.sendChatinfo(new SendObserver(nativeUrl), App.userId, toUserId, msg, ((App) getApplication()).engineeringStation);
+//                }
+//            }
+//
+//            @Override
+//            public void onError(Throwable e) {
+//            e.printStackTrace();
+//            }
+//
+//            @Override
+//            public void onComplete() {
+//
+//            }
+//        },App.userId,new File(imgPath));
     }
 
     private void sendVideo(final String videoUrl) {
-        Requests.upload(new Observer<JSONObject>() {
-            @Override
-            public void onSubscribe(Disposable d) {
-
-            }
-
-            @Override
-            public void onNext(JSONObject s) {
-                String url = s.getString("Url");
-                System.out.println(s);
-                String nativeUrl = "[视频]" + videoUrl;
-                String msg = "[视频]" + url;
-                if(tempEngineeringStation!=null){
-                    Requests.sendChatinfo(new SendObserver(nativeUrl), App.token, toUserId, msg, tempEngineeringStation);
-                }else{
-                    Requests.sendChatinfo(new SendObserver(nativeUrl), App.token, toUserId, msg, ((App)getApplication()).engineeringStation);
-                }
-            }
-            @Override
-            public void onError(Throwable e) {
-                e.printStackTrace();
-            }
-
-            @Override
-            public void onComplete() {
-
-            }
-        },App.token,new File(videoUrl));
+//        Requests.upload(new Observer<JSONObject>() {
+//            @Override
+//            public void onSubscribe(Disposable d) {
+//
+//            }
+//
+//            @Override
+//            public void onNext(JSONObject s) {
+//                String url = s.getString("Url");
+//                System.out.println(s);
+//                String nativeUrl = "[视频]" + videoUrl;
+//                String msg = "[视频]" + url;
+//                if(tempEngineeringStation!=null){
+//                    Requests.sendChatinfo(new SendObserver(nativeUrl), App.userId, toUserId, msg, tempEngineeringStation);
+//                }else{
+//                    Requests.sendChatinfo(new SendObserver(nativeUrl), App.userId, toUserId, msg, ((App)getApplication()).engineeringStation);
+//                }
+//            }
+//            @Override
+//            public void onError(Throwable e) {
+//                e.printStackTrace();
+//            }
+//
+//            @Override
+//            public void onComplete() {
+//
+//            }
+//        },App.userId,new File(videoUrl));
 
     }
     public void notifyDataSetChanged() {

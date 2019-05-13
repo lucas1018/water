@@ -83,7 +83,7 @@ public class PasswordModifiedActivity extends AppCompatActivity {
     }
 //    修改登录成功后保存在SharedPreferences中的密码
     private void modifyPsw(String p1, String p2, String p3) {
-        Integer id = (Integer) App.userId;
+        String id =  App.userId;
         Requests.updatePWD(new Observer<String>() {
             @Override
             public void onSubscribe(Disposable d) {

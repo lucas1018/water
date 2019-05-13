@@ -170,7 +170,7 @@ public class MealActivity extends AppCompatActivity {
 
     //    修改登录成功后保存在SharedPreferences中的密码
     private void addFeeForMeal(String meal_date, String meal_type, String meal_mount, String meal_remark) {
-        Integer uid = (Integer) App.userId;
+        String uid = App.userId;
         Requests.feesForMeals_SaveBLL(new Observer<String>() {
             @Override
             public void onSubscribe(Disposable d) {
