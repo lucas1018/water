@@ -201,12 +201,6 @@ public class Requests {
         request.addProperty("Name", meal_type);
         request.addProperty("Cost", meal_mount);
         request.addProperty("Remark", meal_remark);
-//        JSONObject jsonObject = new JSONObject();
-//        jsonObject.put("CreateUserId", id);//用户id
-//        jsonObject.put("Date", meal_date);//餐费日期
-//        jsonObject.put("Name", meal_type);//餐费类型
-//        jsonObject.put("Cost", meal_mount);//餐费金额
-//        jsonObject.put("Remark", meal_remark);//备注
         baseString(observer, request);
     }
 

@@ -1,8 +1,8 @@
 package cn.zerone.water.activity;
 
-import android.content.Intent;
-import android.content.SharedPreferences;
-import android.net.Uri;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -13,18 +13,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.alibaba.fastjson.JSONObject;
-
-import java.util.Map;
-
 import cn.zerone.water.App;
 import cn.zerone.water.R;
-import cn.zerone.water.fragment.MyselfFragment;
 import cn.zerone.water.http.Requests;
-import cn.zerone.water.utils.MD5Utils;
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
-import okhttp3.Request;
 
 
 public class PasswordModifiedActivity extends AppCompatActivity {
@@ -92,7 +85,7 @@ public class PasswordModifiedActivity extends AppCompatActivity {
 
             @Override
             public void onNext(String str) {
-                System.out.println("updatePWD" + str);
+
             }
 
             @Override

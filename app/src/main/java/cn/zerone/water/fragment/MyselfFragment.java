@@ -14,7 +14,6 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 
@@ -41,9 +40,11 @@ public class MyselfFragment extends Fragment {
     private ListView listView;
     private List<MyItem> myItemList;
 
+
     private TextView userName;
     private ImageView headImg;
     private TextView nickName;
+
 
     @Nullable
     @Override
@@ -64,6 +65,7 @@ public class MyselfFragment extends Fragment {
         userName = view.findViewById(R.id.user_name);
         headImg = view.findViewById(R.id.myself_image);
         nickName = view.findViewById(R.id.nick_name);
+
 
 
         Requests.getUserInfo(new Observer<JSONObject>() {
@@ -93,6 +95,9 @@ public class MyselfFragment extends Fragment {
             public void onComplete() {
             }
         },App.userId);
+
+
+
     }
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
@@ -147,4 +152,5 @@ public class MyselfFragment extends Fragment {
         MyItem myItem_6=new MyItem("系统更新", R.drawable.setting);
         myItemList.add(myItem_6);
     }
+
 }
