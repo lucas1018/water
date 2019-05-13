@@ -117,7 +117,7 @@ public class LoginActivity extends AppCompatActivity  {
             }
         });
 
-        TextView mEmailSignInButton = (TextView) findViewById(R.id.email_sign_in_button);
+        TextView mEmailSignInButton = findViewById(R.id.email_sign_in_button);
         mEmailSignInButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -128,40 +128,40 @@ public class LoginActivity extends AppCompatActivity  {
         mProgressView = findViewById(R.id.login_progress);
         List<String> emails = new ArrayList<>();
         addEmailsToAutoComplete(emails);
-        if(App.token!=null){
-            showProgress(true);
-            Requests.login(new Observer<JSONObject>() {
-            @Override
-            public void onSubscribe(Disposable d) {
-
-            }
-
-            @Override
-            public void onNext(JSONObject jsonObject) {
-                if(jsonObject.getString("Token")==null){
-                    throw new JSONException("Token");
-                }
-                App.token = jsonObject.getString("Token");
-                ((App) getApplication()).saveToken(App.token);
-                System.out.println("login:"+jsonObject);
-            }
-
-            @Override
-            public void onError(Throwable e) {
-                showProgress(false);
-                e.printStackTrace();
-                ((App) getApplication()).clearLoginToken();
-            }
-
-            @Override
-            public void onComplete() {
-                showProgress(false);
-                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                startActivity(intent);
-                finish();
-            }
-        },App.token);
-        }
+//        if(App.token != null){
+//            showProgress(true);
+//            Requests.login(new Observer<JSONObject>() {
+//                @Override
+//                public void onSubscribe(Disposable d) {
+//
+//                }
+//
+//                @Override
+//                public void onNext(JSONObject jsonObject) {
+//                    if(jsonObject.getString("Token")==null){
+//                        throw new JSONException("Token");
+//                    }
+//                    App.token = jsonObject.getString("Token");
+//                    ((App) getApplication()).saveToken(App.token);
+//                    System.out.println("login:"+jsonObject);
+//                }
+//
+//                @Override
+//                public void onError(Throwable e) {
+//                    showProgress(false);
+//                    e.printStackTrace();
+//                    ((App) getApplication()).clearLoginToken();
+//                }
+//
+//                @Override
+//                public void onComplete() {
+//                    showProgress(false);
+//                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+//                    startActivity(intent);
+//                    finish();
+//                }
+//            }, App.token);
+//        }
     }
 
     /**
@@ -214,14 +214,11 @@ public class LoginActivity extends AppCompatActivity  {
                 @Override
                 public void onNext(JSONObject jsonObject) {
                     try{
-                        if(jsonObject.getString("Token")==null){
-                            throw new JSONException("Token");
+                        if(jsonObject.getString("NewId")==null){
+                            throw new JSONException("NewId");
                         }
-                        App.token = jsonObject.getString("Token");
-                        App.username = email;
-                        ((App) getApplication()).saveToken(App.token);
-                        ((App) getApplication()).saveUsername(App.username );
-                        System.out.println("login:"+jsonObject);
+                        App.userId = jsonObject.getString("NewId");
+                        ((App) getApplication()).saveUserId(App.userId);
                     }catch (Exception e){
                         showProgress(false);
                         ((App) getApplication()).clearLoginToken();

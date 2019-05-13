@@ -50,7 +50,7 @@ import io.reactivex.disposables.Disposable;
 public class App extends Application {
     public static String username = null;
     public static String token = null;
-    public static Integer userId = null;
+    public static String userId = null;
     public static boolean isUploadGps = false;
     public static BDLocation lastDBLocation = null;
     public static String baseUrl = "http://124.237.77.232:50180/";
@@ -161,7 +161,7 @@ public class App extends Application {
         public void onNext(JSONObject objects) {
             try {
                 Boolean isUploadGPS = objects.getJSONObject("CommonJSon").getBoolean("IsUploadGPS");
-                App.isUploadGps = isUploadGPS;
+//                App.isUploadGps = isUploadGPS;
             } catch (Exception e) {
             }
             if (objects.getJSONArray("MsgArry") != null) {
@@ -190,7 +190,7 @@ public class App extends Application {
             handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    Requests.getSystemMessages(new GetSystemMessages(), App.token);
+//                    Requests.getSystemMessages(new GetSystemMessages(), App.token);
                 }
             },10*1000);
             e.printStackTrace();
@@ -205,7 +205,7 @@ public class App extends Application {
                     int size = systemMessageDao.queryBuilder().where(SystemMessageDao.Properties.CreateTime.eq(systemMessage.getCreateTime())).build().list().size();
                     if (size == 0) {
                         App.sharedPreferences.edit().putBoolean("isRead", true).commit();
-                        Toast.makeText(getApplicationContext(), "有新短消息", 0).show();
+                        Toast.makeText(getApplicationContext(), "有新短消息", Toast.LENGTH_SHORT).show();
                         systemMessageDao.save(systemMessage);
                         if (MainActivity.activity != null) {
                             MainActivity.activity.setNotifyReadView(true);
@@ -223,7 +223,7 @@ public class App extends Application {
             handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    Requests.getSystemMessages(new GetSystemMessages(), App.token);
+//                    Requests.getSystemMessages(new GetSystemMessages(), App.token);
                 }
             },10*1000);
             ;
@@ -236,7 +236,7 @@ public class App extends Application {
         DaoMaster daoMaster = new DaoMaster(db);
         DaoSession daoSession = daoMaster.newSession();
         systemMessageDao = daoSession.getSystemMessageDao();
-        Requests.getSystemMessages(new GetSystemMessages(), App.token);
+//        Requests.getSystemMessages(new GetSystemMessages(), App.token);
         try{
             SharedPreferences sp = getSharedPreferences(MD5Utils.encode2hex(App.username), Context.MODE_PRIVATE);
             String engineeringStationString = sp.getString("engineeringStation", null);
@@ -264,11 +264,7 @@ public class App extends Application {
         }
     }
 
-    public void saveToken(String token) {
-        sharedPreferences.edit().putString("token", token).commit();
-    }
-
-    public void saveUsername(String username) {
-        sharedPreferences.edit().putString("username", username).commit();
+    public void saveUserId(String userId) {
+        sharedPreferences.edit().putString("userId", userId).commit();
     }
 }

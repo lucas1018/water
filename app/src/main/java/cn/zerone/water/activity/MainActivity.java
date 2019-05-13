@@ -259,27 +259,27 @@ public class MainActivity extends AppCompatActivity {
                     }
                     if (bundle.getInt(CodeUtils.RESULT_TYPE) == CodeUtils.RESULT_SUCCESS) {
                         final String result = bundle.getString(CodeUtils.RESULT_STRING);
-                        Requests.scan(new Observer<JSONObject>() {
-                            @Override
-                            public void onSubscribe(Disposable d) {
-
-                            }
-
-                            @Override
-                            public void onNext(JSONObject jsonObject) {
-
-                            }
-
-                            @Override
-                            public void onError(Throwable e) {
-                                Toast.makeText(MainActivity.this, "解析上传失败结果:" + result, Toast.LENGTH_LONG).show();
-                            }
-
-                            @Override
-                            public void onComplete() {
-                                Toast.makeText(MainActivity.this, "解析结果:" + result, Toast.LENGTH_LONG).show();
-                            }
-                        },App.token,result);
+//                        Requests.scan(new Observer<JSONObject>() {
+//                            @Override
+//                            public void onSubscribe(Disposable d) {
+//
+//                            }
+//
+//                            @Override
+//                            public void onNext(JSONObject jsonObject) {
+//
+//                            }
+//
+//                            @Override
+//                            public void onError(Throwable e) {
+//                                Toast.makeText(MainActivity.this, "解析上传失败结果:" + result, Toast.LENGTH_LONG).show();
+//                            }
+//
+//                            @Override
+//                            public void onComplete() {
+//                                Toast.makeText(MainActivity.this, "解析结果:" + result, Toast.LENGTH_LONG).show();
+//                            }
+//                        },App.token,result);
                     } else if (bundle.getInt(CodeUtils.RESULT_TYPE) == CodeUtils.RESULT_FAILED) {
                         Toast.makeText(MainActivity.this, "解析二维码失败", Toast.LENGTH_LONG).show();
                     }

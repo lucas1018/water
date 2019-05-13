@@ -271,48 +271,48 @@ public  class WebFragment extends Fragment {
         }else if(requestCode==400&&resultCode==101){
             String imagePath = data.getStringExtra("path");
             File file = new File(imagePath);
-            Requests.upload(new Observer<JSONObject>() {
-                @Override
-                public void onSubscribe(Disposable d) {
-
-                }
-
-                @Override
-                public void onNext(JSONObject jsonObject) {
-                    String url = jsonObject.getString("Url");
-                    Requests.updateuserinfo(new Observer<String>() {
-                        @Override
-                        public void onSubscribe(Disposable d) {
-
-                        }
-
-                        @Override
-                        public void onNext(String s) {
-                        }
-
-                        @Override
-                        public void onError(Throwable e) {
-                            Toast.makeText(getActivity(), "上传头像失败", Toast.LENGTH_LONG).show();
-                        }
-
-                        @Override
-                        public void onComplete() {
-                            //flashWebView();
-                            Toast.makeText(getActivity(), "上传头像成功", Toast.LENGTH_LONG).show();
-                        }
-                    },App.token,url);
-                }
-
-                @Override
-                public void onError(Throwable e) {
-                    Toast.makeText(getActivity(), "上传头像失败", Toast.LENGTH_LONG).show();
-                }
-
-                @Override
-                public void onComplete() {
-
-                }
-            },App.token,file);
+//            Requests.upload(new Observer<JSONObject>() {
+//                @Override
+//                public void onSubscribe(Disposable d) {
+//
+//                }
+//
+//                @Override
+//                public void onNext(JSONObject jsonObject) {
+//                    String url = jsonObject.getString("Url");
+//                    Requests.updateuserinfo(new Observer<String>() {
+//                        @Override
+//                        public void onSubscribe(Disposable d) {
+//
+//                        }
+//
+//                        @Override
+//                        public void onNext(String s) {
+//                        }
+//
+//                        @Override
+//                        public void onError(Throwable e) {
+//                            Toast.makeText(getActivity(), "上传头像失败", Toast.LENGTH_LONG).show();
+//                        }
+//
+//                        @Override
+//                        public void onComplete() {
+//                            //flashWebView();
+//                            Toast.makeText(getActivity(), "上传头像成功", Toast.LENGTH_LONG).show();
+//                        }
+//                    },App.token,url);
+//                }
+//
+//                @Override
+//                public void onError(Throwable e) {
+//                    Toast.makeText(getActivity(), "上传头像失败", Toast.LENGTH_LONG).show();
+//                }
+//
+//                @Override
+//                public void onComplete() {
+//
+//                }
+//            },App.token,file);
         }else if(requestCode==777){
             //flashWebView();
         }else if(requestCode==999){

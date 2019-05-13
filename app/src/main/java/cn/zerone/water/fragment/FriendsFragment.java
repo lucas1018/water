@@ -298,7 +298,7 @@ public class FriendsFragment extends Fragment {
             if (isGetMsg) {
                 return;
             }
-            Requests.getchatinfo(new GetMsgObserver(), App.token);
+//            Requests.getchatinfo(new GetMsgObserver(), App.token);
             isGetMsg = true;
             return;
         }

@@ -1,7 +1,6 @@
 package cn.zerone.water.activity;
 
 import android.app.Activity;
-import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -30,22 +29,9 @@ import java.util.Map;
 
 import cn.zerone.water.App;
 import cn.zerone.water.R;
-import cn.zerone.water.http.Https;
 import cn.zerone.water.http.Requests;
-import cn.zerone.water.model.Friend;
-import cn.zerone.water.model.StepImage;
-import cn.zerone.water.utils.TimeUtil;
-import cn.zerone.water.views.HeaderGridView;
-import in.srain.cube.views.GridViewWithHeaderAndFooter;
-import io.reactivex.Observable;
-import io.reactivex.ObservableEmitter;
-import io.reactivex.ObservableOnSubscribe;
 import io.reactivex.Observer;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.Disposable;
-import io.reactivex.schedulers.Schedulers;
-import okhttp3.Response;
 
 /**
  * Created by zero on 2018/11/30.
@@ -93,11 +79,11 @@ public class StepActivity extends Activity {
                 }
                 for (int i = 0; i < gvImageList.size() - 1; i++) {
                     File o = gvImageList.get(i);
-                    Requests.upload(new UploadObserver(o), App.token, o);
+//                    Requests.upload(new UploadObserver(o), App.token, o);
                 }
                 for (int i = 0; i < gvVideoList.size() - 1; i++) {
                     File o = gvVideoList.get(i);
-                    Requests.upload(new UploadObserver(o), App.token, o);
+//                    Requests.upload(new UploadObserver(o), App.token, o);
                 }
 
             }
@@ -260,29 +246,29 @@ public class StepActivity extends Activity {
     }
 
     public void send(List<String> videoList, List<String> imageList, String text) {
-        Requests.uploadjobstepinfo(new Observer<String>() {
-            @Override
-            public void onSubscribe(Disposable d) {
-
-            }
-
-            @Override
-            public void onNext(String s) {
-
-            }
-
-            @Override
-            public void onError(Throwable e) {
-                Toast.makeText(StepActivity.this, "上传失败", 0).show();
-                DialogActivity.dismiss();
-            }
-
-            @Override
-            public void onComplete() {
-                Toast.makeText(StepActivity.this, "完成上传", 0).show();
-                DialogActivity.dismiss();
-                finish();
-            }
-        }, App.token, jobId, stepId, imageList, videoList, text);
+//        Requests.uploadjobstepinfo(new Observer<String>() {
+//            @Override
+//            public void onSubscribe(Disposable d) {
+//
+//            }
+//
+//            @Override
+//            public void onNext(String s) {
+//
+//            }
+//
+//            @Override
+//            public void onError(Throwable e) {
+//                Toast.makeText(StepActivity.this, "上传失败", 0).show();
+//                DialogActivity.dismiss();
+//            }
+//
+//            @Override
+//            public void onComplete() {
+//                Toast.makeText(StepActivity.this, "完成上传", 0).show();
+//                DialogActivity.dismiss();
+//                finish();
+//            }
+//        }, App.token, jobId, stepId, imageList, videoList, text);
     }
 }
