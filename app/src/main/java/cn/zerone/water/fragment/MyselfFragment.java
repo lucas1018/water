@@ -66,7 +66,6 @@ public class MyselfFragment extends Fragment {
         listView=view.findViewById(R.id.list_view);
         userName = view.findViewById(R.id.user_name);
         phoneNum = view.findViewById(R.id.phone_number);
-
         photo1=view.findViewById(R.id.image_1);
 //        Bitmap bitmap= BitmapFactory.decodeResource(getResources(),R.drawable.touxiang);
 //        photo1.setImageBitmap(bitmap);
@@ -85,6 +84,7 @@ public class MyselfFragment extends Fragment {
                 App.username = username;
                 userName.setText(username);
                 String imgUrl = json.getString("Photo");
+                System.out.println("============");
                 ImageUtil imageUtil = ImageUtil.getIntance();
                 Bitmap temp_bitmap = imageUtil.getBitMBitmap(imgUrl);
                 Bitmap bitmap = imageUtil.comp(temp_bitmap);
