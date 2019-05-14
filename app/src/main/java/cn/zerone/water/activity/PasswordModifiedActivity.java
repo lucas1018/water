@@ -1,8 +1,8 @@
 package cn.zerone.water.activity;
 
-import android.content.Intent;
-import android.content.SharedPreferences;
-import android.net.Uri;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -13,18 +13,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.alibaba.fastjson.JSONObject;
-
-import java.util.Map;
-
 import cn.zerone.water.App;
 import cn.zerone.water.R;
-import cn.zerone.water.fragment.MyselfFragment;
 import cn.zerone.water.http.Requests;
-import cn.zerone.water.utils.MD5Utils;
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
-import okhttp3.Request;
 
 
 public class PasswordModifiedActivity extends AppCompatActivity {
@@ -45,22 +38,21 @@ public class PasswordModifiedActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_password_modified);
         init();
-//        userName = AnalysisUtils.readLoginUserName(this);
     }
     //  获取界面控件并处理相关控件的处理事件
     private void init() {
         //返回我的页面
-        ImageView pwd_modify_back = (ImageView) findViewById(R.id.pwd_modify_back);
+        ImageView pwd_modify_back = findViewById(R.id.pwd_modify_back);
         pwd_modify_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
             }
         });
-        et_original_psw = (EditText) findViewById(R.id.et_original_psw);
-        et_new_psw = (EditText) findViewById(R.id.et_new_psw);
-        et_new_psw_again = (EditText) findViewById(R.id.et_new_psw_again);
-        btn_save = (Button)  findViewById(R.id.btn_save);
+        et_original_psw = findViewById(R.id.et_original_psw);
+        et_new_psw = findViewById(R.id.et_new_psw);
+        et_new_psw_again = findViewById(R.id.et_new_psw_again);
+        btn_save = findViewById(R.id.btn_save);
         btn_save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -77,12 +69,6 @@ public class PasswordModifiedActivity extends AppCompatActivity {
                     Toast.makeText(PasswordModifiedActivity.this,"密码必须至少6个字符",Toast.LENGTH_SHORT).show();
                 }else{
                     modifyPsw(newPsw, newPswAgain, originalPsw);
-//                    Toast.makeText(PasswordModifiedActivity.this,"新密码设置成功",Toast.LENGTH_SHORT).show();
-//                    //修改登录成功后保存在SharedPreferences中的密码
-//                    modifyPsw(newPsw);
-//                    Intent intent = new Intent(PasswordModifiedActivity.this,LoginActivity.class);
-//                    startActivity(intent);
-//                    PasswordModifiedActivity.this.finish();//关闭当前界面
                 }
             }
         });
@@ -90,7 +76,7 @@ public class PasswordModifiedActivity extends AppCompatActivity {
     }
 //    修改登录成功后保存在SharedPreferences中的密码
     private void modifyPsw(String p1, String p2, String p3) {
-        Integer id = (Integer) App.userId;
+        String id =  App.userId;
         Requests.updatePWD(new Observer<String>() {
             @Override
             public void onSubscribe(Disposable d) {
@@ -99,7 +85,7 @@ public class PasswordModifiedActivity extends AppCompatActivity {
 
             @Override
             public void onNext(String str) {
-                System.out.println("updatePWD" + str);
+
             }
 
             @Override

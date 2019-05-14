@@ -6,60 +6,75 @@
     android:orientation="vertical"
     android:background="#FFFFFF">
 
-    <TextView
-        android:id="@+id/title"
-        android:layout_width="wrap_content"
-        android:background="@drawable/top"
-        android:gravity="center"
-        android:textSize="18dp"
-        android:textStyle="bold"
-        android:layout_height="wrap_content"
-        android:paddingBottom="10dp"
-        android:minHeight="50dp"
-        android:text="@string/title_myself"
-        />
-
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
-        android:background="#fff">
+        android:layout_height="154dp"
+        android:background="#008ACA"
+        android:orientation="vertical">
 
-        <ImageView
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:id="@+id/myself_image"
-            android:layout_centerVertical="true"
-            android:layout_alignParentLeft="true"
-            android:layout_marginLeft="30dp"/>
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:paddingBottom="15dp"
+            android:paddingTop="15dp"
+            android:text="@string/title_myself"
+            android:textColor="#fff"
+            android:textSize="16dp" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/user_name"
+            <ImageView
+                android:id="@+id/myself_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="18dp"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/logo" />
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_marginLeft="20dp"
-                android:textColor="#999"
-                android:textSize="18dp"/>
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="20dp"
+                android:layout_weight="1"
+                android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/nick_name"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_marginLeft="20dp"
-                android:textColor="#999"
-                android:textSize="18dp"/>
+                <TextView
+                    android:id="@+id/user_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textColor="#fff"
+                    android:textSize="16dp" />
+
+                <TextView
+                    android:id="@+id/nick_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textColor="#fff"
+                    android:textSize="12dp" />
+            </LinearLayout>
         </LinearLayout>
-
     </LinearLayout>
+
     <ListView
         android:id="@+id/list_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="wrap_content"/>
+
+    <Button
+        android:id="@+id/action_sign_out"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:background="#EB4545"
+        android:gravity="center"
+        android:textColor="#fff"
+        android:text="@string/action_sign_out" />
+
 </LinearLayout>

@@ -184,7 +184,7 @@ public class FriendsFragment extends Fragment {
 //                System.out.println("onComplete:" + tempFriends);
 //            }
 //        });
-//        Requests.getchatinfo(new GetMsgObserver(), App.token);
+//        Requests.getchatinfo(new GetMsgObserver(), App.userId);
     }
 
     private String getMyHeadImg() {
@@ -298,7 +298,7 @@ public class FriendsFragment extends Fragment {
             if (isGetMsg) {
                 return;
             }
-            Requests.getchatinfo(new GetMsgObserver(), App.token);
+//            Requests.getchatinfo(new GetMsgObserver(), App.userId);
             isGetMsg = true;
             return;
         }

@@ -2,45 +2,32 @@ package cn.zerone.water.fragment;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
-import android.support.v7.app.AppCompatActivity;
 
-import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 
-import org.json.JSONException;
-
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import cn.zerone.water.App;
 import cn.zerone.water.R;
 import cn.zerone.water.activity.CheckActivity;
-import cn.zerone.water.activity.LoginActivity;
-import cn.zerone.water.activity.MainActivity;
 import cn.zerone.water.activity.MealActivity;
 import cn.zerone.water.activity.PasswordModifiedActivity;
 import cn.zerone.water.activity.PhoneNumberModifiedActivity;
 import cn.zerone.water.activity.SystemUpdateActivity;
 import cn.zerone.water.http.Requests;
-import cn.zerone.water.model.Friend;
 import cn.zerone.water.utils.ImageUtil;
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
@@ -53,14 +40,16 @@ public class MyselfFragment extends Fragment {
     private ListView listView;
     private List<MyItem> myItemList;
 
+
     private TextView userName;
     private ImageView headImg;
     private TextView nickName;
 
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view=inflater.inflate(R.layout.fragment_myself,null);
+        View view = inflater.inflate(R.layout.fragment_myself,null);
         return view;
     }
 
@@ -76,61 +65,39 @@ public class MyselfFragment extends Fragment {
         userName = view.findViewById(R.id.user_name);
         headImg = view.findViewById(R.id.myself_image);
         nickName = view.findViewById(R.id.nick_name);
-        Requests.getUserList(new Observer<JSONArray>() {
+
+
+
+        Requests.getUserInfo(new Observer<JSONObject>() {
             @Override
             public void onSubscribe(Disposable d) {
             }
-
             @Override
-                public void onNext(JSONArray friends) {
-                    System.out.println("fridens" + friends.toJSONString());
-                    List lists = JSON.parseArray(friends.toJSONString());
-                    for (Object obj: lists) {
-                        System.out.println("1111:" + obj);
-                        Map entry =(Map)obj;
-                        String str = entry.get("UserName").toString();
-                        if (str.equals(App.username)) {
-                            App.userId = (Integer) entry.get("UserId");
-                            break;
-                        }
-                    }
-                }
-
+            public void onNext(JSONObject jsonObject) {
+                String str = jsonObject.getString("Data");
+                JSONObject json = JSONArray.parseArray(str).getJSONObject(0);
+                String username = json.getString("LOGIN_NAME");
+                App.username = username;
+                userName.setText(username);
+                String imgUrl = json.getString("Photo");
+                ImageUtil imageUtil = ImageUtil.getIntance();
+                Bitmap temp_bitmap = imageUtil.getBitMBitmap(imgUrl);
+                Bitmap bitmap = imageUtil.comp(temp_bitmap);
+                headImg.setImageBitmap(bitmap);
+                String nickname = json.getString("NAME");
+                nickName.setText(nickname);
+            }
             @Override
             public void onError(Throwable e) {
-                System.out.println("onError");
+                e.printStackTrace();
             }
-
             @Override
             public void onComplete() {
-                Requests.getUserInfo(new Observer<JSONObject>() {
-                    @Override
-                    public void onSubscribe(Disposable d) {
-                    }
-                    @Override
-                    public void onNext(JSONObject jsonObject) {
-                        System.out.println("getUserInfo:"+jsonObject);
-                        Map entry = (Map)jsonObject;
-                        String str =(String) entry.get("UserName");
-                        userName.setText(str);
-                        String imgUrl = (String) entry.get("HeadImg");
-                        ImageUtil imageUtil = ImageUtil.getIntance();
-                        Bitmap temp_bitmap = imageUtil.getBitMBitmap(imgUrl);
-                        Bitmap bitmap = imageUtil.comp(temp_bitmap);
-                        headImg.setImageBitmap(bitmap);
-                        String nickname = (String) entry.get("NickName");
-                        nickName.setText(nickname);
-                    }
-                    @Override
-                    public void onError(Throwable e) {
-                        e.printStackTrace();
-                    }
-                    @Override
-                    public void onComplete() {
-                    }
-                },App.userId);
             }
-        });
+        },App.userId);
+
+
+
     }
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
@@ -185,4 +152,5 @@ public class MyselfFragment extends Fragment {
         MyItem myItem_6=new MyItem("系统更新", R.drawable.setting);
         myItemList.add(myItem_6);
     }
+
 }
