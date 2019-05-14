@@ -64,6 +64,7 @@ public class SystemMessagesActivity extends Fragment {
         listAdapter = new CommonAdapter<SystemMessage>(getActivity(), R.layout.layout_system_message_listview_item, systemMessages) {
             @Override
             protected void convert(ViewHolder holder, SystemMessage item, int position) {
+                System.out.print("内容"+ item.getContent());
                 holder.setText(R.id.system_message_item_content, item.getContent());
                 holder.setText(R.id.system_message_item_createTime, TimeUtil.QQFormatTime(item.getCreateTime()));
                 holder.setText(R.id.system_message_item_level, item.getTitle());

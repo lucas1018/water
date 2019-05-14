@@ -1,11 +1,8 @@
 package cn.zerone.water.activity;
 
-import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Intent;
-import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -24,11 +21,16 @@ import android.widget.TextView;
 import android.widget.Toast;
 import com.alibaba.fastjson.JSONObject;
 import com.uuzuche.lib_zxing.activity.CodeUtils;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import cn.zerone.water.App;
 import cn.zerone.water.R;
 import cn.zerone.water.fragment.FriendsFragment;
 import cn.zerone.water.fragment.HomeFragment;
 import cn.zerone.water.fragment.JobListFragment;
+import cn.zerone.water.fragment.MasterArticleFragment;
 import cn.zerone.water.fragment.MyselfFragment;
 import cn.zerone.water.http.Requests;
 import cn.zerone.water.utils.BottomNavigationViewHelper;
@@ -38,8 +40,11 @@ import io.reactivex.disposables.Disposable;
 
 public class MainActivity extends AppCompatActivity {
     public static MainActivity activity;
-    Fragment[] fragments = new Fragment[]{new SystemMessagesActivity(), new JobListFragment(), new HomeFragment(),new FriendsFragment(),new MyselfFragment()};
-    public synchronized void changeTab(int index, String url){
+
+    List<String> mViewList = new ArrayList<String>();//顶部用于循环的布局集合
+    Fragment[] fragments = new Fragment[]{new HomeFragment(),new SystemMessagesActivity(),new FriendsFragment(),new JobListFragment(),new MyselfFragment()};
+
+    public synchronized void changeTab(int index,String url){
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         for (int i = 0; i < 5; i++) {
             if(i == index){
@@ -128,13 +133,16 @@ public class MainActivity extends AppCompatActivity {
                 case R.id.navigation_home:
                     changeTab(2,null);
                     return true;
-                case R.id.navigation_friends:
-                    setMsgReadView(false);
-                    changeTab(3,null);
-                    return true;
+//                case R.id.navigation_friends:
+//                    setMsgReadView(false);
+//                    changeTab(3,null);
+//                    return true;
                 case R.id.navigation_myself:
                     changeTab(4,null);
                     return true;
+//                case R.id.navigation_task:
+//                    changeTab(3,null);
+//                    return true;
             }
             return false;
         }
@@ -146,6 +154,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
         ((App)getApplication()).mapInit();
         ((App)getApplication()).userInit();
         navigation = (BottomNavigationView) findViewById(R.id.navigation);

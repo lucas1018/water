@@ -18,6 +18,7 @@ android {
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
+        javaCompileOptions { annotationProcessorOptions { includeCompileClasspath = true } }
     }
     buildTypes {
         release {
@@ -66,4 +67,6 @@ dependencies {
     implementation files('libs/commons-io-2.5.jar')
     implementation files('libs/jcore-android-1.2.7.jar')
     implementation files('libs/jpush-android-3.2.0.jar')
+    implementation files('libs/butterknife-6.1.0.jar')
+    implementation files('libs/butterknife-6.1.0.jar')
 }
