@@ -25,11 +25,14 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
             android:orientation="horizontal">
 
             <cn.zerone.water.views.RoundImageView
                 android:id="@+id/image_1"
                 android:layout_width="0dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginBottom="20dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1" />
 
@@ -50,7 +53,7 @@
                     android:textSize="16dp" />
 
                 <TextView
-                    android:id="@+id/nick_name"
+                    android:id="@+id/phone_number"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -70,10 +73,10 @@
     <Button
         android:id="@+id/action_sign_out"
         android:layout_width="300dp"
-        android:layout_height="50dp"
+        android:layout_height="40dp"
         android:background="#EB4545"
-        android:gravity="center"
         android:textColor="#fff"
+        android:layout_gravity="center"
         android:text="@string/action_sign_out" />
 
 

@@ -13,6 +13,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.alibaba.fastjson.JSON;
+
+import org.json.JSONObject;
+
 import cn.zerone.water.App;
 import cn.zerone.water.R;
 import cn.zerone.water.http.Requests;
@@ -59,6 +63,8 @@ public class PasswordModifiedActivity extends AppCompatActivity {
                 getEditString();
                 if (TextUtils.isEmpty(originalPsw)){
                     Toast.makeText(PasswordModifiedActivity.this,"请输入原始密码",Toast.LENGTH_SHORT).show();
+                }else if(!originalPsw.equals(App.pwd)) {
+                    Toast.makeText(PasswordModifiedActivity.this,"输入的旧密码和原密码不一致",Toast.LENGTH_SHORT).show();
                 }else if (TextUtils.isEmpty(newPsw)){
                     Toast.makeText(PasswordModifiedActivity.this,"请输入新密码",Toast.LENGTH_SHORT).show();
                 }else if (TextUtils.isEmpty(newPswAgain)){
@@ -77,15 +83,19 @@ public class PasswordModifiedActivity extends AppCompatActivity {
 //    修改登录成功后保存在SharedPreferences中的密码
     private void modifyPsw(String p1, String p2, String p3) {
         String id =  App.userId;
-        Requests.updatePWD(new Observer<String>() {
+        Requests.updatePWD(new Observer<com.alibaba.fastjson.JSONObject>() {
             @Override
             public void onSubscribe(Disposable d) {
 
             }
 
             @Override
-            public void onNext(String str) {
-
+            public void onNext(com.alibaba.fastjson.JSONObject jsonObject) {
+                String info = jsonObject.getString("Text");
+                if (info.equals("密码修改成功！")){
+                    Toast.makeText(PasswordModifiedActivity.this,"新密码设置成功",Toast.LENGTH_SHORT).show();
+                    finish();
+                }
             }
 
             @Override
@@ -95,10 +105,9 @@ public class PasswordModifiedActivity extends AppCompatActivity {
 
             @Override
             public void onComplete() {
-                Toast.makeText(PasswordModifiedActivity.this,"新密码设置成功",Toast.LENGTH_SHORT).show();
+
             }
         },id,p1,p2,p3);
-
     }
 
     //获取控件上的字符串
