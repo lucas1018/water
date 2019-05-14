@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
+
+
     <item
         android:id="@+id/navigation_notify"
         android:icon="@mipmap/notice"
@@ -12,12 +14,13 @@
     <item
         android:id="@+id/navigation_home"
         android:icon="@mipmap/homepage_blue"
-        android:title="@string/title_home" />
+        android:title=""
+        />
 
     <item
-        android:id="@+id/navigation_friends"
-        android:icon="@mipmap/broadcast"
-        android:title="@string/Live_broadcast" />
+        android:id="@+id/navigation_broadcast"
+        android:icon="@mipmap/live_broadcast"
+        android:title="@string/live_broadcast" />
     <item
         android:id="@+id/navigation_myself"
         android:icon="@mipmap/myself"

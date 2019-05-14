@@ -3,7 +3,8 @@
     <string name="title_home">首页</string>
     <string name="title_notify">通知</string>
     <string name="title_task">任务</string>
-    <string name="Live_broadcast">直播</string>
+    <string name="title_friends">交流</string>
+    <string name="live_broadcast">直播</string>
     <string name="title_myself">我的</string>
     <string name="title_password_modify">修改密码</string>
     <string name="title_iphone_number_modify">修改手机号码</string>
