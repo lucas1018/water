@@ -173,13 +173,3 @@ public class RoundImageView extends ImageView {
         canvas.drawCircle(defaultWidth / 2, defaultHeight / 2, radius, paint);
     }
 }
-
-/*
-*
-*
-* photo1=findViewById(R.id.image_1);
-        photo2=findViewById(R.id.image_2);
-        Bitmap bitmap=BitmapFactory.decodeResource(getResources(),R.drawable.c);
-        photo1.setImageBitmap(bitmap);
-        photo2.setImageBitmap(bitmap);
-* */

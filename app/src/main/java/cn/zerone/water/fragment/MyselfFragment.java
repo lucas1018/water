@@ -43,7 +43,6 @@ public class MyselfFragment extends Fragment {
 
 
     private TextView userName;
-    private ImageView headImg;
     private TextView phoneNum;
 
     private ImageView photo1;
@@ -66,12 +65,10 @@ public class MyselfFragment extends Fragment {
         initData();
         listView=view.findViewById(R.id.list_view);
         userName = view.findViewById(R.id.user_name);
-//        headImg = view.findViewById(R.id.myself_image);
         phoneNum = view.findViewById(R.id.phone_number);
-
         photo1=view.findViewById(R.id.image_1);
-        Bitmap bitmap= BitmapFactory.decodeResource(getResources(),R.drawable.touxiang);
-        photo1.setImageBitmap(bitmap);
+//        Bitmap bitmap= BitmapFactory.decodeResource(getResources(),R.drawable.touxiang);
+//        photo1.setImageBitmap(bitmap);
 
 
 
@@ -86,11 +83,12 @@ public class MyselfFragment extends Fragment {
                 String username = json.getString("LOGIN_NAME");
                 App.username = username;
                 userName.setText(username);
-//                String imgUrl = json.getString("Photo");
-//                ImageUtil imageUtil = ImageUtil.getIntance();
-//                Bitmap temp_bitmap = imageUtil.getBitMBitmap(imgUrl);
-//                Bitmap bitmap = imageUtil.comp(temp_bitmap);
-//                headImg.setImageBitmap(bitmap);
+                String imgUrl = json.getString("Photo");
+                System.out.println("============");
+                ImageUtil imageUtil = ImageUtil.getIntance();
+                Bitmap temp_bitmap = imageUtil.getBitMBitmap(imgUrl);
+                Bitmap bitmap = imageUtil.comp(temp_bitmap);
+                photo1.setImageBitmap(bitmap);
                 String phone_num = json.getString("PHONE");
                 phoneNum.setText(phone_num);
                 String pwd = json.getString("PASSWORD");
