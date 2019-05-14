@@ -179,14 +179,14 @@ public class Requests {
         baseJSONObject(observer, request);
     }
 
-    public static void updatePWD(Observer<String> observer, String userID,String pwd1, String pwd2, String pwd) {
+    public static void updatePWD(Observer<JSONObject> observer, String userID,String pwd1, String pwd2, String pwd) {
         RequestBody requestBody = new FormBody.Builder()
                 .add("ID", userID)
                 .add("PASSWORD1", pwd1)
                 .add("PASSWORD2", pwd2)
                 .add("PASSWORD", pwd)
                 .build();
-        baseString(observer,"UpdataPwd", requestBody);
+        baseJSONObject(observer,"UpdataPwd", requestBody);
     }
 
     public  static void getCheckedList(Observer<JSONArray> observer) {

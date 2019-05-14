@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:imagecontrol="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -34,33 +35,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="50dp">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_marginLeft="5dp"
-                android:text="更换手机号后，下次登陆可使用新手机号。当前手机号："
-                android:textSize="18dp"
-                android:textColor="#837e7e"
-                android:layout_centerInParent="true"/>
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="40dp">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_marginLeft="20dp"
-                android:text="15555000055"
-                android:textSize="18dp"
-                android:textColor="#837e7e"
-                android:layout_centerInParent="true"/>
-        </RelativeLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -69,24 +43,22 @@
             android:background="#fff"
             android:orientation="horizontal">
 
-            <TextView
-                android:layout_width="25dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_alignParentLeft="true"
-                android:layout_marginLeft="10dp"
-                android:text="新手机号"
-                android:textSize="18dp"
-                android:textColor="#000"
-                android:singleLine="true" />
-
             <EditText
                 android:id="@+id/new_phone"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:ems="10"
-                android:inputType="phone" />
+                android:layout_width="fill_parent"
+                android:layout_height="48dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginLeft="25dp"
+                android:layout_marginRight="25dp"
+                android:layout_marginTop="25dp"
+                android:gravity="center_vertical"
+                android:hint="请输入新手机号"
+                android:inputType="phone"
+                android:paddingLeft="8dp"
+                android:textColor="#000000"
+                android:textColorHint="#a3a3a3"
+                android:textSize="14sp"
+                />
         </LinearLayout>
 
         <LinearLayout
@@ -96,31 +68,29 @@
             android:background="#fff"
             android:orientation="horizontal">
 
-            <TextView
-                android:layout_width="25dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_alignParentLeft="true"
-                android:layout_marginLeft="10dp"
-                android:text="验证码"
-                android:textSize="18dp"
-                android:textColor="#000"
-                android:singleLine="true" />
-
             <EditText
                 android:id="@+id/affirm_number"
-                android:layout_width="60dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:ems="10"
-                android:inputType="number" />
+                android:layout_width="220dp"
+                android:layout_height="48dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginLeft="25dp"
+                android:layout_marginTop="25dp"
+                android:gravity="center_vertical"
+                android:hint="请输入验证码"
+                android:inputType="phone"
+                android:paddingLeft="8dp"
+                android:textColor="#000000"
+                android:textColorHint="#a3a3a3"
+                android:textSize="14sp" />
 
             <Button
                 android:id="@+id/login_verificate_code"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="80dp"
+                android:layout_height="40dp"
                 android:layout_weight="1"
+                android:layout_marginRight="25dp"
                 android:text="获取验证码"
+                android:textColor="#008aca"
                 android:textSize="14dp"/>
 
         </LinearLayout>
@@ -130,17 +100,18 @@
 
 
     <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="确认修改密码"
-        android:layout_marginTop="10dp"
-        android:gravity="center"
-        android:layout_gravity="center"
-        android:textColor="#fff"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp"
-        android:textSize="20dp"
-        android:textStyle="bold"
-        android:background="@drawable/modify_button"/>
+        android:id="@+id/btn_save"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="25dp"
+        android:layout_gravity="center_horizontal"
+        android:background="#008aca"
+        android:text="确认修改"
+        android:textColor="@android:color/white"
+        android:textSize="18sp"
+        />
+
 
 </LinearLayout>
