@@ -159,7 +159,6 @@ public class MealActivity extends AppCompatActivity {
             }
 
         });
-<<<<<<< HEAD
     }
 
     private void getEditString() {
@@ -193,8 +192,6 @@ public class MealActivity extends AppCompatActivity {
                 Toast.makeText(MealActivity.this,"工作餐添加成功", Toast.LENGTH_SHORT).show();
             }
         },uid, meal_date, meal_type, meal_mount, meal_remark);
-=======
->>>>>>> yangzheng
     }
 
 }
