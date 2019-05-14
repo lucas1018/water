@@ -37,7 +37,9 @@ public class Https {
         Observable<T> oble = Observable.create(new ObservableOnSubscribe<T>() {
             @Override
             public void subscribe(@NonNull ObservableEmitter<T> e) throws Exception {
+                System.out.println("传递参数为：~~~~~~~~~" + json.toJSONString());
                 Response response = post(cmd, json.toJSONString());
+                System.out.println(response);
                 if(response!=null&&response.code()==200){
                     String json = response.body().string();
                     System.out.println("baseJSONObject:"+json);
@@ -58,8 +60,10 @@ public class Https {
             @Override
             public void subscribe(@NonNull ObservableEmitter<JSONArray> e) throws Exception {
                 Response response = post(cmd, json.toJSONString());
+                System.out.println(response);
                 if(response.code() == 200){
                     String json = response.body().string();
+                    System.out.println(cmd);
                     System.out.println("baseJSONArray:"+json);
                     e.onNext(JSON.parseArray(json));
                     e.onComplete();
@@ -108,7 +112,9 @@ public class Https {
             builder.add("Md5","");
             builder.add("Json",json);
             body = builder.build();
-            return okHttpClient.newCall(new Request.Builder().url("http://124.237.77.232:50180/cweb/req.aspx").post(body).build()).execute();
+            System.out.println("body  :  " + body.toString() + "    llllll   " + body.contentLength() );
+
+            return okHttpClient.newCall(new Request.Builder().url("http://47.105.187.185:8011/Service/AppService.asmx").post(body).build()).execute();
         } catch (IOException e) {
             e.printStackTrace();
         }

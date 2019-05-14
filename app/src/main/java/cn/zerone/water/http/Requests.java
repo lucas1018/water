@@ -169,6 +169,7 @@ public class Requests {
         jsonObject.put("PASSWORD1",pwd1);//新密码
         jsonObject.put("PASSWORD2",pwd2);//确认新密码
         jsonObject.put("PASSWORD",pwd);//旧密码
+        System.out.println(jsonObject.toJSONString());
         baseString(observer,"UpdataPwd",jsonObject);
     }
 
