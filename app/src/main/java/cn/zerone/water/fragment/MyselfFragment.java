@@ -93,6 +93,8 @@ public class MyselfFragment extends Fragment {
 //                headImg.setImageBitmap(bitmap);
                 String phone_num = json.getString("PHONE");
                 phoneNum.setText(phone_num);
+                String pwd = json.getString("PASSWORD");
+                App.pwd = pwd;
             }
             @Override
             public void onError(Throwable e) {

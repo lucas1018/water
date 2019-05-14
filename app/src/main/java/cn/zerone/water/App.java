@@ -50,6 +50,7 @@ import io.reactivex.disposables.Disposable;
 public class App extends Application {
     public static String username = null;
     public static String userId = null;
+    public static String pwd = null;
     public static boolean isUploadGps = false;
     public static BDLocation lastDBLocation = null;
     public static String baseUrl = "http://124.237.77.232:50180/";
