@@ -44,7 +44,7 @@ public class MyselfFragment extends Fragment {
 
     private TextView userName;
     private ImageView headImg;
-    private TextView nickName;
+    private TextView phoneNum;
 
     private ImageView photo1;
 
@@ -67,7 +67,7 @@ public class MyselfFragment extends Fragment {
         listView=view.findViewById(R.id.list_view);
         userName = view.findViewById(R.id.user_name);
 //        headImg = view.findViewById(R.id.myself_image);
-        nickName = view.findViewById(R.id.nick_name);
+        phoneNum = view.findViewById(R.id.phone_number);
 
         photo1=view.findViewById(R.id.image_1);
         Bitmap bitmap= BitmapFactory.decodeResource(getResources(),R.drawable.touxiang);
@@ -91,8 +91,8 @@ public class MyselfFragment extends Fragment {
 //                Bitmap temp_bitmap = imageUtil.getBitMBitmap(imgUrl);
 //                Bitmap bitmap = imageUtil.comp(temp_bitmap);
 //                headImg.setImageBitmap(bitmap);
-                String nickname = json.getString("NAME");
-                nickName.setText(nickname);
+                String phone_num = json.getString("PHONE");
+                phoneNum.setText(phone_num);
             }
             @Override
             public void onError(Throwable e) {
@@ -144,19 +144,19 @@ public class MyselfFragment extends Fragment {
 
     public void initData(){
         myItemList=new ArrayList<>();
-        MyItem myItem_1=new MyItem("我的审批", R.drawable.trues);
+        MyItem myItem_1=new MyItem("我的审批", R.mipmap.my_myself);
         myItemList.add(myItem_1);
-        MyItem myItem_2=new MyItem("我的工作日志", R.drawable.pen);
+        MyItem myItem_2=new MyItem("我的工作日志", R.mipmap.my_log);
         myItemList.add(myItem_2);
-        MyItem myItem=new MyItem("我的安全检查", R.drawable.date);
+        MyItem myItem=new MyItem("我的安全检查", R.mipmap.my_safe);
         myItemList.add(myItem);
-        MyItem myItem_3=new MyItem("我的工作餐", R.drawable.coffee);
+        MyItem myItem_3=new MyItem("我的工作餐", R.mipmap.my_meal);
         myItemList.add(myItem_3);
-        MyItem myItem_4=new MyItem("修改手机号", R.drawable.phone);
+        MyItem myItem_4=new MyItem("修改手机号", R.mipmap.my_phone);
         myItemList.add(myItem_4);
-        MyItem myItem_5=new MyItem("修改密码", R.drawable.password);
+        MyItem myItem_5=new MyItem("修改密码", R.mipmap.my_pwd);
         myItemList.add(myItem_5);
-        MyItem myItem_6=new MyItem("系统更新", R.drawable.setting);
+        MyItem myItem_6=new MyItem("系统更新", R.mipmap.my_up);
         myItemList.add(myItem_6);
     }
 
