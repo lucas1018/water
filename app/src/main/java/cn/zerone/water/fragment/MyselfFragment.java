@@ -2,6 +2,7 @@ package cn.zerone.water.fragment;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.support.annotation.Nullable;
@@ -45,6 +46,8 @@ public class MyselfFragment extends Fragment {
     private ImageView headImg;
     private TextView nickName;
 
+    private ImageView photo1;
+
 
     @Nullable
     @Override
@@ -63,8 +66,12 @@ public class MyselfFragment extends Fragment {
         initData();
         listView=view.findViewById(R.id.list_view);
         userName = view.findViewById(R.id.user_name);
-        headImg = view.findViewById(R.id.myself_image);
+//        headImg = view.findViewById(R.id.myself_image);
         nickName = view.findViewById(R.id.nick_name);
+
+        photo1=view.findViewById(R.id.image_1);
+        Bitmap bitmap= BitmapFactory.decodeResource(getResources(),R.drawable.touxiang);
+        photo1.setImageBitmap(bitmap);
 
 
 
@@ -79,11 +86,11 @@ public class MyselfFragment extends Fragment {
                 String username = json.getString("LOGIN_NAME");
                 App.username = username;
                 userName.setText(username);
-                String imgUrl = json.getString("Photo");
-                ImageUtil imageUtil = ImageUtil.getIntance();
-                Bitmap temp_bitmap = imageUtil.getBitMBitmap(imgUrl);
-                Bitmap bitmap = imageUtil.comp(temp_bitmap);
-                headImg.setImageBitmap(bitmap);
+//                String imgUrl = json.getString("Photo");
+//                ImageUtil imageUtil = ImageUtil.getIntance();
+//                Bitmap temp_bitmap = imageUtil.getBitMBitmap(imgUrl);
+//                Bitmap bitmap = imageUtil.comp(temp_bitmap);
+//                headImg.setImageBitmap(bitmap);
                 String nickname = json.getString("NAME");
                 nickName.setText(nickname);
             }

@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="#FFFFFF">
+    xmlns:imagecontrol="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="154dp"
+        android:layout_height="wrap_content"
         android:background="#008ACA"
         android:orientation="vertical">
 
@@ -17,24 +16,22 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
-            android:paddingBottom="15dp"
-            android:paddingTop="15dp"
+            android:paddingBottom="15sp"
+            android:paddingTop="15sp"
             android:text="@string/title_myself"
             android:textColor="#fff"
-            android:textSize="16dp" />
+            android:textSize="16sp" />
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-            <ImageView
-                android:id="@+id/myself_image"
-                android:layout_width="wrap_content"
+            <cn.zerone.water.views.RoundImageView
+                android:id="@+id/image_1"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="18dp"
-                android:layout_weight="1"
-                app:srcCompat="@drawable/logo" />
+                android:layout_weight="1" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -60,7 +57,9 @@
                     android:textColor="#fff"
                     android:textSize="12dp" />
             </LinearLayout>
+
         </LinearLayout>
+
     </LinearLayout>
 
     <ListView
@@ -76,5 +75,9 @@
         android:gravity="center"
         android:textColor="#fff"
         android:text="@string/action_sign_out" />
+
+
+
+
 
 </LinearLayout>

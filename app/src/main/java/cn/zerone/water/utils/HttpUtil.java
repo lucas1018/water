@@ -32,7 +32,7 @@ public class HttpUtil {
     // 后期增加的接口调用的url
     private static final String ADVANCED_URL = "http://47.105.187.185:8011/api1/";
 
-    public static   void baseJSONArray(final Observer<JSONArray> observer, final String cmd, final RequestBody requestBody){
+    public static void baseJSONArray(final Observer<JSONArray> observer, final String cmd, final RequestBody requestBody){
         Observable oble = Observable.create(new ObservableOnSubscribe<JSONArray>() {
             @Override
             public void subscribe(@NonNull ObservableEmitter<JSONArray> e) throws Exception {
@@ -53,7 +53,7 @@ public class HttpUtil {
         oble.subscribe(oser);
     }
 
-    public static   void baseJSONArray(final Observer<JSONArray> observer, final SoapObject request){
+    public static void baseJSONArray(final Observer<JSONArray> observer, final SoapObject request){
         Observable oble = Observable.create(new ObservableOnSubscribe<JSONArray>() {
             @Override
             public void subscribe(@NonNull ObservableEmitter<JSONArray> e) throws Exception {
