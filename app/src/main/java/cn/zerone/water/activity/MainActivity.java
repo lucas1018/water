@@ -42,8 +42,8 @@ public class MainActivity extends AppCompatActivity {
     public static MainActivity activity;
 
     List<String> mViewList = new ArrayList<String>();//顶部用于循环的布局集合
-    Fragment[] fragments = new Fragment[]{new HomeFragment(),new SystemMessagesActivity(),new FriendsFragment(),new JobListFragment(),new MyselfFragment()};
-
+    Fragment[] fragments = new Fragment[]{new SystemMessagesActivity(),new JobListFragment(),new HomeFragment(),new FriendsFragment(),new MyselfFragment()};
+    //切换底部导航
     public synchronized void changeTab(int index,String url){
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         for (int i = 0; i < 5; i++) {
@@ -54,33 +54,6 @@ public class MainActivity extends AppCompatActivity {
             }
         }
         transaction.commit();
-       /* if(url!=null&&fragments[index] instanceof  WebFragment){
-            ((WebFragment) fragments[index]).changeUrl(url);
-            if(index==3){
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        navigation.setSelectedItemId( R.id.navigation_task);
-                    }
-                });
-            }else if(index==5){
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        navigation.setSelectedItemId( R.id.navigation_myself);
-                    }
-                });
-            }
-        }else if(url!=null&&index==2){
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    navigation.setSelectedItemId(R.id.navigation_friends);
-                }
-
-                ;
-            });
-        }*/
 
     }
     public void setNotifyReadView(final boolean isShow){
@@ -133,16 +106,13 @@ public class MainActivity extends AppCompatActivity {
                 case R.id.navigation_home:
                     changeTab(2,null);
                     return true;
-//                case R.id.navigation_friends:
-//                    setMsgReadView(false);
-//                    changeTab(3,null);
-//                    return true;
+                case R.id.navigation_broadcast:
+                    setMsgReadView(false);
+                    changeTab(3,null);
+                    return true;
                 case R.id.navigation_myself:
                     changeTab(4,null);
                     return true;
-//                case R.id.navigation_task:
-//                    changeTab(3,null);
-//                    return true;
             }
             return false;
         }
@@ -160,6 +130,7 @@ public class MainActivity extends AppCompatActivity {
         ((App)getApplication()).userInit();
         navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+        System.out.println("---"+navigation);
         BottomNavigationViewHelper.disableShiftMode(navigation);
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.add(R.id.fragment_container,fragments[0] );
@@ -168,7 +139,7 @@ public class MainActivity extends AppCompatActivity {
         transaction.add(R.id.fragment_container,fragments[3] );
         transaction.add(R.id.fragment_container,fragments[4] );
         transaction.commit();
-        changeTab(0,null);
+        changeTab(2,null);
 
         MainActivity.activity = this;
         BottomNavigationMenuView menuView  = (BottomNavigationMenuView) navigation.getChildAt(0);
