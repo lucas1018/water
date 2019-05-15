@@ -24,7 +24,28 @@ import static cn.zerone.water.utils.HttpUtil.baseJSONObject;
 import static cn.zerone.water.utils.HttpUtil.baseString;
 
 /**
- * Created by zero on 2018/11/29.
+ * Created by qhk on 2019/5/12.
+ *
+ * 若是调用webservice接口， 按下列形式书写：
+ * public static void function(Observer<JSONObject> observer, Type param, ...) {
+ *     SoapObject request = new SoapObject(NAMESPACE, "func");
+ *     request.addProperty("param", param); //传入参数，无参可省略这一步
+ *     baseJSONObject(observer, request);
+ * }
+ *
+ * 若不是调用webservice接口，则按下列形式书写：
+ * public static <T> void function(Observer<JSONObject> observer, Type param, ...){
+ *     RequestBody requestBody = new FormBody.Builder()
+ *             .add("param", param) //传入参数，无参可省略这一步
+ *             .build();
+ *     baseJSONObject(observer, "func", requestBody);
+ * }
+ *
+ * 备注：
+ * 1.判断是否是调用webservice接口，可在http://47.105.187.185:8011/Service/AppService.asmx页面查找，若有，则调用的是webservice接口，反之。
+ * 2.参数的选择参考相应接口文档
+ * 3.此处的 func 才是真正调用的远程接口名
+ * 4.根据返回类型可选择baseJSONObject、baseJSONArray、baseString其中之一
  */
 
 public class Requests {
