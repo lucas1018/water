@@ -141,8 +141,9 @@ public class HttpUtil {
             @Override
             public void subscribe(@NonNull ObservableEmitter<T> e) throws Exception {
                 String response = post(request);
+
                 if(response != null){
-                    System.out.println("baseJSONString:" + response);
+                    System.out.println("baseJSONObject:" + response);
                     e.onNext((T) JSON.parseObject(response));
                     e.onComplete();
                 }else{
@@ -160,7 +161,6 @@ public class HttpUtil {
         SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(SoapSerializationEnvelope.VER12);
         envelope.bodyOut = request;
         envelope.dotNet = true;
-
         HttpTransportSE httpTransportSE = new HttpTransportSE(WSDL_URL);
         try {
             httpTransportSE.call(null, envelope);

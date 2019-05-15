@@ -19,6 +19,7 @@ import com.zhy.adapter.abslistview.ViewHolder;
 import org.greenrobot.greendao.Property;
 import org.greenrobot.greendao.query.Query;
 
+import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -80,16 +81,40 @@ public class SystemMessagesActivity extends Fragment {
     }
 
     private void initData() {
-        try{
-            DaoMaster.DevOpenHelper devOpenHelper = new DaoMaster.DevOpenHelper(getActivity(), App.username);
-            SQLiteDatabase db = devOpenHelper.getWritableDatabase();
-            DaoMaster daoMaster = new DaoMaster(db);
-            systemMessages.clear();
-            systemMessages.addAll(daoMaster.newSession().getSystemMessageDao().queryBuilder().orderDesc(SystemMessageDao.Properties.CreateTime).build().list());
-            listAdapter.notifyDataSetChanged();
-        }catch (Exception e){
-            e.printStackTrace();
-        }
+        Requests.Notice_GetList(new Observer<JSONObject>() {
+            @Override
+            public void onSubscribe(Disposable d) {
+
+            }
+
+            @Override
+            public void onNext(JSONObject jsonObject) {
+//                String str = jsonObject.getString("Data");
+//                JSONObject json = JSONArray.parseArray(str).getJSONObject(0);
+                System.out.println("==========="+ jsonObject);
+
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+
+            @Override
+            public void onComplete() {
+
+            }
+        });
+//        try{
+//            DaoMaster.DevOpenHelper devOpenHelper = new DaoMaster.DevOpenHelper(getActivity(), App.username);
+//            SQLiteDatabase db = devOpenHelper.getWritableDatabase();
+//            DaoMaster daoMaster = new DaoMaster(db);
+//            systemMessages.clear();
+//            systemMessages.addAll(daoMaster.newSession().getSystemMessageDao().queryBuilder().orderDesc(SystemMessageDao.Properties.CreateTime).build().list());
+//            listAdapter.notifyDataSetChanged();
+//        }catch (Exception e){
+//            e.printStackTrace();
+//        }
     }
 
 

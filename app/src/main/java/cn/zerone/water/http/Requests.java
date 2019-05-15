@@ -17,6 +17,7 @@ import cn.zerone.water.model.EngineeringStation;
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 import okhttp3.FormBody;
+import okhttp3.Request;
 import okhttp3.RequestBody;
 
 import static cn.zerone.water.utils.HttpUtil.baseJSONArray;
@@ -51,15 +52,16 @@ public class Requests {
 //        baseJSONArray(observer,"getuserlist",new JSONObject());
 //    }
 
-
-    public static void getSystemMessages(final Observer<JSONObject> observer,String userId) {
-        RequestBody requestBody = new FormBody.Builder()
-                .add("userId", userId)
-                .build();
-//        JSONObject jsonObject = new JSONObject();
-//        jsonObject.put("userId", userId);
-        baseJSONObject(observer,"getmsg", requestBody);
-    }
+//    public static void getSystemMessages(final Observer<JSONObject> observer,String userId,String createtime,String title,String details,String datatype) {
+//        RequestBody requestBody = new FormBody.Builder()
+//                .add("userId", userId)
+//                .add("CrateTime",createtime)
+//                .add("Title",title)
+//                .add("Content",details)
+//                .add("DataType",datatype)
+//                .build();
+//        baseJSONObject(observer,"getmsg", requestBody);
+//    }
 
     public static void signIn(final Observer<String> observer,String userId, double  longitude, double latitude) {
         RequestBody requestBody = new FormBody.Builder()
@@ -174,9 +176,9 @@ public class Requests {
 //    }
 
     public static void getUserInfo(Observer<JSONObject> observer, String userId) {
-        SoapObject request = new SoapObject(NAMESPACE, "getUserInfo");
-        request.addProperty("userId", userId); //传入参数
-        baseJSONObject(observer, request);
+            SoapObject request = new SoapObject(NAMESPACE, "getUserInfo");
+            request.addProperty("userId", userId); //传入参数
+            baseJSONObject(observer, request);
     }
 
     public static void updatePWD(Observer<JSONObject> observer, String userID,String pwd1, String pwd2, String pwd) {
@@ -203,5 +205,8 @@ public class Requests {
         request.addProperty("Remark", meal_remark);
         baseString(observer, request);
     }
-
+    public static void  Notice_GetList(final Observer<JSONObject>observer){
+        SoapObject request = new SoapObject(NAMESPACE, "Notice_GetList");
+        baseJSONObject(observer, request);
+    }
 }
