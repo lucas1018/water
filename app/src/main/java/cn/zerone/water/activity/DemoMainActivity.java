@@ -118,6 +118,8 @@ public class DemoMainActivity extends Activity {
             initNavi();
         }
         initLocation();
+
+
     }
 
     private void initLocation() {
@@ -330,6 +332,7 @@ public class DemoMainActivity extends Activity {
                 }
             });
         }
+
     }
 
     private boolean checkValid(String startPoint, String endPoint) {

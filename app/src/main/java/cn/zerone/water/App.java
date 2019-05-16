@@ -22,6 +22,7 @@ import com.baidu.location.BDLocation;
 import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
 import com.baidu.location.service.LocationService;
+import com.baidu.mapapi.SDKInitializer;
 import com.example.jpushdemo.Logger;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.uuzuche.lib_zxing.activity.ZXingLibrary;
@@ -40,6 +41,8 @@ import cn.zerone.water.model.SystemMessageDao;
 import cn.zerone.water.utils.MD5Utils;
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
+import com.baidu.mapapi.CoordType;
+import com.baidu.mapapi.SDKInitializer;
 
 
 
@@ -81,6 +84,13 @@ public class App extends Application {
         }catch (Exception e){
             e.printStackTrace();
         }
+
+        //百度地图
+        //在使用SDK各组件之前初始化context信息，传入ApplicationContext
+        SDKInitializer.initialize(this);
+        //自4.3.0起，百度地图SDK所有接口均支持百度坐标和国测局坐标，用此方法设置您使用的坐标类型.
+        //包括BD09LL和GCJ02两种坐标，默认是BD09LL坐标。
+        SDKInitializer.setCoordType(CoordType.BD09LL);
     }
 
     public void mapInit() {

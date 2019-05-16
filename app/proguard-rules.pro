@@ -29,6 +29,7 @@
 -dontwarn com.baidu.**
 -dontwarn com.baidu.navisdk.**
 -dontwarn com.baidu.navi.**
+-keep class mapsdkvi.com.** {*;}
 
 -keep class com.baidu.** { *; }
 -keep interface com.baidu.** { *; }
