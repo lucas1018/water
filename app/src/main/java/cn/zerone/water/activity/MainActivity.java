@@ -131,7 +131,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         ((App)getApplication()).mapInit();
-        ((App)getApplication()).userInit();
+
         navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         System.out.println("---"+navigation);
