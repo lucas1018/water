@@ -26,6 +26,12 @@
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
 
+    <item name="bn1" type="id" />
+    <item name="bn2" type="id" />
+    <item name="bn3" type="id" />
+    <item name="bn4" type="id" />
+    <item name="bn5" type="id" />
+
     <string name="title_activity_full_image">FullImageActivity</string>
 
 </resources>

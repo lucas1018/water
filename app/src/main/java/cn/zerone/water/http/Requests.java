@@ -205,7 +205,7 @@ public class Requests {
         request.addProperty("Remark", meal_remark);
         baseString(observer, request);
     }
-    public static void  Notice_GetList(final Observer<JSONObject>observer){
+    public static void  Notice_GetList(Observer<JSONObject> observer){
         SoapObject request = new SoapObject(NAMESPACE, "Notice_GetList");
         baseJSONObject(observer, request);
     }

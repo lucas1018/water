@@ -32,6 +32,7 @@ import cn.zerone.water.fragment.HomeFragment;
 import cn.zerone.water.fragment.JobListFragment;
 import cn.zerone.water.fragment.MasterArticleFragment;
 import cn.zerone.water.fragment.MyselfFragment;
+import cn.zerone.water.fragment.NoticeFragment;
 import cn.zerone.water.http.Requests;
 import cn.zerone.water.utils.BottomNavigationViewHelper;
 import io.reactivex.Observer;
@@ -42,13 +43,15 @@ public class MainActivity extends AppCompatActivity {
     public static MainActivity activity;
 
     List<String> mViewList = new ArrayList<String>();//顶部用于循环的布局集合
-    Fragment[] fragments = new Fragment[]{new HomeFragment(),new SystemMessagesActivity(),new FriendsFragment(),new JobListFragment(),new MyselfFragment()};
+    Fragment[] fragments = new Fragment[]{new HomeFragment(),new NoticeFragment(),new FriendsFragment(),new JobListFragment(),new MyselfFragment()};
 
     public synchronized void changeTab(int index,String url){
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         for (int i = 0; i < 5; i++) {
             if(i == index){
+                System.out.println("ssssssssssss1");
                 transaction.show(fragments[i]);
+                System.out.println("ssssssssssss2");
             }else{
                 transaction.hide(fragments[i]);
             }

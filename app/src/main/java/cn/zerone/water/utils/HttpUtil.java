@@ -137,6 +137,7 @@ public class HttpUtil {
     }
 
     public static <T>  void baseJSONObject(final Observer<JSONObject> observer, final SoapObject request){
+        System.out.println("tttttttttttt" + request);
         Observable<T> oble = Observable.create(new ObservableOnSubscribe<T>() {
             @Override
             public void subscribe(@NonNull ObservableEmitter<T> e) throws Exception {

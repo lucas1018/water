@@ -2,6 +2,7 @@ package cn.zerone.water.fragment;
 
 import android.app.Activity;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -25,9 +26,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.logging.LogRecord;
-import cn.zerone.water.HeaderAdapter;
-import cn.zerone.water.ItemArticle;
+
+import cn.zerone.water.activity.NewsWebActivity;
+import cn.zerone.water.activity.NoticeActivity;
+import cn.zerone.water.model.HeaderAdapter;
+import cn.zerone.water.model.ItemArticle;
 import cn.zerone.water.R;
 
 
@@ -45,6 +48,7 @@ public class MasterArticleFragment extends Fragment {
     private String mParam;
     //获取 fragment 依赖的 Activity，方便使用 Context
     private Activity mAct;
+    private int[] ids = new int[]{R.id.bn1,R.id.bn2,R.id.bn3,R.id.bn4};
 
     //设置当前 第几个图片 被选中
     private int autoCurrIndex = 0;
@@ -115,14 +119,12 @@ public class MasterArticleFragment extends Fragment {
         ButterKnife.reset(this);
     }
 
-
     private void setUpViewPager(final List<ItemArticle> headerArticles) {
         HeaderAdapter imageAdapter = new HeaderAdapter(mAct, headerArticles);
         vpHottest.setAdapter(imageAdapter);
 
         //创建底部指示位置的导航栏
         mBottomImages = new ImageView[headerArticles.size()];
-
         for (int i = 0; i < mBottomImages.length; i++) {
             ImageView imageView = new ImageView(mAct);
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(10, 10);
@@ -137,8 +139,34 @@ public class MasterArticleFragment extends Fragment {
             mBottomImages[i] = imageView;
             //把指示作用的原点图片加入底部的视图中
             llHottestIndicator.addView(mBottomImages[i]);
+//            imageView.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View view) {
+//                   Intent intent = null;
+//                   Bundle bundle = null;
+//                   switch (view.getId()){
+//                        case 2131296302:
+//                           intent = new Intent(getContext(),NewsWebActivity.class);
+//                            bundle = new Bundle();
+//                            bundle.putString("url","https://k.sinaimg.cn/n/news/transform/200/w600h400/20190516/8605-hwzkfpu5316833.jpg/w500h333l80bb4.jpg");
+//                            intent.putExtras(bundle);
+//                            startActivity(intent);
+//                            break;
+//                        case 2:
+//
+//                            break;
+//                       case 3:
+//
+//                            break;
+//                        case 4:
+//                    }
+//
+//                }
+//            });
 
         }
+
+
 
         vpHottest.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
 
@@ -190,13 +218,13 @@ public class MasterArticleFragment extends Fragment {
         protected List<ItemArticle> doInBackground(String... params) {
             List<ItemArticle> articles = new ArrayList<ItemArticle>();
             articles.add(
-                    new ItemArticle(1123, "http://i2.sinaimg.cn/ent/j/2012-05-20/U5912P28T3D3634984F328DT20120520152700.JPG"));
+                    new ItemArticle(1, "https://k.sinaimg.cn/n/news/transform/200/w600h400/20190516/8605-hwzkfpu5316833.jpg/w500h333l80bb4.jpg"));
             articles.add(
-                    new ItemArticle(1123, "http://i2.sinaimg.cn/ent/j/2012-05-20/U5912P28T3D3634984F328DT20120520152700.JPG"));
+                    new ItemArticle(2, "https://k.sinaimg.cn/n/news/transform/200/w600h400/20190516/8605-hwzkfpu5316833.jpg/w500h333l80bb4.jpg"));
             articles.add(
-                    new ItemArticle(1123, "http://i2.sinaimg.cn/ent/j/2012-05-20/U5912P28T3D3634984F328DT20120520152700.JPG"));
+                    new ItemArticle(3, "https://k.sinaimg.cn/n/news/transform/200/w600h400/20190516/8605-hwzkfpu5316833.jpg/w500h333l80bb4.jpg"));
             articles.add(
-                    new ItemArticle(1123, "http://i2.sinaimg.cn/ent/j/2012-05-20/U5912P28T3D3634984F328DT20120520152700.JPG"));
+                    new ItemArticle(4, "https://k.sinaimg.cn/n/news/transform/200/w600h400/20190516/8605-hwzkfpu5316833.jpg/w500h333l80bb4.jpg"));
             return articles;
         }
 
