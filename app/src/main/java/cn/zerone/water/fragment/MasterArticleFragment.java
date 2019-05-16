@@ -120,13 +120,13 @@ public class MasterArticleFragment extends Fragment {
     }
 
     private void setUpViewPager(final List<ItemArticle> headerArticles) {
-        HeaderAdapter imageAdapter = new HeaderAdapter(mAct, headerArticles);
+        final HeaderAdapter imageAdapter = new HeaderAdapter(mAct, headerArticles);
         vpHottest.setAdapter(imageAdapter);
 
         //创建底部指示位置的导航栏
         mBottomImages = new ImageView[headerArticles.size()];
         for (int i = 0; i < mBottomImages.length; i++) {
-            ImageView imageView = new ImageView(mAct);
+            final ImageView imageView = new ImageView(mAct);
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(10, 10);
             params.setMargins(5, 0, 5, 0);
             imageView.setLayoutParams(params);
@@ -139,63 +139,59 @@ public class MasterArticleFragment extends Fragment {
             mBottomImages[i] = imageView;
             //把指示作用的原点图片加入底部的视图中
             llHottestIndicator.addView(mBottomImages[i]);
-//            imageView.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View view) {
-//                   Intent intent = null;
-//                   Bundle bundle = null;
-//                   switch (view.getId()){
-//                        case 2131296302:
-//                           intent = new Intent(getContext(),NewsWebActivity.class);
-//                            bundle = new Bundle();
-//                            bundle.putString("url","https://k.sinaimg.cn/n/news/transform/200/w600h400/20190516/8605-hwzkfpu5316833.jpg/w500h333l80bb4.jpg");
-//                            intent.putExtras(bundle);
-//                            startActivity(intent);
-//                            break;
-//                        case 2:
-//
-//                            break;
-//                       case 3:
-//
-//                            break;
-//                        case 4:
-//                    }
-//
-//                }
-//            });
+            imageView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                   Intent intent = null;
+                   Bundle bundle = null;
+                   switch (view.getId()){
+                        case 2131296302:
+                            intent = new Intent(getContext(),NewsWebActivity.class);
+                            bundle = new Bundle();
+                            bundle.putString("url","https://k.sinaimg.cn/n/news/transform/200/w600h400/20190516/8605-hwzkfpu5316833.jpg/w500h333l80bb4.jpg");
+                            intent.putExtras(bundle);
+                            startActivity(intent);
+                            break;
+                        case 2:
+
+                            break;
+                        case 3:
+
+                            break;
+                        case 4:
+                    }
+
+                }
+            });
 
         }
 
-
-
         vpHottest.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            //图片左右滑动时候，将当前页的圆点图片设为选中状态
+            @Override
+            public void onPageSelected(int position) {
+                // 一定几个图片，几个圆点，但注意是从0开始的
+                int total = mBottomImages.length;
+                for (int j = 0; j < total; ++j) {
+                    if (j == position) {
+                        mBottomImages[j].setBackgroundResource(R.mipmap.ellipse_1);
+                    } else {
+                        mBottomImages[j].setBackgroundResource(R.mipmap.ellipse);
+                    }
+                }
 
-                                              //图片左右滑动时候，将当前页的圆点图片设为选中状态
-                                              @Override
-                                              public void onPageSelected(int position) {
-                                                  // 一定几个图片，几个圆点，但注意是从0开始的
-                                                  int total = mBottomImages.length;
-                                                  for (int j = 0; j < total; j++) {
-                                                      if (j == position) {
-                                                          mBottomImages[j].setBackgroundResource(R.mipmap.ellipse_1);
-                                                      } else {
-                                                          mBottomImages[j].setBackgroundResource(R.mipmap.ellipse);
-                                                      }
-                                                  }
+                //设置全局变量，currentIndex为选中图标的 index
+                autoCurrIndex = position;
+            }
 
-                                                  //设置全局变量，currentIndex为选中图标的 index
-                                                  autoCurrIndex = position;
-                                              }
+            @Override
+            public void onPageScrolled(int i, float v, int i1) {
+            }
 
-                                              @Override
-                                              public void onPageScrolled(int i, float v, int i1) {
-                                              }
-
-                                              @Override
-                                              public void onPageScrollStateChanged(int state) {
-                                              }
-                                          }
-        );
+            @Override
+            public void onPageScrollStateChanged(int state) {
+            }
+        });
 
         // 设置自动轮播图片，5s后执行，周期是5s
         timer.schedule(new TimerTask() {
