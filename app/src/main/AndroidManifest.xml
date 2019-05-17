@@ -136,11 +136,6 @@
         <activity android:name="com.zxing.cameraapplication.CameraActivity"    android:configChanges="keyboard|keyboardHidden|orientation|screenSize"></activity>
 
 
-        <!--百度导航-->
-        <activity android:name=".activity.LiteActivity" />
-        <activity android:name=".activity.DemoNaviSettingActivity" />
-        <activity android:name=".activity.DemoMainActivity" />
-
 
         <!--百度-->
         <activity
@@ -178,7 +173,6 @@
             android:name=".activity.DemoMainActivity"
             android:configChanges="orientation|screenSize|keyboard|keyboardHidden"
             android:label="@string/sdk_name" />
-
 
         <activity
             android:name=".activity.DemoGuideActivity"

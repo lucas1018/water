@@ -10,12 +10,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ListView;
 import android.view.View.OnClickListener;
-<<<<<<< HEAD
-
-import cn.zerone.water.activity.LiteActivity;
-
-=======
->>>>>>> master
 import cn.zerone.water.R;
 import cn.zerone.water.activity.LiteActivity;
 import cn.zerone.water.map.MarkerClusterDemo;
