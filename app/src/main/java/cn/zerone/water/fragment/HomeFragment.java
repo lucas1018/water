@@ -19,6 +19,7 @@ import cn.zerone.water.activity.ClockInWorkActivity;
  * Created by zero on 2018/12/3.
  */
 
+<<<<<<< Updated upstream
 public class HomeFragment extends Fragment {
     @Nullable
     @Override
@@ -53,5 +54,14 @@ public class HomeFragment extends Fragment {
             }
         });
         return view;
+=======
+public class HomeFragment extends MasterArticleFragment {
+
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+    }
+
+    public String title() {
+        return  "首页";
+>>>>>>> Stashed changes
     }
 }
