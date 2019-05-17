@@ -11,6 +11,8 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.view.View.OnClickListener;
 
+import cn.zerone.water.activity.LiteActivity;
+
 import cn.zerone.water.R;
 import cn.zerone.water.activity.MealActivity;
 
@@ -36,7 +38,7 @@ public class JobListFragment extends Fragment {
         but_nvi.setOnClickListener(new OnClickListener(){
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getContext(), MealActivity.class);
+                Intent intent = new Intent(getContext(), LiteActivity.class);
                 getContext().startActivity(intent);
             }
     });
