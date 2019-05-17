@@ -122,7 +122,6 @@ public class HttpUtil {
                 Response response = post(cmd, requestBody);
                 if(response!=null && response.code()==200){
                     String json = response.body().string();
-                    System.out.println("baseJSONObject:"+json);
                     e.onNext((T) JSON.parseObject(json));
                     e.onComplete();
                 }else{
