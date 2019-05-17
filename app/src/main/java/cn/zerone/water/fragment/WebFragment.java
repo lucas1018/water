@@ -15,6 +15,7 @@ import android.webkit.JavascriptInterface;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.alibaba.fastjson.JSON;
@@ -29,6 +30,7 @@ import java.io.File;
 
 import cn.zerone.water.App;
 import cn.zerone.water.R;
+import cn.zerone.water.activity.ClockInHomeActivity;
 import cn.zerone.water.activity.MainActivity;
 import cn.zerone.water.activity.StepActivity;
 import cn.zerone.water.activity.WebActivity;

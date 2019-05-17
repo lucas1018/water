@@ -10,6 +10,7 @@ import org.ksoap2.serialization.SoapObject;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.util.List;
 
 import cn.zerone.water.model.EngineeringStation;
@@ -226,8 +227,22 @@ public class Requests {
         request.addProperty("Remark", meal_remark);
         baseString(observer, request);
     }
-    public static void  Notice_GetList(Observer<JSONObject> observer){
-        SoapObject request = new SoapObject(NAMESPACE, "Notice_GetList");
-        baseJSONObject(observer, request);
+
+    public static void ClockIn_SaveBLL(Observer<String> observer, String id, String add_time, DecimalFormat latitude, DecimalFormat longitude, Integer data_type, String picture,String address ) {
+        SoapObject request = new SoapObject(NAMESPACE, "FeesForMeals_SaveBLL");
+        request.addProperty("UserId", id);
+        request.addProperty("AddTime", add_time);
+        request.addProperty("Lat", latitude);
+        request.addProperty("Lng", longitude);
+        request.addProperty("DataType", data_type);
+        request.addProperty("Path", picture);
+        request.addProperty("Address", address);
+        baseString(observer, request);
+    }
+
+    public  static void Notice_GetList(Observer<JSONArray> observer) {
+        RequestBody requestBody = new FormBody.Builder().build();
+        baseJSONArray(observer, "Notice_GetList", requestBody);
+
     }
 }
