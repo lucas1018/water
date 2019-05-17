@@ -71,7 +71,7 @@
         android:orientation="horizontal">
 
         <ImageButton
-            android:id="@+id/attendance"
+            android:id="@+id/attendance_button"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_weight="1"
@@ -79,24 +79,24 @@
             app:srcCompat="@mipmap/attendance" />
 
         <ImageButton
-            android:id="@+id/imageButton2"
+            android:id="@+id/car_button"
 
-            android:background="#FFFFFF"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_weight="1"
+            android:background="#FFFFFF"
             app:srcCompat="@mipmap/car" />
 
         <ImageButton
-            android:id="@+id/imageButton3"
-            android:background="#FFFFFF"
+            android:id="@+id/finish_button"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_weight="1"
+            android:background="#FFFFFF"
             app:srcCompat="@mipmap/finish" />
 
         <ImageButton
-            android:id="@+id/imageButton4"
+            android:id="@+id/home_button"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_weight="1"
