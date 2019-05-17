@@ -157,10 +157,30 @@ public class Requests {
         baseString(observer, "uploadjobstepinfo", jsonObject);
     }
 
+
     public static void getUserInfo(Observer<JSONObject> observer, Integer userId) {
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("userId", userId);
         baseJSONObject(observer,"getUserInfo",jsonObject);
+
+    public  static void getCheckedList(Observer<JSONArray> observer) {
+        RequestBody requestBody = new FormBody.Builder().build();
+        baseJSONArray(observer, "EngineeringFileCheck_GetList", requestBody);
+    }
+
+    public static void feesForMeals_SaveBLL(Observer<String> observer, String id, String meal_date, String meal_type, String meal_mount, String meal_remark) {
+        SoapObject request = new SoapObject(NAMESPACE, "FeesForMeals_SaveBLL");
+        request.addProperty("CreateUserId", id);
+        request.addProperty("Date", meal_date);
+        request.addProperty("Name", meal_type);
+        request.addProperty("Cost", meal_mount);
+        request.addProperty("Remark", meal_remark);
+        baseString(observer, request);
+    }
+
+    public static void  Notice_GetList(Observer<JSONObject> observer){
+        SoapObject request = new SoapObject(NAMESPACE, "Notice_GetList");
+        baseJSONObject(observer, request);
     }
     
 }
