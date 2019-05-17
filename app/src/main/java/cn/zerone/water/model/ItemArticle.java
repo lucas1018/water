@@ -10,7 +10,6 @@ public class ItemArticle {
     public ItemArticle(int index, String imageUrl) {
         this.NewsId = index;
         this.imageUrl = imageUrl;
-        //this.imageUries = imageUries;
     }
 
     public int getNewsId() {

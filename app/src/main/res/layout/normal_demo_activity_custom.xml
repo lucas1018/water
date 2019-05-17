@@ -1,0 +1,331 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/root_view"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <FrameLayout
+        android:id="@+id/map_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </FrameLayout>
+
+    <RelativeLayout
+        android:id="@+id/upper_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <LinearLayout
+            android:id="@+id/guide_info_layout"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:layout_margin="10dp"
+            android:padding="5dp"
+            android:orientation="vertical"
+            android:background="@android:color/background_dark" >
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/turn_icon"
+                    android:layout_gravity="center_vertical"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp" />
+
+                <TextView
+                    android:id="@+id/guide_info_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginBottom="5dp"/>
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/highway_info"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/road_condition_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/guide_info_layout"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="10dp"
+            android:orientation="vertical"
+            android:layout_alignParentRight="true"
+            android:background="@android:color/background_dark" >
+
+            <TextView
+                android:id="@+id/car_progress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/road_conditions"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/enlarge_container"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:orientation="vertical"
+            android:visibility="gone" >
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:orientation="horizontal"
+                android:background="@android:color/background_dark" >
+
+                <TextView
+                    android:id="@+id/enlarge_info"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp" />
+
+                <ImageView
+                    android:id="@+id/enlarge_turn_img"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp" />
+            </LinearLayout>
+
+            <RelativeLayout
+                android:id="@+id/enlarge_map"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1">
+            </RelativeLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/lane_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/guide_info_layout"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="5dp"
+            android:orientation="horizontal"
+            android:background="#4e93fe"
+            android:visibility="gone" >
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/setting_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="设置"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:onClick="onSettingClick"/>
+
+        <LinearLayout
+            android:id="@+id/setting_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_alignParentRight="true"
+            android:layout_above="@+id/setting_btn"
+            android:visibility="gone" >
+
+            <Button
+                android:id="@+id/btn_2d_3d"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="2D/3D"
+                android:textSize="10sp"
+                android:onClick="on2D3DClick"/>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="设置起点图标"
+                    android:textSize="10sp"
+                    android:onClick="onChangeIconClick"
+                    />
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="蚯蚓信息"
+                    android:textSize="10sp"
+                    android:onClick="onCameraStatusClick"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="白天"
+                    android:textSize="10sp"
+                    android:onClick="onDayNightDayClick"/>
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="黑夜"
+                    android:textSize="10sp"
+                    android:onClick="onDayNightNightClick"/>
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="自动"
+                    android:textSize="10sp"
+                    android:onClick="onDayNightAutoClick"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="智能比例尺-开"
+                    android:textSize="10sp"
+                    android:onClick="onSmartScaleOpenClick"/>
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="智能比例尺-关"
+                    android:textSize="10sp"
+                    android:onClick="onSmartScaleCloseClick"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="新手"
+                    android:textSize="10sp"
+                    android:onClick="onNewUserClick"/>
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="老手"
+                    android:textSize="10sp"
+                    android:onClick="onGodUserClick"/>
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="静音"
+                    android:textSize="10sp"
+                    android:onClick="onVoiceQuiteClick"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/test_button_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_alignParentBottom="true" >
+
+            <TextView
+                android:id="@+id/speed_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="5dp" />
+
+            <Button
+                android:id="@+id/btn_zoom_in"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="放大底图"
+                android:textSize="10sp"
+                android:onClick="onZoomInClick"/>
+
+            <Button
+                android:id="@+id/btn_zoom_out"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="缩小底图"
+                android:textSize="10sp"
+                android:onClick="onZoomOutClick"/>
+
+            <Button
+                android:id="@+id/btn_full_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="全览"
+                android:textSize="10sp"
+                android:onClick="onFullViewClick"/>
+
+            <Button
+                android:id="@+id/btn_recover_navi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="恢复导航"
+                android:textSize="10sp"
+                android:onClick="onRecoverNaviClick"/>
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="刷新路线"
+                android:textSize="10sp"
+                android:onClick="onRefreshRouteClick"/>
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="路况开/关"
+                android:textSize="10sp"
+                android:onClick="onRoadConditionClick"/>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/main_side_road_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="10sp"
+                    android:text="在主路"
+                    android:onClick="onMainSideClick"
+                    android:visibility="gone"/>
+
+                <Button
+                    android:id="@+id/on_under_bridge"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="在桥上"
+                    android:textSize="10sp"
+                    android:onClick="onBridgeClick"
+                    android:visibility="gone"/>
+
+            </LinearLayout>
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</FrameLayout>

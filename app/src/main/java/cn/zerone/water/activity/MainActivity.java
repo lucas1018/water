@@ -48,11 +48,9 @@ public class MainActivity extends AppCompatActivity {
 
     public synchronized void changeTab(int index,String url){
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 5; ++i) {
             if(i == index){
-                System.out.println("ssssssssssss1");
                 transaction.show(fragments[i]);
-                System.out.println("ssssssssssss2");
             }else{
                 transaction.hide(fragments[i]);
             }
@@ -129,12 +127,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
         ((App)getApplication()).mapInit();
 
         navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-        System.out.println("---"+navigation);
         BottomNavigationViewHelper.disableShiftMode(navigation);
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.add(R.id.fragment_container,fragments[0] );
@@ -158,12 +154,12 @@ public class MainActivity extends AppCompatActivity {
 
         if( App.sharedPreferences.getBoolean("isRead",false)){
             setNotifyReadView(true);
-        }else{
+        } else {
             setNotifyReadView(false);
         }
         if( App.sharedPreferences.getBoolean("isMsgRead",false)){
             setMsgReadView(true);
-        }else{
+        } else {
             setMsgReadView(false);
         }
     }
