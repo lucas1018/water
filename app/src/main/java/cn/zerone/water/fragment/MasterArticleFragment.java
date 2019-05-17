@@ -103,6 +103,7 @@ public class MasterArticleFragment extends Fragment {
         title.setText(title());
         return view;
     }
+
     public String title(){
         return null;
     }

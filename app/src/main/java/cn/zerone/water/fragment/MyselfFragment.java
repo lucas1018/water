@@ -67,10 +67,6 @@ public class MyselfFragment extends Fragment {
         userName = view.findViewById(R.id.user_name);
         phoneNum = view.findViewById(R.id.phone_number);
         photo1=view.findViewById(R.id.image_1);
-//        Bitmap bitmap= BitmapFactory.decodeResource(getResources(),R.drawable.touxiang);
-//        photo1.setImageBitmap(bitmap);
-
-
 
         Requests.getUserInfo(new Observer<JSONObject>() {
             @Override
@@ -85,7 +81,6 @@ public class MyselfFragment extends Fragment {
                 App.username = username;
                 userName.setText(username);
                 String imgUrl = json.getString("Photo");
-                System.out.println("============");
                 ImageUtil imageUtil = ImageUtil.getIntance();
                 Bitmap temp_bitmap = imageUtil.getBitMBitmap(imgUrl);
                 Bitmap bitmap = imageUtil.comp(temp_bitmap);
@@ -103,9 +98,6 @@ public class MyselfFragment extends Fragment {
             public void onComplete() {
             }
         },App.userId);
-
-
-
     }
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
