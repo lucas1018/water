@@ -38,7 +38,7 @@ public class LiteActivity extends FragmentActivity {
         startNewIFNormalDemo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                System.out.println("tthjjttttttttttttttttttttttttt");
+
                 Intent it = new Intent(LiteActivity.this, DemoMainActivity.class);
                 startActivity(it);
             }
