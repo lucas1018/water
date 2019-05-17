@@ -118,6 +118,7 @@ public class DemoMainActivity extends Activity {
             initNavi();
         }
         initLocation();
+
     }
 
     private void initLocation() {

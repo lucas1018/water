@@ -22,6 +22,7 @@ import com.baidu.location.BDLocation;
 import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
 import com.baidu.location.service.LocationService;
+import com.baidu.mapapi.SDKInitializer;
 import com.example.jpushdemo.Logger;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.uuzuche.lib_zxing.activity.ZXingLibrary;
@@ -40,6 +41,8 @@ import cn.zerone.water.model.SystemMessageDao;
 import cn.zerone.water.utils.MD5Utils;
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
+import com.baidu.mapapi.CoordType;
+import com.baidu.mapapi.SDKInitializer;
 
 
 
@@ -49,8 +52,8 @@ import io.reactivex.disposables.Disposable;
 
 public class App extends Application {
     public static String username = null;
-    public static String token = null;
-    public static Integer userId = null;
+    public static String userId = null;
+    public static String pwd = null;
     public static boolean isUploadGps = false;
     public static BDLocation lastDBLocation = null;
     public static String baseUrl = "http://124.237.77.232:50180/";
@@ -72,10 +75,6 @@ public class App extends Application {
         Fresco.initialize(this);
         locationService = new LocationService(getApplicationContext());
         sharedPreferences = getSharedPreferences("config", Context.MODE_PRIVATE);
-        token = sharedPreferences.getString("token", "");
-        if (token == "") {
-            token = null;
-        }
         username = sharedPreferences.getString("username", "");
         if (username == "") {
             username = null;
@@ -85,11 +84,13 @@ public class App extends Application {
         }catch (Exception e){
             e.printStackTrace();
         }
-    }
 
-    public void clearLoginToken() {
-        token = "";
-        sharedPreferences.edit().putString("token", "").commit();
+        //百度地图
+        //在使用SDK各组件之前初始化context信息，传入ApplicationContext
+        SDKInitializer.initialize(this);
+        //自4.3.0起，百度地图SDK所有接口均支持百度坐标和国测局坐标，用此方法设置您使用的坐标类型.
+        //包括BD09LL和GCJ02两种坐标，默认是BD09LL坐标。
+        SDKInitializer.setCoordType(CoordType.BD09LL);
     }
 
     public void mapInit() {
@@ -108,7 +109,7 @@ public class App extends Application {
                     lastUpdateGps = System.currentTimeMillis();
                     System.out.println("上传 GPS中");
                     try {
-                        Requests.uploadGps(App.token, bdLocation.getLatitude(), bdLocation.getLongitude());
+                        Requests.uploadGps(App.userId, bdLocation.getLatitude(), bdLocation.getLongitude());
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -161,7 +162,7 @@ public class App extends Application {
         public void onNext(JSONObject objects) {
             try {
                 Boolean isUploadGPS = objects.getJSONObject("CommonJSon").getBoolean("IsUploadGPS");
-                App.isUploadGps = isUploadGPS;
+//                App.isUploadGps = isUploadGPS;
             } catch (Exception e) {
             }
             if (objects.getJSONArray("MsgArry") != null) {
@@ -190,7 +191,7 @@ public class App extends Application {
             handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    Requests.getSystemMessages(new GetSystemMessages(), App.token);
+//                    Requests.getSystemMessages(new GetSystemMessages(), App.userId);
                 }
             },10*1000);
             e.printStackTrace();
@@ -205,7 +206,7 @@ public class App extends Application {
                     int size = systemMessageDao.queryBuilder().where(SystemMessageDao.Properties.CreateTime.eq(systemMessage.getCreateTime())).build().list().size();
                     if (size == 0) {
                         App.sharedPreferences.edit().putBoolean("isRead", true).commit();
-                        Toast.makeText(getApplicationContext(), "有新短消息", 0).show();
+                        Toast.makeText(getApplicationContext(), "有新短消息", Toast.LENGTH_SHORT).show();
                         systemMessageDao.save(systemMessage);
                         if (MainActivity.activity != null) {
                             MainActivity.activity.setNotifyReadView(true);
@@ -223,20 +224,20 @@ public class App extends Application {
             handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    Requests.getSystemMessages(new GetSystemMessages(), App.token);
+//                    Requests.getSystemMessages(new GetSystemMessages(), App.userId);
                 }
             },10*1000);
             ;
         }
     }
     Handler handler = new Handler(Looper.getMainLooper());
-    public void tokenInit() {
+    public void userInit() {
         DaoMaster.DevOpenHelper devOpenHelper = new DaoMaster.DevOpenHelper(getApplicationContext(), username);
         SQLiteDatabase db = devOpenHelper.getWritableDatabase();
         DaoMaster daoMaster = new DaoMaster(db);
         DaoSession daoSession = daoMaster.newSession();
         systemMessageDao = daoSession.getSystemMessageDao();
-        Requests.getSystemMessages(new GetSystemMessages(), App.token);
+//        Requests.getSystemMessages(new GetSystemMessages(), App.userId);
         try{
             SharedPreferences sp = getSharedPreferences(MD5Utils.encode2hex(App.username), Context.MODE_PRIVATE);
             String engineeringStationString = sp.getString("engineeringStation", null);
@@ -264,11 +265,7 @@ public class App extends Application {
         }
     }
 
-    public void saveToken(String token) {
-        sharedPreferences.edit().putString("token", token).commit();
-    }
-
-    public void saveUsername(String username) {
-        sharedPreferences.edit().putString("username", username).commit();
+    public void saveUserId(String userId) {
+        sharedPreferences.edit().putString("userId", userId).commit();
     }
 }

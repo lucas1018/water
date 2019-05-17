@@ -33,7 +33,21 @@
             android:text="Navigation" />
 
 
+
+
     </LinearLayout>
+
+    <Button
+        android:id="@+id/button_map"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="baidu map" />
+
+    <Button
+        android:id="@+id/button_location"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="baidu location" />
 
 
 

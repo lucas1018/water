@@ -9,7 +9,9 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.SimpleAdapter;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
@@ -19,9 +21,11 @@ import com.zhy.adapter.abslistview.ViewHolder;
 import org.greenrobot.greendao.Property;
 import org.greenrobot.greendao.query.Query;
 
+import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import cn.zerone.water.App;
 import cn.zerone.water.R;
@@ -34,12 +38,17 @@ import cn.zerone.water.utils.TimeUtil;
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 
+
 /**
  * Created by zero on 2018/11/30.
  */
 
 public class SystemMessagesActivity extends Fragment {
     ListView listview = null;
+
+    private SimpleAdapter simp_adapter;
+    private List<Map<String, Object>>dataList;//SimpleAdapter的data
+
     List<SystemMessage> systemMessages = new ArrayList<>();
     private CommonAdapter<SystemMessage> listAdapter;
 
@@ -49,21 +58,23 @@ public class SystemMessagesActivity extends Fragment {
         return View.inflate(getActivity(),R.layout.activity_system_messages,null);
     }
 
-    @Override
-    public void onHiddenChanged(boolean hidden) {
-        super.onHiddenChanged(hidden);
-        if(!hidden){
-            initData();
-        }
-    }
+//    @Override
+//    public void onHiddenChanged(boolean hidden) {
+//        super.onHiddenChanged(hidden);
+//        if(!hidden){
+//            initData();
+//        }
+//    }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         listview = view.findViewById(R.id.system_message_listView);
         listAdapter = new CommonAdapter<SystemMessage>(getActivity(), R.layout.layout_system_message_listview_item, systemMessages) {
+        //listAdapter = new CommonAdapter<SystemMessage>(getActivity(), R.layout.notice_item, systemMessages) {
             @Override
             protected void convert(ViewHolder holder, SystemMessage item, int position) {
+                System.out.print("内容"+ item.getContent());
                 holder.setText(R.id.system_message_item_content, item.getContent());
                 holder.setText(R.id.system_message_item_createTime, TimeUtil.QQFormatTime(item.getCreateTime()));
                 holder.setText(R.id.system_message_item_level, item.getTitle());
@@ -73,23 +84,76 @@ public class SystemMessagesActivity extends Fragment {
         initData();
     }
 
+    private void initData() {
+        Requests.Notice_GetList(new Observer<JSONObject>() {
+            @Override
+            public void onSubscribe(Disposable d) {
+
+            }
+
+            @Override
+            public void onNext(JSONObject jsonObject) {
+                System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"+jsonObject);
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+
+            @Override
+            public void onComplete() {
+
+            }
+        });
+    }
+
+//    private void initData(){
+//        try{
+//            DaoMaster.DevOpenHelper devOpenHelper = new DaoMaster.DevOpenHelper(getActivity(), App.username);
+//            SQLiteDatabase db = devOpenHelper.getWritableDatabase();
+//            DaoMaster daoMaster = new DaoMaster(db);
+//            systemMessages.clear();
+//            systemMessages.addAll(daoMaster.newSession().getSystemMessageDao().queryBuilder().orderDesc(SystemMessageDao.Properties.CreateTime).build().list());
+//            listAdapter.notifyDataSetChanged();
+//        }catch (Exception e){
+//            e.printStackTrace();
+//        }
+
+
+
     @Override
     public void onStart() {
         super.onStart();
     }
 
-    private void initData() {
-        try{
-            DaoMaster.DevOpenHelper devOpenHelper = new DaoMaster.DevOpenHelper(getActivity(), App.username);
-            SQLiteDatabase db = devOpenHelper.getWritableDatabase();
-            DaoMaster daoMaster = new DaoMaster(db);
-            systemMessages.clear();
-            systemMessages.addAll(daoMaster.newSession().getSystemMessageDao().queryBuilder().orderDesc(SystemMessageDao.Properties.CreateTime).build().list());
-            listAdapter.notifyDataSetChanged();
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-    }
+//
+//            @Override
+//            public void onNext(JSONObject jsonObject) {
+////                String str = jsonObject.getString("Data");
+////                JSONObject json = JSONArray.parseArray(str).getJSONObject(0);
+//                System.out.println("==========="+ jsonObject);
+//
+//            }
+//
+//            @Override
+//            public void onError(Throwable e) {
+//
+//            }
+//
+//            @Override
+//            public  private void initData() {
+////        System.out.println("aaaaaaaaaaaaaa");
+////        Requests.Notice_GetList(new Observer<JSONObject>() {
+////            @Override
+////            public void onSubscribe(Disposable d) {
+////
+////            }
+//                void onComplete() {
+//
+//            }
+//        });
+
 
 
 }

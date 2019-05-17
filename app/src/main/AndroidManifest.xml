@@ -55,7 +55,10 @@
     <uses-permission android:name="android.permission.GET_TASKS" />
 
 
-    <!--百度导航-->
+
+    <!--百度-->
+    //读取系统信息，包含系统版本等信息，用作统计
+    <uses-permission android:name="com.android.launcher.permission.READ_SETTINGS" />
     <uses-permission android:name="android.permission.ACCESS_GPS" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
 
@@ -110,6 +113,8 @@
         <activity android:name=".activity.SystemUpdateActivity"    android:configChanges="keyboard|keyboardHidden|orientation|screenSize" />
         <activity android:name=".activity.MealActivity"    android:configChanges="keyboard|keyboardHidden|orientation|screenSize" />
         <activity android:name=".activity.MealTypeActivity"    android:configChanges="keyboard|keyboardHidden|orientation|screenSize" />
+        <activity android:name=".activity.NoticeActivity"    android:configChanges="keyboard|keyboardHidden|orientation|screenSize" />
+        <activity android:name=".activity.NewsWebActivity"    android:configChanges="keyboard|keyboardHidden|orientation|screenSize" />
         <service android:name="com.baidu.location.f" android:enabled="true" android:process=":remote">
             <intent-filter>
                 <action android:name="com.baidu.location.service_v2.2" >
@@ -130,16 +135,51 @@
             android:theme="@style/FullscreenTheme"></activity>
         <activity android:name="com.zxing.cameraapplication.CameraActivity"    android:configChanges="keyboard|keyboardHidden|orientation|screenSize"></activity>
 
+
         <!--百度导航-->
         <activity android:name=".activity.LiteActivity" />
         <activity android:name=".activity.DemoNaviSettingActivity" />
         <activity android:name=".activity.DemoMainActivity" />
-       <!--
+
+
+        <!--百度-->
+        <activity
+            android:name=".map.PoiSearchActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/demo_name_poi"
+            android:screenOrientation="portrait" >
+        </activity>
+
+        <activity
+            android:name=".map.MarkerClusterDemo"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/title_activity_marker_cluster_demo"
+            android:screenOrientation="portrait" >
+        </activity>
+
+        <activity
+            android:name=".map.LocationDemo"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/demo_name_location"
+            android:screenOrientation="portrait" >
+        </activity>
+
+        <activity
+            android:name=".map.BDNavigationActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/demo_name_nav"
+            android:screenOrientation="portrait" >
+        </activity>
+
+        <activity android:name=".activity.LiteActivity" />
+        <activity android:name=".activity.DemoNaviSettingActivity" />
+
         <activity
             android:name=".activity.DemoMainActivity"
             android:configChanges="orientation|screenSize|keyboard|keyboardHidden"
             android:label="@string/sdk_name" />
-        -->
+
+
         <activity
             android:name=".activity.DemoGuideActivity"
             android:configChanges="orientation|screenSize|keyboard|keyboardHidden"

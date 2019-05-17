@@ -1,6 +1,8 @@
 package cn.zerone.water.activity;
 
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -20,6 +22,7 @@ public class PhoneNumberModifiedActivity extends AppCompatActivity {
     private EditText inputPhone;
 
     private Button verificationCode;
+    private ImageView photo1, photo2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

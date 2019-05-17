@@ -1,11 +1,8 @@
 package cn.zerone.water.activity;
 
-import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Intent;
-import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -24,12 +21,18 @@ import android.widget.TextView;
 import android.widget.Toast;
 import com.alibaba.fastjson.JSONObject;
 import com.uuzuche.lib_zxing.activity.CodeUtils;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import cn.zerone.water.App;
 import cn.zerone.water.R;
 import cn.zerone.water.fragment.FriendsFragment;
 import cn.zerone.water.fragment.HomeFragment;
 import cn.zerone.water.fragment.JobListFragment;
+import cn.zerone.water.fragment.MasterArticleFragment;
 import cn.zerone.water.fragment.MyselfFragment;
+import cn.zerone.water.fragment.NoticeFragment;
 import cn.zerone.water.http.Requests;
 import cn.zerone.water.utils.BottomNavigationViewHelper;
 import io.reactivex.Observer;
@@ -38,24 +41,14 @@ import io.reactivex.disposables.Disposable;
 
 public class MainActivity extends AppCompatActivity {
     public static MainActivity activity;
-    Fragment[] fragments = new Fragment[]{new SystemMessagesActivity(), new JobListFragment(), new HomeFragment(),new FriendsFragment(),new MyselfFragment()};
-    /*{
-        Bundle args = new Bundle();
-        fragments[0].setArguments(args);
 
-         args = new Bundle();
-        fragments[3].setArguments(args);
+    List<String> mViewList = new ArrayList<String>();//顶部用于循环的布局集合
+    Fragment[] fragments = new Fragment[]{new NoticeFragment(),new JobListFragment(),new HomeFragment(),new FriendsFragment(),new MyselfFragment()};
+    //切换底部导航
 
-        args = new Bundle();
-        fragments[4].setArguments(args);
-
-        fragments[0].getArguments().putString("url","http://124.237.77.232:50180/CWeb/Home.aspx?token="+App.token);
-        fragments[3].getArguments().putString("url","http://124.237.77.232:50180/CWeb/JobList.aspx?token="+App.token);
-        fragments[4].getArguments().putString("url","http://124.237.77.232:50180/CWeb/My.aspx?token="+App.token);
-    }*/
-    public synchronized void changeTab(int index, String url){
+    public synchronized void changeTab(int index,String url){
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 5; ++i) {
             if(i == index){
                 transaction.show(fragments[i]);
             }else{
@@ -63,33 +56,6 @@ public class MainActivity extends AppCompatActivity {
             }
         }
         transaction.commit();
-       /* if(url!=null&&fragments[index] instanceof  WebFragment){
-            ((WebFragment) fragments[index]).changeUrl(url);
-            if(index==3){
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        navigation.setSelectedItemId( R.id.navigation_task);
-                    }
-                });
-            }else if(index==5){
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        navigation.setSelectedItemId( R.id.navigation_myself);
-                    }
-                });
-            }
-        }else if(url!=null&&index==2){
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    navigation.setSelectedItemId(R.id.navigation_friends);
-                }
-
-                ;
-            });
-        }*/
 
     }
     public void setNotifyReadView(final boolean isShow){
@@ -142,7 +108,7 @@ public class MainActivity extends AppCompatActivity {
                 case R.id.navigation_home:
                     changeTab(2,null);
                     return true;
-                case R.id.navigation_friends:
+                case R.id.navigation_broadcast:
                     setMsgReadView(false);
                     changeTab(3,null);
                     return true;
@@ -160,8 +126,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         ((App)getApplication()).mapInit();
-        ((App)getApplication()).tokenInit();
+        ((App)getApplication()).userInit();
         navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         BottomNavigationViewHelper.disableShiftMode(navigation);
@@ -172,7 +139,7 @@ public class MainActivity extends AppCompatActivity {
         transaction.add(R.id.fragment_container,fragments[3] );
         transaction.add(R.id.fragment_container,fragments[4] );
         transaction.commit();
-        changeTab(0,null);
+        changeTab(2,null);
 
         MainActivity.activity = this;
         BottomNavigationMenuView menuView  = (BottomNavigationMenuView) navigation.getChildAt(0);
@@ -187,12 +154,12 @@ public class MainActivity extends AppCompatActivity {
 
         if( App.sharedPreferences.getBoolean("isRead",false)){
             setNotifyReadView(true);
-        }else{
+        } else {
             setNotifyReadView(false);
         }
         if( App.sharedPreferences.getBoolean("isMsgRead",false)){
             setMsgReadView(true);
-        }else{
+        } else {
             setMsgReadView(false);
         }
     }
@@ -259,27 +226,27 @@ public class MainActivity extends AppCompatActivity {
                     }
                     if (bundle.getInt(CodeUtils.RESULT_TYPE) == CodeUtils.RESULT_SUCCESS) {
                         final String result = bundle.getString(CodeUtils.RESULT_STRING);
-                        Requests.scan(new Observer<JSONObject>() {
-                            @Override
-                            public void onSubscribe(Disposable d) {
-
-                            }
-
-                            @Override
-                            public void onNext(JSONObject jsonObject) {
-
-                            }
-
-                            @Override
-                            public void onError(Throwable e) {
-                                Toast.makeText(MainActivity.this, "解析上传失败结果:" + result, Toast.LENGTH_LONG).show();
-                            }
-
-                            @Override
-                            public void onComplete() {
-                                Toast.makeText(MainActivity.this, "解析结果:" + result, Toast.LENGTH_LONG).show();
-                            }
-                        },App.token,result);
+//                        Requests.scan(new Observer<JSONObject>() {
+//                            @Override
+//                            public void onSubscribe(Disposable d) {
+//
+//                            }
+//
+//                            @Override
+//                            public void onNext(JSONObject jsonObject) {
+//
+//                            }
+//
+//                            @Override
+//                            public void onError(Throwable e) {
+//                                Toast.makeText(MainActivity.this, "解析上传失败结果:" + result, Toast.LENGTH_LONG).show();
+//                            }
+//
+//                            @Override
+//                            public void onComplete() {
+//                                Toast.makeText(MainActivity.this, "解析结果:" + result, Toast.LENGTH_LONG).show();
+//                            }
+//                        },App.userId,result);
                     } else if (bundle.getInt(CodeUtils.RESULT_TYPE) == CodeUtils.RESULT_FAILED) {
                         Toast.makeText(MainActivity.this, "解析二维码失败", Toast.LENGTH_LONG).show();
                     }

@@ -1,8 +1,8 @@
 package cn.zerone.water.activity;
 
-import android.content.Intent;
-import android.content.SharedPreferences;
-import android.net.Uri;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -13,18 +13,15 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.JSON;
 
-import java.util.Map;
+import org.json.JSONObject;
 
 import cn.zerone.water.App;
 import cn.zerone.water.R;
-import cn.zerone.water.fragment.MyselfFragment;
 import cn.zerone.water.http.Requests;
-import cn.zerone.water.utils.MD5Utils;
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
-import okhttp3.Request;
 
 
 public class PasswordModifiedActivity extends AppCompatActivity {
@@ -66,6 +63,8 @@ public class PasswordModifiedActivity extends AppCompatActivity {
                 getEditString();
                 if (TextUtils.isEmpty(originalPsw)){
                     Toast.makeText(PasswordModifiedActivity.this,"请输入原始密码",Toast.LENGTH_SHORT).show();
+                }else if(!originalPsw.equals(App.pwd)) {
+                    Toast.makeText(PasswordModifiedActivity.this,"输入的旧密码和原密码不一致",Toast.LENGTH_SHORT).show();
                 }else if (TextUtils.isEmpty(newPsw)){
                     Toast.makeText(PasswordModifiedActivity.this,"请输入新密码",Toast.LENGTH_SHORT).show();
                 }else if (TextUtils.isEmpty(newPswAgain)){
@@ -83,16 +82,20 @@ public class PasswordModifiedActivity extends AppCompatActivity {
     }
 //    修改登录成功后保存在SharedPreferences中的密码
     private void modifyPsw(String p1, String p2, String p3) {
-        Integer id = (Integer) App.userId;
-        Requests.updatePWD(new Observer<String>() {
+        String id =  App.userId;
+        Requests.updatePWD(new Observer<com.alibaba.fastjson.JSONObject>() {
             @Override
             public void onSubscribe(Disposable d) {
 
             }
 
             @Override
-            public void onNext(String str) {
-                System.out.println("updatePWD" + str);
+            public void onNext(com.alibaba.fastjson.JSONObject jsonObject) {
+                String info = jsonObject.getString("Text");
+                if (info.equals("密码修改成功！")){
+                    Toast.makeText(PasswordModifiedActivity.this,"新密码设置成功",Toast.LENGTH_SHORT).show();
+                    finish();
+                }
             }
 
             @Override
@@ -102,10 +105,9 @@ public class PasswordModifiedActivity extends AppCompatActivity {
 
             @Override
             public void onComplete() {
-                Toast.makeText(PasswordModifiedActivity.this,"新密码设置成功",Toast.LENGTH_SHORT).show();
+
             }
         },id,p1,p2,p3);
-
     }
 
     //获取控件上的字符串

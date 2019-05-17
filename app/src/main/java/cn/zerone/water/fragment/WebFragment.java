@@ -137,7 +137,7 @@ public  class WebFragment extends Fragment {
                                 //flashWebView();
 
                             }
-                        },App.token,App.lastDBLocation.getLatitude(),App.lastDBLocation.getLongitude());
+                        },App.userId,App.lastDBLocation.getLatitude(),App.lastDBLocation.getLongitude());
                     }
                     break;
                 case "Sign_Out":
@@ -166,7 +166,7 @@ public  class WebFragment extends Fragment {
                                 //flashWebView();
 
                             }
-                        },App.token,App.lastDBLocation.getLatitude(),App.lastDBLocation.getLongitude());
+                        },App.userId,App.lastDBLocation.getLatitude(),App.lastDBLocation.getLongitude());
                     }                    break;
                 case "ScanBarCode":
                     Intent intent = new Intent(getActivity(), CaptureActivity.class);
@@ -197,7 +197,7 @@ public  class WebFragment extends Fragment {
                         if(jsonArray!=null){
                             url = jsonArray.getString(0);
                         }
-                        ((MainActivity)getActivity()).changeTab(3,App.baseUrl+url+"&token="+App.token);
+                        ((MainActivity)getActivity()).changeTab(3,App.baseUrl+url+"&userId="+App.userId);
                     }
                     break;
                 case "GoChat":
@@ -238,11 +238,10 @@ public  class WebFragment extends Fragment {
                         if(jsonArray!=null){
                             url = jsonArray.getString(0);
                         }
-                        ((MainActivity)getActivity()).changeTab(4,App.baseUrl+url+"&token="+App.token);
+                        ((MainActivity)getActivity()).changeTab(4,App.baseUrl+url+"&userId="+App.userId);
                     }
                     break;
                 case "LogOut":
-                    ((App) (getActivity().getApplication())).clearLoginToken();
                     System.exit(0);
                     break;
             }
@@ -262,7 +261,7 @@ public  class WebFragment extends Fragment {
                 if (bundle.getInt(CodeUtils.RESULT_TYPE) == CodeUtils.RESULT_SUCCESS) {
                     final String result = bundle.getString(CodeUtils.RESULT_STRING);
                     Intent intent = new Intent(getActivity(), WebActivity.class);
-                    intent.putExtra("url",App.baseUrl+"CWeb/GoodsInfo.aspx?token="+App.token+"&BarCode="+result);
+                    intent.putExtra("url",App.baseUrl+"CWeb/GoodsInfo.aspx?userId="+App.userId+"&BarCode="+result);
                     startActivityForResult(intent,999);
                 } else if (bundle.getInt(CodeUtils.RESULT_TYPE) == CodeUtils.RESULT_FAILED) {
                     Toast.makeText(getActivity(), "解析二维码失败", Toast.LENGTH_LONG).show();
@@ -271,48 +270,48 @@ public  class WebFragment extends Fragment {
         }else if(requestCode==400&&resultCode==101){
             String imagePath = data.getStringExtra("path");
             File file = new File(imagePath);
-            Requests.upload(new Observer<JSONObject>() {
-                @Override
-                public void onSubscribe(Disposable d) {
-
-                }
-
-                @Override
-                public void onNext(JSONObject jsonObject) {
-                    String url = jsonObject.getString("Url");
-                    Requests.updateuserinfo(new Observer<String>() {
-                        @Override
-                        public void onSubscribe(Disposable d) {
-
-                        }
-
-                        @Override
-                        public void onNext(String s) {
-                        }
-
-                        @Override
-                        public void onError(Throwable e) {
-                            Toast.makeText(getActivity(), "上传头像失败", Toast.LENGTH_LONG).show();
-                        }
-
-                        @Override
-                        public void onComplete() {
-                            //flashWebView();
-                            Toast.makeText(getActivity(), "上传头像成功", Toast.LENGTH_LONG).show();
-                        }
-                    },App.token,url);
-                }
-
-                @Override
-                public void onError(Throwable e) {
-                    Toast.makeText(getActivity(), "上传头像失败", Toast.LENGTH_LONG).show();
-                }
-
-                @Override
-                public void onComplete() {
-
-                }
-            },App.token,file);
+//            Requests.upload(new Observer<JSONObject>() {
+//                @Override
+//                public void onSubscribe(Disposable d) {
+//
+//                }
+//
+//                @Override
+//                public void onNext(JSONObject jsonObject) {
+//                    String url = jsonObject.getString("Url");
+//                    Requests.updateuserinfo(new Observer<String>() {
+//                        @Override
+//                        public void onSubscribe(Disposable d) {
+//
+//                        }
+//
+//                        @Override
+//                        public void onNext(String s) {
+//                        }
+//
+//                        @Override
+//                        public void onError(Throwable e) {
+//                            Toast.makeText(getActivity(), "上传头像失败", Toast.LENGTH_LONG).show();
+//                        }
+//
+//                        @Override
+//                        public void onComplete() {
+//                            //flashWebView();
+//                            Toast.makeText(getActivity(), "上传头像成功", Toast.LENGTH_LONG).show();
+//                        }
+//                    },App.userId,url);
+//                }
+//
+//                @Override
+//                public void onError(Throwable e) {
+//                    Toast.makeText(getActivity(), "上传头像失败", Toast.LENGTH_LONG).show();
+//                }
+//
+//                @Override
+//                public void onComplete() {
+//
+//                }
+//            },App.userId,file);
         }else if(requestCode==777){
             //flashWebView();
         }else if(requestCode==999){

@@ -10,8 +10,8 @@ import android.view.ViewGroup;
  * Created by zero on 2018/12/3.
  */
 
-public class HomeFragment extends WebFragment {
-    @Override
+public class HomeFragment extends MasterArticleFragment {
+
     public String title() {
         return  "首页";
     }

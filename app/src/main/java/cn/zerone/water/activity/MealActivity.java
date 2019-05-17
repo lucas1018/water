@@ -159,6 +159,7 @@ public class MealActivity extends AppCompatActivity {
             }
 
         });
+
     }
 
     private void getEditString() {
@@ -170,7 +171,7 @@ public class MealActivity extends AppCompatActivity {
 
     //    修改登录成功后保存在SharedPreferences中的密码
     private void addFeeForMeal(String meal_date, String meal_type, String meal_mount, String meal_remark) {
-        Integer uid = (Integer) App.userId;
+        String uid = App.userId;
         Requests.feesForMeals_SaveBLL(new Observer<String>() {
             @Override
             public void onSubscribe(Disposable d) {
@@ -192,6 +193,7 @@ public class MealActivity extends AppCompatActivity {
                 Toast.makeText(MealActivity.this,"工作餐添加成功", Toast.LENGTH_SHORT).show();
             }
         },uid, meal_date, meal_type, meal_mount, meal_remark);
+
     }
 
 }

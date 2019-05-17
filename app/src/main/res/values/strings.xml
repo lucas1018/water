@@ -4,6 +4,7 @@
     <string name="title_notify">通知</string>
     <string name="title_task">任务</string>
     <string name="title_friends">交流</string>
+    <string name="live_broadcast">直播</string>
     <string name="title_myself">我的</string>
     <string name="title_password_modify">修改密码</string>
     <string name="title_iphone_number_modify">修改手机号码</string>
@@ -13,6 +14,7 @@
     <string name="prompt_password">密码</string>
     <string name="action_sign_in">登录</string>
     <string name="action_sign_in_short">登录</string>
+    <string name="action_sign_out">退出</string>
     <string name="error_incorrect_password">账号或密码错误</string>
     <string name="account_field_required">账号不能为空</string>
     <string name="password_field_required">密码不能为空</string>
@@ -24,6 +26,14 @@
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
 
+    <string name="demo_name_location">定位图层展示</string>
+    <string name="demo_title_cluster">点聚合功能--MarkerClusterDemo</string>
+    <string name="title_activity_marker_cluster_demo">点聚合功能</string>
     <string name="title_activity_full_image">FullImageActivity</string>
+    <string name="title_markercluster_desc">\t\t缩小地图，以显示标注物的聚合点 \n
+    \t\t放大地图，显示Marker点 \n</string>
+
+    <string name="demo_name_poi">POI搜索功能</string>
+    <string name="demo_name_nav">导航功能</string>
 
 </resources>
