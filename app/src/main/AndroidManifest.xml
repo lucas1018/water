@@ -103,7 +103,9 @@
         <activity
             android:name="com.zxing.cameraapplication.CameraActivity"
             android:configChanges="keyboard|keyboardHidden|orientation|screenSize" />
-        <activity android:name=".activity.CalenderActivity"></activity>
+        <activity android:name=".activity.CalenderActivity" />
+        <activity android:name=".activity.ConstructionLog" />
+        <activity android:name=".activity.CalenderContentActivity" />
     </application>
 
 </manifest>

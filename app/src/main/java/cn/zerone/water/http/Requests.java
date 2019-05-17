@@ -16,6 +16,7 @@ import cn.zerone.water.model.EngineeringStation;
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 
+import static android.provider.ContactsContract.CommonDataKinds.Identity.NAMESPACE;
 import static cn.zerone.water.http.Https.baseJSONArray;
 import static cn.zerone.water.http.Https.baseJSONObject;
 import static cn.zerone.water.http.Https.baseString;
@@ -156,4 +157,5 @@ public class Requests {
         jsonObject.put("videoList", videoList);
         baseString(observer, "uploadjobstepinfo", jsonObject);
     }
+
 }

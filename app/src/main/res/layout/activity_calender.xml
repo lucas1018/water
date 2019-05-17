@@ -8,8 +8,7 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        >
+        android:layout_height="wrap_content">
 
 
         <LinearLayout
@@ -50,15 +49,47 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-                app:mcv_selectionColor="#00F"
-                app:mcv_showOtherDates="all" />
+                app:mcv_selectionColor="#ED7071"
+                app:mcv_showOtherDates="all"
+                />
 
-            <TextView
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:text="工作内容"
-                android:textSize="16sp" />
+                android:background="#F2F1F1">
+
+                <View
+                    android:id="@+id/view_color"
+                    android:layout_width="5dp"
+                    android:layout_height="20dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerInParent="true"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="#89C0DD" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_marginLeft="5dp"
+                    android:layout_toRightOf="@id/view_color"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:text="工作内容"
+                    android:textSize="16sp" />
+
+                <ImageView
+                    android:id="@+id/iv_edit_log"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerInParent="true"
+                    android:layout_marginRight="30dp"
+                    android:src="@drawable/edit_log" />
+            </RelativeLayout>
 
             <EditText
                 android:id="@+id/edit"
@@ -66,26 +97,13 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:layout_marginTop="10dp"
-                android:background="@drawable/edit_sytle"
+                android:background="#ffffff"
                 android:gravity="left|top"
                 android:hint="请输入工作日志"
                 android:minLines="5"
                 android:padding="5dp"
                 android:textColor="#C7C7C7"
                 android:textColorHint="#C7C7C7"
-                android:textSize="16sp" />
-
-            <Button
-                android:id="@+id/btn_commit"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginRight="20dp"
-                android:layout_marginBottom="10dp"
-                android:background="@drawable/button_sytle"
-                android:text="提交"
-                android:textColor="#fff"
                 android:textSize="16sp" />
         </LinearLayout>
     </ScrollView>
