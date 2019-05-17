@@ -12,10 +12,20 @@ import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
 import com.baidu.mapapi.map.MyLocationConfiguration.LocationMode;
 
+/**
+ * 首先在主线程调用initLocationOption(getApplicationContext())
+ * 然后调用GetLat()，GetLng()，GetLocDesc()，GetAddrStr()
+ * 获取相应的latitude，longitude，位置描述信息，详细地址信息
+ *
+ **/
+
+
 public class LocationUtil {
 
     public double mCurrentLat;
     public double mCurrentLng;
+    public String mLocationDescribe ;
+    public String mAddr;
 
     /**
      * 初始化定位参数配置
@@ -83,6 +93,11 @@ public class LocationUtil {
             mCurrentLng = location.getLongitude();
             //获取定位精度，默认值为0.0f
             float radius = location.getRadius();
+            //获取位置描述信息
+            mLocationDescribe = location.getLocationDescribe();
+            //获取详细地址信息
+            mAddr = location.getAddrStr();
+
             //获取经纬度坐标类型，以LocationClientOption中设置过的坐标类型为准
             String coorType = location.getCoorType();
             //获取定位类型、定位错误返回码，具体信息可参照类参考中BDLocation类中的说明
@@ -91,12 +106,21 @@ public class LocationUtil {
         }
     }
 
+    //获取latitude
     public double GetLat() {
         return mCurrentLat;
     }
-
+    //获取longitude
     public double GetLng() {
         return mCurrentLng;
+    }
+    //获取位置描述信息
+    public String GetLocDesc(){
+        return mLocationDescribe;
+    }
+    //获取详细地址信息
+    public String GetAddrStr(){
+        return mAddr;
     }
 
 }
