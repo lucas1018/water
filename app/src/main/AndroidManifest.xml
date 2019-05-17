@@ -99,6 +99,7 @@
         <activity android:name=".activity.ClockInCarActivity"    android:configChanges="keyboard|keyboardHidden|orientation|screenSize" />
         <activity android:name=".activity.ClockInFinishActivity"    android:configChanges="keyboard|keyboardHidden|orientation|screenSize" />
         <activity android:name=".activity.ClockInHomeActivity"    android:configChanges="keyboard|keyboardHidden|orientation|screenSize" />
+        <activity android:name=".activity.ClockInWorkActivity"    android:configChanges="keyboard|keyboardHidden|orientation|screenSize" />
         <service android:name="com.baidu.location.f" android:enabled="true" android:process=":remote">
             <intent-filter>
                 <action android:name="com.baidu.location.service_v2.2" >

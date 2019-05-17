@@ -162,6 +162,5 @@ public class Requests {
         jsonObject.put("userId", userId);
         baseJSONObject(observer,"getUserInfo",jsonObject);
     }
-
-
+    
 }

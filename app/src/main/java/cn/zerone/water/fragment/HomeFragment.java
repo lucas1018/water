@@ -13,6 +13,7 @@ import cn.zerone.water.R;
 import cn.zerone.water.activity.ClockInCarActivity;
 import cn.zerone.water.activity.ClockInFinishActivity;
 import cn.zerone.water.activity.ClockInHomeActivity;
+import cn.zerone.water.activity.ClockInWorkActivity;
 
 /**
  * Created by zero on 2018/12/3.
@@ -42,6 +43,13 @@ public class HomeFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getContext(), ClockInHomeActivity.class));
+            }
+        });
+        Button clock_btn = (Button) view.findViewById(R.id.clock_button);
+        clock_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getContext(), ClockInWorkActivity.class));
             }
         });
         return view;
