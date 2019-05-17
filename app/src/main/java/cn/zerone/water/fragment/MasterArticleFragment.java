@@ -14,10 +14,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-<<<<<<< HEAD
 import android.widget.Button;
-=======
->>>>>>> 99f5ef2463b90831de39affbc9fc1afa61d6d576
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -32,14 +29,12 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
-<<<<<<< HEAD
 import cn.zerone.water.activity.ClockInCarActivity;
 import cn.zerone.water.activity.ClockInFinishActivity;
 import cn.zerone.water.activity.ClockInHomeActivity;
 import cn.zerone.water.activity.ClockInWorkActivity;
-=======
+
 import cn.zerone.water.activity.LiteActivity;
->>>>>>> 99f5ef2463b90831de39affbc9fc1afa61d6d576
 import cn.zerone.water.activity.NewsWebActivity;
 import cn.zerone.water.activity.NoticeActivity;
 import cn.zerone.water.map.PoiSearchActivity;
