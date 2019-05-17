@@ -114,4 +114,6 @@ dependencies {
     implementation files('libs/intellij_annotations.jar')
     implementation files('libs/javapoet-1.9.0.jar')
     implementation files('libs/protobuf-java-2.3.0-micro.jar')
+    implementation files('libs/BaiduLBS_Android.jar')
+
 }

@@ -26,12 +26,14 @@
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
 
-    <item name="bn1" type="id" />
-    <item name="bn2" type="id" />
-    <item name="bn3" type="id" />
-    <item name="bn4" type="id" />
-    <item name="bn5" type="id" />
-
+    <string name="demo_name_location">定位图层展示</string>
+    <string name="demo_title_cluster">点聚合功能--MarkerClusterDemo</string>
+    <string name="title_activity_marker_cluster_demo">点聚合功能</string>
     <string name="title_activity_full_image">FullImageActivity</string>
+    <string name="title_markercluster_desc">\t\t缩小地图，以显示标注物的聚合点 \n
+    \t\t放大地图，显示Marker点 \n</string>
+
+    <string name="demo_name_poi">POI搜索功能</string>
+    <string name="demo_name_nav">导航功能</string>
 
 </resources>

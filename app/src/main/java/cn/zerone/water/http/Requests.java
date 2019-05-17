@@ -227,6 +227,7 @@ public class Requests {
         request.addProperty("Remark", meal_remark);
         baseString(observer, request);
     }
+<<<<<<< HEAD
 
     public static void ClockIn_SaveBLL(Observer<String> observer, String id, String add_time, DecimalFormat latitude, DecimalFormat longitude, Integer data_type, String picture,String address ) {
         SoapObject request = new SoapObject(NAMESPACE, "FeesForMeals_SaveBLL");
@@ -243,5 +244,10 @@ public class Requests {
     public static void  Notice_GetList(Observer<JSONObject> observer){
         SoapObject request = new SoapObject(NAMESPACE, "Notice_GetList");
         baseJSONObject(observer, request);
+=======
+    public  static void Notice_GetList(Observer<JSONArray> observer) {
+        RequestBody requestBody = new FormBody.Builder().build();
+        baseJSONArray(observer, "Notice_GetList", requestBody);
+>>>>>>> 99f5ef2463b90831de39affbc9fc1afa61d6d576
     }
 }

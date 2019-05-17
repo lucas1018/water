@@ -14,7 +14,10 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+<<<<<<< HEAD
 import android.widget.Button;
+=======
+>>>>>>> 99f5ef2463b90831de39affbc9fc1afa61d6d576
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -29,12 +32,17 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
+<<<<<<< HEAD
 import cn.zerone.water.activity.ClockInCarActivity;
 import cn.zerone.water.activity.ClockInFinishActivity;
 import cn.zerone.water.activity.ClockInHomeActivity;
 import cn.zerone.water.activity.ClockInWorkActivity;
+=======
+import cn.zerone.water.activity.LiteActivity;
+>>>>>>> 99f5ef2463b90831de39affbc9fc1afa61d6d576
 import cn.zerone.water.activity.NewsWebActivity;
 import cn.zerone.water.activity.NoticeActivity;
+import cn.zerone.water.map.PoiSearchActivity;
 import cn.zerone.water.model.HeaderAdapter;
 import cn.zerone.water.model.ItemArticle;
 import cn.zerone.water.R;
@@ -54,7 +62,7 @@ public class MasterArticleFragment extends Fragment {
     private String mParam;
     //获取 fragment 依赖的 Activity，方便使用 Context
     private Activity mAct;
-    private int[] ids = new int[]{R.id.bn1,R.id.bn2,R.id.bn3,R.id.bn4};
+    //private int[] ids = new int[]{R.id.bn1,R.id.bn2,R.id.bn3,R.id.bn4};
 
     //设置当前 第几个图片 被选中
     private int autoCurrIndex = 0;
@@ -62,6 +70,8 @@ public class MasterArticleFragment extends Fragment {
     private ImageView[] mBottomImages;//底部只是当前页面的小圆点
 
     private Timer timer = new Timer(); //为了方便取消定时轮播，将 Timer 设为全局
+
+    private ImageButton mButNavi = null;
 
     //定时轮播图片，需要在主线程里面修改 UI
     private Handler mHandler = new Handler(){
@@ -136,6 +146,17 @@ public class MasterArticleFragment extends Fragment {
         title = view.findViewById(R.id.title);
         title.setGravity(Gravity.CENTER);
         title.setText(title());
+
+        mButNavi = view.findViewById(R.id.imageButton10);
+        mButNavi.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), PoiSearchActivity.class);
+                getContext().startActivity(intent);
+            }
+
+        });
+
         return view;
     }
     public String title(){
