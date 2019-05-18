@@ -26,8 +26,6 @@ import io.reactivex.disposables.Disposable;
 
 public class PasswordModifiedActivity extends AppCompatActivity {
 
-    private TextView tv_main_title;
-    private TextView tv_back;
     private EditText et_original_psw;
     private EditText et_new_psw;
     private EditText et_new_psw_again;

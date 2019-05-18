@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 
+import org.greenrobot.greendao.annotation.Index;
 import org.ksoap2.serialization.SoapObject;
 import org.ksoap2.serialization.SoapSerializationEnvelope;
 import org.ksoap2.transport.HttpTransportSE;
@@ -120,6 +121,7 @@ public class HttpUtil {
             @Override
             public void subscribe(@NonNull ObservableEmitter<T> e) throws Exception {
                 Response response = post(cmd, requestBody);
+                System.out.println("response" + response);
                 if(response!=null && response.code()==200){
                     String json = response.body().string();
                     System.out.println("baseJSONObject:"+json);
@@ -169,12 +171,14 @@ public class HttpUtil {
         }
         SoapObject object = (SoapObject) envelope.bodyIn;
         String result =  object.getProperty(0).toString();
-        return result;
+        String result1 =  result.substring(result.indexOf("{"));
+        return result1;
     }
 
     //后增加的业务调用
     public static Response post(String cmd, RequestBody requestBody){
         String url = ADVANCED_URL + cmd;//实际url
+        System.out.println("1111111" + url);
         OkHttpClient okHttpClient = new OkHttpClient();
         try {
             Request request = new Request.Builder()
