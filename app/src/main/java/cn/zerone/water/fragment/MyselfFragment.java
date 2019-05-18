@@ -85,7 +85,6 @@ public class MyselfFragment extends Fragment {
                 App.username = username;
                 userName.setText(username);
                 String imgUrl = json.getString("Photo");
-                System.out.println("============");
                 ImageUtil imageUtil = ImageUtil.getIntance();
                 Bitmap temp_bitmap = imageUtil.getBitMBitmap(imgUrl);
                 Bitmap bitmap = imageUtil.comp(temp_bitmap);
