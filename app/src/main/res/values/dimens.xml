@@ -13,4 +13,9 @@
     <dimen name="badge_width_padding">5dp</dimen>
     <dimen name="badge_text_size">12dp</dimen>
     <dimen name="badge_top_margin">5dp</dimen>
+
+    <dimen name="during_setting_btn_height">30dp</dimen>
+    <dimen name="during_setting_btn_bottom_line_margin">17dp</dimen>
+    <dimen name="during_setting_btn_title_bottom_margin">16dp</dimen>
+    <dimen name="during_setting_btn_title_top_margin">12dp</dimen>
 </resources>

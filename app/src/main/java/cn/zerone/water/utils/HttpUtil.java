@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 
+import org.greenrobot.greendao.annotation.Index;
 import org.ksoap2.serialization.SoapObject;
 import org.ksoap2.serialization.SoapSerializationEnvelope;
 import org.ksoap2.transport.HttpTransportSE;
@@ -39,7 +40,7 @@ public class HttpUtil {
                 Response response = post(cmd, requestBody);
                 if(response.code() == 200){
                     String json = response.body().string();
-                    System.out.println("baseJSONArray:"+json);
+                    System.out.println("ttttttttttttt:"+json);
                     e.onNext(JSON.parseArray(json));
                     e.onComplete();
                 }else{
@@ -82,7 +83,7 @@ public class HttpUtil {
                 int code = response.code();
                 if(code == 200){
                     String json = response.body().string();
-                    System.out.println("baseString:"+json);
+                    System.out.println("ttttttttttt:"+json);
                     e.onNext(json);
                     e.onComplete();
                 }else{
@@ -120,9 +121,10 @@ public class HttpUtil {
             @Override
             public void subscribe(@NonNull ObservableEmitter<T> e) throws Exception {
                 Response response = post(cmd, requestBody);
+                System.out.println("response" + response);
                 if(response!=null && response.code()==200){
                     String json = response.body().string();
-                    System.out.println("baseJSONObject:"+json);
+                    System.out.println("ttttttttttt:"+json);
                     e.onNext((T) JSON.parseObject(json));
                     e.onComplete();
                 }else{
@@ -137,12 +139,10 @@ public class HttpUtil {
     }
 
     public static <T>  void baseJSONObject(final Observer<JSONObject> observer, final SoapObject request){
-        System.out.println("tttttttttttt" + request);
         Observable<T> oble = Observable.create(new ObservableOnSubscribe<T>() {
             @Override
             public void subscribe(@NonNull ObservableEmitter<T> e) throws Exception {
                 String response = post(request);
-
                 if(response != null){
                     System.out.println("baseJSONObject:" + response);
                     e.onNext((T) JSON.parseObject(response));
@@ -170,12 +170,14 @@ public class HttpUtil {
         }
         SoapObject object = (SoapObject) envelope.bodyIn;
         String result =  object.getProperty(0).toString();
-        return result;
+        String result1 =  result.substring(result.indexOf("{"));
+        return result1;
     }
 
     //后增加的业务调用
     public static Response post(String cmd, RequestBody requestBody){
         String url = ADVANCED_URL + cmd;//实际url
+        System.out.println("1111111" + url);
         OkHttpClient okHttpClient = new OkHttpClient();
         try {
             Request request = new Request.Builder()

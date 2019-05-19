@@ -84,8 +84,4 @@
         android:layout_gravity="center"
         android:text="@string/action_sign_out" />
 
-
-
-
-
 </LinearLayout>

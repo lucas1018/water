@@ -85,7 +85,6 @@ public class MyselfFragment extends Fragment {
                 App.username = username;
                 userName.setText(username);
                 String imgUrl = json.getString("Photo");
-                System.out.println("============");
                 ImageUtil imageUtil = ImageUtil.getIntance();
                 Bitmap temp_bitmap = imageUtil.getBitMBitmap(imgUrl);
                 Bitmap bitmap = imageUtil.comp(temp_bitmap);
@@ -110,7 +109,7 @@ public class MyselfFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        listView.setAdapter(new MySelfFragmentAdapter(getContext(),R.layout.myitem,myItemList));
+        listView.setAdapter(new MySelfFragmentAdapter(getContext(),R.layout.myitem, myItemList));
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
