@@ -240,9 +240,9 @@ public class Requests {
         baseString(observer, request);
     }
 
+    //调用消息列表接口
     public  static void Notice_GetList(Observer<JSONArray> observer) {
         RequestBody requestBody = new FormBody.Builder().build();
         baseJSONArray(observer, "Notice_GetList", requestBody);
-
     }
 }

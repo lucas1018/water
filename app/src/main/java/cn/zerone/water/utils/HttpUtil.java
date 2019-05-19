@@ -39,7 +39,7 @@ public class HttpUtil {
                 Response response = post(cmd, requestBody);
                 if(response.code() == 200){
                     String json = response.body().string();
-                    System.out.println("baseJSONArray:"+json);
+                    System.out.println("ttttttttttttt:"+json);
                     e.onNext(JSON.parseArray(json));
                     e.onComplete();
                 }else{
@@ -82,7 +82,7 @@ public class HttpUtil {
                 int code = response.code();
                 if(code == 200){
                     String json = response.body().string();
-                    System.out.println("baseString:"+json);
+                    System.out.println("ttttttttttt:"+json);
                     e.onNext(json);
                     e.onComplete();
                 }else{
@@ -122,6 +122,7 @@ public class HttpUtil {
                 Response response = post(cmd, requestBody);
                 if(response!=null && response.code()==200){
                     String json = response.body().string();
+                    System.out.println("ttttttttttt:"+json);
                     e.onNext((T) JSON.parseObject(json));
                     e.onComplete();
                 }else{
@@ -136,12 +137,10 @@ public class HttpUtil {
     }
 
     public static <T>  void baseJSONObject(final Observer<JSONObject> observer, final SoapObject request){
-        System.out.println("tttttttttttt" + request);
         Observable<T> oble = Observable.create(new ObservableOnSubscribe<T>() {
             @Override
             public void subscribe(@NonNull ObservableEmitter<T> e) throws Exception {
                 String response = post(request);
-
                 if(response != null){
                     System.out.println("baseJSONObject:" + response);
                     e.onNext((T) JSON.parseObject(response));

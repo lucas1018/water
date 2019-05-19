@@ -27,18 +27,17 @@ public class MySelfFragmentAdapter extends ArrayAdapter<MyItem>{
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-        MyItem myItem=getItem(position);
+        MyItem myItem = getItem(position);
         View view;
         ViewHolder viewHolder;
-        if (convertView==null){
+        if (convertView == null){
             view=LayoutInflater.from(getContext()).inflate(resourceId,parent,false);
-            viewHolder=new ViewHolder();
-            viewHolder.itemIcon=view.findViewById(R.id.myitem_icon);
-            viewHolder.itemLab=view.findViewById(R.id.myitem_lab);
-            viewHolder.itemGo=view.findViewById(R.id.myitem_go);
+            viewHolder = new ViewHolder();
+            viewHolder.itemIcon = view.findViewById(R.id.myitem_icon);
+            viewHolder.itemLab = view.findViewById(R.id.myitem_lab);
+            viewHolder.itemGo = view.findViewById(R.id.myitem_go);
             view.setTag(viewHolder);
-
-        }else {
+        } else {
             view=convertView;
             viewHolder= (ViewHolder) view.getTag();
         }
@@ -48,9 +47,8 @@ public class MySelfFragmentAdapter extends ArrayAdapter<MyItem>{
     }
     class ViewHolder{
 
-        ImageView itemIcon;
-        TextView itemLab;
-        ImageView itemGo;
-
+        public ImageView itemIcon;
+        public TextView itemLab;
+        public ImageView itemGo;
     }
 }
