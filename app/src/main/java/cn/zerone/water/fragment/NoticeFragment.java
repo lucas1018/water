@@ -13,12 +13,11 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 
-import java.util.AbstractList;
 import java.util.ArrayList;
-import java.util.HashMap;
+
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
+
 
 import cn.zerone.water.R;
 import cn.zerone.water.activity.NoticeActivity;
@@ -69,7 +68,6 @@ public class NoticeFragment extends Fragment {
             @Override
             public void onNext(JSONArray objects) {
                 for(int i = 0; i<objects.size();i++){
-
                     JSONObject json1 = new JSONObject();
                     //Map<String, Object> map=new HashMap<String, Object>();
                     JSONObject   jsonObject  =  objects.getJSONObject(i) ;
@@ -82,11 +80,8 @@ public class NoticeFragment extends Fragment {
                     String Type = jsonObject.getString("DataType");
                     json1.put("DataType",Type);
                     list.add(json1);
-
                 }
-
             }
-
             @Override
             public void onError(Throwable e) {
 

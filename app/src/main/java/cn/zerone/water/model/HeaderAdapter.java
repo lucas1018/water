@@ -3,6 +3,7 @@ package cn.zerone.water.model;
 import android.app.Activity;
 import android.net.Uri;
 import android.support.v4.view.PagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,7 +37,7 @@ public class HeaderAdapter extends PagerAdapter {
         }
     }
     @Override
-    public Object instantiateItem(ViewGroup container, int position) {
+    public Object instantiateItem(ViewGroup container, final int position) {
         container.addView(images.get(position));
         return images.get(position);
     }

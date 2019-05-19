@@ -5,7 +5,6 @@ public class ItemArticle {
     private int NewsId;
     // 新闻里的图片 url
     private String imageUrl;
-    //private String imageUries;
 
     public ItemArticle(int index, String imageUrl) {
         this.NewsId = index;
@@ -27,13 +26,4 @@ public class ItemArticle {
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
     }
-//    public String getImageUries() {
-//        return imageUries;
-//    }
-//
-//    public void setImageUries(String imageUries) {
-//        this.imageUrl = imageUries;
-//    }
-
-
 }

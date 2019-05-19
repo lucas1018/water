@@ -42,7 +42,7 @@ import com.baidu.mapapi.SDKInitializer;
  * Created by zero on 2018/11/29.
  */
 
-public class App extends Application {
+public class App extends Application  {
     public static String username = null;
     public static String userId = null;
     public static String pwd = null;

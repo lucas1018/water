@@ -3,31 +3,33 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:background="#008aca">
+
         <ImageView
+            android:id="@+id/homeback"
             android:layout_width="20dp"
             android:layout_height="20dp"
-            android:id="@+id/homeback"
-            android:src="@drawable/back"
-            android:focusable="true"
-            android:clickable="true"
-            android:layout_centerVertical="true"
             android:layout_alignParentLeft="true"
-            android:layout_marginLeft="10dp"/>
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:src="@drawable/back" />
 
         <TextView
             android:id="@+id/title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="18dp"
             android:layout_centerInParent="true"
             android:layout_centerVertical="true"
-            android:textStyle="bold"
+            android:text="新闻内容"
             android:textColor="#fff"
-            android:text="新闻内容" />
+            android:textSize="18dp"
+            android:textStyle="bold" />
     </RelativeLayout>
     <WebView
         android:id="@+id/news_web"

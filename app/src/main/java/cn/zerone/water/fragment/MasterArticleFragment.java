@@ -3,21 +3,28 @@ package cn.zerone.water.fragment;
 import android.app.Activity;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewConfigurationCompat;
 import android.support.v4.view.ViewPager;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewConfiguration;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -28,18 +35,20 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import cn.zerone.water.activity.LiteActivity;
 import cn.zerone.water.activity.NewsWebActivity;
 import cn.zerone.water.activity.NoticeActivity;
+import cn.zerone.water.http.Requests;
 import cn.zerone.water.map.PoiSearchActivity;
 import cn.zerone.water.model.HeaderAdapter;
 import cn.zerone.water.model.ItemArticle;
 import cn.zerone.water.R;
+import io.reactivex.Observer;
+import io.reactivex.disposables.Disposable;
 
 
 public class MasterArticleFragment extends Fragment {
     private static final String ARTICLE_LATEST_PARAM = "param";
-
+    final List<ItemArticle> articles = new ArrayList<ItemArticle>();
     private static final int UPTATE_VIEWPAGER = 0;
     //轮播的最热新闻图片
     @InjectView(R.id.vp_hottest)
@@ -107,6 +116,7 @@ public class MasterArticleFragment extends Fragment {
         title.setGravity(Gravity.CENTER);
         title.setText(title());
 
+
         mButNavi = view.findViewById(R.id.imageButton10);
         mButNavi.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -138,6 +148,7 @@ public class MasterArticleFragment extends Fragment {
 
     private void setUpViewPager(final List<ItemArticle> headerArticles) {
         final HeaderAdapter imageAdapter = new HeaderAdapter(mAct, headerArticles);
+
         vpHottest.setAdapter(imageAdapter);
 
         //创建底部指示位置的导航栏
@@ -152,36 +163,53 @@ public class MasterArticleFragment extends Fragment {
             } else {
                 imageView.setBackgroundResource(R.mipmap.ellipse);
             }
-
             mBottomImages[i] = imageView;
             //把指示作用的原点图片加入底部的视图中
             llHottestIndicator.addView(mBottomImages[i]);
-            imageView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                   Intent intent = null;
-                   Bundle bundle = null;
-                   switch (view.getId()){
-                        case 2131296302:
-                            intent = new Intent(getContext(),NewsWebActivity.class);
-                            bundle = new Bundle();
-                            bundle.putString("url","https://k.sinaimg.cn/n/news/transform/200/w600h400/20190516/8605-hwzkfpu5316833.jpg/w500h333l80bb4.jpg");
-                            intent.putExtras(bundle);
-                            startActivity(intent);
-                            break;
-                        case 2:
-
-                            break;
-                        case 3:
-
-                            break;
-                        case 4:
-                    }
-
-                }
-            });
 
         }
+
+
+        vpHottest.setOnTouchListener(new View.OnTouchListener() {
+            float mTouchSlop = ViewConfiguration.get(getContext()).getScaledTouchSlop();
+            int touchFlag = 0;
+            float x = 0, y = 0;
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                switch (event.getAction()){
+                    case MotionEvent.ACTION_DOWN:
+                        touchFlag = 0;
+                        x = event.getX();
+                        y = event.getY();
+                        break;
+
+                    case MotionEvent.ACTION_MOVE:
+                        float xDiff = Math.abs(event.getX() - x);
+                        float yDiff = Math.abs(event.getY() - y);
+                        if (xDiff < mTouchSlop && xDiff >= yDiff)
+                            touchFlag = 0;
+                        else
+                            touchFlag = -1;
+                        break;
+
+                    case MotionEvent.ACTION_UP:
+                        if (touchFlag == 0) {
+                            Intent intent = new Intent(mAct,NewsWebActivity.class);
+                            Bundle bundle = new Bundle();
+                            bundle.putString("url", "http://www.chinanews.com/tp/hd2011/2019/05-18/883050.shtml");
+                            int currentItem = vpHottest.getCurrentItem();
+                            //intent.putExtra("story_id", headerArticles.get(currentItem).getNewsId());
+                            intent.putExtra("imageUrl",headerArticles.get(currentItem).getImageUrl());
+                            startActivity(intent);
+
+                        }
+                        break;
+
+                }
+
+                return false;
+            }
+        });
 
         vpHottest.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             //图片左右滑动时候，将当前页的圆点图片设为选中状态
@@ -229,16 +257,39 @@ public class MasterArticleFragment extends Fragment {
     class ImageTask extends AsyncTask<String, Void, List<ItemArticle>> {
         @Override
         protected List<ItemArticle> doInBackground(String... params) {
-            List<ItemArticle> articles = new ArrayList<ItemArticle>();
-            articles.add(
-                    new ItemArticle(1, "https://k.sinaimg.cn/n/news/transform/200/w600h400/20190516/8605-hwzkfpu5316833.jpg/w500h333l80bb4.jpg"));
-            articles.add(
-                    new ItemArticle(2, "https://k.sinaimg.cn/n/news/transform/200/w600h400/20190516/8605-hwzkfpu5316833.jpg/w500h333l80bb4.jpg"));
-            articles.add(
-                    new ItemArticle(3, "https://k.sinaimg.cn/n/news/transform/200/w600h400/20190516/8605-hwzkfpu5316833.jpg/w500h333l80bb4.jpg"));
-            articles.add(
-                    new ItemArticle(4, "https://k.sinaimg.cn/n/news/transform/200/w600h400/20190516/8605-hwzkfpu5316833.jpg/w500h333l80bb4.jpg"));
+
+            Requests.Notice_GetList(new Observer<JSONArray>() {
+             @Override
+             public void onSubscribe(Disposable d) {
+                 }
+
+              @Override
+              public void onNext(JSONArray objects) {
+                  for(int i = 0; i<objects.size();i++){
+                      JSONObject json1 = new JSONObject();
+
+                      JSONObject   jsonObject  =  objects.getJSONObject(i) ;
+                      int ID = jsonObject.getInteger("ID");
+
+                      String href = jsonObject.getString("Href");
+                      articles.add(
+                              new ItemArticle(ID,href));
+
+                 }
+                 }
+
+                @Override
+                public void onError(Throwable e) {
+
+                }
+
+                @Override
+                public void onComplete() {
+                }
+
+                });
             return articles;
+
         }
 
         @Override
@@ -250,3 +301,4 @@ public class MasterArticleFragment extends Fragment {
         }
     }
 }
+

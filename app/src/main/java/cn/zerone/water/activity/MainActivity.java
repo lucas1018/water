@@ -45,12 +45,13 @@ public class MainActivity extends AppCompatActivity {
     List<String> mViewList = new ArrayList<String>();//顶部用于循环的布局集合
     Fragment[] fragments = new Fragment[]{new NoticeFragment(),new JobListFragment(),new HomeFragment(),new FriendsFragment(),new MyselfFragment()};
     //切换底部导航
-
     public synchronized void changeTab(int index,String url){
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         for (int i = 0; i < 5; ++i) {
             if(i == index){
+                System.out.println("aaaaaaaaaaaaa1" + fragments[i]);
                 transaction.show(fragments[i]);
+                System.out.println("aaaaaaaaaaaaaaa2" + fragments[2]);
             }else{
                 transaction.hide(fragments[i]);
             }

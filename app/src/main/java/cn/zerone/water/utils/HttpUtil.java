@@ -175,6 +175,7 @@ public class HttpUtil {
     //后增加的业务调用
     public static Response post(String cmd, RequestBody requestBody){
         String url = ADVANCED_URL + cmd;//实际url
+        System.out.println("lllllllllllllll"+url);
         OkHttpClient okHttpClient = new OkHttpClient();
         try {
             Request request = new Request.Builder()

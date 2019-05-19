@@ -230,4 +230,9 @@ public class Requests {
         RequestBody requestBody = new FormBody.Builder().build();
         baseJSONArray(observer, "Notice_GetList", requestBody);
     }
+    public  static void AdInfo_GetList (Observer<JSONArray> observer) {
+        RequestBody requestBody = new FormBody.Builder().build();
+        baseJSONArray(observer, "AdInfo_GetList ", requestBody);
+    }
+
 }

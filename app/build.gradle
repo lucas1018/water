@@ -68,10 +68,18 @@ repositories {
     }
 
 }
+//glide
+repositories {
+    mavenCentral()
+    maven { url 'https://maven.google.com' }
+}
 
 dependencies {
     androidTestImplementation('com.android.support:support-annotations:26.1.0') {
         force = true
+    }
+    configurations {
+        all*.exclude group:'com.android.support',module:'support-v13'
     }
     implementation 'in.srain.cube:grid-view-with-header-footer:1.0.12'
     implementation 'com.facebook.fresco:fresco:0.12.0'
@@ -115,5 +123,6 @@ dependencies {
     implementation files('libs/protobuf-java-2.3.0-micro.jar')
 
     implementation files('libs\\BaiduLBS_Android.jar')
+
 
 }

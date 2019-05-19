@@ -25,6 +25,7 @@
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
 
+
     <!-- Required -->
     <permission
         android:name="cn.zerone.water.permission.JPUSH_MESSAGE"
@@ -115,6 +116,7 @@
         <activity android:name=".activity.MealTypeActivity"    android:configChanges="keyboard|keyboardHidden|orientation|screenSize" />
         <activity android:name=".activity.NoticeActivity"    android:configChanges="keyboard|keyboardHidden|orientation|screenSize" />
         <activity android:name=".activity.NewsWebActivity"    android:configChanges="keyboard|keyboardHidden|orientation|screenSize" />
+
         <service android:name="com.baidu.location.f" android:enabled="true" android:process=":remote">
             <intent-filter>
                 <action android:name="com.baidu.location.service_v2.2" >
@@ -311,6 +313,9 @@
 
         <!--百度导航-->
         <service android:name="com.baidu.navigation.service.ForegroundService" />
+
+
+
 
     </application>
 
