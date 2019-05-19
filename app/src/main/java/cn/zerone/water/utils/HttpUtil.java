@@ -81,12 +81,12 @@ public class HttpUtil {
                 Response response = post(cmd, requestBody);
                 System.out.println(response);
                 int code = response.code();
-                if(code == 200){
+                if(code == 200) {
                     String json = response.body().string();
                     System.out.println("ttttttttttt:"+json);
                     e.onNext(json);
                     e.onComplete();
-                }else{
+                } else {
                     System.out.println("request:"+cmd+"code:"+code+"string:"+response.body().string());
                     throw new IOException();
                 }
@@ -170,8 +170,7 @@ public class HttpUtil {
         }
         SoapObject object = (SoapObject) envelope.bodyIn;
         String result =  object.getProperty(0).toString();
-        String result1 =  result.substring(result.indexOf("{"));
-        return result1;
+        return result;
     }
 
     //后增加的业务调用

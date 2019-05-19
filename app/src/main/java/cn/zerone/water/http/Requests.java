@@ -219,17 +219,20 @@ public class Requests {
         baseJSONArray(observer, "EngineeringFileCheck_GetList", requestBody);
     }
 
-    public static void feesForMeals_SaveBLL(Observer<String> observer, String id, String meal_date, String meal_type, String meal_mount, String meal_remark) {
-        SoapObject request = new SoapObject(NAMESPACE, "FeesForMeals_SaveBLL");
-        request.addProperty("CreateUserId", id);
-        request.addProperty("Date", meal_date);
-        request.addProperty("Name", meal_type);
-        request.addProperty("Cost", meal_mount);
-        request.addProperty("Remark", meal_remark);
-        baseString(observer, request);
+    //调用添加工作餐记录接口
+    public static void feesForMeals_SaveBLL(Observer<String> observer, String id, String username, String meal_date, String meal_type, String meal_mount, String meal_resturant, String meal_remark) {
+        RequestBody requestBody = new FormBody.Builder()
+                .add("CreateUserId", id)//录入人
+                .add("Name", username)//姓名
+                .add("Date", meal_date)//餐费日期
+                .add("DataType", meal_type)//类型 工作餐=0,商务餐=1,其他=2
+                .add("Cost", meal_mount)//餐费
+                .add("Restaurant", meal_resturant)//餐馆
+                .add("Remark", meal_remark)//备注
+                .build();
+        baseString(observer, "feesForMeals_SaveBLL", requestBody);
     }
     public static void UpdataPHONE (Observer<JSONObject> observer, String phone, String id, String code){
-        System.out.println(phone +"phone" + id + "id" + code + "验证码");
         RequestBody requestBody = new FormBody.Builder()
                 .add("PHONE",phone)
                 .add("ID",id)

@@ -134,7 +134,7 @@
             android:text="餐馆" />
 
         <EditText
-            android:id="@+id/restaurant"
+            android:id="@+id/resturant"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
