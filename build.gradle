@@ -3,12 +3,16 @@
 buildscript {
     repositories {
         mavenCentral() // add repository
-        jcenter()
         google()
+        jcenter()
+        maven {
+            url 'https://maven.google.com'
+        }
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.2.0'
         classpath 'org.greenrobot:greendao-gradle-plugin:3.2.2' // add plugin
+//        classpath 'com.mob.sdk:MobSDK-Impl:2019.0412.1846'
     }
 }
 
@@ -19,7 +23,11 @@ allprojects {
         google()
         jcenter()
         maven {
+<<<<<<< HEAD
             url "https://jitpack.io"
+=======
+            url 'https://maven.google.com'
+>>>>>>> ec8df93cdd5dce8f9248aed7d1bd9283ac4cc013
         }
     }
 }

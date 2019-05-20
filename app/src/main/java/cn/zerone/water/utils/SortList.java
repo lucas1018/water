@@ -12,6 +12,7 @@ public class SortList<E> {
             public int compare(Object a, Object b) {
                 int ret = 0;
                 try {
+<<<<<<< HEAD
 //                    Method m1 = ((E) a).getClass().getMethod(method,  null);
                     Method m1 = ((E) a).getClass().getMethod(method,  new Class[0]);
 //                    Method m2 = ((E) b).getClass().getMethod(method, null);
@@ -23,6 +24,17 @@ public class SortList<E> {
                         // 正序
 //                        ret = m1.invoke(((E) a), null).toString().compareTo(m2.invoke(((E) b), null).toString());
                     ret = m1.invoke(((E) a),  new Object[]{}).toString()  .compareTo(m2.invoke(((E) b), new Object[]{}).toString());
+=======
+                    Method m1 = ((E) a).getClass().getMethod(method,  new Class[0]);
+                    Method m2 = ((E) b).getClass().getMethod(method, new Class[0]);
+                    if (sort != null && "desc".equals(sort))// 倒序
+                        ret = m2.invoke(((E) b), new Object[]{}).toString()
+                                .compareTo(m1.invoke(((E) a), new Object[]{}).toString());
+                    else
+                        // 正序
+                        ret = m1.invoke(((E) a), new Object[]{}).toString()
+                                .compareTo(m2.invoke(((E) b), new Object[]{}).toString());
+>>>>>>> ec8df93cdd5dce8f9248aed7d1bd9283ac4cc013
                 } catch (NoSuchMethodException ne) {
                     System.out.println(ne);
                 } catch (IllegalAccessException ie) {

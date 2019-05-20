@@ -14,15 +14,14 @@
         android:textSize="18dp"
         android:layout_marginTop="10dp"
         android:gravity="left"
-        android:text="消息"
         android:id="@+id/system_message_item_level"
         android:textColor="#333333"
-        android:layout_height="wrap_content" />
+        android:layout_height="50dp" />
 <TextView
     android:padding="10dp"
     android:layout_width="match_parent"
     android:textColor="#999999"
-    android:text="我是消息内容"
+
     android:id="@+id/system_message_item_content"
     android:layout_height="wrap_content" />
         <LinearLayout
@@ -38,7 +37,6 @@
                 android:layout_height="10dp" />
             <TextView
                 android:layout_width="match_parent"
-                android:text="19点05分"
                 android:layout_marginRight="14dp"
                 android:textSize="12dp"
                 android:textColor="#999999"

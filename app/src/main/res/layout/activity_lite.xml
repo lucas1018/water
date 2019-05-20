@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context="cn.zerone.water.activity.LiteActivity">
+
+    <FrameLayout
+            android:id="@+id/map_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            />
+    <!--
+    <com.baidu.mapapi.map.MapView
+        android:id="@+id/bmapView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clickable="true" />
+        -->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <Button
+            android:id="@+id/startNewIFNormalDemo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="启动新接口普通Demo(推荐!)"/>
+
+        <Button
+            android:id="@+id/startNormalDemo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="启动旧接口普通Demo"/>
+    </LinearLayout>
+
+
+</FrameLayout>
