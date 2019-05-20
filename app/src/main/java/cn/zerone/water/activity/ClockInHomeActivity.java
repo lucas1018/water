@@ -23,6 +23,8 @@ import io.reactivex.disposables.Disposable;
 import static com.baidu.vi.VIContext.getContext;
 
 public class ClockInHomeActivity extends AppCompatActivity {
+    // 限制一天打卡一次
+    private String flag = "";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -52,7 +54,12 @@ public class ClockInHomeActivity extends AppCompatActivity {
                 Date date = new Date(System.currentTimeMillis());
                 String datetime = simpleDateFormat.format(date);
 
-                addClockIn(datetime, lat, lng, "3", "", "");
+                if(flag.equals(datetime.substring(0, 10)))
+                    Toast.makeText(ClockInHomeActivity.this, "您今天已打卡，请勿重复操作。", Toast.LENGTH_SHORT).show();
+                else{
+                    addClockIn(datetime, lat, lng, "3", "", "");
+                    flag = datetime.substring(0, 10);
+                }
             }
         });
     }
