@@ -29,8 +29,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.inputmethod.EditorInfo;
 import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -39,7 +37,6 @@ import android.widget.Toast;
 import com.alibaba.fastjson.JSONException;
 import com.alibaba.fastjson.JSONObject;
 
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -52,7 +49,6 @@ import io.reactivex.disposables.Disposable;
 
 import static android.Manifest.permission.ACCESS_FINE_LOCATION;
 import static android.Manifest.permission.ACCESS_WIFI_STATE;
-import static android.Manifest.permission.READ_CONTACTS;
 import static android.Manifest.permission.READ_PHONE_STATE;
 
 /**
@@ -64,7 +60,7 @@ public class LoginActivity extends AppCompatActivity  {
      */
 
     // UI references.
-    private AutoCompleteTextView mAccountView;
+    private EditText mAccountView;
     private EditText mPasswordView;
     private View mProgressView;
     private View mLoginFormView;
@@ -103,7 +99,7 @@ public class LoginActivity extends AppCompatActivity  {
             }
         }
         // Set up the login form.
-        mAccountView = (AutoCompleteTextView) findViewById(R.id.account);
+        mAccountView = (EditText) findViewById(R.id.account);
 
         mPasswordView = (EditText) findViewById(R.id.password);
         mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -127,7 +123,7 @@ public class LoginActivity extends AppCompatActivity  {
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
         List<String> emails = new ArrayList<>();
-        addEmailsToAutoComplete(emails);
+//        addEmailsToAutoComplete(emails);
     }
 
     /**
@@ -250,13 +246,13 @@ public class LoginActivity extends AppCompatActivity  {
 
 
     //为了选择下拉账号列表
-    private void addEmailsToAutoComplete(List<String> emailAddressCollection) {
-        //Create adapter to tell the AutoCompleteTextView what to show in its dropdown list.
-        ArrayAdapter<String> adapter =
-                new ArrayAdapter<>(LoginActivity.this,
-                        android.R.layout.simple_dropdown_item_1line, emailAddressCollection);
-        mAccountView.setAdapter(adapter);
-    }
+//    private void addEmailsToAutoComplete(List<String> emailAddressCollection) {
+//        //Create adapter to tell the AutoCompleteTextView what to show in its dropdown list.
+//        ArrayAdapter<String> adapter =
+//                new ArrayAdapter<>(LoginActivity.this,
+//                        android.R.layout.simple_dropdown_item_1line, emailAddressCollection);
+//        mAccountView.setAdapter(adapter);
+//    }
 
 }
 
