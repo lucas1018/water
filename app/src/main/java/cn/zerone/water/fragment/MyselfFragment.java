@@ -1,5 +1,6 @@
 package cn.zerone.water.fragment;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -7,10 +8,12 @@ import android.os.Bundle;
 import android.os.StrictMode;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -47,6 +50,8 @@ public class MyselfFragment extends Fragment {
 
     private ImageView photo1;
 
+    private Button action_sign_out;
+
 
     @Nullable
     @Override
@@ -67,10 +72,8 @@ public class MyselfFragment extends Fragment {
         userName = view.findViewById(R.id.user_name);
         phoneNum = view.findViewById(R.id.phone_number);
         photo1=view.findViewById(R.id.image_1);
-//        Bitmap bitmap= BitmapFactory.decodeResource(getResources(),R.drawable.touxiang);
-//        photo1.setImageBitmap(bitmap);
 
-
+        action_sign_out = view.findViewById(R.id.action_sign_out);
 
         Requests.getUserInfo(new Observer<JSONObject>() {
             @Override
@@ -103,7 +106,12 @@ public class MyselfFragment extends Fragment {
             }
         },App.userId);
 
-
+        action_sign_out.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                System.exit(0);
+            }
+        });
 
     }
     @Override
