@@ -53,42 +53,72 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:gravity="center"
-            android:text="安全到家" />
-
-        <TextClock
-            android:id="@+id/finish_time"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_gravity="center"
-            android:format24Hour="HH:mm:ss"
-            android:textColor="#000000"
-            android:textSize="18dp" />
-
-        <Button
-            android:id="@+id/button_home"
-            android:layout_width="190dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:background="#008ACA"
-            android:gravity="center"
-            android:text="安全到家"
-            android:textColor="#FFFFFF"
-            android:textSize="16dp" />
-
-        <TextView
-            android:id="@+id/textView2"
-            android:layout_width="match_parent"
-            android:gravity="center_vertical|left"
-            android:layout_height="50dp"
-            android:background="#bbbbbb"
+        <FrameLayout
             android:layout_marginTop="20dp"
-            android:text="本月安全到家记录" />
+            android:layout_marginBottom="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageButton
+                android:id="@+id/button_home"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="#FFFFFF"
+                app:srcCompat="@mipmap/big_button" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_gravity="center_vertical">
+
+                <TextView
+                    android:id="@+id/textView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:textSize="22dp"
+                    android:layout_above="@+id/button_home"
+                    android:gravity="center"
+                    android:text="安全到家"
+                    android:textColor="#ffffff" />
+
+                <TextClock
+                    android:id="@+id/finish_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_gravity="center"
+                    android:format24Hour="hh:mm:ss,EE"
+                    android:textColor="#ffffff"
+                    android:textSize="20sp" />
+            </LinearLayout>
+
+        </FrameLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#aaaaaa"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="5dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                app:srcCompat="@mipmap/home_dec" />
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
+                android:layout_height="45dp"
+                android:gravity="center_vertical"
+                android:text="本月安全到家记录"
+                android:textColor="#626161"
+                android:textSize="20dp" />
+        </LinearLayout>
 
     </LinearLayout>
 
