@@ -6,7 +6,6 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 
 import org.apache.commons.io.FileUtils;
-import org.ksoap2.serialization.SoapObject;
 
 import java.io.File;
 import java.io.IOException;
@@ -22,16 +21,11 @@ import okhttp3.FormBody;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 
-<<<<<<< HEAD
 import static android.provider.ContactsContract.CommonDataKinds.Identity.NAMESPACE;
-import static cn.zerone.water.http.Https.baseJSONArray;
-import static cn.zerone.water.http.Https.baseJSONObject;
-import static cn.zerone.water.http.Https.baseString;
-=======
 import static cn.zerone.water.utils.HttpUtil.baseJSONArray;
 import static cn.zerone.water.utils.HttpUtil.baseJSONObject;
 import static cn.zerone.water.utils.HttpUtil.baseString;
->>>>>>> ec8df93cdd5dce8f9248aed7d1bd9283ac4cc013
+
 
 /**
  * Created by qhk on 2019/5/12.
