@@ -45,7 +45,7 @@ import static cn.zerone.water.utils.HttpUtil.baseString;
 
 public class Requests {
 
-    public static <T>  void login(Observer<JSONObject> observer,String username,String password){
+    public static <T> void login(Observer<JSONObject> observer, String username, String password) {
         RequestBody requestBody = new FormBody.Builder()
                 .add("LOGIN_NAME", username)
                 .add("PASSWORD", password)
@@ -76,7 +76,7 @@ public class Requests {
 //        baseJSONObject(observer,"getmsg", requestBody);
 //    }
 
-    public static void signIn(final Observer<String> observer,String userId, double  longitude, double latitude) {
+    public static void signIn(final Observer<String> observer, String userId, double longitude, double latitude) {
         RequestBody requestBody = new FormBody.Builder()
                 .add("userId", userId)
                 .add("x", String.valueOf(latitude))
@@ -86,7 +86,7 @@ public class Requests {
 //        jsonObject.put("userId", userId);
 //        jsonObject.put("x",latitude);
 //        jsonObject.put("y",longitude);
-        baseString(observer,"sign_in", requestBody);
+        baseString(observer, "sign_in", requestBody);
     }
 //    public static void upload(Observer<JSONObject> observer, String userId, File file){
 //       final JSONObject json = new JSONObject();
@@ -102,14 +102,14 @@ public class Requests {
 //        }
 //        System.out.println("uploadmedia:"+json);
 //    }
-    
-    public static void signOut(final Observer<String> observer,String userId, double  longitude, double latitude) {
+
+    public static void signOut(final Observer<String> observer, String userId, double longitude, double latitude) {
         RequestBody requestBody = new FormBody.Builder()
                 .add("userId", userId)
                 .add("x", String.valueOf(latitude))
                 .add("y", String.valueOf(longitude))
                 .build();
-        baseString(observer,"sign_out", requestBody);
+        baseString(observer, "sign_out", requestBody);
     }
 
 //    public static void sendChatinfo(final Observer<String> observer, String userId, String toUsername, String text, EngineeringStation engineeringStation) {
@@ -136,11 +136,11 @@ public class Requests {
 //        baseJSONArray(observer,"getchatinfo",jsonObject);
 //    }
 
-    public static void uploadGps(String userId,double y,double x) {
+    public static void uploadGps(String userId, double y, double x) {
         RequestBody requestBody = new FormBody.Builder()
                 .add("userId", userId)
                 .add("X", String.valueOf(x))
-                .add("Y",String.valueOf(y))
+                .add("Y", String.valueOf(y))
                 .build();
 //        JSONObject jsonObject = new JSONObject();
 //        jsonObject.put("userId", userId);
@@ -151,6 +151,7 @@ public class Requests {
             public void onSubscribe(Disposable d) {
 
             }
+
             @Override
             public void onNext(String jsonObject) {
             }
@@ -197,17 +198,17 @@ public class Requests {
     }
 
     //修改密码
-    public static void updatePWD(Observer<JSONObject> observer, String userID,String pwd1, String pwd2, String pwd) {
+    public static void updatePWD(Observer<JSONObject> observer, String userID, String pwd1, String pwd2, String pwd) {
         RequestBody requestBody = new FormBody.Builder()
                 .add("ID", userID)
                 .add("PASSWORD1", pwd1)
                 .add("PASSWORD2", pwd2)
                 .add("PASSWORD", pwd)
                 .build();
-        baseJSONObject(observer,"UpdataPwd", requestBody);
+        baseJSONObject(observer, "UpdataPwd", requestBody);
     }
 
-    public  static void getCheckedList(Observer<JSONArray> observer) {
+    public static void getCheckedList(Observer<JSONArray> observer) {
         RequestBody requestBody = new FormBody.Builder().build();
         baseJSONArray(observer, "EngineeringFileCheck_GetList", requestBody);
     }
@@ -226,24 +227,25 @@ public class Requests {
         baseString(observer, "feesForMeals_SaveBLL", requestBody);
     }
 
+
     //修改手机号
-    public static void UpdataPHONE (Observer<JSONObject> observer, String phone, String id, String code){
+    public static void UpdataPHONE(Observer<JSONObject> observer, String phone, String id, String code) {
         RequestBody requestBody = new FormBody.Builder()
-                .add("PHONE",phone)
-                .add("ID",id)
+                .add("PHONE", phone)
+                .add("ID", id)
                 .add("Code", code)
                 .build();
-        baseJSONObject(observer,"UpdataPHONE",requestBody);
+        baseJSONObject(observer, "UpdataPHONE", requestBody);
     }
 
     //调取用户信息
     public static void USER_INFO_GetModelBLL(Observer<JSONObject> observer, String id) {
         RequestBody requestBody = new FormBody.Builder()
-                .add("ID",id).build();
-        baseJSONObject(observer,"USER_INFO_GetModel",requestBody);
+                .add("ID", id).build();
+        baseJSONObject(observer, "USER_INFO_GetModel", requestBody);
     }
 
-    public static void ClockIn_SaveBLL(Observer<String> observer, String id, String add_time, String latitude, String longitude, String data_type, String pic, String address ) {
+    public static void ClockIn_SaveBLL(Observer<String> observer, String id, String add_time, String latitude, String longitude, String data_type, String pic, String address) {
         RequestBody requestBody = new FormBody.Builder()
                 .add("UserId", id)
                 .add("AddTime", add_time)
@@ -257,8 +259,9 @@ public class Requests {
     }
 
     //调用消息列表接口
-    public  static void Notice_GetList(Observer<JSONArray> observer) {
+    public static void UserMessage_GetList(Observer<JSONArray> observer) {
+
         RequestBody requestBody = new FormBody.Builder().build();
-        baseJSONArray(observer, "Notice_GetList", requestBody);
+        baseJSONArray(observer, "UserMessage_GetList", requestBody);
     }
 }

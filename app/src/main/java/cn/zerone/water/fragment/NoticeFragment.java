@@ -13,6 +13,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 
+import java.text.SimpleDateFormat;
 import java.util.AbstractList;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -46,8 +47,8 @@ public class NoticeFragment extends Fragment {
                 JSONObject list1 =  JSONObject.parseObject(adapterView.getItemAtPosition(i).toString());
 
                 bundle.putString("title", list1.get("title").toString());
-                bundle.putString("Createtime",list1.get("Createtime").toString());
-                bundle.putString("info",list1.get("info").toString());
+                bundle.putString("AddTime",list1.get("AddTime").toString());
+                bundle.putString("Msg",list1.get("Msg").toString());
                 bundle.putString("DataType",list1.get("DataType").toString());
                 Intent intent = new Intent();
                 intent.putExtras(bundle);
@@ -61,7 +62,7 @@ public class NoticeFragment extends Fragment {
 
     public List<Map<String,Object>> getData() {
 
-        Requests.Notice_GetList(new Observer<JSONArray>() {
+        Requests.UserMessage_GetList(new Observer<JSONArray>() {
             @Override
             public void onSubscribe(Disposable d) {
             }
@@ -71,14 +72,17 @@ public class NoticeFragment extends Fragment {
                 for(int i = 0; i<objects.size();i++){
 
                     JSONObject json1 = new JSONObject();
-                    //Map<String, Object> map=new HashMap<String, Object>();
                     JSONObject   jsonObject  =  objects.getJSONObject(i) ;
                     String Title = jsonObject.getString("Title");
                     json1.put("title",Title);
-                    String time = jsonObject.getString("CreateTime1");
-                    json1.put("Createtime", time);
-                    String content = jsonObject.getString("Details");
-                    json1.put("info", content);
+                    String time = jsonObject.getString("AddTime");
+                    String realTime = time.substring(6,18);
+                    Long longtime = Long.parseLong(realTime);
+                    SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+                    String d = format.format(longtime);
+                    json1.put("AddTime", d);
+                    String content = jsonObject.getString("Msg");
+                    json1.put("Msg", content);
                     String Type = jsonObject.getString("DataType");
                     json1.put("DataType",Type);
                     list.add(json1);
