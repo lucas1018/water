@@ -255,6 +255,12 @@ public class Requests {
                 .build();
         baseString(observer, "ClockIn_SaveBLL", requestBody);
     }
+    public static void getClockIn(Observer<JSONArray> observer, String data_type) {
+        RequestBody requestBody = new FormBody.Builder()
+                .add("DataType", data_type)
+                .build();
+        baseJSONArray(observer, "ClockIn_GetListByField", requestBody);
+    }
 
     //调用消息列表接口
     public  static void Notice_GetList(Observer<JSONArray> observer) {
