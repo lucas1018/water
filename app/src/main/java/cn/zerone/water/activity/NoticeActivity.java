@@ -25,20 +25,38 @@ public class NoticeActivity extends Activity {
         String title = bundle.getString("title");
 
         notice_title.setText(title);
-        String createtime = bundle.getString("Createtime");
+        String createtime = bundle.getString("AddTime");
         Create_time.setText(createtime);
-        String info = bundle.getString("info");
+        String info = bundle.getString("Msg");
         notice_content.setText(info);
         String dataType =bundle.getString("DataType");
-        if(dataType.equals("0")){
-            notice_type.setText("运维系统公告");
+        switch (dataType){
+            case "0":
+                notice_type.setText("普通通知");
+                break;
+            case "1":
+                notice_type.setText("巡检任务");
+                break;
+            case "2":
+                notice_type.setText("运维任务");
+                break;
+            case "3":
+                notice_type.setText("审核审批");
+                break;
+            case "4":
+                notice_type.setText("安全检查");
+                break;
+            case "5":
+                notice_type.setText("在线直播");
+                break;
+            case "6":
+                notice_type.setText("工单任务");
+                break;
+            case "7":
+                notice_type.setText("站点建设");
+                break;
         }
-        else if (dataType.equals("1")){
-            notice_type.setText("安全生产公告");
-        }
-        else if (dataType.equals("2")){
-            notice_type.setText("安全生产活动");
-        }
+
         ImageView iv = (ImageView)findViewById(R.id.back);
         iv.setOnClickListener(new View.OnClickListener() {
             @Override

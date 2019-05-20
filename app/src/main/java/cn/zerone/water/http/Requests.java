@@ -226,8 +226,8 @@ public class Requests {
         request.addProperty("Remark", meal_remark);
         baseString(observer, request);
     }
-    public  static void Notice_GetList(Observer<JSONArray> observer) {
+    public  static void UserMessage_GetList(Observer<JSONArray> observer) {
         RequestBody requestBody = new FormBody.Builder().build();
-        baseJSONArray(observer, "Notice_GetList", requestBody);
+        baseJSONArray(observer, "UserMessage_GetList", requestBody);
     }
 }
