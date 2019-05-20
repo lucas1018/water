@@ -15,6 +15,7 @@ import java.util.List;
 
 public class HeaderAdapter extends PagerAdapter {
     private static final String LOG = "NEWS_LOG";
+    private static final String Image = "http://47.105.187.185:8011";
 
     private Activity context;
     private List<ItemArticle> articles;
@@ -32,7 +33,9 @@ public class HeaderAdapter extends PagerAdapter {
         for (int i = 0; i < articles.size(); i++) {
             SimpleDraweeView image = new SimpleDraweeView(context);
             Uri uri = Uri.parse(articles.get(i).getImageUrl());
+            Uri href = Uri.parse(articles.get(i).getImageHref());
             image.setImageURI(uri);
+            //image.setImageURI(href);
             images.add(image);
         }
     }

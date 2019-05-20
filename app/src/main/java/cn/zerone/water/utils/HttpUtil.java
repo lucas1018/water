@@ -37,6 +37,7 @@ public class HttpUtil {
             @Override
             public void subscribe(@NonNull ObservableEmitter<JSONArray> e) throws Exception {
                 Response response = post(cmd, requestBody);
+                System.out.println("yyyyyyyyyyyy"+response);
                 if(response.code() == 200){
                     String json = response.body().string();
                     System.out.println("baseJSONArray:"+json);

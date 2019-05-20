@@ -34,6 +34,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.lang.reflect.*;
 
 import cn.zerone.water.activity.NewsWebActivity;
 import cn.zerone.water.activity.NoticeActivity;
@@ -48,8 +49,9 @@ import io.reactivex.disposables.Disposable;
 
 public class MasterArticleFragment extends Fragment {
     private static final String ARTICLE_LATEST_PARAM = "param";
-    final List<ItemArticle> articles = new ArrayList<ItemArticle>();
+
     private static final int UPTATE_VIEWPAGER = 0;
+    public static final String Image = "http://47.105.187.185:8011";
     //轮播的最热新闻图片
     @InjectView(R.id.vp_hottest)
     ViewPager vpHottest;
@@ -116,7 +118,7 @@ public class MasterArticleFragment extends Fragment {
         title.setGravity(Gravity.CENTER);
         title.setText(title());
 
-
+        // 添加导航按钮
         mButNavi = view.findViewById(R.id.imageButton10);
         mButNavi.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -146,7 +148,7 @@ public class MasterArticleFragment extends Fragment {
         ButterKnife.reset(this);
     }
 
-    private void setUpViewPager(final List<ItemArticle> headerArticles) {
+    public void setUpViewPager(final List<ItemArticle> headerArticles) {
         final HeaderAdapter imageAdapter = new HeaderAdapter(mAct, headerArticles);
 
         vpHottest.setAdapter(imageAdapter);
@@ -196,10 +198,10 @@ public class MasterArticleFragment extends Fragment {
                         if (touchFlag == 0) {
                             Intent intent = new Intent(mAct,NewsWebActivity.class);
                             Bundle bundle = new Bundle();
-                            bundle.putString("url", "http://www.chinanews.com/tp/hd2011/2019/05-18/883050.shtml");
+                            //bundle.putString("url", "http://www.chinanews.com/tp/hd2011/2019/05-18/883050.shtml");
                             int currentItem = vpHottest.getCurrentItem();
                             //intent.putExtra("story_id", headerArticles.get(currentItem).getNewsId());
-                            intent.putExtra("imageUrl",headerArticles.get(currentItem).getImageUrl());
+                            intent.putExtra("imageUrl",headerArticles.get(currentItem).getImageHref());
                             startActivity(intent);
 
                         }
@@ -253,31 +255,36 @@ public class MasterArticleFragment extends Fragment {
         }, 5000, 5000);
     }
 
-
     class ImageTask extends AsyncTask<String, Void, List<ItemArticle>> {
+        public List<ItemArticle> articles = new ArrayList<ItemArticle>();
         @Override
         protected List<ItemArticle> doInBackground(String... params) {
 
-            Requests.Notice_GetList(new Observer<JSONArray>() {
-             @Override
-             public void onSubscribe(Disposable d) {
+
+            Requests.AdInfo_GetList(new Observer<JSONArray>() {
+                 @Override
+                 public void onSubscribe(Disposable d) {
+                     }
+
+                  @Override
+                  public void onNext(JSONArray objects) {
+                      for(int i = 0; i<objects.size();i++){
+                          JSONObject json1 = new JSONObject();
+                          JSONObject  jsonObject  =  objects.getJSONObject(i) ;
+                          System.out.println();
+                          int ID = jsonObject.getInteger("ID");
+                          String imagepath = jsonObject.getString("ImgPath");
+                          String imageUrl = Image + imagepath;
+                          System.out.println("pppppppppppppppp"+imageUrl);
+                          String href = jsonObject.getString("Href");
+                          System.out.println("llllllllllllllllllll"+href);
+                          ItemArticle temp = new ItemArticle(ID, imageUrl, href);
+                          System.out.println("gggggggggggggggggg" + temp);
+                          articles.add(temp);
+                          System.out.println("ssssssssssss" + articles.size());
+                                  //new ItemArticle(ID,"imageUrl","href"));
+                     }
                  }
-
-              @Override
-              public void onNext(JSONArray objects) {
-                  for(int i = 0; i<objects.size();i++){
-                      JSONObject json1 = new JSONObject();
-
-                      JSONObject   jsonObject  =  objects.getJSONObject(i) ;
-                      int ID = jsonObject.getInteger("ID");
-
-                      String href = jsonObject.getString("Href");
-                      articles.add(
-                              new ItemArticle(ID,href));
-
-                 }
-                 }
-
                 @Override
                 public void onError(Throwable e) {
 
@@ -286,10 +293,19 @@ public class MasterArticleFragment extends Fragment {
                 @Override
                 public void onComplete() {
                 }
-
                 });
-            return articles;
 
+            Class clazz = this.getClass();
+            Object obj = null;
+            try {
+                obj = clazz.getDeclaredField("articles");
+                System.out.println("jjjjjjjjjjjjjjj"+obj);
+            } catch (NoSuchFieldException e) {
+                e.printStackTrace();
+            }
+            List<ItemArticle> lll = obj;
+            //System.out.println("oooooooooooooooooo"+this.articles.size());
+            return obj;
         }
 
         @Override
