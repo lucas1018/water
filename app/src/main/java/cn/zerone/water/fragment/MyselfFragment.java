@@ -75,14 +75,14 @@ public class MyselfFragment extends Fragment {
 
         action_sign_out = view.findViewById(R.id.action_sign_out);
 
-        Requests.getUserInfo(new Observer<JSONObject>() {
+        Requests.USER_INFO_GetModel(new Observer<JSONObject>() {
             @Override
             public void onSubscribe(Disposable d) {
             }
             @Override
-            public void onNext(JSONObject jsonObject) {
-                String str = jsonObject.getString("Data");
-                JSONObject json = JSONArray.parseArray(str).getJSONObject(0);
+            public void onNext(JSONObject json) {
+//                String str = jsonObject.getString("Data");
+//                JSONObject json = JSONArray.parseArray(str).getJSONObject(0);
 
                 String username = json.getString("LOGIN_NAME");
                 App.username = username;
@@ -104,7 +104,7 @@ public class MyselfFragment extends Fragment {
             @Override
             public void onComplete() {
             }
-        },App.userId);
+        }, App.userId);
 
         action_sign_out.setOnClickListener(new View.OnClickListener() {
             @Override
