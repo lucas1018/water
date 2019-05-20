@@ -81,10 +81,7 @@ public class MyselfFragment extends Fragment {
             }
             @Override
             public void onNext(JSONObject json) {
-//                String str = jsonObject.getString("Data");
-//                JSONObject json = JSONArray.parseArray(str).getJSONObject(0);
-
-                String username = json.getString("LOGIN_NAME");
+                String username = json.getString("NAME");
                 App.username = username;
                 userName.setText(username);
                 String imgUrl = json.getString("Photo");
@@ -92,8 +89,8 @@ public class MyselfFragment extends Fragment {
                 Bitmap temp_bitmap = imageUtil.getBitMBitmap(imgUrl);
                 Bitmap bitmap = imageUtil.comp(temp_bitmap);
                 photo1.setImageBitmap(bitmap);
-                String phone_num = json.getString("PHONE");
-                phoneNum.setText(phone_num);
+                String login_name = json.getString("LOGIN_NAME");
+                phoneNum.setText(login_name);
                 String pwd = json.getString("PASSWORD");
                 App.pwd = pwd;
             }
