@@ -243,17 +243,18 @@ public class Requests {
         baseJSONObject(observer,"USER_INFO_GetModel",requestBody);
     }
 
-//    public static void ClockIn_SaveBLL(Observer<String> observer, String id, String add_time, DecimalFormat latitude, DecimalFormat longitude, Integer data_type, String picture,String address ) {
-//        SoapObject request = new SoapObject(NAMESPACE, "FeesForMeals_SaveBLL");
-//        request.addProperty("UserId", id);
-//        request.addProperty("AddTime", add_time);
-//        request.addProperty("Lat", latitude);
-//        request.addProperty("Lng", longitude);
-//        request.addProperty("DataType", data_type);
-//        request.addProperty("Path", picture);
-//        request.addProperty("Address", address);
-//        baseString(observer, request);
-//    }
+    public static void ClockIn_SaveBLL(Observer<String> observer, String id, String add_time, String latitude, String longitude, String data_type, String pic, String address ) {
+        RequestBody requestBody = new FormBody.Builder()
+                .add("UserId", id)
+                .add("AddTime", add_time)
+                .add("Lat", latitude)
+                .add("Lng", longitude)
+                .add("DataType", data_type)
+                .add("Path", pic)
+                .add("Address", address)
+                .build();
+        baseString(observer, "ClockIn_SaveBLL", requestBody);
+    }
 
     //调用消息列表接口
     public  static void Notice_GetList(Observer<JSONArray> observer) {
