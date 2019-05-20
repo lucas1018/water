@@ -23,11 +23,8 @@ allprojects {
         google()
         jcenter()
         maven {
-<<<<<<< HEAD
             url "https://jitpack.io"
-=======
             url 'https://maven.google.com'
->>>>>>> ec8df93cdd5dce8f9248aed7d1bd9283ac4cc013
         }
     }
 }
