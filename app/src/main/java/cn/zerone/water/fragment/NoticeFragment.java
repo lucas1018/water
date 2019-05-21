@@ -46,7 +46,6 @@ public class NoticeFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Bundle bundle = new Bundle();
-
                 JSONObject list1 =  JSONObject.parseObject(adapterView.getItemAtPosition(i).toString());
                 bundle.putString("title", list1.get("title").toString());
                 bundle.putString("AddTime",list1.get("AddTime").toString());
