@@ -68,8 +68,8 @@ public class ListViewAdapter extends BaseAdapter {
         }
         //绑定数据
         notice.title.setText((String)data.get(position).get("title"));
-        notice.Createtime.setText((String)data.get(position).get("Createtime"));
-        notice.info.setText((String)data.get(position).get("info"));
+        notice.Createtime.setText((String)data.get(position).get("AddTime"));
+        notice.info.setText((String)data.get(position).get("Msg"));
         view.setTag(notice);
 
         return view;

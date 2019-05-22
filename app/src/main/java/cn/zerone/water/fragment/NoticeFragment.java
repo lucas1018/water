@@ -36,6 +36,7 @@ public class NoticeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view= inflater.inflate(R.layout.activity_system_messages , container, false);
         listView = (ListView)view.findViewById(R.id.system_message_listView);
+        listView.setFooterDividersEnabled(true);
         list = new ArrayList<Map<String, Object>>();
         list = getData();
         listView.setAdapter(new ListViewAdapter(getActivity(), list));
