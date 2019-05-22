@@ -34,11 +34,11 @@ public class LiveFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        try {
-            getAppInfo();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+//        try {
+//            getAppInfo();
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
 
         startLive = view.findViewById(R.id.start_live);
 
@@ -50,16 +50,15 @@ public class LiveFragment extends Fragment {
         });
     }
 
-    private void getAppInfo() throws Exception {
-        PackageManager packageManager = getContext().getPackageManager();
-        //获取所有安装的app
-        List<PackageInfo> installedPackages = packageManager.getInstalledPackages(0);
-        for (PackageInfo info : installedPackages) {
-            String packageName = info.packageName;//app包名
-            ApplicationInfo ai = packageManager.getApplicationInfo(packageName, 0);
-            String appName = (String) packageManager.getApplicationLabel(ai);//获取应用名称
-            System.out.println("zzzzzzz" + packageName);
-        }
-
-    }
+//    private void getAppInfo() throws Exception {
+//        PackageManager packageManager = getContext().getPackageManager();
+//        //获取所有安装的app
+//        List<PackageInfo> installedPackages = packageManager.getInstalledPackages(0);
+//        for (PackageInfo info : installedPackages) {
+//            String packageName = info.packageName;//app包名
+//            ApplicationInfo ai = packageManager.getApplicationInfo(packageName, 0);
+//            String appName = (String) packageManager.getApplicationLabel(ai);//获取应用名称
+//        }
+//
+//    }
 }

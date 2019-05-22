@@ -166,7 +166,6 @@ public class LoginActivity extends AppCompatActivity  {
             // Show a progress spinner, and kick off a background task to
             // perform the user login attempt.
             showProgress(true);
-
             Requests.login(new Observer<JSONObject>() {
                 @Override
                 public void onSubscribe(Disposable d) {

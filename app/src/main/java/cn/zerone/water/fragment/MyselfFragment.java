@@ -75,33 +75,35 @@ public class MyselfFragment extends Fragment {
 
         action_sign_out = view.findViewById(R.id.action_sign_out);
 
-        Requests.USER_INFO_GetModel(new Observer<JSONObject>() {
-            @Override
-            public void onSubscribe(Disposable d) {
-            }
-            @Override
-            public void onNext(JSONObject json) {
-                String username = json.getString("NAME");
-                App.username = username;
-                userName.setText(username);
-                String imgUrl = json.getString("Photo");
-                ImageUtil imageUtil = ImageUtil.getIntance();
-                Bitmap temp_bitmap = imageUtil.getBitMBitmap(imgUrl);
-                Bitmap bitmap = imageUtil.comp(temp_bitmap);
-                photo1.setImageBitmap(bitmap);
-                String login_name = json.getString("LOGIN_NAME");
-                phoneNum.setText(login_name);
-                String pwd = json.getString("PASSWORD");
-                App.pwd = pwd;
-            }
-            @Override
-            public void onError(Throwable e) {
-                e.printStackTrace();
-            }
-            @Override
-            public void onComplete() {
-            }
-        }, App.userId);
+//        Requests.USER_INFO_GetModel(new Observer<JSONObject>() {
+//            @Override
+//            public void onSubscribe(Disposable d) {
+//            }
+//            @Override
+//            public void onNext(JSONObject json) {
+//                String username = json.getString("NAME");
+//                App.username = username;
+//                userName.setText(username);
+//                String imgUrl = json.getString("Photo");
+//                ImageUtil imageUtil = ImageUtil.getInstance();
+//                Bitmap temp_bitmap = ImageUtil.getBitMBitmap(imgUrl);
+//                Bitmap bitmap = imageUtil.comp(temp_bitmap);
+//                photo1.setImageBitmap(bitmap);
+//                String login_name = json.getString("LOGIN_NAME");
+//                phoneNum.setText(login_name);
+//                String pwd = json.getString("PASSWORD");
+//                App.pwd = pwd;
+//            }
+//            @Override
+//            public void onError(Throwable e) {
+//                e.printStackTrace();
+//            }
+//            @Override
+//            public void onComplete() {
+//            }
+//        }, App.userId);
+
+
 
         action_sign_out.setOnClickListener(new View.OnClickListener() {
             @Override

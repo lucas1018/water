@@ -92,6 +92,7 @@ public class HttpUtil {
     //post请求服务端接口
     public static Response post(String cmd, RequestBody requestBody){
         String url = ADVANCED_URL + cmd;//实际url
+        System.out.println("sssssssssss" + url);
         OkHttpClient okHttpClient = new OkHttpClient();
         try {
             Request request = new Request.Builder()

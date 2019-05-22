@@ -1,5 +1,8 @@
 package cn.zerone.water.activity;
 
+
+
+
 import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
@@ -50,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
     public synchronized void changeTab(int index,String url){
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         for (int i = 0; i < 5; ++i) {
-            if(i == index){
+            if(i == index) {
                 transaction.show(fragments[i]);
             }else{
                 transaction.hide(fragments[i]);
