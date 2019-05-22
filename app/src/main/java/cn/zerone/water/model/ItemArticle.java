@@ -5,11 +5,12 @@ public class ItemArticle {
     private int NewsId;
     // 新闻里的图片 url
     private String imageUrl;
-    //private String imageUries;
+    private String imageHref;
 
-    public ItemArticle(int index, String imageUrl) {
+    public ItemArticle(int index, String imageUrl,String imageHref) {
         this.NewsId = index;
         this.imageUrl = imageUrl;
+        this.imageHref = imageHref;
     }
 
     public int getNewsId() {
@@ -27,13 +28,11 @@ public class ItemArticle {
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
     }
-//    public String getImageUries() {
-//        return imageUries;
-//    }
-//
-//    public void setImageUries(String imageUries) {
-//        this.imageUrl = imageUries;
-//    }
+    public String getImageHref() {
+        return imageHref;
+    }
 
-
+    public void setImageHref(String imageHref) {
+        this.imageHref = imageHref;
+    }
 }

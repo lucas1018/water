@@ -12,13 +12,18 @@ import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewConfiguration;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -37,14 +42,18 @@ import cn.zerone.water.activity.ClockInWorkActivity;
 import cn.zerone.water.activity.LiteActivity;
 import cn.zerone.water.activity.NewsWebActivity;
 import cn.zerone.water.activity.NoticeActivity;
+import cn.zerone.water.http.Requests;
 import cn.zerone.water.map.PoiSearchActivity;
 import cn.zerone.water.model.HeaderAdapter;
 import cn.zerone.water.model.ItemArticle;
 import cn.zerone.water.R;
+import io.reactivex.Observer;
+import io.reactivex.disposables.Disposable;
 
 
 public class MasterArticleFragment extends Fragment {
     private static final String ARTICLE_LATEST_PARAM = "param";
+    public static final String Image = "http://47.105.187.185:8011";
 
     private static final int UPTATE_VIEWPAGER = 0;
     //轮播的最热新闻图片
@@ -161,7 +170,7 @@ public class MasterArticleFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        new ImageTask().execute();
+        new ImageTask1().execute();
     }
 
     @Override
@@ -182,52 +191,72 @@ public class MasterArticleFragment extends Fragment {
             params.setMargins(5, 0, 5, 0);
             imageView.setLayoutParams(params);
             if (i == 0) {
-                imageView.setBackgroundResource(R.mipmap.ellipse_1);
+                imageView.setImageResource(R.mipmap.ellipse);
+
             } else {
-                imageView.setBackgroundResource(R.mipmap.ellipse);
+                imageView.setImageResource(R.mipmap.ellipse_1);
             }
 
             mBottomImages[i] = imageView;
             //把指示作用的原点图片加入底部的视图中
             llHottestIndicator.addView(mBottomImages[i]);
-            imageView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                   Intent intent = null;
-                   Bundle bundle = null;
-                   switch (view.getId()){
-                        case 2131296302:
-                            intent = new Intent(getContext(),NewsWebActivity.class);
-                            bundle = new Bundle();
-                            bundle.putString("url","https://k.sinaimg.cn/n/news/transform/200/w600h400/20190516/8605-hwzkfpu5316833.jpg/w500h333l80bb4.jpg");
-                            intent.putExtras(bundle);
-                            startActivity(intent);
-                            break;
-                        case 2:
 
-                            break;
-                        case 3:
-
-                            break;
-                        case 4:
-                    }
-
-                }
-            });
 
         }
+        // 设置触发时间
+        vpHottest.setOnTouchListener(new View.OnTouchListener() {
+            float mTouchSlop = ViewConfiguration.get(getContext()).getScaledTouchSlop();
+            int touchFlag = 0;
+            float x = 0, y = 0;
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                switch (event.getAction()){
+                    case MotionEvent.ACTION_DOWN:
+                        touchFlag = 0;
+                        x = event.getX();
+                        y = event.getY();
+                        break;
+
+                    case MotionEvent.ACTION_MOVE:
+                        float xDiff = Math.abs(event.getX() - x);
+                        float yDiff = Math.abs(event.getY() - y);
+                        if (xDiff < mTouchSlop && xDiff >= yDiff)
+                            touchFlag = 0;
+                        else
+                            touchFlag = -1;
+                        break;
+
+                    case MotionEvent.ACTION_UP:
+                        if (touchFlag == 0) {
+                            Intent intent = new Intent(mAct,NewsWebActivity.class);
+                            Bundle bundle = new Bundle();
+                            //bundle.putString("url", "http://www.chinanews.com/tp/hd2011/2019/05-18/883050.shtml");
+                            int currentItem = vpHottest.getCurrentItem();
+                            //intent.putExtra("story_id", headerArticles.get(currentItem).getNewsId());
+                            intent.putExtra("Href",headerArticles.get(currentItem).getImageHref());
+                            startActivity(intent);
+
+                        }
+                        break;
+
+                }
+
+                return false;
+            }
+        });
 
         vpHottest.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             //图片左右滑动时候，将当前页的圆点图片设为选中状态
             @Override
             public void onPageSelected(int position) {
                 // 一定几个图片，几个圆点，但注意是从0开始的
-                int total = mBottomImages.length;
+                int total = 4;
                 for (int j = 0; j < total; ++j) {
                     if (j == position) {
-                        mBottomImages[j].setBackgroundResource(R.mipmap.ellipse_1);
+                        mBottomImages[j].setImageResource(R.mipmap.ellipse);
+
                     } else {
-                        mBottomImages[j].setBackgroundResource(R.mipmap.ellipse);
+                        mBottomImages[j].setImageResource(R.mipmap.ellipse_1);
                     }
                 }
 
@@ -259,27 +288,41 @@ public class MasterArticleFragment extends Fragment {
         }, 5000, 5000);
     }
 
+    private class ImageTask1 {
+        public List<ItemArticle> articles = new ArrayList<ItemArticle>();
 
-    class ImageTask extends AsyncTask<String, Void, List<ItemArticle>> {
-        @Override
-        protected List<ItemArticle> doInBackground(String... params) {
-            List<ItemArticle> articles = new ArrayList<ItemArticle>();
-            articles.add(
-                    new ItemArticle(1, "https://k.sinaimg.cn/n/news/transform/200/w600h400/20190516/8605-hwzkfpu5316833.jpg/w500h333l80bb4.jpg"));
-            articles.add(
-                    new ItemArticle(2, "https://k.sinaimg.cn/n/news/transform/200/w600h400/20190516/8605-hwzkfpu5316833.jpg/w500h333l80bb4.jpg"));
-            articles.add(
-                    new ItemArticle(3, "https://k.sinaimg.cn/n/news/transform/200/w600h400/20190516/8605-hwzkfpu5316833.jpg/w500h333l80bb4.jpg"));
-            articles.add(
-                    new ItemArticle(4, "https://k.sinaimg.cn/n/news/transform/200/w600h400/20190516/8605-hwzkfpu5316833.jpg/w500h333l80bb4.jpg"));
-            return articles;
-        }
+        public void execute() {
+            Requests.AdInfo_GetList(new Observer<JSONArray>() {
+                @Override
+                public void onSubscribe(Disposable d) {
+                }
 
-        @Override
-        protected void onPostExecute(List<ItemArticle> articles) {
-            //这儿的 是 url 的集合
-            super.onPostExecute(articles);
-            setUpViewPager(articles);
+                @Override
+                public void onNext(JSONArray objects) {
+                    for (int i = 0; i < objects.size(); i++) {
+                        JSONObject json1 = new JSONObject();
+                        JSONObject jsonObject = objects.getJSONObject(i);
+                        System.out.println();
+                        int ID = jsonObject.getInteger("ID");
+                        String imagepath = jsonObject.getString("ImgPath");
+                        String imageUrl = Image + imagepath;
+                        String href = jsonObject.getString("Href");
+                        ItemArticle temp = new ItemArticle(ID, imageUrl, href);
+                        articles.add(temp);
+                    }
+                    setUpViewPager(articles);
+                }
+
+                @Override
+                public void onError(Throwable e) {
+
+                }
+
+                @Override
+                public void onComplete() {
+
+                }
+            });
 
         }
     }
