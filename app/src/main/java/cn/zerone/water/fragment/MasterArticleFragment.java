@@ -281,6 +281,7 @@ public class MasterArticleFragment extends Fragment {
                           ItemArticle temp = new ItemArticle(ID, imageUrl, href);
                           System.out.println("gggggggggggggggggg" + temp);
                           articles.add(temp);
+                          setUpViewPager(articles);
                           System.out.println("ssssssssssss" + articles.size());
                                   //new ItemArticle(ID,"imageUrl","href"));
                      }
@@ -313,6 +314,7 @@ public class MasterArticleFragment extends Fragment {
         protected void onPostExecute(List<ItemArticle> articles) {
             //这儿的 是 url 的集合
             super.onPostExecute(articles);
+            System.out.println("oooo111ooooo"+articles.size());
             setUpViewPager(articles);
 
         }
