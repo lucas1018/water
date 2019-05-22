@@ -39,6 +39,7 @@ import cn.zerone.water.activity.ClockInFinishActivity;
 import cn.zerone.water.activity.ClockInHomeActivity;
 import cn.zerone.water.activity.ClockInWorkActivity;
 
+import cn.zerone.water.activity.ConstructionLog;
 import cn.zerone.water.activity.LiteActivity;
 import cn.zerone.water.activity.NewsWebActivity;
 import cn.zerone.water.activity.NoticeActivity;
@@ -76,6 +77,7 @@ public class MasterArticleFragment extends Fragment {
     private Timer timer = new Timer(); //为了方便取消定时轮播，将 Timer 设为全局
 
     private ImageButton mButNavi = null;
+    private ImageButton contruction_log = null;
 
     //定时轮播图片，需要在主线程里面修改 UI
     private Handler mHandler = new Handler(){
@@ -150,7 +152,18 @@ public class MasterArticleFragment extends Fragment {
         title = view.findViewById(R.id.title);
         title.setGravity(Gravity.CENTER);
         title.setText(title());
+        //施工日志
+        contruction_log = view.findViewById(R.id.constrcution_log);
+        contruction_log.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getContext(), ConstructionLog.class);
+                getContext().startActivity(intent);
+            }
+        });
 
+
+        //位置导航
         mButNavi = view.findViewById(R.id.imageButton10);
         mButNavi.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -203,7 +216,7 @@ public class MasterArticleFragment extends Fragment {
 
 
         }
-        // 设置触发时间
+        // 设置跳转页面
         vpHottest.setOnTouchListener(new View.OnTouchListener() {
             float mTouchSlop = ViewConfiguration.get(getContext()).getScaledTouchSlop();
             int touchFlag = 0;

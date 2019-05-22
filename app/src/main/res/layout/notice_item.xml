@@ -13,7 +13,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="21dp"
-            android:text="ssssssssssssss"
             android:textStyle="bold"
             android:textSize="16sp"
             android:layout_marginTop="20dp"
@@ -21,7 +20,6 @@
 
         <TextView
             android:id="@+id/recv_time"
-            android:text="2018-2-14"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
@@ -39,7 +37,6 @@
             android:layout_marginBottom="14dp"
             android:layout_marginRight="58dp"
             android:layout_marginLeft="20dp"
-            android:text="hhhhhhhhhhhhhhhhh"
             android:textColor="#666872" />
 
 
