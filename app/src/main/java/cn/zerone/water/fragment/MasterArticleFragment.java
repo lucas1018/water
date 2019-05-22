@@ -292,20 +292,21 @@ public class MasterArticleFragment extends Fragment {
 
                 @Override
                 public void onComplete() {
+                     
                 }
                 });
 
-            Class clazz = this.getClass();
-            Object obj = null;
-            try {
-                obj = clazz.getDeclaredField("articles");
-                System.out.println("jjjjjjjjjjjjjjj"+obj);
-            } catch (NoSuchFieldException e) {
-                e.printStackTrace();
-            }
-            List<ItemArticle> lll = obj;
+//            Class clazz = this.getClass();
+//            Object obj = null;
+//            try {
+//                obj = clazz.getDeclaredField("articles");
+//                System.out.println("jjjjjjjjjjjjjjj"+obj);
+//            } catch (NoSuchFieldException e) {
+//                e.printStackTrace();
+//            }
+//            List<ItemArticle> lll = obj;
             //System.out.println("oooooooooooooooooo"+this.articles.size());
-            return obj;
+            return articles;
         }
 
         @Override
