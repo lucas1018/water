@@ -189,13 +189,13 @@ public class Requests {
 //        baseString(observer, "uploadjobstepinfo", jsonObject);
 //    }
 
-    //调用用户信息
-    public static void USER_INFO_GetModel(Observer<JSONObject> observer, String userId) {
-        RequestBody requestBody = new FormBody.Builder()
-                .add("ID", userId)
-                .build();
-        baseJSONObject(observer, "USER_INFO_GetModelBLL", requestBody);
-    }
+//    调用用户信息
+//    public static void USER_INFO_GetModel(Observer<JSONObject> observer, String userId) {
+//        RequestBody requestBody = new FormBody.Builder()
+//                .add("ID", userId)
+//                .build();
+//        baseJSONObject(observer, "USER_INFO_GetModelBLL", requestBody);
+//    }
 
     //修改密码
     public static void updatePWD(Observer<JSONObject> observer, String userID, String pwd1, String pwd2, String pwd) {
@@ -242,7 +242,7 @@ public class Requests {
     public static void USER_INFO_GetModelBLL(Observer<JSONObject> observer, String id) {
         RequestBody requestBody = new FormBody.Builder()
                 .add("ID", id).build();
-        baseJSONObject(observer, "USER_INFO_GetModel", requestBody);
+        baseJSONObject(observer, "USER_INFO_GetModelBLL", requestBody);
     }
 
     public static void ClockIn_SaveBLL(Observer<String> observer, String id, String add_time, String latitude, String longitude, String data_type, String pic, String address) {
