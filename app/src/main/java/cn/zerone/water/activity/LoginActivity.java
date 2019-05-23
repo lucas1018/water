@@ -174,13 +174,14 @@ public class LoginActivity extends AppCompatActivity  {
 
                 @Override
                 public void onNext(JSONObject jsonObject) {
-                    try{
+                    String flag = jsonObject.getString("Flag");
+                    if (flag.equals("true")) {
                         if(jsonObject.getString("NewId")==null){
                             throw new JSONException("NewId");
                         }
                         App.userId = jsonObject.getString("NewId");
                         ((App) getApplication()).saveUserId(App.userId);
-                    }catch (Exception e){
+                    } else {
                         showProgress(false);
                         mPasswordView.setError(getString(R.string.error_incorrect_password));
                         mPasswordView.requestFocus();
