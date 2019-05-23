@@ -263,7 +263,7 @@ public class MasterArticleFragment extends Fragment {
             @Override
             public void onPageSelected(int position) {
                 // 一定几个图片，几个圆点，但注意是从0开始的
-                int total = 4;
+                int total = 3;
                 for (int j = 0; j < total; ++j) {
                     if (j == position) {
                         mBottomImages[j].setImageResource(R.mipmap.ellipse);

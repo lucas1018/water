@@ -62,10 +62,23 @@
         </LinearLayout>
 
         <GridView
+            android:id="@+id/history_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:numColumns="2"
+            android:background="#cccccc"/>
+
+        <GridView
             android:id="@+id/history_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:numColumns="2" />
+
+        <DatePicker
+            android:id="@+id/dpPicker"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
     </LinearLayout>
 
 
