@@ -174,33 +174,33 @@ public class LoginActivity extends AppCompatActivity  {
 
                 @Override
                 public void onNext(JSONObject jsonObject) {
-                    try{
+                    if (jsonObject.getString("Flag").equals("true")) {
                         if(jsonObject.getString("NewId")==null){
                             throw new JSONException("NewId");
                         }
                         App.userId = jsonObject.getString("NewId");
                         ((App) getApplication()).saveUserId(App.userId);
-                    }catch (Exception e){
+                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                        startActivity(intent);
+                        finish();
+                    } else {
                         showProgress(false);
                         mPasswordView.setError(getString(R.string.error_incorrect_password));
+//                        mAccountView.setError(getString(R.string.error_incorrect_password));
                         mPasswordView.requestFocus();
                     }
-
                 }
 
                 @Override
                 public void onError(Throwable e) {
                     e.printStackTrace();
                     showProgress(false);
-                        mPasswordView.setError(getString(R.string.error_incorrect_password));
-                        mPasswordView.requestFocus();
+                    mPasswordView.setError(getString(R.string.error_incorrect_password));
+                    mPasswordView.requestFocus();
                 }
 
                 @Override
                 public void onComplete() {
-                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                    startActivity(intent);
-                    finish();
                 }
             },email,password);
         }
