@@ -137,7 +137,7 @@ public class ClockInHomeActivity extends AppCompatActivity {
                         item.put("Item", "日期");
                         datalist.add(item);
                         Map<String,String> item2=new HashMap<String,String>();
-                        item2.put("Item", "完工时间");
+                        item2.put("Item", "到家时间");
                         datalist.add(item2);
                     }
                     else {

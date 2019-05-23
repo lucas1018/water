@@ -13,7 +13,7 @@
         android:background="#008aca">
 
         <ImageView
-            android:id="@+id/home_history_back"
+            android:id="@+id/finish_history_back"
             android:layout_width="30dp"
             android:layout_height="17dp"
             android:layout_alignParentLeft="true"
@@ -29,7 +29,7 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
-            android:text="到家历史记录"
+            android:text="完工历史记录"
             android:textColor="#fff"
             android:textSize="18dp"
             android:textStyle="bold" />

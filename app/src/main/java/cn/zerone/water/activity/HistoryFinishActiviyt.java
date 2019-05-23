@@ -7,16 +7,13 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.GridView;
-import android.widget.HorizontalScrollView;
-import android.widget.TextView;
 import android.widget.ImageView;
 import android.widget.SimpleAdapter;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-
-import org.w3c.dom.Text;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -32,7 +29,7 @@ import cn.zerone.water.http.Requests;
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 
-public class HistoryHomeActivity extends AppCompatActivity implements DatePicker.OnDateChangedListener{
+public class HistoryFinishActiviyt extends AppCompatActivity implements DatePicker.OnDateChangedListener{
 
     private List<Map<String,String>> datalist;
     private List<Map<String,String>> title;
@@ -40,7 +37,7 @@ public class HistoryHomeActivity extends AppCompatActivity implements DatePicker
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_history_home);
+        setContentView(R.layout.activity_history_finish);
 
         setTitle();
         getList();
@@ -50,7 +47,7 @@ public class HistoryHomeActivity extends AppCompatActivity implements DatePicker
         int year=calendar.get(Calendar.YEAR);
         int monthOfYear=calendar.get(Calendar.MONTH);
         int dayOfMonth=calendar.get(Calendar.DAY_OF_MONTH);
-        datePicker.init(year,monthOfYear,dayOfMonth,HistoryHomeActivity.this);
+        datePicker.init(year,monthOfYear,dayOfMonth,HistoryFinishActiviyt.this);
         datePicker.bringToFront();
 
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -70,12 +67,12 @@ public class HistoryHomeActivity extends AppCompatActivity implements DatePicker
                 int year=calendar.get(Calendar.YEAR);
                 int monthOfYear=calendar.get(Calendar.MONTH);
                 int dayOfMonth=calendar.get(Calendar.DAY_OF_MONTH);
-                datePicker.init(year,monthOfYear,dayOfMonth,HistoryHomeActivity.this);
+                datePicker.init(year,monthOfYear,dayOfMonth,HistoryFinishActiviyt.this);
                 datePicker.bringToFront();
             }
         });
 
-        ImageView home_history_back = (ImageView) findViewById(R.id.home_history_back);
+        ImageView home_history_back = (ImageView) findViewById(R.id.finish_history_back);
         home_history_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -86,7 +83,7 @@ public class HistoryHomeActivity extends AppCompatActivity implements DatePicker
 
     @Override
     public void onDateChanged(DatePicker view, int year,int month,int day){
-        Toast.makeText(HistoryHomeActivity.this,"您选择的日期是："+year+"年"+(month+1)+"月"+day+"日!",Toast
+        Toast.makeText(HistoryFinishActiviyt.this,"您选择的日期是："+year+"年"+(month+1)+"月"+day+"日!",Toast
                 .LENGTH_SHORT).show();
     }
 
