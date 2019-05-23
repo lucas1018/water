@@ -53,7 +53,7 @@ public class ClockInHomeActivity extends AppCompatActivity {
 
                 GridView home_list=(GridView) findViewById(R.id.home_list);
                 datalist = new ArrayList<Map<String,String>>();
-                for(int i = 0; i<4;i++){
+                for(int i = 0; i<objects.size();i++){
                     if(i == 0){
                         Map<String,String> item=new HashMap<String,String>();
                         item.put("Item", "日期");
@@ -67,7 +67,7 @@ public class ClockInHomeActivity extends AppCompatActivity {
                         Map<String,String> item2=new HashMap<String,String>();
                         JSONObject jsonObject = objects.getJSONObject(i);
                         String time = jsonObject.getString("AddTime");
-                        String t = time.substring(7, 19);
+                        String t = time.substring(6, 19);
                         Long timeLong = Long.parseLong(t);
                         Calendar c = Calendar.getInstance();
                         c.setTimeInMillis(timeLong);
@@ -106,20 +106,58 @@ public class ClockInHomeActivity extends AppCompatActivity {
         button_home.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                wetherClockIn();
+            }
+        });
+    }
 
-                LocationUtil loc = new LocationUtil();
-                loc.initLocationOption(getApplicationContext());
+    private void wetherClockIn(){
+        Requests.getClockInList(new Observer<JSONArray>() {
+            @Override
+            public void onSubscribe(Disposable d) {
+            }
 
-                String lat = String.valueOf(loc.GetLat());
-                String lng = String.valueOf(loc.GetLng());
-
+            @Override
+            public void onNext(JSONArray objects) {
+                Boolean isRepeatClockIn = false;
                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                 Date date = new Date(System.currentTimeMillis());
                 String datetime = simpleDateFormat.format(date);
+                for(int i = 0; i<objects.size();i++){
+                    JSONObject jsonObject = objects.getJSONObject(i);
+                    String time = jsonObject.getString("AddTime");
+                    String t = time.substring(6, 19);
+                    Long timeLong = Long.parseLong(t);
+                    Date tmp = new Date(timeLong);
+                    String return_date = simpleDateFormat.format(tmp);
+                    if(return_date.substring(0, 10).equals(datetime.substring(0,10))){
+                        isRepeatClockIn = true;
+                        break;
+                    }
+                }
+                if(!isRepeatClockIn){
+                    LocationUtil loc = new LocationUtil();
+                    loc.initLocationOption(getApplicationContext());
 
-                addClockIn(datetime, lat, lng, "3", "", "");
+                    String lat = String.valueOf(loc.GetLat());
+                    String lng = String.valueOf(loc.GetLng());
+
+                    // addClockIn(datetime, lat, lng, "3", "", "");
+                }
+                else
+                    Toast.makeText(ClockInHomeActivity.this,"您今天已打卡，请勿重复操作", Toast.LENGTH_SHORT).show();
             }
-        });
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+
+            @Override
+            public void onComplete() {
+
+            }
+        },App.userId);
     }
 
     private void addClockIn(String add_time, String latitude, String longitude, String data_type,String pic, String address) {
@@ -131,7 +169,6 @@ public class ClockInHomeActivity extends AppCompatActivity {
 
             @Override
             public void onNext(String str) {
-
             }
 
             @Override
