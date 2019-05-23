@@ -114,7 +114,7 @@ public class HistoryHomeActivity extends AppCompatActivity implements DatePicker
 
                 GridView history_list=(GridView) findViewById(R.id.history_list);
                 datalist = new ArrayList<Map<String,String>>();
-                for(int i = 0; i<3;i++){
+                for(int i = 0; i<objects.size();i++){
                     Map<String, String> item = new HashMap<String, String>();
                     Map<String,String> item2=new HashMap<String,String>();
                     JSONObject jsonObject = objects.getJSONObject(i);
