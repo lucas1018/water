@@ -1,11 +1,12 @@
 package cn.zerone.water.activity;
 
+import android.content.Intent;
 import android.media.Image;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.GridView;
@@ -42,7 +43,84 @@ public class ClockInHomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_clock_in_home);
 
+        getList();
 
+        ImageView home_back = (ImageView) findViewById(R.id.home_back);
+        home_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
+        ImageButton button_home = findViewById(R.id.button_home);
+        button_home.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                wetherClockIn();
+            }
+        });
+
+        Button home_history = findViewById(R.id.home_history);
+        home_history.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(ClockInHomeActivity.this, HistoryHomeActivity.class));
+            }
+        });
+
+    }
+
+    private void wetherClockIn(){
+        Requests.getClockInList(new Observer<JSONArray>() {
+            @Override
+            public void onSubscribe(Disposable d) {
+            }
+
+            @Override
+            public void onNext(JSONArray objects) {
+                Boolean isRepeatClockIn = false;
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                Date date = new Date(System.currentTimeMillis());
+                String datetime = simpleDateFormat.format(date);
+                for(int i = 0; i<objects.size();i++){
+                    JSONObject jsonObject = objects.getJSONObject(i);
+                    String time = jsonObject.getString("AddTime");
+                    String t = time.substring(6, 19);
+                    Long timeLong = Long.parseLong(t);
+                    Date tmp = new Date(timeLong);
+                    String return_date = simpleDateFormat.format(tmp);
+                    if(return_date.substring(0, 10).equals(datetime.substring(0,10))){
+                        isRepeatClockIn = true;
+                        break;
+                    }
+                }
+                if(!isRepeatClockIn){
+                    LocationUtil loc = new LocationUtil();
+                    loc.initLocationOption(getApplicationContext());
+
+                    String lat = String.valueOf(loc.GetLat());
+                    String lng = String.valueOf(loc.GetLng());
+
+                    addClockIn(datetime, lat, lng, "3", "", "");
+                }
+                else
+                    Toast.makeText(ClockInHomeActivity.this,"您今天已打卡，请勿重复操作", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+
+            @Override
+            public void onComplete() {
+
+            }
+        },App.userId);
+    }
+
+    private void getList(){
         Requests.getClockInList(new Observer<JSONArray>() {
             @Override
             public void onSubscribe(Disposable d) {
@@ -80,72 +158,6 @@ public class ClockInHomeActivity extends AppCompatActivity {
                 }
                 home_list.setAdapter(new SimpleAdapter(getApplicationContext(), datalist,
                         R.layout.clock_in_grid, new String[]{"Item"}, new int[]{R.id.ItemText}));
-            }
-
-            @Override
-            public void onError(Throwable e) {
-
-            }
-
-            @Override
-            public void onComplete() {
-
-            }
-        },App.userId);
-
-
-        ImageView home_back = (ImageView) findViewById(R.id.home_back);
-        home_back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
-
-        ImageButton button_home = findViewById(R.id.button_home);
-        button_home.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                wetherClockIn();
-            }
-        });
-    }
-
-    private void wetherClockIn(){
-        Requests.getClockInList(new Observer<JSONArray>() {
-            @Override
-            public void onSubscribe(Disposable d) {
-            }
-
-            @Override
-            public void onNext(JSONArray objects) {
-                Boolean isRepeatClockIn = false;
-                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                Date date = new Date(System.currentTimeMillis());
-                String datetime = simpleDateFormat.format(date);
-                for(int i = 0; i<objects.size();i++){
-                    JSONObject jsonObject = objects.getJSONObject(i);
-                    String time = jsonObject.getString("AddTime");
-                    String t = time.substring(6, 19);
-                    Long timeLong = Long.parseLong(t);
-                    Date tmp = new Date(timeLong);
-                    String return_date = simpleDateFormat.format(tmp);
-                    if(return_date.substring(0, 10).equals(datetime.substring(0,10))){
-                        isRepeatClockIn = true;
-                        break;
-                    }
-                }
-                if(!isRepeatClockIn){
-                    LocationUtil loc = new LocationUtil();
-                    loc.initLocationOption(getApplicationContext());
-
-                    String lat = String.valueOf(loc.GetLat());
-                    String lng = String.valueOf(loc.GetLng());
-
-                    // addClockIn(datetime, lat, lng, "3", "", "");
-                }
-                else
-                    Toast.makeText(ClockInHomeActivity.this,"您今天已打卡，请勿重复操作", Toast.LENGTH_SHORT).show();
             }
 
             @Override
