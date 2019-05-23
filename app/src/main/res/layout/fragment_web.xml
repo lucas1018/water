@@ -265,7 +265,7 @@
             </LinearLayout>
 
             <ImageButton
-                android:id="@+id/imageButton11"
+                android:id="@+id/constrcution_log"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:background="#FFFFFF"

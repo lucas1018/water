@@ -4,6 +4,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.support.annotation.Nullable;
@@ -21,6 +22,10 @@ import android.widget.TextView;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -52,6 +57,8 @@ public class MyselfFragment extends Fragment {
 
     private Button action_sign_out;
 
+    private String imgUrl;
+
 
     @Nullable
     @Override
@@ -75,33 +82,35 @@ public class MyselfFragment extends Fragment {
 
         action_sign_out = view.findViewById(R.id.action_sign_out);
 
-//        Requests.USER_INFO_GetModel(new Observer<JSONObject>() {
-//            @Override
-//            public void onSubscribe(Disposable d) {
-//            }
-//            @Override
-//            public void onNext(JSONObject json) {
-//                String username = json.getString("NAME");
-//                App.username = username;
-//                userName.setText(username);
-//                String imgUrl = json.getString("Photo");
-//                ImageUtil imageUtil = ImageUtil.getInstance();
-//                Bitmap temp_bitmap = ImageUtil.getBitMBitmap(imgUrl);
-//                Bitmap bitmap = imageUtil.comp(temp_bitmap);
-//                photo1.setImageBitmap(bitmap);
-//                String login_name = json.getString("LOGIN_NAME");
-//                phoneNum.setText(login_name);
-//                String pwd = json.getString("PASSWORD");
-//                App.pwd = pwd;
-//            }
-//            @Override
-//            public void onError(Throwable e) {
-//                e.printStackTrace();
-//            }
-//            @Override
-//            public void onComplete() {
-//            }
-//        }, App.userId);
+        Requests.USER_INFO_GetModelBLL(new Observer<JSONObject>() {
+            @Override
+            public void onSubscribe(Disposable d) {
+            }
+            @Override
+            public void onNext(JSONObject json) {
+                String username = json.getString("NAME");
+                App.username = username;
+                userName.setText(username);
+                imgUrl = json.getString("Photo");
+                String url = "http://47.105.187.185:8011" + imgUrl;
+                ImageUtil imageUtil = ImageUtil.getInstance();
+                Bitmap temp_bitmap = ImageUtil.getBitMBitmap(url);
+                Bitmap bitmap = imageUtil.comp(temp_bitmap);
+                photo1.setImageBitmap(bitmap);
+                String login_name = json.getString("LOGIN_NAME");
+                phoneNum.setText(login_name);
+                String pwd = json.getString("PASSWORD");
+                App.pwd = pwd;
+            }
+            @Override
+            public void onError(Throwable e) {
+                e.printStackTrace();
+            }
+            @Override
+            public void onComplete() {
+
+            }
+        }, App.userId);
 
 
 
