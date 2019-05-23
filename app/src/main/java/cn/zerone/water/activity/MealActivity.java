@@ -39,6 +39,9 @@ public class MealActivity extends AppCompatActivity {
     private String meal_remark;
     private String meal_username;
 
+    //月度详情
+    private Button btn_detail;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -51,6 +54,9 @@ public class MealActivity extends AppCompatActivity {
         mealResturant = findViewById(R.id.resturant);
         mealRemark = findViewById(R.id.remark);//备注
         btn_add = findViewById(R.id.add_meal);//添加按钮
+
+        btn_detail = findViewById(R.id.meal_detail); //月度详情按钮
+
         //初始化参数值
         init();
         btn_add.setOnClickListener(new View.OnClickListener() {
@@ -203,5 +209,8 @@ public class MealActivity extends AppCompatActivity {
         },App.userId, App.username, meal_date, meal_type, meal_mount, meal_resturant, meal_remark);
 
     }
+
+
+
 
 }
