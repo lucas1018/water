@@ -15,7 +15,7 @@
     <item
         android:id="@+id/navigation_home"
         android:icon="@drawable/sy"
-        android:title="     " />
+        android:title="首页" />
     <item
         android:id="@+id/navigation_broadcast"
         android:icon="@mipmap/live_broadcast"
