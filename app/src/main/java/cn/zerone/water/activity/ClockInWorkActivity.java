@@ -26,6 +26,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import cn.zerone.water.App;
 import cn.zerone.water.R;
@@ -36,8 +38,8 @@ import io.reactivex.disposables.Disposable;
 
 public class ClockInWorkActivity extends AppCompatActivity {
 
-    private String morningClockPermissionTime = "22:30:00";
-    private String afterClockEndTime = "22:31:00";
+    private String morningClockPermissionTime = "23:40:00";
+    private String afterClockEndTime = "23:41:00";
     private List<JSONObject> clocklist;
 
     // 现在时间
@@ -183,6 +185,10 @@ public class ClockInWorkActivity extends AppCompatActivity {
                             else if(!morningPictureCaptured)
                                 Toast.makeText(ClockInWorkActivity.this,"请先完成拍照后在打卡", Toast.LENGTH_SHORT).show();
                             else{
+                                Pattern pattern = Pattern.compile("[0-9][0-9].+");
+                                Matcher matcher = pattern.matcher(morningPictureCapturedPath);
+                                if(matcher.find())
+                                    morningPictureCapturedPath = matcher.group(0);
                                 addClockIn(datetime, String.valueOf(morningloc.GetLat()), String.valueOf(morningloc.GetLng()), "0",morningPictureCapturedPath, "");
                                 Toast.makeText(ClockInWorkActivity.this,"上班打卡成功", Toast.LENGTH_SHORT).show();
                             }
@@ -202,6 +208,7 @@ public class ClockInWorkActivity extends AppCompatActivity {
 
                     TextView morninglocation = findViewById(R.id.morninglocation);
                     morninglocation.setText(clocklist.get(0).getString("Address"));
+
 
                     ImageButton morningimageButton = findViewById(R.id.morningimageButton);
                     morningimageButton.setVisibility(View.GONE);
