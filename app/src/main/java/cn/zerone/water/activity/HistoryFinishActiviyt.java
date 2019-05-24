@@ -53,7 +53,7 @@ public class HistoryFinishActiviyt extends AppCompatActivity implements DatePick
         seleted_date.setText(basic_date);
 
 
-        Button select_date = findViewById(R.id.select_date);
+        TextView select_date = findViewById(R.id.select_date);
         select_date.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

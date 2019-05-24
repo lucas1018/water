@@ -228,7 +228,7 @@ public class ClockInWorkActivity extends AppCompatActivity {
                     morningImage.setImageURI(Uri.fromFile(new File(basicPicturePath + clocklist.get(0).getString("Path"))));
 
                     TextView morningrelocation = findViewById(R.id.morningrelocation);
-                    morningrelocation.setVisibility(View.GONE);
+                    morningrelocation.setVisibility(View.INVISIBLE);
 
                     // 照片
                     LinearLayout afterLayout = findViewById(R.id.afterLayout);
@@ -305,7 +305,7 @@ public class ClockInWorkActivity extends AppCompatActivity {
                     morninglocation.setText(clocklist.get(0).getString("Address"));
 
                     TextView morningrelocation = findViewById(R.id.morningrelocation);
-                    morningrelocation.setVisibility(View.GONE);
+                    morningrelocation.setVisibility(View.INVISIBLE);
 
                     ImageButton morningimageButton = findViewById(R.id.morningimageButton);
                     morningimageButton.setVisibility(View.GONE);
@@ -322,7 +322,7 @@ public class ClockInWorkActivity extends AppCompatActivity {
                     afternoonNow.setText("打卡时间 "+ afternoontime.substring(11,16));
 
                     TextView afterrelocation = findViewById(R.id.afterrelocation);
-                    afterrelocation.setVisibility(View.GONE);
+                    afterrelocation.setVisibility(View.INVISIBLE);
 
                     TextView afternoonlocation = findViewById(R.id.afterlocation);
                     afternoonlocation.setText(clocklist.get(1).getString("Address"));
