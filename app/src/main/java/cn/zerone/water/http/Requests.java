@@ -261,8 +261,8 @@ public class Requests {
     public static void getClockInList(Observer<JSONArray> observer, String id, String DataType) {
         RequestBody requestBody = new FormBody.Builder()
                 .add("ID", id)
-                .add("DataType", id).build();
-        baseJSONArray(observer, "ClockIn_GetList", requestBody);
+                .add("DataType", DataType).build();
+        baseJSONArray(observer, "ClockIn_GetListByField", requestBody);
     }
 
     //调用消息列表接口

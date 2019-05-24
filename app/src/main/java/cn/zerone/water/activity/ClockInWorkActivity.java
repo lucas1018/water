@@ -1,10 +1,12 @@
 package cn.zerone.water.activity;
 
+import android.media.Image;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -29,7 +31,7 @@ import io.reactivex.disposables.Disposable;
 
 public class ClockInWorkActivity extends AppCompatActivity {
 
-    private String morningClockPermissionTime = "09:30:00";
+    private String morningClockPermissionTime = "9:45:00";
     private String afterClockEndTime = "17:30:00";
     private List<JSONObject> clocklist;
 
@@ -88,33 +90,6 @@ public class ClockInWorkActivity extends AppCompatActivity {
 
         showUI();
 
-//        LocationUtil loc = new LocationUtil();
-//        loc.initLocationOption(getApplicationContext());
-//
-//        date = new Date(System.currentTimeMillis());
-//        String now = simpleDateFormat.format(date);
-//        datetime = simpleDateFormat.format(date);
-//        datetime = datetime.replaceAll(".{2}:.{2}:.{2}", morningClockPermissionTime);
-//
-//        TextView dateString = findViewById(R.id.dateString);
-//        dateString.setText(datetime.substring(0,10));
-//
-//        TextView morningNow = findViewById(R.id.morningNow);
-//        morningNow.setText("打卡时间 "+ datetime.substring(11,16));
-//
-//        TextView location = findViewById(R.id.morninglocation);
-//        location.setText(loc.GetAddrStr());
-//
-//        Button clockIn = findViewById(R.id.clockIn);
-//        clockIn.setText("上班打卡");
-//        clockIn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                LinearLayout after = findViewById(R.id.afterLayout);
-//                after.setVisibility(View.VISIBLE);
-//            }
-//        });
-
     }
 
     void showUI(){
@@ -137,7 +112,7 @@ public class ClockInWorkActivity extends AppCompatActivity {
                     String return_date = simpleDateFormat.format(tmp);
 
                     if(return_date.substring(0, 10).equals(datetime.substring(0,10))){
-                        if(tmp.getTime() > morningpermission.getTime()){
+                        if(tmp.getTime() < morningpermission.getTime()){
                             isClockInMorning = true;
                             clocklist.add(jsonObject);
                             morningtime = return_date;
@@ -150,6 +125,8 @@ public class ClockInWorkActivity extends AppCompatActivity {
                         }
                     }
                 }
+
+                // 上班打卡
                 if(!isClockInAfternoon && !isClockInMorning ){
 
                     TextView dateString = findViewById(R.id.dateString);
@@ -170,8 +147,9 @@ public class ClockInWorkActivity extends AppCompatActivity {
                             if(date.getTime() > morningpermission.getTime())
                                 Toast.makeText(ClockInWorkActivity.this,"您已错过今天的打卡时间，打卡无效", Toast.LENGTH_SHORT).show();
                             else{
-                                LinearLayout after = findViewById(R.id.afterLayout);
-                                after.setVisibility(View.VISIBLE);
+                                addClockIn(datetime, String.valueOf(morningloc.GetLat()),
+                                        String.valueOf(morningloc.GetLng()), "1","", "");
+                                Toast.makeText(ClockInWorkActivity.this,"上班打卡成功", Toast.LENGTH_SHORT).show();
                             }
                         }
                     });
@@ -189,9 +167,17 @@ public class ClockInWorkActivity extends AppCompatActivity {
                     TextView morninglocation = findViewById(R.id.morninglocation);
                     morninglocation.setText(clocklist.get(0).getString("Address"));
 
+                    ImageButton morningimageButton = findViewById(R.id.morningimageButton);
+                    morningimageButton.setVisibility(View.GONE);
+
+                    // 照片
+
+                    LinearLayout afterLayout = findViewById(R.id.afterLayout);
+                    afterLayout.setVisibility(View.VISIBLE);
+
                     // 下午未打
                     TextView afternoonNow = findViewById(R.id.afterNow);
-                    morningNow.setText("打卡时间 "+ datetime.substring(11,16));
+                    afternoonNow.setText("打卡时间 "+ datetime.substring(11,16));
 
                     TextView afternoonlocation = findViewById(R.id.afterlocation);
                     afternoonlocation.setText(morningloc.GetAddrStr());
@@ -202,9 +188,13 @@ public class ClockInWorkActivity extends AppCompatActivity {
                         @Override
                         public void onClick(View v) {
                             // 下午打卡
-
-                            LinearLayout after = findViewById(R.id.afterLayout);
-                            after.setVisibility(View.VISIBLE);
+                            if(date.getTime() < afterpermission.getTime())
+                                Toast.makeText(ClockInWorkActivity.this,"还未到下午打卡时间", Toast.LENGTH_SHORT).show();
+                            else{
+                                addClockIn(datetime, String.valueOf(afternoonloc.GetLat()),
+                                        String.valueOf(afternoonloc.GetLng()), "1","", "");
+                                Toast.makeText(ClockInWorkActivity.this,"下班打卡成功", Toast.LENGTH_SHORT).show();
+                            }
                         }
                     });
                 }
@@ -221,6 +211,9 @@ public class ClockInWorkActivity extends AppCompatActivity {
                     morninglocation.setText(clocklist.get(0).getString("Address"));
 
                     // 下午已打
+                    LinearLayout afterLayout = findViewById(R.id.afterLayout);
+                    afterLayout.setVisibility(View.VISIBLE);
+
                     TextView afternoonNow = findViewById(R.id.afterNow);
                     afternoonNow.setText("打卡时间 "+ afternoontime.substring(11,16));
 
@@ -245,5 +238,28 @@ public class ClockInWorkActivity extends AppCompatActivity {
 
             }
         },App.userId, "0");
+    }
+
+    private void addClockIn(String add_time, String latitude, String longitude, String data_type,String pic, String address) {
+        Requests.ClockIn_SaveBLL(new Observer<String>() {
+            @Override
+            public void onSubscribe(Disposable d) {
+
+            }
+
+            @Override
+            public void onNext(String str) {
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+
+            @Override
+            public void onComplete() {
+            }
+        },App.userId, add_time, latitude, longitude, data_type, pic, address);
+
     }
 }
