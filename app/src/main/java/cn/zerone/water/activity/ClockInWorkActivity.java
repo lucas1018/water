@@ -141,6 +141,18 @@ public class ClockInWorkActivity extends AppCompatActivity {
                     TextView location = findViewById(R.id.morninglocation);
                     location.setText(morningloc.GetAddrStr());
 
+                    TextView morningrelocation = findViewById(R.id.morningrelocation);
+                    morningrelocation.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            morningloc = new LocationUtil();
+                            morningloc.initLocationOption(getApplicationContext());
+
+                            TextView location = findViewById(R.id.morninglocation);
+                            location.setText(morningloc.GetAddrStr());
+                        }
+                    });
+
                     ImageButton morningimageButton = findViewById(R.id.morningimageButton);
                     morningimageButton.setOnClickListener(new View.OnClickListener() {
                         @Override
@@ -184,6 +196,9 @@ public class ClockInWorkActivity extends AppCompatActivity {
                     ImageButton morningimageButton = findViewById(R.id.morningimageButton);
                     morningimageButton.setVisibility(View.GONE);
 
+                    TextView morningrelocation = findViewById(R.id.morningrelocation);
+                    morningimageButton.setVisibility(View.GONE);
+
                     // 照片
 
                     LinearLayout afterLayout = findViewById(R.id.afterLayout);
@@ -195,6 +210,18 @@ public class ClockInWorkActivity extends AppCompatActivity {
 
                     TextView afternoonlocation = findViewById(R.id.afterlocation);
                     afternoonlocation.setText(morningloc.GetAddrStr());
+
+                    TextView afterrelocation = findViewById(R.id.afterrelocation);
+                    afterrelocation.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            afternoonloc = new LocationUtil();
+                            afternoonloc.initLocationOption(getApplicationContext());
+
+                            TextView location = findViewById(R.id.afterlocation);
+                            location.setText(afternoonloc.GetAddrStr());
+                        }
+                    });
 
                     ImageButton afterimageButton = findViewById(R.id.afterimageButton);
                     afterimageButton.setOnClickListener(new View.OnClickListener() {
