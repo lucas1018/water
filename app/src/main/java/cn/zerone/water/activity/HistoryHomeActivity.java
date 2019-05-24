@@ -141,6 +141,6 @@ public class HistoryHomeActivity extends AppCompatActivity implements DatePicker
             public void onComplete() {
 
             }
-        },App.userId);
+        },App.userId, "3");
     }
 }

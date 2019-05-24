@@ -138,6 +138,6 @@ public class HistoryFinishActiviyt extends AppCompatActivity implements DatePick
             public void onComplete() {
 
             }
-        },App.userId);
+        },App.userId, "2");
     }
 }

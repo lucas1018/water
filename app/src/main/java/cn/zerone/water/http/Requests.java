@@ -258,10 +258,12 @@ public class Requests {
         baseString(observer, "ClockIn_SaveBLL", requestBody);
     }
 
-    public static void getClockInList(Observer<JSONArray> observer, String id) {
+    public static void getClockInList(Observer<JSONArray> observer, String id, String DataType) {
         RequestBody requestBody = new FormBody.Builder()
-                .add("ID", id).build();
-        baseJSONArray(observer, "ClockIn_GetList", requestBody);
+                .add("ID", id)
+                .add("field", "DataType")
+                .add("value", DataType).build();
+        baseJSONArray(observer, "ClockIn_GetListByField", requestBody);
     }
 
     //调用消息列表接口
