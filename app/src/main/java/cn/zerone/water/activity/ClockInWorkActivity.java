@@ -53,6 +53,9 @@ public class ClockInWorkActivity extends AppCompatActivity {
     private LocationUtil morningloc;
     private LocationUtil afternoonloc;
 
+    Boolean morningPictureCaptured = false;
+    Boolean afternoonPictureCaptured = false;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -138,6 +141,15 @@ public class ClockInWorkActivity extends AppCompatActivity {
                     TextView location = findViewById(R.id.morninglocation);
                     location.setText(morningloc.GetAddrStr());
 
+                    ImageButton morningimageButton = findViewById(R.id.morningimageButton);
+                    morningimageButton.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            // 上午打卡拍照
+
+                        }
+                    });
+
                     Button clockIn = findViewById(R.id.clockIn);
                     clockIn.setText("上班打卡");
                     clockIn.setOnClickListener(new View.OnClickListener() {
@@ -146,6 +158,8 @@ public class ClockInWorkActivity extends AppCompatActivity {
                             // 上午打卡
                             if(date.getTime() > morningpermission.getTime())
                                 Toast.makeText(ClockInWorkActivity.this,"您已错过今天的打卡时间，打卡无效", Toast.LENGTH_SHORT).show();
+                            else if(!morningPictureCaptured)
+                                Toast.makeText(ClockInWorkActivity.this,"请先完成拍照后在打卡", Toast.LENGTH_SHORT).show();
                             else{
                                 addClockIn(datetime, String.valueOf(morningloc.GetLat()),
                                         String.valueOf(morningloc.GetLng()), "0","", "");
@@ -182,6 +196,15 @@ public class ClockInWorkActivity extends AppCompatActivity {
                     TextView afternoonlocation = findViewById(R.id.afterlocation);
                     afternoonlocation.setText(morningloc.GetAddrStr());
 
+                    ImageButton afterimageButton = findViewById(R.id.afterimageButton);
+                    afterimageButton.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            // 下午打卡拍照
+
+                        }
+                    });
+
                     Button clockIn = findViewById(R.id.clockIn);
                     clockIn.setText("下班打卡");
                     clockIn.setOnClickListener(new View.OnClickListener() {
@@ -190,6 +213,8 @@ public class ClockInWorkActivity extends AppCompatActivity {
                             // 下午打卡
                             if(date.getTime() < afterpermission.getTime())
                                 Toast.makeText(ClockInWorkActivity.this,"还未到下午打卡时间", Toast.LENGTH_SHORT).show();
+                            else if(!afternoonPictureCaptured)
+                                Toast.makeText(ClockInWorkActivity.this,"请先完成拍照后在打卡", Toast.LENGTH_SHORT).show();
                             else{
                                 addClockIn(datetime, String.valueOf(afternoonloc.GetLat()),
                                         String.valueOf(afternoonloc.GetLng()), "0","", "");
