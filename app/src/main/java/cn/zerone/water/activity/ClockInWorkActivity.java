@@ -36,8 +36,8 @@ import io.reactivex.disposables.Disposable;
 
 public class ClockInWorkActivity extends AppCompatActivity {
 
-    private String morningClockPermissionTime = "22:25:00";
-    private String afterClockEndTime = "22:26:00";
+    private String morningClockPermissionTime = "22:30:00";
+    private String afterClockEndTime = "22:31:00";
     private List<JSONObject> clocklist;
 
     // 现在时间
@@ -183,8 +183,7 @@ public class ClockInWorkActivity extends AppCompatActivity {
                             else if(!morningPictureCaptured)
                                 Toast.makeText(ClockInWorkActivity.this,"请先完成拍照后在打卡", Toast.LENGTH_SHORT).show();
                             else{
-                                addClockIn(datetime, String.valueOf(morningloc.GetLat()),
-                                        String.valueOf(morningloc.GetLng()), "0",morningPictureCapturedPath, "");
+                                addClockIn(datetime, String.valueOf(morningloc.GetLat()), String.valueOf(morningloc.GetLng()), "0",morningPictureCapturedPath, "");
                                 Toast.makeText(ClockInWorkActivity.this,"上班打卡成功", Toast.LENGTH_SHORT).show();
                             }
                         }
