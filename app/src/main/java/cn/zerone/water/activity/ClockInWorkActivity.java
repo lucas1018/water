@@ -4,7 +4,9 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.text.SimpleDateFormat;
@@ -40,9 +42,18 @@ public class ClockInWorkActivity extends AppCompatActivity {
         dateString.setText(datetime.substring(0,10));
 
         TextView morningNow = findViewById(R.id.morningNow);
-        morningNow.setText("打卡时间"+ datetime.substring(11,16));
+        morningNow.setText("打卡时间 "+ datetime.substring(11,16));
 
-        TextView location = findViewById(R.id.location);
+        TextView location = findViewById(R.id.morninglocation);
         location.setText(loc.GetAddrStr());
+
+        Button clockIn = findViewById(R.id.clockIn);
+        clockIn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                LinearLayout after = findViewById(R.id.afterLayout);
+                after.setVisibility(View.VISIBLE);
+            }
+        });
     }
 }
