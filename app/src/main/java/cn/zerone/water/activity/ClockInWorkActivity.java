@@ -38,8 +38,8 @@ import io.reactivex.disposables.Disposable;
 
 public class ClockInWorkActivity extends AppCompatActivity {
 
-    private String morningClockPermissionTime = "23:40:00";
-    private String afterClockEndTime = "23:41:00";
+    private String morningClockPermissionTime = "09:30:00";
+    private String afterClockEndTime = "17:00:00";
     private List<JSONObject> clocklist;
 
     // 现在时间
@@ -63,8 +63,13 @@ public class ClockInWorkActivity extends AppCompatActivity {
     private Boolean morningPictureCaptured = false;
     private Boolean afternoonPictureCaptured = false;
 
+    // 判断是否已打卡
+    private Boolean morningClockIn = false;
+    private Boolean afternoonClockIn = false;
+
     private String morningPictureCapturedPath;
     private String afternoonPictureCapturedPath;
+    private String basicPicturePath = "/storage/emulated/0/JCamera/picture_";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -185,12 +190,17 @@ public class ClockInWorkActivity extends AppCompatActivity {
                             else if(!morningPictureCaptured)
                                 Toast.makeText(ClockInWorkActivity.this,"请先完成拍照后在打卡", Toast.LENGTH_SHORT).show();
                             else{
-                                Pattern pattern = Pattern.compile("[0-9][0-9].+");
-                                Matcher matcher = pattern.matcher(morningPictureCapturedPath);
-                                if(matcher.find())
-                                    morningPictureCapturedPath = matcher.group(0);
-                                addClockIn(datetime, String.valueOf(morningloc.GetLat()), String.valueOf(morningloc.GetLng()), "0",morningPictureCapturedPath, "");
-                                Toast.makeText(ClockInWorkActivity.this,"上班打卡成功", Toast.LENGTH_SHORT).show();
+                                if(!morningClockIn){
+                                    morningClockIn = true;
+                                    Pattern pattern = Pattern.compile("[0-9][0-9].+");
+                                    Matcher matcher = pattern.matcher(morningPictureCapturedPath);
+                                    if(matcher.find())
+                                        morningPictureCapturedPath = matcher.group(0);
+                                    addClockIn(datetime, String.valueOf(morningloc.GetLat()), String.valueOf(morningloc.GetLng()), "0",morningPictureCapturedPath, "");
+                                    Toast.makeText(ClockInWorkActivity.this,"上班打卡成功", Toast.LENGTH_SHORT).show();
+                                }
+                                else
+                                    Toast.makeText(ClockInWorkActivity.this,"您上班已打卡，请勿重复操作", Toast.LENGTH_SHORT).show();
                             }
                         }
                     });
@@ -215,7 +225,7 @@ public class ClockInWorkActivity extends AppCompatActivity {
 
                     ImageView morningImage = findViewById(R.id.morningImage);
                     morningImage.setVisibility(View.VISIBLE);
-                    morningImage.setImageURI(Uri.fromFile(new File(clocklist.get(0).getString("Path"))));
+                    morningImage.setImageURI(Uri.fromFile(new File(basicPicturePath + clocklist.get(0).getString("Path"))));
 
                     TextView morningrelocation = findViewById(R.id.morningrelocation);
                     morningrelocation.setVisibility(View.GONE);
@@ -248,7 +258,6 @@ public class ClockInWorkActivity extends AppCompatActivity {
                         @Override
                         public void onClick(View v) {
                             // 下午打卡拍照
-
                             afternoonPictureCaptured = true;
                             startActivityForResult(new Intent(ClockInWorkActivity.this, CameraActivity.class), 2);
                         }
@@ -265,9 +274,18 @@ public class ClockInWorkActivity extends AppCompatActivity {
                             else if(!afternoonPictureCaptured)
                                 Toast.makeText(ClockInWorkActivity.this,"请先完成拍照后在打卡", Toast.LENGTH_SHORT).show();
                             else{
-                                addClockIn(datetime, String.valueOf(afternoonloc.GetLat()),
-                                        String.valueOf(afternoonloc.GetLng()), "0",afternoonPictureCapturedPath, "");
-                                Toast.makeText(ClockInWorkActivity.this,"下班打卡成功", Toast.LENGTH_SHORT).show();
+                                if(!afternoonClockIn){
+                                    afternoonClockIn = true;
+                                    Pattern pattern = Pattern.compile("[0-9][0-9].+");
+                                    Matcher matcher = pattern.matcher(afternoonPictureCapturedPath);
+                                    if(matcher.find())
+                                        afternoonPictureCapturedPath = matcher.group(0);
+                                    addClockIn(datetime, String.valueOf(afternoonloc.GetLat()),
+                                            String.valueOf(afternoonloc.GetLng()), "0",afternoonPictureCapturedPath, "");
+                                    Toast.makeText(ClockInWorkActivity.this,"下班打卡成功", Toast.LENGTH_SHORT).show();
+                                }
+                                else
+                                    Toast.makeText(ClockInWorkActivity.this,"您下班已打卡，请勿重复操作", Toast.LENGTH_SHORT).show();
                             }
                         }
                     });
@@ -294,7 +312,7 @@ public class ClockInWorkActivity extends AppCompatActivity {
 
                     ImageView morningImage = findViewById(R.id.morningImage);
                     morningImage.setVisibility(View.VISIBLE);
-                    morningImage.setImageURI(Uri.fromFile(new File(clocklist.get(0).getString("Path"))));
+                    morningImage.setImageURI(Uri.fromFile(new File(basicPicturePath + clocklist.get(0).getString("Path"))));
 
                     // 下午已打
                     LinearLayout afterLayout = findViewById(R.id.afterLayout);
@@ -314,7 +332,7 @@ public class ClockInWorkActivity extends AppCompatActivity {
 
                     ImageView afterImage = findViewById(R.id.afterImage);
                     afterImage.setVisibility(View.VISIBLE);
-                    afterImage.setImageURI(Uri.fromFile(new File(clocklist.get(1).getString("Path"))));
+                    afterImage.setImageURI(Uri.fromFile(new File(basicPicturePath + clocklist.get(1).getString("Path"))));
 
 
                     // 查看
