@@ -14,9 +14,9 @@ import com.baidu.navisdk.adapter.BaiduNaviManagerFactory;
 import com.baidu.navisdk.adapter.IBNOuterSettingParams;
 import com.baidu.navisdk.comapi.setting.SettingParams;
 
-public class DemoNaviSettingActivity extends Activity implements View.OnClickListener {
+public class BDNaviSettingActivity extends Activity implements View.OnClickListener {
 
-    private static final String TAG = "DemoNaviSettingActivity";
+    private static final String TAG = "BDNaviSettingActivity";
 
     // 导航视角
     private static final int GUIDE_VIEW_OPTION_CNT = 2;

@@ -9,7 +9,7 @@ import com.baidu.navigation.service.LocationController;
 import com.baidu.navisdk.adapter.BaiduNaviManagerFactory;
 import com.baidu.navisdk.adapter.IBNRouteGuideManager;
 
-public class DemoExtGpsActivity extends Activity {
+public class BDExtGpsActivity extends Activity {
 
     private IBNRouteGuideManager.OnNavigationListener mOnNavigationListener =
             new IBNRouteGuideManager.OnNavigationListener() {

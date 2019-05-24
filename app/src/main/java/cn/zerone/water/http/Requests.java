@@ -230,4 +230,16 @@ public class Requests {
         SoapObject request = new SoapObject(NAMESPACE, "Notice_GetList");
         baseJSONObject(observer, request);
     }
+
+    public static void getApproveInfo(Observer<JSONObject> observer, String userId, int  state,int PageIndex, int PageSize) {
+        RequestBody requestBody = new FormBody.Builder()
+                .add("ApplyUserId", userId)
+                .add("State", String.valueOf(state))
+                .add("PageIndex", String.valueOf(PageIndex))
+                .add("PageSize", String.valueOf(PageSize))
+
+                .build();
+        baseJSONObject(observer,"GeneralCheck_GetPageInfo", requestBody);
+    }
+
 }

@@ -7,6 +7,7 @@
     android:orientation="vertical"
     android:background="#e4e2e2">
 
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
@@ -31,38 +32,49 @@
             android:layout_centerVertical="true"
             android:textStyle="bold"
             android:textColor="#fff"
-            android:text="办公审批" />
+            android:text="审批意见" />
     </RelativeLayout>
 
     <LinearLayout
-        android:orientation="horizontal"
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <Button
-            android:id="@+id/wait_approve"
-            android:layout_width="0dp"
+
+        <EditText
+            android:id="@+id/edit_opinion_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="未审批"
-        />
+            android:layout_margin="10dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/edit_sytle"
+            android:gravity="left|top"
+            android:hint="驳回原因/同意"
+            android:minLines="5"
+            android:padding="5dp"
+            android:textSize="16sp"/>
+
+
 
         <Button
-            android:id="@+id/approved"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:id="@+id/opinion_submit"
+            android:layout_width="280dp"
+            android:layout_height="40dp"
             android:layout_weight="1"
-            android:text="已审批"
+            android:layout_centerInParent="true"
+            android:layout_centerVertical="true"
+            android:layout_marginTop="10dp"
+            android:layout_gravity="center"
+            android:background="#1AAD19"
+            android:textColor="#fff"
+            android:text="提交"
+
             />
+
+
 
     </LinearLayout>
 
-    <ListView
-        android:id="@+id/appr_list_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-    </ListView>
 
 
 

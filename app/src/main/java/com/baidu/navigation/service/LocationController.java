@@ -72,7 +72,7 @@ public class LocationController implements LocationListener {
         if (ActivityCompat.checkSelfPermission(ctx, Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(ctx,
                 Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            Log.e("LocationDemo", "initLocationClient: permission failed");
+            Log.e("LocationActivity", "initLocationClient: permission failed");
             return;
         }
         mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,

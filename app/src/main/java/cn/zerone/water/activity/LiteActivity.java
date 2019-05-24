@@ -4,7 +4,6 @@
 package cn.zerone.water.activity;
 
 import android.Manifest;
-import android.content.ComponentName;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
@@ -14,14 +13,11 @@ import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.widget.Button;
 
-import cn.zerone.water.activity.DemoMainActivity;
 import com.baidu.navigation.service.ForegroundService;
 
 import java.util.ArrayList;
 
 import cn.zerone.water.R;
-
-import static com.baidu.vi.VIContext.getContext;
 
 public class LiteActivity extends FragmentActivity {
 
@@ -39,7 +35,7 @@ public class LiteActivity extends FragmentActivity {
             @Override
             public void onClick(View v) {
 
-                Intent it = new Intent(LiteActivity.this, DemoMainActivity.class);
+                Intent it = new Intent(LiteActivity.this, BDMainActivity.class);
                 startActivity(it);
             }
         });

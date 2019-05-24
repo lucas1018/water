@@ -38,7 +38,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DemoMainActivity extends Activity {
+public class BDMainActivity extends Activity {
 
     private static final String APP_FOLDER_NAME = "BNSDKSimpleDemo";
 
@@ -77,7 +77,7 @@ public class DemoMainActivity extends Activity {
         public void onLocationChanged(Location location) {
             mCurrentLat = location.getLatitude();
             mCurrentLng = location.getLongitude();
-            Toast.makeText(DemoMainActivity.this, mCurrentLat
+            Toast.makeText(BDMainActivity.this, mCurrentLat
                     + "--" + mCurrentLng, Toast.LENGTH_LONG).show();
         }
 
@@ -258,11 +258,11 @@ public class DemoMainActivity extends Activity {
                 @Override
                 public void onClick(View arg0) {
                     if (BaiduNaviManagerFactory.getBaiduNaviManager().isInited()) {
-                        View dialogView = View.inflate(DemoMainActivity.this, R.layout
+                        View dialogView = View.inflate(BDMainActivity.this, R.layout
                                 .dialog_node, null);
                         final EditText editStart = dialogView.findViewById(R.id.edit_start);
                         final EditText editEnd = dialogView.findViewById(R.id.edit_end);
-                        new AlertDialog.Builder(DemoMainActivity.this)
+                        new AlertDialog.Builder(BDMainActivity.this)
                                 .setView(dialogView)
                                 .setPositiveButton("导航", new DialogInterface.OnClickListener() {
                                     @Override
@@ -270,7 +270,7 @@ public class DemoMainActivity extends Activity {
                                         String startPoint = editStart.getText().toString().trim();
                                         String endPoint = editEnd.getText().toString().trim();
                                         if (!checkValid(startPoint, endPoint)) {
-                                            Toast.makeText(DemoMainActivity.this, "填写格式有误", Toast
+                                            Toast.makeText(BDMainActivity.this, "填写格式有误", Toast
                                                     .LENGTH_SHORT).show();
                                             return;
                                         }
@@ -326,7 +326,7 @@ public class DemoMainActivity extends Activity {
                 @Override
                 public void onClick(View v) {
                     if (BaiduNaviManagerFactory.getBaiduNaviManager().isInited()) {
-                        NormalUtils.gotoSettings(DemoMainActivity.this);
+                        NormalUtils.gotoSettings(BDMainActivity.this);
                     }
                 }
             });
@@ -397,18 +397,18 @@ public class DemoMainActivity extends Activity {
                         } else {
                             result = "key校验失败, " + msg;
                         }
-                        Toast.makeText(DemoMainActivity.this, result, Toast.LENGTH_LONG).show();
+                        Toast.makeText(BDMainActivity.this, result, Toast.LENGTH_LONG).show();
                     }
 
                     @Override
                     public void initStart() {
-                        Toast.makeText(DemoMainActivity.this.getApplicationContext(),
+                        Toast.makeText(BDMainActivity.this.getApplicationContext(),
                                 "百度导航引擎初始化开始", Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
                     public void initSuccess() {
-                        Toast.makeText(DemoMainActivity.this.getApplicationContext(),
+                        Toast.makeText(BDMainActivity.this.getApplicationContext(),
                                 "百度导航引擎初始化成功", Toast.LENGTH_SHORT).show();
                         hasInitSuccess = true;
                         // 初始化tts
@@ -418,7 +418,7 @@ public class DemoMainActivity extends Activity {
 
                     @Override
                     public void initFailed(int errCode) {
-                        Toast.makeText(DemoMainActivity.this.getApplicationContext(),
+                        Toast.makeText(BDMainActivity.this.getApplicationContext(),
                                 "百度导航引擎初始化失败 " + errCode, Toast.LENGTH_SHORT).show();
                     }
                 });
@@ -440,7 +440,7 @@ public class DemoMainActivity extends Activity {
 
     private void calRoutePlanNode(final int coType) {
         if (!hasInitSuccess) {
-            Toast.makeText(DemoMainActivity.this.getApplicationContext(), "还未初始化!", Toast
+            Toast.makeText(BDMainActivity.this.getApplicationContext(), "还未初始化!", Toast
                     .LENGTH_SHORT).show();
         }
 
@@ -550,28 +550,28 @@ public class DemoMainActivity extends Activity {
                     public void handleMessage(Message msg) {
                         switch (msg.what) {
                             case IBNRoutePlanManager.MSG_NAVI_ROUTE_PLAN_START:
-                                Toast.makeText(DemoMainActivity.this.getApplicationContext(),
+                                Toast.makeText(BDMainActivity.this.getApplicationContext(),
                                         "算路开始", Toast.LENGTH_SHORT).show();
                                 break;
                             case IBNRoutePlanManager.MSG_NAVI_ROUTE_PLAN_SUCCESS:
-                                Toast.makeText(DemoMainActivity.this.getApplicationContext(),
+                                Toast.makeText(BDMainActivity.this.getApplicationContext(),
                                         "算路成功", Toast.LENGTH_SHORT).show();
                                 break;
                             case IBNRoutePlanManager.MSG_NAVI_ROUTE_PLAN_FAILED:
-                                Toast.makeText(DemoMainActivity.this.getApplicationContext(),
+                                Toast.makeText(BDMainActivity.this.getApplicationContext(),
                                         "算路失败", Toast.LENGTH_SHORT).show();
                                 break;
                             case IBNRoutePlanManager.MSG_NAVI_ROUTE_PLAN_TO_NAVI:
-                                Toast.makeText(DemoMainActivity.this.getApplicationContext(),
+                                Toast.makeText(BDMainActivity.this.getApplicationContext(),
                                         "算路成功准备进入导航", Toast.LENGTH_SHORT).show();
 
                                 Intent intent = null;
                                 if (from == NORMAL) {
-                                    intent = new Intent(DemoMainActivity.this,
-                                            DemoGuideActivity.class);
+                                    intent = new Intent(BDMainActivity.this,
+                                            BDGuideActivity.class);
                                 } else if (from == EXTERNAL) {
-                                    intent = new Intent(DemoMainActivity.this,
-                                            DemoExtGpsActivity.class);
+                                    intent = new Intent(BDMainActivity.this,
+                                            BDExtGpsActivity.class);
                                 }
 
                                 startActivity(intent);
@@ -593,7 +593,7 @@ public class DemoMainActivity extends Activity {
                 if (ret == 0) {
                     continue;
                 } else {
-                    Toast.makeText(DemoMainActivity.this.getApplicationContext(),
+                    Toast.makeText(BDMainActivity.this.getApplicationContext(),
                             "缺少导航基本的权限!", Toast.LENGTH_SHORT).show();
                     return;
                 }

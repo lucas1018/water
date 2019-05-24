@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_modify_psw"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -31,38 +32,67 @@
             android:layout_centerVertical="true"
             android:textStyle="bold"
             android:textColor="#fff"
-            android:text="办公审批" />
+            android:text="采购单审批" />
     </RelativeLayout>
 
-    <LinearLayout
-        android:orientation="horizontal"
+
+    <WebView
+        android:id="@+id/web_info"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content" >
 
-        <Button
-            android:id="@+id/wait_approve"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="未审批"
-        />
 
-        <Button
-            android:id="@+id/approved"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="已审批"
+    </WebView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+
+        <TextView
+            android:id="@+id/appendix"
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:text="附件："
+            android:textStyle="bold"
+            />
+        <TextView
+            android:id="@+id/appendix_cont"
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:text="采购清单.xls"
+            android:textColor="#008aca"
+            android:layout_marginLeft="20dp"
+            android:textStyle="bold"
             />
 
     </LinearLayout>
 
-    <ListView
-        android:id="@+id/appr_list_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
 
-    </ListView>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/agree"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="同意"
+            />
+
+        <Button
+            android:id="@+id/reject"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="驳回"
+            />
+
+    </LinearLayout>
+
 
 
 

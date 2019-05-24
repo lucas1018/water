@@ -29,9 +29,9 @@ import com.baidu.navisdk.adapter.map.BNOverlayItem;
 /**
  * 诱导界面
  */
-public class DemoGuideActivity extends Activity {
+public class BDGuideActivity extends Activity {
 
-    private static final String TAG = DemoGuideActivity.class.getName();
+    private static final String TAG = BDGuideActivity.class.getName();
 
     private IBNRouteGuideManager mRouteGuideManager;
 
@@ -118,7 +118,7 @@ public class DemoGuideActivity extends Activity {
                 new BNOverlayItem(2563047.686035, 1.2695675172607E7, BNOverlayItem.CoordinateType
                         .BD09_MC);
         BNItemizedOverlay overlay = new BNItemizedOverlay(
-                DemoGuideActivity.this.getResources().getDrawable(R.drawable
+                BDGuideActivity.this.getResources().getDrawable(R.drawable
                         .navi_guide_turn));
         overlay.addItem(item);
         overlay.show();

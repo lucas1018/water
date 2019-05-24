@@ -146,14 +146,14 @@
         </activity>
 
         <activity
-            android:name=".map.MarkerClusterDemo"
+            android:name=".map.MarkerClusterActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_marker_cluster_demo"
             android:screenOrientation="portrait" >
         </activity>
 
         <activity
-            android:name=".map.LocationDemo"
+            android:name=".map.LocationActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/demo_name_location"
             android:screenOrientation="portrait" >
@@ -167,19 +167,19 @@
         </activity>
 
         <activity android:name=".activity.LiteActivity" />
-        <activity android:name=".activity.DemoNaviSettingActivity" />
+        <activity android:name=".activity.BDNaviSettingActivity" />
 
         <activity
-            android:name=".activity.DemoMainActivity"
+            android:name=".activity.BDMainActivity"
             android:configChanges="orientation|screenSize|keyboard|keyboardHidden"
             android:label="@string/sdk_name" />
 
         <activity
-            android:name=".activity.DemoGuideActivity"
+            android:name=".activity.BDGuideActivity"
             android:configChanges="orientation|screenSize|keyboard|keyboardHidden"
             android:label="@string/title_route_guide_demo"
             android:theme="@android:style/Theme.NoTitleBar" />
-        <activity android:name=".activity.DemoExtGpsActivity"
+        <activity android:name=".activity.BDExtGpsActivity"
             android:configChanges="orientation|screenSize|keyboard|keyboardHidden"
             android:theme="@android:style/Theme.NoTitleBar" />
 
@@ -217,7 +217,7 @@
                 <category android:name="cn.zerone.water" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.CheckActivity" />
+        <activity android:name=".activity.ApproveActivity" />
 
         <!-- Required SDK 核心功能-->
         <!-- 可配置android:process参数将PushService放在其他进程中 -->
