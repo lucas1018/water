@@ -136,19 +136,21 @@ public class ClockInFinishActivity extends AppCompatActivity {
                         datalist.add(item2);
                     }
                     else {
-                        Map<String, String> item = new HashMap<String, String>();
-                        Map<String,String> item2=new HashMap<String,String>();
                         JSONObject jsonObject = objects.getJSONObject(i);
-                        String time = jsonObject.getString("AddTime");
-                        String t = time.substring(6, 19);
-                        Long timeLong = Long.parseLong(t);
-                        Calendar c = Calendar.getInstance();
-                        c.setTimeInMillis(timeLong);
-                        String tt = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(c.getTime());
-                        item.put("Item", tt.substring(0, 10));
-                        datalist.add(item);
-                        item2.put("Item", tt.substring(11, 19));
-                        datalist.add(item2);
+                        if(jsonObject.getString("DataType").equals("2")){
+                            Map<String, String> item = new HashMap<String, String>();
+                            Map<String,String> item2=new HashMap<String,String>();
+                            String time = jsonObject.getString("AddTime");
+                            String t = time.substring(6, 19);
+                            Long timeLong = Long.parseLong(t);
+                            Calendar c = Calendar.getInstance();
+                            c.setTimeInMillis(timeLong);
+                            String tt = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(c.getTime());
+                            item.put("Item", tt.substring(0, 10));
+                            datalist.add(item);
+                            item2.put("Item", tt.substring(11, 19));
+                            datalist.add(item2);
+                        }
                     }
                 }
                 home_list.setAdapter(new SimpleAdapter(getApplicationContext(), datalist,
