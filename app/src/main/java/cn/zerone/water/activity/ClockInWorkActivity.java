@@ -31,7 +31,7 @@ import io.reactivex.disposables.Disposable;
 
 public class ClockInWorkActivity extends AppCompatActivity {
 
-    private String morningClockPermissionTime = "9:45:00";
+    private String morningClockPermissionTime = "9:30:00";
     private String afterClockEndTime = "17:30:00";
     private List<JSONObject> clocklist;
 
@@ -148,7 +148,7 @@ public class ClockInWorkActivity extends AppCompatActivity {
                                 Toast.makeText(ClockInWorkActivity.this,"您已错过今天的打卡时间，打卡无效", Toast.LENGTH_SHORT).show();
                             else{
                                 addClockIn(datetime, String.valueOf(morningloc.GetLat()),
-                                        String.valueOf(morningloc.GetLng()), "1","", "");
+                                        String.valueOf(morningloc.GetLng()), "0","", "");
                                 Toast.makeText(ClockInWorkActivity.this,"上班打卡成功", Toast.LENGTH_SHORT).show();
                             }
                         }
@@ -192,7 +192,7 @@ public class ClockInWorkActivity extends AppCompatActivity {
                                 Toast.makeText(ClockInWorkActivity.this,"还未到下午打卡时间", Toast.LENGTH_SHORT).show();
                             else{
                                 addClockIn(datetime, String.valueOf(afternoonloc.GetLat()),
-                                        String.valueOf(afternoonloc.GetLng()), "1","", "");
+                                        String.valueOf(afternoonloc.GetLng()), "0","", "");
                                 Toast.makeText(ClockInWorkActivity.this,"下班打卡成功", Toast.LENGTH_SHORT).show();
                             }
                         }

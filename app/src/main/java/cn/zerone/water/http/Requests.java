@@ -261,7 +261,8 @@ public class Requests {
     public static void getClockInList(Observer<JSONArray> observer, String id, String DataType) {
         RequestBody requestBody = new FormBody.Builder()
                 .add("ID", id)
-                .add("DataType", DataType).build();
+                .add("field", "DataType")
+                .add("value", DataType).build();
         baseJSONArray(observer, "ClockIn_GetListByField", requestBody);
     }
 
