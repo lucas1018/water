@@ -58,7 +58,7 @@ public class ApproveActivity extends AppCompatActivity implements View.OnClickLi
             }
         });
 
-        //initDatas();
+        initDatas();
 
     }
 
@@ -77,12 +77,14 @@ public class ApproveActivity extends AppCompatActivity implements View.OnClickLi
             @Override
             public void onNext(JSONObject jsonObject) {
 
-                String str = jsonObject.getString("Data");
-                JSONObject json = JSONArray.parseArray(str).getJSONObject(0);
-
-                String username = json.getString("ApplyUserId");
-                System.out.println("============");
-                System.out.println(username);
+                String ApplyUserId = jsonObject.getString("ApplyUserId");
+                String DataTyepe = jsonObject.getString("DataType");
+                String State = jsonObject.getString("State");
+                System.out.println("**************1111");
+                System.out.println("ApplyUserId:"+ ApplyUserId);
+                System.out.println("DataTyepe:" + DataTyepe);
+                System.out.println("State:" + State);
+                System.out.println("**************2222");
 
                 /*String imgUrl = json.getString("Photo");
                 System.out.println("============");

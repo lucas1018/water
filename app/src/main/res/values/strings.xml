@@ -36,5 +36,7 @@
     <string name="demo_name_poi">POI搜索功能</string>
     <string name="demo_name_nav">导航功能</string>
     <string name="action_sign_navi">确定</string>
+    <string name="startlocation">开始定位</string>
+    <string name="stoplocation">停止定位</string>
 
 </resources>

@@ -12,6 +12,7 @@ import android.widget.ListView;
 import android.view.View.OnClickListener;
 import cn.zerone.water.R;
 import cn.zerone.water.activity.LiteActivity;
+import cn.zerone.water.map.LocationActivity;
 import cn.zerone.water.map.MarkerClusterActivity;
 import cn.zerone.water.map.PoiSearchActivity;
 
@@ -40,7 +41,7 @@ public class JobListFragment extends Fragment {
         but_nvi.setOnClickListener(new OnClickListener(){
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getContext(), LiteActivity.class);
+                Intent intent = new Intent(getContext(), PoiSearchActivity.class);
                 getContext().startActivity(intent);
             }
 
@@ -56,7 +57,7 @@ public class JobListFragment extends Fragment {
         but_loc.setOnClickListener(new OnClickListener(){
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getContext(), PoiSearchActivity.class);
+                Intent intent = new Intent(getContext(), LocationActivity.class);
                 getContext().startActivity(intent);
             }
 
