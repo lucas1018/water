@@ -32,6 +32,20 @@ public class ClockInWorkActivity extends AppCompatActivity {
     private String afterClockEndTime = "17:30:00";
     private List<JSONObject> clocklist;
 
+    // 现在时间
+    private Date date;
+    private SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    private String datetime;
+
+    // 早晨打卡时间
+    private String morningtime;
+    // 下午打卡时间
+    private String afternoontime;
+
+    // 上下午可打卡时间
+    private Date afterpermission;
+    private Date morningpermission;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,104 +63,6 @@ public class ClockInWorkActivity extends AppCompatActivity {
 
     }
 
-    void isClockInMorning(){
-        Requests.getClockInList(new Observer<JSONArray>() {
-            @Override
-            public void onSubscribe(Disposable d) {
-            }
-
-            @Override
-            public void onNext(JSONArray objects) {
-                Boolean isClockInMorning = false;
-                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                Date date = new Date(System.currentTimeMillis());
-                String datetime = simpleDateFormat.format(date);
-                datetime = datetime.replaceAll(".{2}:.{2}:.{2}", morningClockPermissionTime);
-                Date morningpermission = null;
-                try {
-                    morningpermission = simpleDateFormat.parse(datetime);
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
-
-                for(int i = 0; i<objects.size();i++){
-                    JSONObject jsonObject = objects.getJSONObject(i);
-                    String time = jsonObject.getString("AddTime");
-                    String t = time.substring(6, 19);
-                    Long timeLong = Long.parseLong(t);
-                    Date tmp = new Date(timeLong);
-                    String return_date = simpleDateFormat.format(tmp);
-                    if(return_date.substring(0, 10).equals(datetime.substring(0,10)) && tmp.getTime() < morningpermission.getTime()){
-                        isClockInMorning = true;
-                        datetime = return_date;
-                        break;
-                    }
-                }
-                if(!isClockInMorning){
-
-                    //get location
-                    LocationUtil loc = new LocationUtil();
-                    loc.initLocationOption(getApplicationContext());
-
-                    date = new Date(System.currentTimeMillis());
-                    String now = simpleDateFormat.format(date);
-
-                    TextView dateString = findViewById(R.id.dateString);
-                    dateString.setText(now.substring(0,10));
-
-                    TextView morningNow = findViewById(R.id.morningNow);
-                    morningNow.setText("打卡时间 "+ now.substring(11,16));
-
-                    TextView location = findViewById(R.id.morninglocation);
-                    location.setText(loc.GetAddrStr());
-
-                    Button clockIn = findViewById(R.id.clockIn);
-                    clockIn.setText("上班打卡");
-                    clockIn.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            LinearLayout after = findViewById(R.id.afterLayout);
-                            after.setVisibility(View.VISIBLE);
-                        }
-                    });
-                }
-                else{
-                    LocationUtil loc = new LocationUtil();
-                    loc.initLocationOption(getApplicationContext());
-
-                    TextView dateString = findViewById(R.id.dateString);
-                    dateString.setText(datetime.substring(0,10));
-
-                    TextView morningNow = findViewById(R.id.morningNow);
-                    morningNow.setText("打卡时间 "+ datetime.substring(11,16));
-
-                    TextView location = findViewById(R.id.morninglocation);
-                    location.setText(loc.GetAddrStr());
-
-                    Button clockIn = findViewById(R.id.clockIn);
-                    clockIn.setText("下班打卡");
-                    clockIn.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            LinearLayout after = findViewById(R.id.afterLayout);
-                            after.setVisibility(View.VISIBLE);
-                        }
-                    });
-                }
-            }
-
-            @Override
-            public void onError(Throwable e) {
-
-            }
-
-            @Override
-            public void onComplete() {
-
-            }
-        },App.userId);
-    }
-
     void showUI(){
         Requests.getClockInList(new Observer<JSONArray>() {
             @Override
@@ -157,15 +73,14 @@ public class ClockInWorkActivity extends AppCompatActivity {
             public void onNext(JSONArray objects) {
                 Boolean isClockInMorning = false;
                 Boolean isClockInAfternoon = false;
-                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                Date date = new Date(System.currentTimeMillis());
-                String datetime = simpleDateFormat.format(date);
+                date = new Date(System.currentTimeMillis());
+                datetime = simpleDateFormat.format(date);
 
-                String morningtime = datetime.replaceAll(".{2}:.{2}:.{2}", morningClockPermissionTime);
-                String afternoontime = datetime.replaceAll(".{2}:.{2}:.{2}", afterClockEndTime);
+                morningtime = datetime.replaceAll(".{2}:.{2}:.{2}", morningClockPermissionTime);
+                afternoontime = datetime.replaceAll(".{2}:.{2}:.{2}", afterClockEndTime);
 
-                Date afterpermission = null;
-                Date morningpermission = null;
+                afterpermission = null;
+                morningpermission = null;
                 try {
                     morningpermission = simpleDateFormat.parse(morningtime);
                     afterpermission = simpleDateFormat.parse(afternoontime);
@@ -219,9 +134,12 @@ public class ClockInWorkActivity extends AppCompatActivity {
                         @Override
                         public void onClick(View v) {
                             // 上午打卡
-
-                            LinearLayout after = findViewById(R.id.afterLayout);
-                            after.setVisibility(View.VISIBLE);
+                            if(date.getTime() > morningpermission.getTime())
+                                Toast.makeText(ClockInWorkActivity.this,"您已错过今天的打卡时间，打卡无效", Toast.LENGTH_SHORT).show();
+                            else{
+                                LinearLayout after = findViewById(R.id.afterLayout);
+                                after.setVisibility(View.VISIBLE);
+                            }
                         }
                     });
                 }
