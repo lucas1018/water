@@ -258,9 +258,10 @@ public class Requests {
         baseString(observer, "ClockIn_SaveBLL", requestBody);
     }
 
-    public static void getClockInList(Observer<JSONArray> observer, String id) {
+    public static void getClockInList(Observer<JSONArray> observer, String id, String DataType) {
         RequestBody requestBody = new FormBody.Builder()
-                .add("ID", id).build();
+                .add("ID", id)
+                .add("DataType", id).build();
         baseJSONArray(observer, "ClockIn_GetList", requestBody);
     }
 

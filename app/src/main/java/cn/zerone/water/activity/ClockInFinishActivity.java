@@ -112,7 +112,7 @@ public class ClockInFinishActivity extends AppCompatActivity {
             public void onComplete() {
 
             }
-        },App.userId);
+        },App.userId, "2");
     }
 
     private void getList(){
@@ -164,7 +164,7 @@ public class ClockInFinishActivity extends AppCompatActivity {
             public void onComplete() {
 
             }
-        },App.userId);
+        },App.userId, "2");
     }
 
     private void addClockIn(String add_time, String latitude, String longitude, String data_type,String pic, String address) {
