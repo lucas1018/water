@@ -1,15 +1,20 @@
 package cn.zerone.water.fragment;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -17,6 +22,10 @@ import android.widget.TextView;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -46,6 +55,10 @@ public class MyselfFragment extends Fragment {
 
     private ImageView photo1;
 
+    private Button action_sign_out;
+
+    private String imgUrl;
+
 
     @Nullable
     @Override
@@ -66,31 +79,26 @@ public class MyselfFragment extends Fragment {
         userName = view.findViewById(R.id.user_name);
         phoneNum = view.findViewById(R.id.phone_number);
         photo1=view.findViewById(R.id.image_1);
-//        Bitmap bitmap= BitmapFactory.decodeResource(getResources(),R.drawable.touxiang);
-//        photo1.setImageBitmap(bitmap);
 
+        action_sign_out = view.findViewById(R.id.action_sign_out);
 
-
-        Requests.getUserInfo(new Observer<JSONObject>() {
+        Requests.USER_INFO_GetModelBLL(new Observer<JSONObject>() {
             @Override
             public void onSubscribe(Disposable d) {
             }
             @Override
-            public void onNext(JSONObject jsonObject) {
-                String str = jsonObject.getString("Data");
-                JSONObject json = JSONArray.parseArray(str).getJSONObject(0);
-
-                String username = json.getString("LOGIN_NAME");
+            public void onNext(JSONObject json) {
+                String username = json.getString("NAME");
                 App.username = username;
                 userName.setText(username);
-                String imgUrl = json.getString("Photo");
-                System.out.println("============");
-                ImageUtil imageUtil = ImageUtil.getIntance();
-                Bitmap temp_bitmap = imageUtil.getBitMBitmap(imgUrl);
+                imgUrl = json.getString("Photo");
+                String url = "http://47.105.187.185:8011" + imgUrl;
+                ImageUtil imageUtil = ImageUtil.getInstance();
+                Bitmap temp_bitmap = ImageUtil.getBitMBitmap(url);
                 Bitmap bitmap = imageUtil.comp(temp_bitmap);
                 photo1.setImageBitmap(bitmap);
-                String phone_num = json.getString("PHONE");
-                phoneNum.setText(phone_num);
+                String login_name = json.getString("LOGIN_NAME");
+                phoneNum.setText(login_name);
                 String pwd = json.getString("PASSWORD");
                 App.pwd = pwd;
             }
@@ -100,16 +108,24 @@ public class MyselfFragment extends Fragment {
             }
             @Override
             public void onComplete() {
+
             }
-        },App.userId);
+        }, App.userId);
 
 
+
+        action_sign_out.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                System.exit(0);
+            }
+        });
 
     }
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        listView.setAdapter(new MySelfFragmentAdapter(getContext(),R.layout.myitem,myItemList));
+        listView.setAdapter(new MySelfFragmentAdapter(getContext(),R.layout.myitem, myItemList));
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {

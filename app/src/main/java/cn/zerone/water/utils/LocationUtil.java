@@ -10,7 +10,7 @@ import com.baidu.location.BDAbstractLocationListener;
 import com.baidu.location.BDLocation;
 import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
-import com.baidu.mapapi.map.MyLocationConfiguration.LocationMode;
+// import com.baidu.mapapi.map.MyLocationConfiguration.LocationMode;
 
 /**
  * 首先在主线程调用initLocationOption(getApplicationContext())
@@ -31,7 +31,7 @@ public class LocationUtil {
      * 初始化定位参数配置
      */
 
-    private void initLocationOption( Context context) {
+    public void initLocationOption( Context context) {
 
         //定位服务的客户端。宿主程序在客户端声明此类，并调用，目前只支持在主线程中启动
         LocationClient locationClient = new LocationClient(context);

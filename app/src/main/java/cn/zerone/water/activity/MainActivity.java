@@ -1,5 +1,8 @@
 package cn.zerone.water.activity;
 
+
+
+
 import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
@@ -30,6 +33,7 @@ import cn.zerone.water.R;
 import cn.zerone.water.fragment.FriendsFragment;
 import cn.zerone.water.fragment.HomeFragment;
 import cn.zerone.water.fragment.JobListFragment;
+import cn.zerone.water.fragment.LiveFragment;
 import cn.zerone.water.fragment.MasterArticleFragment;
 import cn.zerone.water.fragment.MyselfFragment;
 import cn.zerone.water.fragment.NoticeFragment;
@@ -43,13 +47,13 @@ public class MainActivity extends AppCompatActivity {
     public static MainActivity activity;
 
     List<String> mViewList = new ArrayList<String>();//顶部用于循环的布局集合
-    Fragment[] fragments = new Fragment[]{new NoticeFragment(),new JobListFragment(),new HomeFragment(),new FriendsFragment(),new MyselfFragment()};
+    Fragment[] fragments = new Fragment[]{new NoticeFragment(),new JobListFragment(),new HomeFragment(),new LiveFragment(),new MyselfFragment()};
     //切换底部导航
 
     public synchronized void changeTab(int index,String url){
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         for (int i = 0; i < 5; ++i) {
-            if(i == index){
+            if(i == index) {
                 transaction.show(fragments[i]);
             }else{
                 transaction.hide(fragments[i]);
@@ -128,7 +132,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         ((App)getApplication()).mapInit();
-        ((App)getApplication()).userInit();
+
         navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         BottomNavigationViewHelper.disableShiftMode(navigation);
@@ -142,12 +146,15 @@ public class MainActivity extends AppCompatActivity {
         changeTab(2,null);
 
         MainActivity.activity = this;
+        int a=  navigation.getChildCount();
+        int b=navigation.getMaxItemCount();
         BottomNavigationMenuView menuView  = (BottomNavigationMenuView) navigation.getChildAt(0);
+        navigation.setSelectedItemId(navigation.getMenu().getItem(2).getItemId());
         View tab = menuView.getChildAt(1);
         BottomNavigationItemView itemView = (BottomNavigationItemView) tab;
          badge = LayoutInflater.from(this).inflate(R.layout.menu_badge, null, false);
         itemView.addView(badge);
-         tab = menuView.getChildAt(3);
+         tab = menuView.getChildAt(1);
          itemView = (BottomNavigationItemView) tab;
         msgBadge= LayoutInflater.from(this).inflate(R.layout.menu_badge, null, false);
         itemView.addView(msgBadge);

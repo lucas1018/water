@@ -71,7 +71,7 @@
         android:orientation="horizontal">
 
         <ImageButton
-            android:id="@+id/attendance"
+            android:id="@+id/attendance_button"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_weight="1"
@@ -79,31 +79,31 @@
             app:srcCompat="@mipmap/attendance" />
 
         <ImageButton
-            android:id="@+id/imageButton2"
+            android:id="@+id/car_button"
 
-            android:background="#FFFFFF"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_weight="1"
+            android:background="#FFFFFF"
             app:srcCompat="@mipmap/car" />
 
         <ImageButton
-            android:id="@+id/imageButton3"
-            android:background="#FFFFFF"
+            android:id="@+id/finish_button"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_weight="1"
+            android:background="#FFFFFF"
             app:srcCompat="@mipmap/finish" />
 
         <ImageButton
-            android:id="@+id/imageButton4"
+            android:id="@+id/home_button"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_weight="1"
             android:background="#FFFFFF"
             app:srcCompat="@mipmap/home" />
-
     </LinearLayout>
+
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
@@ -132,16 +132,17 @@
             android:text="到家"
             android:gravity="center"
             android:layout_weight="1"/>
-
     </LinearLayout>
-    <LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="10dp"
-    android:background="#FFFFFF"></LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        >
+        android:layout_height="10dp"
+        android:background="#FFFFFF">
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
         <TextView
             android:id="@+id/textView3"
             android:layout_width="match_parent"
@@ -159,133 +160,150 @@
         android:orientation="horizontal"
         android:layout_height="wrap_content"
         android:background="#FFFFFF">
-        <ImageButton
-            android:id="@+id/imageButton5"
-            android:layout_weight="1"
-            android:background="#FFFFFF"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:srcCompat="@mipmap/approval" />
 
-        <ImageButton
-            android:id="@+id/imageButton6"
-            android:layout_weight="1"
-            android:background="#FFFFFF"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:srcCompat="@mipmap/log" />
-
-        <ImageButton
-            android:id="@+id/imageButton7"
-            android:layout_weight="1"
-            android:background="#FFFFFF"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:srcCompat="@mipmap/problem" />
-
-        <ImageButton
-            android:id="@+id/imageButton8"
-            android:layout_width="match_parent"
+        <LinearLayout
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="#FFFFFF"
-            app:srcCompat="@mipmap/broadcast" />
+            android:orientation="vertical">
 
-    </LinearLayout>
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <TextView
+            <ImageButton
+                android:id="@+id/imageButton5"
+                android:background="#FFFFFF"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:srcCompat="@mipmap/approval" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="办公审批"
+                android:layout_gravity="center"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                android:background="#FFFFFF">
+            </LinearLayout>
+
+            <ImageButton
+                android:id="@+id/imageButton9"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:background="#FFFFFF"
+                android:layout_gravity="center"
+                app:srcCompat="@mipmap/lunch" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="16dp"
+                android:text="工作餐"
+                android:layout_gravity="center"/>
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="办公审批"
-            android:gravity="center"
-            android:layout_weight="1"/>
-        <TextView
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <ImageButton
+                android:id="@+id/imageButton6"
+                android:background="#FFFFFF"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:srcCompat="@mipmap/log" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="工作日志"
+                android:layout_gravity="center" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                android:background="#FFFFFF">
+            </LinearLayout>
+
+            <ImageButton
+                android:id="@+id/imageButton10"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="#FFFFFF"
+                app:srcCompat="@mipmap/location" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="16dp"
+                android:text="位置导航"
+                android:layout_gravity="center" />
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="工作日志"
-            android:gravity="center"
-            android:layout_weight="1"/>
-        <TextView
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <ImageButton
+                android:id="@+id/imageButton7"
+                android:background="#FFFFFF"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:srcCompat="@mipmap/problem" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="问题上报"
+                android:layout_gravity="center"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                android:background="#FFFFFF">
+            </LinearLayout>
+
+            <ImageButton
+                android:id="@+id/constrcution_log"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="#FFFFFF"
+                app:srcCompat="@mipmap/construction_log" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="16dp"
+                android:text="施工日志"
+                android:layout_gravity="center" />
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="问题上报"
-            android:gravity="center"
-            android:layout_weight="1"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="发起直播"
-            android:gravity="center"
-            android:layout_weight="1"/>
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <ImageButton
+                android:id="@+id/imageButton8"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#FFFFFF"
+                app:srcCompat="@mipmap/broadcast" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="发起直播"
+                android:layout_gravity="center" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                android:background="#FFFFFF">
+            </LinearLayout>
+
+         </LinearLayout>
 
     </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="10dp"
-        android:background="#FFFFFF"></LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#FFFFFF"
-        android:orientation="horizontal">
-
-
-        <ImageButton
-            android:id="@+id/imageButton9"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginLeft="20dp"
-            android:background="#FFFFFF"
-            app:srcCompat="@mipmap/lunch" />
-
-        <ImageButton
-            android:id="@+id/imageButton10"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginLeft="40dp"
-            android:background="#FFFFFF"
-            app:srcCompat="@mipmap/location" />
-
-
-        <ImageButton
-            android:id="@+id/imageButton11"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginLeft="40dp"
-            android:background="#FFFFFF"
-            app:srcCompat="@mipmap/construction_log" />
-
-    </LinearLayout>
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <TextView
-            android:layout_width="48dp"
-            android:layout_height="16dp"
-            android:text="工作餐"
-            android:gravity="center"
-            android:layout_marginLeft="21dp"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="16dp"
-            android:text="位置导航"
-            android:gravity="center"
-            android:layout_marginLeft="40dp"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="16dp"
-            android:text="施工日志"
-            android:gravity="center"
-            android:layout_marginLeft="35dp"/>
-
-    </LinearLayout>
-
-
-
-
 </LinearLayout>

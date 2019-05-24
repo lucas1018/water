@@ -14,7 +14,7 @@ import java.net.URLConnection;
 public class ImageUtil {
     private int picType;//0表示默认png图片；1表示jpg或者jpeg
 
-    public static ImageUtil getIntance(){
+    public static ImageUtil getInstance(){
         return new ImageUtil();
     }
 
