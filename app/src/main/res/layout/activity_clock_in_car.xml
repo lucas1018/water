@@ -280,7 +280,7 @@
         android:orientation="vertical">
 
         <Button
-            android:id="@+id/button"
+            android:id="@+id/clockInButton"
             android:layout_width="190dp"
             android:layout_height="50dp"
             android:layout_gravity="center"

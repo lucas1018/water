@@ -38,6 +38,7 @@ public class ClockInCarActivity extends AppCompatActivity {
     private ImageButton relatedStationButton;
     private ImageButton clockInTypeButton;
     private ImageButton carPictureButton;
+    private Button clockInButton;
     private TextView carNumber;
     private TextView carType;
     private TextView relatedProject;
@@ -64,6 +65,13 @@ public class ClockInCarActivity extends AppCompatActivity {
     private String basicPicturePath = "/storage/emulated/0/JCamera/picture_";
     private String carPictureCapturedPath;
 
+    private Boolean isNumber = false;
+    private Boolean isProject = false;
+    private Boolean isStation = false;
+    private Boolean isType = false;
+    private Boolean isPictureCaptured = false;
+
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -82,6 +90,7 @@ public class ClockInCarActivity extends AppCompatActivity {
         relatedStation = findViewById(R.id.relatedStation);
         clockInType = findViewById(R.id.clockInType);
         location = findViewById(R.id.location);
+        clockInButton = findViewById(R.id.clockInButton);
 
         LocationUtil loc = new LocationUtil();
         loc.initLocationOption(getApplicationContext());
@@ -152,6 +161,28 @@ public class ClockInCarActivity extends AppCompatActivity {
                 finish();
             }
         });
+
+        clockInButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(!isNumber)
+                    Toast.makeText(ClockInCarActivity.this,"“车牌号码”不能为空！", Toast.LENGTH_SHORT).show();
+                else if(!isProject)
+                    Toast.makeText(ClockInCarActivity.this,"“所属项目”不能为空！", Toast.LENGTH_SHORT).show();
+                else if(!isStation)
+                    Toast.makeText(ClockInCarActivity.this,"“所属站点”不能为空！", Toast.LENGTH_SHORT).show();
+                else if(!isType)
+                    Toast.makeText(ClockInCarActivity.this,"“打卡类型”不能为空！", Toast.LENGTH_SHORT).show();
+                else if(!isPictureCaptured)
+                    Toast.makeText(ClockInCarActivity.this,"“现场照片”不能为空！", Toast.LENGTH_SHORT).show();
+                else{
+                    // 判断今天是否已打卡
+                    // 打卡接口
+                    Toast.makeText(ClockInCarActivity.this,"“打卡成功", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
     }
 
     @Override
@@ -162,19 +193,23 @@ public class ClockInCarActivity extends AppCompatActivity {
             cartype = data.getStringExtra("type");
             carNumber.setText(number);
             carType.setText(cartype);
+            isNumber=true;
         }
         if (requestCode == 2 && resultCode == 720) {
             project = data.getStringExtra("project");
             projectID = data.getStringExtra("projectID");
             relatedProject.setText(project);
+            isProject=true;
         }
         if (requestCode == 3 && resultCode == 820) {
             station = data.getStringExtra("station");
             relatedStation.setText(station);
+            isStation=true;
         }
         if (requestCode == 4 && resultCode == 920) {
             type = data.getStringExtra("type") ;
             clockInType.setText(types[Integer.parseInt(type)]);
+            isType=true;
         }
         if (requestCode == 5 && resultCode == 101) {
             String path = data.getStringExtra("path");
@@ -185,6 +220,7 @@ public class ClockInCarActivity extends AppCompatActivity {
             carImage = findViewById(R.id.carImage);
             carImage.setVisibility(View.VISIBLE);
             carImage.setImageURI(Uri.fromFile(new File(path)));
+            isPictureCaptured=true;
         }
     }
 }
