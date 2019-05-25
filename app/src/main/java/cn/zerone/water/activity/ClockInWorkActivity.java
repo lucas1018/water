@@ -395,7 +395,6 @@ public class ClockInWorkActivity extends AppCompatActivity {
             afternoonPictureCapturedPath = path;
 
             ImageButton afterimageButton = findViewById(R.id.afterimageButton);
-            
             afterimageButton.setVisibility(View.GONE);
 
             ImageView afterImage = findViewById(R.id.afterImage);

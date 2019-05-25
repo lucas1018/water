@@ -122,6 +122,8 @@
         <activity android:name=".activity.HistoryHomeActivity"    android:configChanges="keyboard|keyboardHidden|orientation|screenSize" />
         <activity android:name=".activity.HistoryFinishActiviyt"    android:configChanges="keyboard|keyboardHidden|orientation|screenSize" />
         <activity android:name=".activity.ClockInGetCatNumberActivity"    android:configChanges="keyboard|keyboardHidden|orientation|screenSize" />
+        <activity android:name=".activity.ClockInGetProjectActivity"    android:configChanges="keyboard|keyboardHidden|orientation|screenSize" />
+        <activity android:name=".activity.ClockInGetStationActivity"    android:configChanges="keyboard|keyboardHidden|orientation|screenSize" />
 
         <activity android:name=".activity.ConstructionLog"    android:configChanges="keyboard|keyboardHidden|orientation|screenSize" />
 

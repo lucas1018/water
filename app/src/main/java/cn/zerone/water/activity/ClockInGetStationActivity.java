@@ -6,13 +6,10 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
@@ -28,11 +25,13 @@ import cn.zerone.water.http.Requests;
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 
-public class ClockInGetCatNumberActivity extends AppCompatActivity {
+public class ClockInGetStationActivity  extends AppCompatActivity {
 
-    private List<Map<String,String>> carNumber;
-    private ListView carList;
-    private JSONArray cars;
+    private List<Map<String,String>> stationItem;
+    private ListView stationList;
+    private JSONArray stations;
+
+    private String projectID;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -48,26 +47,27 @@ public class ClockInGetCatNumberActivity extends AppCompatActivity {
         });
 
         TextView title = findViewById(R.id.title);
-        title.setText("请选择车牌号");
+        title.setText("请选择所属站点");
 
-        carList = findViewById(R.id.carClockInList);
-        Requests.getCarList(new Observer<JSONArray>() {
+        stationList = findViewById(R.id.carClockInList);
+        projectID = getIntent().getStringExtra("projectID");
+        Requests.getStationList(new Observer<JSONArray>() {
             @Override
             public void onSubscribe(Disposable d) {
             }
 
             @Override
             public void onNext(JSONArray objects) {
-                carNumber= new ArrayList<Map<String,String>>();
-                cars = objects;
+                stationItem= new ArrayList<Map<String,String>>();
+                stations = objects;
                 for(int i = 0; i<objects.size();i++){
                     Map<String, String> item = new HashMap<String, String>();
                     JSONObject jsonObject = objects.getJSONObject(i);
-                    String car = jsonObject.getString("CarNember");
+                    String car = jsonObject.getString("STNM");
                     item.put("Item",car);
-                    carNumber.add(item);
+                    stationItem.add(item);
                 }
-                carList.setAdapter(new SimpleAdapter(getApplicationContext(), carNumber,
+                stationList.setAdapter(new SimpleAdapter(getApplicationContext(), stationItem,
                         R.layout.clock_in_item, new String[]{"Item"}, new int[]{R.id.clockInItem}));
             }
 
@@ -80,19 +80,19 @@ public class ClockInGetCatNumberActivity extends AppCompatActivity {
             public void onComplete() {
 
             }
-        },App.userId);
+        },App.userId, projectID);
 
-        carList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        stationList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 //position 点击的Item位置，从0开始算
                 //Toast.makeText(ClockInGetCatNumberActivity.this,cars.getJSONObject(position).getString("CarNember") , Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent();
-                intent.putExtra("number", cars.getJSONObject(position).getString("CarNember"));
-                intent.putExtra("type", cars.getJSONObject(position).getString("CarType"));
-                setResult(620, intent);
+                intent.putExtra("station", stations.getJSONObject(position).getString("STNM"));
+                setResult(820, intent);
                 finish();
             }
         });
     }
 }
+

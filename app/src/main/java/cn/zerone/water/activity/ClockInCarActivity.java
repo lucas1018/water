@@ -51,6 +51,11 @@ public class ClockInCarActivity extends AppCompatActivity {
     private Date date;
     private String datetime;
 
+    private String number;
+    private String cartype;
+    private String project;
+    private String projectID="";
+    private String station;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -84,20 +89,27 @@ public class ClockInCarActivity extends AppCompatActivity {
         carNumberButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 startActivityForResult(new Intent(ClockInCarActivity.this, ClockInGetCatNumberActivity.class), 1);
+            }
+        });
 
-//                Requests.getCarList(new Observer<JSONArray>() {
+
+        relatedProjectButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivityForResult(new Intent(ClockInCarActivity.this, ClockInGetProjectActivity.class), 2);
+//                Requests.getProjectLogList(new Observer<JSONArray>() {
 //                    @Override
 //                    public void onSubscribe(Disposable d) {
 //                    }
 //
 //                    @Override
+//                    // PROJECT_NAME 项目名，ID项目编号，用于查询站点
 //                    public void onNext(JSONArray objects) {
 //                        String str="";
 //                        for(int i = 0; i<objects.size();i++){
 //                            JSONObject jsonObject = objects.getJSONObject(i);
-//                            String car = jsonObject.getString("CarNember");
+//                            String car = jsonObject.getString("PROJECT_NAME");
 //                            str = str + car;
 //                            Toast.makeText(ClockInCarActivity.this,str, Toast.LENGTH_SHORT).show();
 //                        }
@@ -116,69 +128,43 @@ public class ClockInCarActivity extends AppCompatActivity {
             }
         });
 
-
-        relatedProjectButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Requests.getProjectLogList(new Observer<JSONArray>() {
-                    @Override
-                    public void onSubscribe(Disposable d) {
-                    }
-
-                    @Override
-                    // PROJECT_NAME 项目名，ID项目编号，用于查询站点
-                    public void onNext(JSONArray objects) {
-                        String str="";
-                        for(int i = 0; i<objects.size();i++){
-                            JSONObject jsonObject = objects.getJSONObject(i);
-                            String car = jsonObject.getString("PROJECT_NAME");
-                            str = str + car;
-                            Toast.makeText(ClockInCarActivity.this,str, Toast.LENGTH_SHORT).show();
-                        }
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-
-                    }
-
-                    @Override
-                    public void onComplete() {
-
-                    }
-                },App.userId);
-            }
-        });
-
         relatedStationButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Requests.getStationList(new Observer<JSONArray>() {
-                    @Override
-                    public void onSubscribe(Disposable d) {
-                    }
+                if (projectID == "")
+                    Toast.makeText(ClockInCarActivity.this, "请先选择“所属项目”！", Toast.LENGTH_SHORT).show();
+                else {
+                    Intent intent = new Intent();
+                    intent.putExtra("projectID", projectID);
+                    startActivityForResult(intent.setClass(ClockInCarActivity.this, ClockInGetStationActivity.class), 3);
+                }
 
-                    @Override
-                    public void onNext(JSONArray objects) {
-                        String str="";
-                        for(int i = 0; i<objects.size();i++){
-                            JSONObject jsonObject = objects.getJSONObject(i);
-                            String car = jsonObject.getString("STNM");
-                            str = str + car;
-                            Toast.makeText(ClockInCarActivity.this,str, Toast.LENGTH_SHORT).show();
-                        }
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-
-                    }
-
-                    @Override
-                    public void onComplete() {
-
-                    }
-                },App.userId, "11");
+//                Requests.getStationList(new Observer<JSONArray>() {
+//                    @Override
+//                    public void onSubscribe(Disposable d) {
+//                    }
+//
+//                    @Override
+//                    public void onNext(JSONArray objects) {
+//                        String str="";
+//                        for(int i = 0; i<objects.size();i++){
+//                            JSONObject jsonObject = objects.getJSONObject(i);
+//                            String car = jsonObject.getString("STNM");
+//                            str = str + car;
+//                            Toast.makeText(ClockInCarActivity.this,str, Toast.LENGTH_SHORT).show();
+//                        }
+//                    }
+//
+//                    @Override
+//                    public void onError(Throwable e) {
+//
+//                    }
+//
+//                    @Override
+//                    public void onComplete() {
+//
+//                    }
+//                },App.userId, "11");
             }
         });
 
@@ -210,10 +196,19 @@ public class ClockInCarActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 1 && resultCode == 620) {
-            String number = data.getStringExtra("number");
-            String type = data.getStringExtra("type");
+            number = data.getStringExtra("number");
+            cartype = data.getStringExtra("type");
             carNumber.setText(number);
-            carType.setText(type);
+            carType.setText(cartype);
+        }
+        if (requestCode == 2 && resultCode == 720) {
+            project = data.getStringExtra("project");
+            projectID = data.getStringExtra("projectID");
+            relatedProject.setText(project);
+        }
+        if (requestCode == 3 && resultCode == 820) {
+            station = data.getStringExtra("station");
+            relatedStation.setText(station);
         }
     }
 }
