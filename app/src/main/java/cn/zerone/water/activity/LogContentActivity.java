@@ -1,75 +1,66 @@
-package cn.zerone.water.fragment;
+package cn.zerone.water.activity;
 
+
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.view.LayoutInflater;
+import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
 
-import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 
 import java.text.SimpleDateFormat;
-import java.util.AbstractList;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import cn.zerone.water.R;
-import cn.zerone.water.activity.NoticeActivity;
 import cn.zerone.water.http.Requests;
 import cn.zerone.water.model.ListViewAdapter;
+import cn.zerone.water.model.LogAdapter;
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 
-public class NoticeFragment extends Fragment {
-
+public class LogContentActivity extends Activity {
     private ListView listView;
     private List<Map<String, Object>> list;
+    private ImageView back =null;
+    public  void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.logcontent);
+        back = (ImageView)findViewById(R.id.c_back);
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.activity_system_messages, container, false);
-        listView = (ListView) view.findViewById(R.id.system_message_listView);
+        listView = (ListView)findViewById(R.id.log_name);
         listView.setFooterDividersEnabled(true);
         list = new ArrayList<Map<String, Object>>();
         getData();
 
-        return view;
     }
 
     public void getData() {
 
-        Requests.UserMessage_GetList(new Observer<JSONArray>() {
+        Requests.PROJECT_INFO_GetList(new Observer<JSONArray>() {
             @Override
             public void onSubscribe(Disposable d) {
             }
-
             @Override
             public void onNext(JSONArray objects) {
                 for (int i = 0; i < objects.size(); i++) {
-
                     JSONObject json1 = new JSONObject();
                     JSONObject jsonObject = objects.getJSONObject(i);
-                    String Title = jsonObject.getString("Title");
-                    json1.put("title", Title);
-                    String time = jsonObject.getString("AddTime");
-                    String realTime = time.substring(6, 18);
-                    Long longtime = Long.parseLong(realTime);
-                    SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-                    String d = format.format(longtime);
-                    json1.put("AddTime", d);
-                    String content = jsonObject.getString("Msg");
-                    json1.put("Msg", content);
-                    String Type = jsonObject.getString("DataType");
-                    json1.put("DataType", Type);
+                    String name = jsonObject.getString("PROJECT_NAME");
+                    json1.put("PROJECT_NAME", name);
                     list.add(json1);
-
                 }
                 UpdateAdapter(list);
             }
@@ -87,25 +78,20 @@ public class NoticeFragment extends Fragment {
 
     }
     private void UpdateAdapter(List<Map<String, Object>> list) {
-        listView.setAdapter(new ListViewAdapter(getActivity(), list));
+        listView.setAdapter(new LogAdapter(this, list));
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Bundle bundle = new Bundle();
-
                 JSONObject list1 = JSONObject.parseObject(adapterView.getItemAtPosition(i).toString());
-
-                bundle.putString("title", list1.get("title").toString());
-                bundle.putString("AddTime", list1.get("AddTime").toString());
-                bundle.putString("Msg", list1.get("Msg").toString());
-                bundle.putString("DataType", list1.get("DataType").toString());
+                bundle.putString("PROJECT_NAME", list1.get("PROJECT_NAME").toString());
                 Intent intent = new Intent();
                 intent.putExtras(bundle);
-                intent.setClass(getActivity(), NoticeActivity.class);
-                startActivity(intent);
-
+                setResult(3,intent);
+                finish();
             }
         });
     }
+
 
 }

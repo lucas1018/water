@@ -69,19 +69,20 @@
                     android:layout_width="64dp"
                     android:layout_height="21dp"
                     android:layout_marginLeft="1dp"
-                    android:text="所属项目"
                     android:layout_weight="1"
+                    android:text="所属项目"
                     android:textColor="#ff999999"
                     android:textSize="16sp" />
-
                 <TextView
                     android:id="@+id/project_name"
                     android:layout_width="wrap_content"
                     android:layout_height="21dp"
                     android:layout_marginLeft="20dp"
-                    android:text="漳河灌区项目"
+                    android:text="九支渠79号闸"
                     android:layout_weight="5"
                     android:textColor="#ff000000" />
+
+
 
                 <ImageView
                     android:id="@+id/log_go"
@@ -152,7 +153,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="5dp"
                 android:layout_marginRight="20dp"
                 android:orientation="horizontal">
 
@@ -165,36 +166,26 @@
                     android:textColor="#ff999999"
                     android:textSize="16sp" />
 
-                <TextView
-                    android:id="@+id/project_date"
+                <EditText
                     android:layout_width="wrap_content"
-                    android:layout_height="21dp"
-                    android:layout_marginLeft="20dp"
-                    android:text="2019-04-01"
-                    android:layout_weight="5"
-                    android:textColor="#ff000000" />
+                    android:layout_height="wrap_content"
+                    android:layout_weight="6"
+                    android:textColor="#C7C7C7"
+                    android:textColorHint="#C7C7C7"
+                    android:textSize="16sp"
+                    android:hint="请输入施工日期"
+                    android:id="@+id/log_date"
+                    />
 
 
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
 
-                <View
-                    android:layout_width="fill_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginTop="11dp"
-                    android:layout_marginRight="20dp"
-                    android:background="#ffeeeeee"></View>
-
-            </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="5dp"
                 android:layout_marginRight="20dp"
                 android:orientation="horizontal">
 
@@ -206,29 +197,17 @@
                     android:layout_weight="1"
                     android:textColor="#ff999999"
                     android:textSize="16sp" />
-
-                <TextView
-                    android:id="@+id/project_weather"
+                <EditText
                     android:layout_width="wrap_content"
-                    android:layout_height="21dp"
-                    android:layout_marginLeft="20dp"
-                    android:text="2019-04-01"
-                    android:layout_weight="5"
-                    android:textColor="#ff000000" />
+                    android:layout_height="wrap_content"
+                    android:layout_weight="6"
+                    android:textColor="#C7C7C7"
+                    android:textColorHint="#C7C7C7"
+                    android:textSize="16sp"
+                    android:hint="请输入今日天气"
+                    android:id="@+id/log_weather"
+                    />
             </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <View
-                    android:layout_width="fill_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginTop="11dp"
-                    android:layout_marginRight="20dp"
-                    android:background="#ffeeeeee"></View>
-            </LinearLayout>
-
         </LinearLayout>
 
         <LinearLayout

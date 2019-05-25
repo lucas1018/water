@@ -30,9 +30,9 @@ public class ListViewAdapter extends BaseAdapter {
      */
     public final class NoticeItem{
 
-        private TextView title;
+        private TextView title_type;
         public TextView Createtime;
-        public TextView info;
+        public TextView title;
     }
 
 
@@ -58,18 +58,46 @@ public class ListViewAdapter extends BaseAdapter {
             notice = new NoticeItem();
             //获得组件，实例化组件
             view = layoutInflater.inflate(R.layout.notice_item,null);
-            notice.title = (TextView)view.findViewById(R.id.item_title);
+            notice.title_type = (TextView)view.findViewById(R.id.item_type);
             notice.Createtime =(TextView)view.findViewById(R.id.recv_time);
-            notice.info =(TextView)view.findViewById(R.id.info);
+            notice.title =(TextView)view.findViewById(R.id.title);
 
         }
         else {
             notice= (NoticeItem)view.getTag();
         }
         //绑定数据
-        notice.title.setText((String)data.get(position).get("title"));
+        switch ((String)data.get(position).get("DataType")){
+            case "0":
+                notice.title_type.setText("普通通知");
+                break;
+            case "1":
+                notice.title_type.setText("巡检任务");
+                break;
+            case "2":
+                notice.title_type.setText("运维任务");
+                break;
+            case "3":
+                notice.title_type.setText("审核审批");
+                break;
+            case "4":
+                notice.title_type.setText("安全检查");
+                break;
+            case "5":
+                notice.title_type.setText("在线直播");
+                break;
+            case "6":
+                notice.title_type.setText("工单任务");
+                break;
+            case "7":
+                notice.title_type.setText("站点建设");
+                break;
+        }
+
+
+        //notice.title_type.setText();
         notice.Createtime.setText((String)data.get(position).get("AddTime"));
-        notice.info.setText((String)data.get(position).get("Msg"));
+        notice.title.setText((String)data.get(position).get("title"));
         view.setTag(notice);
 
         return view;
