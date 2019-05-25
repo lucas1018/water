@@ -25,7 +25,7 @@ import cn.zerone.water.http.Requests;
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 
-public class ClockInGetStationActivity  extends AppCompatActivity {
+public class ClockInGetStationActivity extends AppCompatActivity {
 
     private List<Map<String,String>> stationItem;
     private ListView stationList;

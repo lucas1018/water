@@ -40,7 +40,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
-            android:background="#008aca"
+            android:background="@android:color/transparent"
             android:text="历史纪录"
             android:textColor="#fff"
             android:textSize="18dp" />
@@ -247,6 +247,7 @@
             android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
             android:layout_marginLeft="10dp"
+            android:textSize="18dp"
             android:text="现场照片" />
 
         <LinearLayout
@@ -263,7 +264,7 @@
                 app:srcCompat="@mipmap/camera" />
 
             <ImageView
-                android:id="@+id/carPicture"
+                android:id="@+id/carImage"
                 android:layout_width="wrap_content"
                 android:layout_height="156dp"
                 android:layout_weight="1"

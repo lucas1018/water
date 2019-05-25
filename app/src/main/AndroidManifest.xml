@@ -124,6 +124,7 @@
         <activity android:name=".activity.ClockInGetCatNumberActivity"    android:configChanges="keyboard|keyboardHidden|orientation|screenSize" />
         <activity android:name=".activity.ClockInGetProjectActivity"    android:configChanges="keyboard|keyboardHidden|orientation|screenSize" />
         <activity android:name=".activity.ClockInGetStationActivity"    android:configChanges="keyboard|keyboardHidden|orientation|screenSize" />
+        <activity android:name=".activity.ClockInGetTypeActivity"    android:configChanges="keyboard|keyboardHidden|orientation|screenSize" />
 
         <activity android:name=".activity.ConstructionLog"    android:configChanges="keyboard|keyboardHidden|orientation|screenSize" />
 

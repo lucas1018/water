@@ -37,12 +37,14 @@ public class ClockInCarActivity extends AppCompatActivity {
     private ImageButton relatedProjectButton;
     private ImageButton relatedStationButton;
     private ImageButton clockInTypeButton;
+    private ImageButton carPictureButton;
     private TextView carNumber;
     private TextView carType;
     private TextView relatedProject;
     private TextView relatedStation;
     private TextView clockInType;
     private TextView location;
+    ImageView carImage;
 
     private TextView relocation;
 
@@ -51,11 +53,16 @@ public class ClockInCarActivity extends AppCompatActivity {
     private Date date;
     private String datetime;
 
+    private String[] types = {"出发","到达","收工"};
+
     private String number;
     private String cartype;
     private String project;
     private String projectID="";
     private String station;
+    private String type;
+    private String basicPicturePath = "/storage/emulated/0/JCamera/picture_";
+    private String carPictureCapturedPath;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -67,6 +74,7 @@ public class ClockInCarActivity extends AppCompatActivity {
         relatedStationButton = findViewById(R.id.relatedStationButton);
         clockInTypeButton = findViewById(R.id.clockInTypeButton);
         relocation = findViewById(R.id.relocation);
+        carPictureButton = findViewById(R.id.carPictureButton);
 
         carNumber = findViewById(R.id.carNumber);
         carType = findViewById(R.id.carType);
@@ -98,33 +106,6 @@ public class ClockInCarActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivityForResult(new Intent(ClockInCarActivity.this, ClockInGetProjectActivity.class), 2);
-//                Requests.getProjectLogList(new Observer<JSONArray>() {
-//                    @Override
-//                    public void onSubscribe(Disposable d) {
-//                    }
-//
-//                    @Override
-//                    // PROJECT_NAME 项目名，ID项目编号，用于查询站点
-//                    public void onNext(JSONArray objects) {
-//                        String str="";
-//                        for(int i = 0; i<objects.size();i++){
-//                            JSONObject jsonObject = objects.getJSONObject(i);
-//                            String car = jsonObject.getString("PROJECT_NAME");
-//                            str = str + car;
-//                            Toast.makeText(ClockInCarActivity.this,str, Toast.LENGTH_SHORT).show();
-//                        }
-//                    }
-//
-//                    @Override
-//                    public void onError(Throwable e) {
-//
-//                    }
-//
-//                    @Override
-//                    public void onComplete() {
-//
-//                    }
-//                },App.userId);
             }
         });
 
@@ -138,40 +119,13 @@ public class ClockInCarActivity extends AppCompatActivity {
                     intent.putExtra("projectID", projectID);
                     startActivityForResult(intent.setClass(ClockInCarActivity.this, ClockInGetStationActivity.class), 3);
                 }
-
-//                Requests.getStationList(new Observer<JSONArray>() {
-//                    @Override
-//                    public void onSubscribe(Disposable d) {
-//                    }
-//
-//                    @Override
-//                    public void onNext(JSONArray objects) {
-//                        String str="";
-//                        for(int i = 0; i<objects.size();i++){
-//                            JSONObject jsonObject = objects.getJSONObject(i);
-//                            String car = jsonObject.getString("STNM");
-//                            str = str + car;
-//                            Toast.makeText(ClockInCarActivity.this,str, Toast.LENGTH_SHORT).show();
-//                        }
-//                    }
-//
-//                    @Override
-//                    public void onError(Throwable e) {
-//
-//                    }
-//
-//                    @Override
-//                    public void onComplete() {
-//
-//                    }
-//                },App.userId, "11");
             }
         });
 
         clockInTypeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                startActivityForResult(new Intent(ClockInCarActivity.this, ClockInGetTypeActivity.class), 4);
             }
         });
 
@@ -181,6 +135,14 @@ public class ClockInCarActivity extends AppCompatActivity {
                 LocationUtil loc = new LocationUtil();
                 loc.initLocationOption(getApplicationContext());
                 location.setText(loc.GetAddrStr());
+            }
+        });
+
+        carPictureButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivityForResult(new Intent(ClockInCarActivity.this, CameraActivity.class), 5);
+
             }
         });
 
@@ -209,6 +171,20 @@ public class ClockInCarActivity extends AppCompatActivity {
         if (requestCode == 3 && resultCode == 820) {
             station = data.getStringExtra("station");
             relatedStation.setText(station);
+        }
+        if (requestCode == 4 && resultCode == 920) {
+            type = data.getStringExtra("type") ;
+            clockInType.setText(types[Integer.parseInt(type)]);
+        }
+        if (requestCode == 5 && resultCode == 101) {
+            String path = data.getStringExtra("path");
+            carPictureCapturedPath = path;
+
+            carPictureButton.setVisibility(View.GONE);
+
+            carImage = findViewById(R.id.carImage);
+            carImage.setVisibility(View.VISIBLE);
+            carImage.setImageURI(Uri.fromFile(new File(path)));
         }
     }
 }
