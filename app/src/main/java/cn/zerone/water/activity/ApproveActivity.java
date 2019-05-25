@@ -69,22 +69,21 @@ public class ApproveActivity extends AppCompatActivity implements View.OnClickLi
 
     public void initDatas(){
 
-
-        Requests.getApproveInfo(new Observer<JSONObject>() {
+        Requests.GetCheckInfo(new Observer<JSONObject>() {
             @Override
             public void onSubscribe(Disposable d) {
             }
             @Override
             public void onNext(JSONObject jsonObject) {
 
-                String ApplyUserId = jsonObject.getString("ApplyUserId");
-                String DataTyepe = jsonObject.getString("DataType");
-                String State = jsonObject.getString("State");
-                System.out.println("**************1111");
-                System.out.println("ApplyUserId:"+ ApplyUserId);
-                System.out.println("DataTyepe:" + DataTyepe);
-                System.out.println("State:" + State);
-                System.out.println("**************2222");
+                JSONArray jsonArray = jsonObject.getJSONArray("ModelList");
+                for(int i = 0; i<jsonArray.size(); i++){
+
+                    JSONObject   subObject  =  jsonArray.getJSONObject(i) ;
+                    String ApplyUserIdName = subObject.getString("ApplyUserIdName");
+                    String ApplyUserId_Photo = subObject.getString("ApplyUserId_Photo");
+                    int  State = subObject.getIntValue("State");
+                    //System.out.println("===========" + ApplyUserIdName);
 
                 /*String imgUrl = json.getString("Photo");
                 System.out.println("============");
@@ -94,6 +93,8 @@ public class ApproveActivity extends AppCompatActivity implements View.OnClickLi
                 photo1.setImageBitmap(bitmap);*/
 
 
+                }
+
             }
             @Override
             public void onError(Throwable e) {
@@ -102,7 +103,7 @@ public class ApproveActivity extends AppCompatActivity implements View.OnClickLi
             @Override
             public void onComplete() {
             }
-        },App.userId, 0, 1, 20);
+        },App.userId, 0, 1, 10);
 
 
 
