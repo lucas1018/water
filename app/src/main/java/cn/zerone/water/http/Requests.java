@@ -266,6 +266,29 @@ public class Requests {
         baseJSONArray(observer, "ClockIn_GetListByField", requestBody);
     }
 
+    // 获取车辆信息
+    public static void getCarList(Observer<JSONArray> observer, String id) {
+        RequestBody requestBody = new FormBody.Builder()
+                .add("ID", id).build();
+        baseJSONArray(observer, "CarInfo_GetList", requestBody);
+    }
+
+    // 获取项目
+    public static void getProjectLogList(Observer<JSONArray> observer, String id) {
+        RequestBody requestBody = new FormBody.Builder()
+                .add("ID", id).build();
+        baseJSONArray(observer, "PROJECT_INFO_GetList", requestBody);
+    }
+
+    // 获取相关项目的站点信息
+    public static void getStationList(Observer<JSONArray> observer, String id, String val) {
+        RequestBody requestBody = new FormBody.Builder()
+                .add("ID", id)
+                .add("field", "PROJECT_ID")
+                .add("value", val).build();
+        baseJSONArray(observer, "STATION_INFO_GetListByField", requestBody);
+    }
+
     //调用消息列表接口
     public static void UserMessage_GetList(Observer<JSONArray> observer) {
 
