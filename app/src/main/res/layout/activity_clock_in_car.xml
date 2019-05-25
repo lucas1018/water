@@ -223,6 +223,7 @@
                 android:id="@+id/relocation"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textColor="#008ACA"
                 android:text="重新定位" />
         </TableRow>
 

@@ -1,21 +1,203 @@
 package cn.zerone.water.activity;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.text.InputType;
+import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
+import com.zxing.cameraapplication.CameraActivity;
+
+import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import cn.zerone.water.App;
 import cn.zerone.water.R;
+import cn.zerone.water.http.Requests;
+import cn.zerone.water.utils.LocationUtil;
+import io.reactivex.Observer;
+import io.reactivex.disposables.Disposable;
 
 public class ClockInCarActivity extends AppCompatActivity {
+
+    private ImageButton carNumberButton;
+    private ImageButton relatedProjectButton;
+    private ImageButton relatedStationButton;
+    private ImageButton clockInTypeButton;
+    private TextView carNumber;
+    private TextView carType;
+    private TextView relatedProject;
+    private TextView relatedStation;
+    private TextView clockInType;
+    private TextView location;
+
+    private TextView relocation;
+
+    private ImageView car_back;
+
+    private Date date;
+    private String datetime;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_clock_in_car);
 
-        ImageView car_back = (ImageView) findViewById(R.id.car_back);
+        carNumberButton = findViewById(R.id.carNumberButton);
+        relatedProjectButton = findViewById(R.id.relatedProjectButton);
+        relatedStationButton = findViewById(R.id.relatedStationButton);
+        clockInTypeButton = findViewById(R.id.clockInTypeButton);
+        relocation = findViewById(R.id.relocation);
+
+        carNumber = findViewById(R.id.carNumber);
+        carType = findViewById(R.id.carType);
+        relatedProject = findViewById(R.id.relatedProject);
+        relatedStation = findViewById(R.id.relatedStation);
+        clockInType = findViewById(R.id.clockInType);
+        location = findViewById(R.id.location);
+
+        LocationUtil loc = new LocationUtil();
+        loc.initLocationOption(getApplicationContext());
+        location.setText(loc.GetAddrStr());
+
+        car_back = (ImageView) findViewById(R.id.car_back);
+
+        setListener();
+
+    }
+
+    void setListener(){
+        carNumberButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                startActivityForResult(new Intent(ClockInCarActivity.this, ClockInGetCatNumberActivity.class), 1);
+
+//                Requests.getCarList(new Observer<JSONArray>() {
+//                    @Override
+//                    public void onSubscribe(Disposable d) {
+//                    }
+//
+//                    @Override
+//                    public void onNext(JSONArray objects) {
+//                        String str="";
+//                        for(int i = 0; i<objects.size();i++){
+//                            JSONObject jsonObject = objects.getJSONObject(i);
+//                            String car = jsonObject.getString("CarNember");
+//                            str = str + car;
+//                            Toast.makeText(ClockInCarActivity.this,str, Toast.LENGTH_SHORT).show();
+//                        }
+//                    }
+//
+//                    @Override
+//                    public void onError(Throwable e) {
+//
+//                    }
+//
+//                    @Override
+//                    public void onComplete() {
+//
+//                    }
+//                },App.userId);
+            }
+        });
+
+
+        relatedProjectButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Requests.getProjectLogList(new Observer<JSONArray>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+                    }
+
+                    @Override
+                    // PROJECT_NAME 项目名，ID项目编号，用于查询站点
+                    public void onNext(JSONArray objects) {
+                        String str="";
+                        for(int i = 0; i<objects.size();i++){
+                            JSONObject jsonObject = objects.getJSONObject(i);
+                            String car = jsonObject.getString("PROJECT_NAME");
+                            str = str + car;
+                            Toast.makeText(ClockInCarActivity.this,str, Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                },App.userId);
+            }
+        });
+
+        relatedStationButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Requests.getStationList(new Observer<JSONArray>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+                    }
+
+                    @Override
+                    public void onNext(JSONArray objects) {
+                        String str="";
+                        for(int i = 0; i<objects.size();i++){
+                            JSONObject jsonObject = objects.getJSONObject(i);
+                            String car = jsonObject.getString("STNM");
+                            str = str + car;
+                            Toast.makeText(ClockInCarActivity.this,str, Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                },App.userId, "11");
+            }
+        });
+
+        clockInTypeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+        relocation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                LocationUtil loc = new LocationUtil();
+                loc.initLocationOption(getApplicationContext());
+                location.setText(loc.GetAddrStr());
+            }
+        });
+
         car_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -24,19 +206,14 @@ public class ClockInCarActivity extends AppCompatActivity {
         });
     }
 
-    /**
-     * 展示日期选择对话框
-     */
-//    private void showDatePickerDialog() {
-//        Calendar c = Calendar.getInstance();
-//        new DatePickerDialog(MealActivity.this, new DatePickerDialog.OnDateSetListener() {
-//
-//            @Override
-//            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-//                // TODO Auto-generated method stub
-//                dateText.setText(year+"-"+(monthOfYear+1)+"-"+dayOfMonth);
-//            }
-//        }, c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH)).show();
-//
-//    }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1 && resultCode == 620) {
+            String number = data.getStringExtra("number");
+            String type = data.getStringExtra("type");
+            carNumber.setText(number);
+            carType.setText(type);
+        }
+    }
 }
