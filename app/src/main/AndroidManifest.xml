@@ -12,7 +12,6 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.VIBRATE" />
-
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" >    </uses-permission>
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" >    </uses-permission>
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" >    </uses-permission>
@@ -317,6 +316,8 @@
         <!--百度导航-->
         <service android:name="com.baidu.navigation.service.ForegroundService" />
 
+        <activity android:name=".activity.CalenderActivity" />
+        <activity android:name=".activity.CalenderContentActivity" />
     </application>
 
 </manifest>

@@ -26,6 +26,7 @@ import java.util.List;
 
 import cn.zerone.water.App;
 import cn.zerone.water.R;
+import cn.zerone.water.activity.CalenderActivity;
 import cn.zerone.water.activity.CheckActivity;
 import cn.zerone.water.activity.MealActivity;
 import cn.zerone.water.activity.PasswordModifiedActivity;
@@ -124,6 +125,10 @@ public class MyselfFragment extends Fragment {
                 switch (position) {
                     case 0:
                         i = new Intent(getContext(), CheckActivity.class);
+                        getContext().startActivity(i);
+                        break;
+                    case 1:
+                        i = new Intent(getContext(), CalenderActivity.class);
                         getContext().startActivity(i);
                         break;
                     case 3:

@@ -8,8 +8,11 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
+
 
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 import com.prolificinteractive.materialcalendarview.CalendarMode;
@@ -20,16 +23,22 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
+import cn.zerone.water.App;
 import cn.zerone.water.R;
+import cn.zerone.water.http.Requests;
+import io.reactivex.Observer;
+import io.reactivex.disposables.Disposable;
+
 
 public class CalenderActivity extends AppCompatActivity {
 
     private ImageView calender_back, iv_edit_log;
-    private EditText edit;
+    private TextView edit;
     private String editContent;
     private MaterialCalendarView calendarView;
     private String currentDate;
     private ProgressBar pro;
+    private LinearLayout lin_edit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,9 +71,9 @@ public class CalenderActivity extends AppCompatActivity {
     private void initView() {
         calendarView = (MaterialCalendarView) findViewById(R.id.calendarView);
         calender_back = (ImageView) findViewById(R.id.calender_back);
-        edit = (EditText) findViewById(R.id.edit);
-
-        iv_edit_log = (ImageView) findViewById(R.id.iv_edit_log);
+        edit = (TextView) findViewById(R.id.edit);
+        lin_edit = (LinearLayout) findViewById(R.id.lin_edit);
+//        iv_edit_log = (ImageView) findViewById(R.id.iv_edit_log);
 
 
     }
@@ -83,27 +92,94 @@ public class CalenderActivity extends AppCompatActivity {
         calendarView.setOnDateChangedListener(new OnDateSelectedListener() {
             @Override
             public void onDateSelected(@NonNull MaterialCalendarView widget, @NonNull CalendarDay date, boolean selected) {
-               //点击选择时间的时候出现加载框，并请求网络数据
-                pro = new ProgressBar(CalenderActivity.this);
+
+
 
             }
         });
 
 
         //点击编辑图标，跳转页面,并将选择的日期传递过去
-        iv_edit_log.setOnClickListener(new View.OnClickListener() {
+        lin_edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String date = getSelectedDatesString();
                 if (date.equals("No Selection")) {
                     Toast.makeText(CalenderActivity.this, "请选择一个日期", Toast.LENGTH_SHORT).show();
                 } else {
-                    Intent intent = new Intent(CalenderActivity.this, CalenderContentActivity.class);
-                    intent.putExtra("date", date);
-                    startActivity(intent);
+                    editLog();
                 }
             }
         });
+
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        Intent intent = getIntent();
+        String job_content = intent.getStringExtra("job_content");
+        edit.setText(job_content);
+    }
+
+    private void editLog() {
+//        Toast.makeText(CalenderContentActivity.this, "开始保存", Toast.LENGTH_SHORT).show();
+        Requests.JobLog_GetModelBLL(new Observer<String>() {
+            @Override
+            public void onSubscribe(Disposable d) {
+
+            }
+
+            @Override
+            public void onNext(String str) {
+                //对获取的日志进行解析
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                e.printStackTrace();
+                Toast.makeText(CalenderActivity.this, "获取日志失败", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onComplete() {
+                Toast.makeText(CalenderActivity.this, "日志保存成功", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(CalenderActivity.this, CalenderContentActivity.class);
+                startActivity(intent);
+            }
+        }, App.userId, App.username);
+    }
+
+    /**
+     * 显示日期对应的日志
+     */
+    private void showLog() {
+//        Toast.makeText(CalenderContentActivity.this, "开始保存", Toast.LENGTH_SHORT).show();
+        Requests.JobLog_GetModelBLL(new Observer<String>() {
+            @Override
+            public void onSubscribe(Disposable d) {
+
+            }
+
+            @Override
+            public void onNext(String str) {
+                //对获取的日志进行解析，然后进行显示
+
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                e.printStackTrace();
+                Toast.makeText(CalenderActivity.this, "获取日志失败", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onComplete() {
+                Toast.makeText(CalenderActivity.this, "日志保存成功", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(CalenderActivity.this, CalenderContentActivity.class);
+                startActivity(intent);
+            }
+        }, App.userId, App.username);
     }
 
     private String getSelectedDatesString() {
@@ -114,7 +190,7 @@ public class CalenderActivity extends AppCompatActivity {
         Date date1 = date.getDate();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd ");
         String dateStr = sdf.format(date1);
-        Log.i("myTag","dateStr " + dateStr);
+        Log.i("myTag", "dateStr " + dateStr);
         return dateStr;
 
     }
