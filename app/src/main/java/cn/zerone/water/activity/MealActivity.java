@@ -59,6 +59,14 @@ public class MealActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         mealRemark = findViewById(R.id.remark);//备注
         btn_add = findViewById(R.id.add_meal);//添加按钮
 
+        //获取年份月份
+        Calendar cale = null;
+        cale = Calendar.getInstance();
+        int year = cale.get(Calendar.YEAR);
+        int month = cale.get(Calendar.MONTH) + 1;
+        System.out.println("9999" + year);
+        System.out.println("jjjjjjjjjj" + month);
+
         btn_detail = findViewById(R.id.meal_detail); //月度详情按钮
         btn_detail.setOnClickListener(new View.OnClickListener() {
             @Override
