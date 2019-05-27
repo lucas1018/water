@@ -147,12 +147,15 @@ public class MainActivity extends AppCompatActivity {
         changeTab(2,null);
 
         MainActivity.activity = this;
+        int a=  navigation.getChildCount();
+        int b=navigation.getMaxItemCount();
         BottomNavigationMenuView menuView  = (BottomNavigationMenuView) navigation.getChildAt(0);
+        navigation.setSelectedItemId(navigation.getMenu().getItem(2).getItemId());
         View tab = menuView.getChildAt(1);
         BottomNavigationItemView itemView = (BottomNavigationItemView) tab;
          badge = LayoutInflater.from(this).inflate(R.layout.menu_badge, null, false);
         itemView.addView(badge);
-         tab = menuView.getChildAt(3);
+         tab = menuView.getChildAt(1);
          itemView = (BottomNavigationItemView) tab;
         msgBadge= LayoutInflater.from(this).inflate(R.layout.menu_badge, null, false);
         itemView.addView(msgBadge);

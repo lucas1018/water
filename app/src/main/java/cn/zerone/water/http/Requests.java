@@ -259,10 +259,35 @@ public class Requests {
         baseString(observer, "ClockIn_SaveBLL", requestBody);
     }
 
-    public static void getClockInList(Observer<JSONArray> observer, String id) {
+    public static void getClockInList(Observer<JSONArray> observer, String id, String DataType) {
+        RequestBody requestBody = new FormBody.Builder()
+                .add("ID", id)
+                .add("field", "DataType")
+                .add("value", DataType).build();
+        baseJSONArray(observer, "ClockIn_GetListByField", requestBody);
+    }
+
+    // 获取车辆信息
+    public static void getCarList(Observer<JSONArray> observer, String id) {
         RequestBody requestBody = new FormBody.Builder()
                 .add("ID", id).build();
-        baseJSONArray(observer, "ClockIn_GetList", requestBody);
+        baseJSONArray(observer, "CarInfo_GetList", requestBody);
+    }
+
+    // 获取项目
+    public static void getProjectLogList(Observer<JSONArray> observer, String id) {
+        RequestBody requestBody = new FormBody.Builder()
+                .add("ID", id).build();
+        baseJSONArray(observer, "PROJECT_INFO_GetList", requestBody);
+    }
+
+    // 获取相关项目的站点信息
+    public static void getStationList(Observer<JSONArray> observer, String id, String val) {
+        RequestBody requestBody = new FormBody.Builder()
+                .add("ID", id)
+                .add("field", "PROJECT_ID")
+                .add("value", val).build();
+        baseJSONArray(observer, "STATION_INFO_GetListByField", requestBody);
     }
 
     //调用消息列表接口
@@ -271,9 +296,37 @@ public class Requests {
         RequestBody requestBody = new FormBody.Builder().build();
         baseJSONArray(observer, "UserMessage_GetList", requestBody);
     }
+
+    //调用轮播图片接口
     public static void AdInfo_GetList(Observer<JSONArray> observer) {
 
         RequestBody requestBody = new FormBody.Builder().build();
         baseJSONArray(observer, "AdInfo_GetList", requestBody);
     }
+
+    public static void GetCheckInfo(Observer<JSONObject> observer, String CheckUserId, int  state,int PageIndex, int PageSize) {
+        RequestBody requestBody = new FormBody.Builder()
+                .add("CheckUserId", CheckUserId)
+                .add("State", String.valueOf(state))
+                .add("PageIndex", String.valueOf(PageIndex))
+                .add("PageSize", String.valueOf(PageSize))
+                .build();
+        baseJSONObject(observer, "GeneralCheck_GetPageInfo", requestBody);
+    }
+
+        //调用施工日志接口
+        //项目施工表
+        public static void ProjectLog_GetList(Observer<JSONArray>observer){
+
+            RequestBody requestBody = new FormBody.Builder().build();
+            baseJSONArray(observer, "ProjectLog_GetList", requestBody);
+        }
+        //项目信息表
+        public static void PROJECT_INFO_GetList (Observer < JSONArray > observer) {
+            RequestBody requestBody = new FormBody.Builder().build();
+            baseJSONArray(observer, "PROJECT_INFO_GetList", requestBody);
+
+        }
+
+
 }

@@ -5,17 +5,26 @@
     android:background="#FFFFFF"
     android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/title"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="#008aca"
-        android:gravity="center"
-        android:minHeight="50dp"
-        android:paddingBottom="10dp"
-        android:text="@string/title_notify"
-        android:textColor="#FFFFFF"
-        android:textSize="16sp" />
+        android:background="#008aca">
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_centerVertical="true"
+            android:text="通知"
+            android:textColor="#fff"
+            android:textSize="18dp"
+            android:textStyle="bold" />
+
+
+
+
+    </RelativeLayout>
 
     <ListView
         android:id="@+id/system_message_listView"

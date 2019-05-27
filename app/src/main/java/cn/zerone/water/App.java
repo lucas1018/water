@@ -53,7 +53,7 @@ public class App extends Application {
     private static Context context;
     private long lastUpdateGps = System.currentTimeMillis();
     boolean isTest =false;
-    private LocationService locationService;
+    public LocationService locationService;
     public EngineeringStation  engineeringStation = null;
     private static final String TAG = "JIGUANG-Example";
     @Override

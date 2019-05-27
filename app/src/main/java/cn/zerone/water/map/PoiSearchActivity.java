@@ -1,6 +1,7 @@
 package cn.zerone.water.map;
 
 import android.content.Intent;
+import android.graphics.PixelFormat;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -13,6 +14,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.baidu.location.BDAbstractLocationListener;
@@ -27,6 +29,7 @@ import com.baidu.mapapi.map.MapView;
 import com.baidu.mapapi.map.MyLocationConfiguration;
 import com.baidu.mapapi.map.MyLocationData;
 import com.baidu.mapapi.map.SupportMapFragment;
+import com.baidu.mapapi.map.TextureMapView;
 import com.baidu.mapapi.model.LatLng;
 import com.baidu.mapapi.search.geocode.GeoCodeOption;
 import com.baidu.mapapi.search.geocode.GeoCodeResult;
@@ -54,6 +57,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cn.zerone.water.R;
+import cn.zerone.water.fragment.MasterArticleFragment;
 
 /**
  * 演示poi搜索功能
@@ -84,6 +88,7 @@ public class PoiSearchActivity extends FragmentActivity implements
     private float direction;
 
     MapView mMapView;
+    //TextureMapView mMapView;
     BaiduMap mBaiduMap;
 
     private PoiSearch mPoiSearch = null;
@@ -103,12 +108,18 @@ public class PoiSearchActivity extends FragmentActivity implements
 
     private int searchType = 0;  // 搜索的类型，在显示时区分
     public String mPlace = null; //用来传递地名
+    private ImageView mNavi_search_back; //返回
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+
+        //getWindow().setFormat(PixelFormat.TRANSLUCENT);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_poisearch);
 
+
+        mNavi_search_back = findViewById(R.id.navi_search_back);
+        init();
 
         // 初始化搜索模块，注册搜索事件监听
         mPoiSearch = PoiSearch.newInstance();
@@ -179,16 +190,27 @@ public class PoiSearchActivity extends FragmentActivity implements
 
     }
 
+
+    private void init(){
+        //返回上一级页面
+        mNavi_search_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+                //Intent it =new Intent(PoiSearchActivity.this, MasterArticleFragment.class);
+                //startActivity(it);
+            }
+        });
+    }
+
     @Override
     protected void onPause() {
-
         mMapView.onPause();
         super.onPause();
     }
 
     @Override
     protected void onResume() {
-
         mMapView.onResume();
         super.onResume();
         //为系统的方向传感器注册监听器
@@ -211,7 +233,7 @@ public class PoiSearchActivity extends FragmentActivity implements
         mLocClient.stop();
         // 关闭定位图层
         mBaiduMap.setMyLocationEnabled(false);
-        mMapView.onDestroy();
+        //mMapView.onDestroy();
         mMapView = null;
 
         mPoiSearch.destroy();
@@ -232,7 +254,7 @@ public class PoiSearchActivity extends FragmentActivity implements
     }
 
     /**
-     * 响应“开始导航”按钮点击事件
+     * 响应“搜索”按钮点击事件
      *
      * @param v    Button
      */
@@ -556,8 +578,5 @@ public class PoiSearchActivity extends FragmentActivity implements
         public void onReceivePoi(BDLocation poiLocation) {
         }
     }
-
-
-
 
 }

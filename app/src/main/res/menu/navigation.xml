@@ -14,8 +14,9 @@
         android:title="@string/title_task" />
     <item
         android:id="@+id/navigation_home"
-        android:icon="@drawable/sy"
-        android:title="     " />
+        android:icon="@null"
+        android:title="" />
+
     <item
         android:id="@+id/navigation_broadcast"
         android:icon="@mipmap/live_broadcast"

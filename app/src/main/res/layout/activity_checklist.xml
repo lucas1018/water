@@ -6,16 +6,15 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="#e4e2e2">
-    <!--<include layout="@layout/main_title_bar"/>-->
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:background="#008aca">
         <ImageView
+            android:id="@+id/back"
             android:layout_width="20dp"
             android:layout_height="20dp"
-            android:id="@+id/meal_back"
             android:src="@drawable/back"
             android:focusable="true"
             android:clickable="true"
@@ -38,15 +37,18 @@
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
         <Button
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="未审批"
+            android:id="@+id/wait_approve"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="未审批"
         />
+
         <Button
+            android:id="@+id/approved"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -56,7 +58,7 @@
     </LinearLayout>
 
     <ListView
-        android:id="@+id/list_view"
+        android:id="@+id/appr_list_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 

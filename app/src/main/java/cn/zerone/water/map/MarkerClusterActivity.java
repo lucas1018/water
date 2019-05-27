@@ -5,6 +5,7 @@ package cn.zerone.water.map;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Toast;
 
 import com.baidu.clusterutil.clustering.Cluster;
@@ -14,6 +15,7 @@ import com.baidu.mapapi.map.BaiduMap;
 import com.baidu.mapapi.map.BaiduMap.OnMapLoadedCallback;
 import com.baidu.mapapi.map.BitmapDescriptor;
 import com.baidu.mapapi.map.BitmapDescriptorFactory;
+import com.baidu.mapapi.map.InfoWindow;
 import com.baidu.mapapi.map.MapStatus;
 import com.baidu.mapapi.map.MapStatusUpdateFactory;
 import com.baidu.mapapi.map.MapView;
@@ -25,9 +27,9 @@ import java.util.List;
 import cn.zerone.water.R;
 
 /**
- * 此Demo用来说明点聚合功能
+ * 点聚合功能
  */
-public class MarkerClusterDemo extends Activity implements OnMapLoadedCallback {
+public class MarkerClusterActivity extends Activity implements OnMapLoadedCallback {
 
     MapView mMapView;
     BaiduMap mBaiduMap;
@@ -55,7 +57,7 @@ public class MarkerClusterDemo extends Activity implements OnMapLoadedCallback {
         mClusterManager.setOnClusterClickListener(new ClusterManager.OnClusterClickListener<MyItem>() {
             @Override
             public boolean onClusterClick(Cluster<MyItem> cluster) {
-                Toast.makeText(MarkerClusterDemo.this,
+                Toast.makeText(MarkerClusterActivity.this,
                         "有" + cluster.getSize() + "个点", Toast.LENGTH_SHORT).show();
 
                 return false;
@@ -64,7 +66,11 @@ public class MarkerClusterDemo extends Activity implements OnMapLoadedCallback {
         mClusterManager.setOnClusterItemClickListener(new ClusterManager.OnClusterItemClickListener<MyItem>() {
             @Override
             public boolean onClusterItemClick(MyItem item) {
-                Toast.makeText(MarkerClusterDemo.this,
+
+                View view = View.inflate(getApplicationContext(), R.layout.map_marker_view, null);
+                final InfoWindow mInfoWindow = new InfoWindow(view, item.getPosition(), -47);
+                mBaiduMap.showInfoWindow(mInfoWindow);
+                Toast.makeText(MarkerClusterActivity.this,
                         "点击单个Item", Toast.LENGTH_SHORT).show();
 
                 return false;
