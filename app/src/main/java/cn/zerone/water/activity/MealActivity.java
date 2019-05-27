@@ -2,10 +2,14 @@ package cn.zerone.water.activity;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.PopupMenu;
 import android.text.InputType;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
@@ -22,7 +26,7 @@ import cn.zerone.water.http.Requests;
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 
-public class MealActivity extends AppCompatActivity {
+public class MealActivity extends AppCompatActivity implements PopupMenu.OnMenuItemClickListener {
 
     private final String[] items = new String[]{"工作餐","商务餐","其他"};
     private EditText dateText;
@@ -56,6 +60,21 @@ public class MealActivity extends AppCompatActivity {
         btn_add = findViewById(R.id.add_meal);//添加按钮
 
         btn_detail = findViewById(R.id.meal_detail); //月度详情按钮
+        btn_detail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //创建弹出式菜单对象（最低版本11）
+                PopupMenu popup = new PopupMenu(MealActivity.this, v);//第二个参数是绑定的那个view
+                //获取菜单填充器
+                MenuInflater inflater = popup.getMenuInflater();
+                //填充菜单
+                inflater.inflate(R.menu.main, popup.getMenu());
+                //绑定菜单项的点击事件
+                popup.setOnMenuItemClickListener(MealActivity.this);
+                //显示(这一行代码不要忘记了)
+                popup.show();
+            }
+        });
 
         //初始化参数值
         init();
@@ -68,6 +87,32 @@ public class MealActivity extends AppCompatActivity {
                 addFeeForMeal( meal_date, meal_type, meal_mount, meal_resturant, meal_remark);
             }
         });
+    }
+
+    //弹出式菜单的单击事件处理
+    @Override
+    public boolean onMenuItemClick(MenuItem item) {
+        // TODO Auto-generated method stub
+        switch (item.getItemId()) {
+            case R.id.May:
+                Toast.makeText(this, "2019-05", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(MealActivity.this, MealDetailActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.April:
+                Toast.makeText(this, "2019-04", Toast.LENGTH_SHORT).show();
+                Intent intent1 = new Intent(MealActivity.this, MealDetailActivity.class);
+                startActivity(intent1);
+                break;
+            case R.id.March:
+                Toast.makeText(this, "2019-03", Toast.LENGTH_SHORT).show();
+                Intent intent2 = new Intent(MealActivity.this, MealDetailActivity.class);
+                startActivity(intent2);
+                break;
+            default:
+                break;
+        }
+        return false;
     }
 
     private void init() {
