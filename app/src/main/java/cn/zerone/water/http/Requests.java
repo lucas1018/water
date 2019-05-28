@@ -312,5 +312,4 @@ public class Requests {
                 .build();
         baseJSONObject(observer, "GeneralCheck_GetPageInfo", requestBody);
     }
-
 }
