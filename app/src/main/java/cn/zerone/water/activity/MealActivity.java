@@ -12,21 +12,33 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ListView;
+import android.widget.PopupWindow;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
 
 import cn.zerone.water.App;
 import cn.zerone.water.R;
 import cn.zerone.water.http.Requests;
+import cn.zerone.water.utils.DisplayUtil;
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 
-public class MealActivity extends AppCompatActivity implements PopupMenu.OnMenuItemClickListener {
+public class MealActivity extends AppCompatActivity {
 
     private final String[] items = new String[]{"工作餐","商务餐","其他"};
     private EditText dateText;
@@ -45,6 +57,11 @@ public class MealActivity extends AppCompatActivity implements PopupMenu.OnMenuI
 
     //月度详情
     private Button btn_detail;
+    private PopupWindow popupWindow;
+    private RelativeLayout rlTitle;
+    private ListView listView;//填充在菜单栏中列表
+    private List<String> dateList;
+
 
 
     @Override
@@ -58,29 +75,44 @@ public class MealActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         mealResturant = findViewById(R.id.resturant);
         mealRemark = findViewById(R.id.remark);//备注
         btn_add = findViewById(R.id.add_meal);//添加按钮
+        rlTitle = findViewById(R.id.rl_title);//标题栏布局
 
-        //获取年份月份
-        Calendar cale = null;
-        cale = Calendar.getInstance();
-        int year = cale.get(Calendar.YEAR);
-        int month = cale.get(Calendar.MONTH) + 1;
-        System.out.println("9999" + year);
-        System.out.println("jjjjjjjjjj" + month);
 
+        //初始化菜单列表所需数据
+        initData();
+        //初始化菜单列表看
+        listView=new ListView(this);
+        listView.setAdapter(new MyBaseAdapter());
         btn_detail = findViewById(R.id.meal_detail); //月度详情按钮
         btn_detail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //创建弹出式菜单对象（最低版本11）
-                PopupMenu popup = new PopupMenu(MealActivity.this, v);//第二个参数是绑定的那个view
-                //获取菜单填充器
-                MenuInflater inflater = popup.getMenuInflater();
-                //填充菜单
-                inflater.inflate(R.menu.main, popup.getMenu());
-                //绑定菜单项的点击事件
-                popup.setOnMenuItemClickListener(MealActivity.this);
-                //显示(这一行代码不要忘记了)
-                popup.show();
+                if (popupWindow==null){
+                    popupWindow=new PopupWindow();
+                    popupWindow.setWidth(btn_detail.getWidth());
+                    popupWindow.setHeight(btn_detail.getWidth());
+                    popupWindow.setContentView(listView);
+                    popupWindow.setFocusable(true);
+                }
+                popupWindow.showAsDropDown(btn_detail,0,0);
+
+            }
+        });
+        //设置下拉菜单月份点击详情
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                if (popupWindow.isShowing() && popupWindow != null){
+
+                    //把当前月份的值传过去
+                    Intent intent = new Intent(MealActivity.this, MealDetailActivity.class);
+                    intent.putExtra("currentDate",dateList.get(position));
+                    //跳转到相应月份展示页面
+                    startActivity(intent);
+                    //关闭下拉列表
+                    popupWindow.dismiss();
+                    popupWindow=null;
+                }
             }
         });
 
@@ -95,32 +127,6 @@ public class MealActivity extends AppCompatActivity implements PopupMenu.OnMenuI
                 addFeeForMeal( meal_date, meal_type, meal_mount, meal_resturant, meal_remark);
             }
         });
-    }
-
-    //弹出式菜单的单击事件处理
-    @Override
-    public boolean onMenuItemClick(MenuItem item) {
-        // TODO Auto-generated method stub
-        switch (item.getItemId()) {
-            case R.id.May:
-                Toast.makeText(this, "2019-05", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(MealActivity.this, MealDetailActivity.class);
-                startActivity(intent);
-                break;
-            case R.id.April:
-                Toast.makeText(this, "2019-04", Toast.LENGTH_SHORT).show();
-                Intent intent1 = new Intent(MealActivity.this, MealDetailActivity.class);
-                startActivity(intent1);
-                break;
-            case R.id.March:
-                Toast.makeText(this, "2019-03", Toast.LENGTH_SHORT).show();
-                Intent intent2 = new Intent(MealActivity.this, MealDetailActivity.class);
-                startActivity(intent2);
-                break;
-            default:
-                break;
-        }
-        return false;
     }
 
     private void init() {
@@ -261,6 +267,82 @@ public class MealActivity extends AppCompatActivity implements PopupMenu.OnMenuI
             }
         },App.userId, App.username, meal_date, meal_type, meal_mount, meal_resturant, meal_remark);
 
+    }
+
+    //菜单列表栏适配器
+    class MyBaseAdapter extends BaseAdapter{
+
+        @Override
+        public int getCount() {
+            return dateList.size();
+        }
+
+        @Override
+        public Object getItem(int position) {
+            return dateList.get(position);
+        }
+
+        @Override
+        public long getItemId(int position) {
+            return 0;
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+           ViewHolder viewHolder;
+            if (convertView == null){
+                convertView = View.inflate(MealActivity.this,R.layout.menu_list,null);
+                viewHolder=new ViewHolder();
+                viewHolder.mTextView=convertView.findViewById(R.id.date_text);
+                convertView.setTag(viewHolder);
+            }else {
+                viewHolder= (ViewHolder) convertView.getTag();
+            }
+            viewHolder.mTextView.setText(dateList.get(position));
+            return convertView;
+        }
+    }
+
+    class ViewHolder{
+        private TextView mTextView;
+    }
+
+    public void initData(){
+        dateList=new ArrayList<>();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM");
+        String curDate = sdf.format(new Date());//当前月份
+        String preDate = getPreMonth();//上一个月份
+        String lastDate = getLastMonth();//下一个月份
+        dateList.add(lastDate);
+        dateList.add(curDate);
+        dateList.add(preDate);
+    }
+
+    /**
+     * 获取上一个月
+     *
+     * @return
+     */
+    public static String getLastMonth() {
+        Calendar cal = Calendar.getInstance();
+        cal.add(cal.MONTH, -1);
+        SimpleDateFormat dft = new SimpleDateFormat("yyyy-MM");
+        String lastMonth = dft.format(cal.getTime());
+        return lastMonth;
+    }
+
+    /**
+     *
+     * 描述:获取下一个月.
+     *
+     * @return
+     */
+    public static String getPreMonth() {
+        Calendar cal = Calendar.getInstance();
+        cal.add(cal.MONTH, 1);
+        SimpleDateFormat dft = new SimpleDateFormat("yyyy-MM");
+        String preMonth = dft.format(cal.getTime());
+        return preMonth;
     }
 
 

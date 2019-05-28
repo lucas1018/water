@@ -10,24 +10,25 @@
         android:layout_height="50dp"
         android:background="#008aca">
         <ImageView
-            android:layout_width="20dp"
-            android:layout_height="20dp"
             android:id="@+id/system_update_back"
-            android:src="@drawable/back"
-            android:clickable="true"
-            android:layout_centerVertical="true"
+            android:layout_width="30dp"
+            android:layout_height="17dp"
             android:layout_alignParentLeft="true"
-            android:layout_marginLeft="10dp"/>
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="0dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:src="@drawable/back" />
 
         <TextView
             android:id="@+id/title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="18dp"
             android:layout_centerInParent="true"
-            android:textStyle="bold"
+            android:layout_centerVertical="true"
             android:textColor="#fff"
-            android:paddingBottom="10dp"
+            android:textSize="18dp"
+            android:textStyle="bold"
             android:text="系统更新" />
 
     </RelativeLayout>

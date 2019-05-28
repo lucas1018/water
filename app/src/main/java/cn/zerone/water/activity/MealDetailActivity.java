@@ -1,10 +1,12 @@
 package cn.zerone.water.activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,6 +19,7 @@ public class MealDetailActivity extends AppCompatActivity {
 
     private ListView mealListView;
     private List<MealDetailItem> mealDetailItemList;
+    private TextView detail_title;
 
 
     @Override
@@ -32,6 +35,12 @@ public class MealDetailActivity extends AppCompatActivity {
                 finish();
             }
         });
+
+        //获取上一个页面传过来的值
+        Intent intent = getIntent();
+        String currentTime = intent.getStringExtra("currentDate");
+        detail_title = findViewById(R.id.detail_title);
+        detail_title.setText(currentTime + "月餐费详情");
 
         mealListView = findViewById(R.id.list_view);
         initData();

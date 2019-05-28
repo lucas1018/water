@@ -22,12 +22,11 @@
             android:layout_marginLeft="10dp"/>
 
         <TextView
-            android:id="@+id/title"
+            android:id="@+id/detail_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:layout_centerVertical="true"
-            android:text="月餐费详情"
             android:textColor="#fff"
             android:textSize="18dp"
             android:textStyle="bold" />
@@ -61,8 +60,8 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="40sp"
-        android:layout_marginTop="20sp"
+        android:layout_height="40dp"
+        android:layout_marginTop="20dp"
         android:background="#eee"
         android:orientation="horizontal">
 
