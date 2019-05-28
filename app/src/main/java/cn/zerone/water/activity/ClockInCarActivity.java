@@ -117,6 +117,7 @@ public class ClockInCarActivity extends AppCompatActivity {
         date = new Date(System.currentTimeMillis());
         datetime = simpleDateFormat.format(date);
 
+        whetherRepeat();
         setListener();
 
     }
@@ -197,21 +198,6 @@ public class ClockInCarActivity extends AppCompatActivity {
                 else{
                     // 判断今天是否已打卡
                     whetherRepeat();
-                    if(isRepeatDepart)
-                        Toast.makeText(ClockInCarActivity.this,"您今天已出发打卡，请勿重复操作", Toast.LENGTH_SHORT).show();
-                    else if(isRepeatArrival)
-                        Toast.makeText(ClockInCarActivity.this,"您今天已到达打卡，请勿重复操作", Toast.LENGTH_SHORT).show();
-                    else if(isRepeatFinish)
-                        Toast.makeText(ClockInCarActivity.this,"您今天已完工打卡，请勿重复操作", Toast.LENGTH_SHORT).show();
-                    else{
-                        Pattern pattern = Pattern.compile("[0-9][0-9].+");
-                        Matcher matcher = pattern.matcher(carPictureCapturedPath);
-                        if(matcher.find())
-                            carPictureCapturedPath = matcher.group(0);
-                        addClockIn(datetime, String.valueOf(loc.GetLat()),
-                                String.valueOf(loc.GetLng()), type,carPictureCapturedPath, "", projectID, stationID, carID);
-                        Toast.makeText(ClockInCarActivity.this,"打卡成功", Toast.LENGTH_SHORT).show();
-                    }
                 }
             }
         });
@@ -293,6 +279,7 @@ public class ClockInCarActivity extends AppCompatActivity {
                 isRepeatArrival=false;
                 isRepeatDepart=false;
                 isRepeatFinish=false;
+                String str="";
                 for(int i = 0; i<objects.size();i++){
                     JSONObject jsonObject = objects.getJSONObject(i);
                     String time = jsonObject.getString("AddTime");
@@ -302,14 +289,31 @@ public class ClockInCarActivity extends AppCompatActivity {
                     Calendar c = Calendar.getInstance();
                     c.setTimeInMillis(timeLong);
                     String tt = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(c.getTime());
+                    str = str + tt.substring(0,10);
                     if(tt.substring(0,10).equals(datetime.substring(0, 10))){
-                        if(thisType=="0")
+                        if(thisType.equals("0"))
                             isRepeatDepart=true;
-                        if(thisType=="1")
+                        if(thisType.equals("1"))
                             isRepeatArrival=true;
-                        if(thisType=="2")
+                        if(thisType.equals("2"))
                             isRepeatFinish=true;
                     }
+                }
+                // Toast.makeText(ClockInCarActivity.this,Boolean.toString(isRepeatArrival) + Boolean.toString(isRepeatFinish) +Boolean.toString(isRepeatDepart), Toast.LENGTH_SHORT).show();
+                if(isRepeatDepart)
+                    Toast.makeText(ClockInCarActivity.this,"您今天已出发打卡，请勿重复操作", Toast.LENGTH_SHORT).show();
+                else if(isRepeatArrival)
+                    Toast.makeText(ClockInCarActivity.this,"您今天已到达打卡，请勿重复操作", Toast.LENGTH_SHORT).show();
+                else if(isRepeatFinish)
+                    Toast.makeText(ClockInCarActivity.this,"您今天已完工打卡，请勿重复操作", Toast.LENGTH_SHORT).show();
+                else {
+                    Pattern pattern = Pattern.compile("[0-9][0-9].+");
+                    Matcher matcher = pattern.matcher(carPictureCapturedPath);
+                    if (matcher.find())
+                        carPictureCapturedPath = matcher.group(0);
+                    addClockIn(datetime, String.valueOf(loc.GetLat()),
+                            String.valueOf(loc.GetLng()), type, carPictureCapturedPath, "", projectID, stationID, carID);
+                    Toast.makeText(ClockInCarActivity.this, "打卡成功", Toast.LENGTH_SHORT).show();
                 }
             }
             @Override
