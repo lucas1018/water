@@ -60,6 +60,7 @@ public class ClockInCarActivity extends AppCompatActivity {
     private String cartype;
     private String project;
     private String projectID="";
+    private String stationID="";
     private String station;
     private String type;
     private String basicPicturePath = "/storage/emulated/0/JCamera/picture_";
@@ -203,6 +204,7 @@ public class ClockInCarActivity extends AppCompatActivity {
         }
         if (requestCode == 3 && resultCode == 820) {
             station = data.getStringExtra("station");
+            stationID = data.getStringExtra("stationID");
             relatedStation.setText(station);
             isStation=true;
         }

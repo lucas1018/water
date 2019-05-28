@@ -64,6 +64,7 @@ public class ClockInGetStationActivity extends AppCompatActivity {
                     Map<String, String> item = new HashMap<String, String>();
                     JSONObject jsonObject = objects.getJSONObject(i);
                     String car = jsonObject.getString("STNM");
+                    String stationid = jsonObject.getString("EngineeringStationId");
                     item.put("Item",car);
                     stationItem.add(item);
                 }
@@ -89,6 +90,7 @@ public class ClockInGetStationActivity extends AppCompatActivity {
                 //Toast.makeText(ClockInGetCatNumberActivity.this,cars.getJSONObject(position).getString("CarNember") , Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent();
                 intent.putExtra("station", stations.getJSONObject(position).getString("STNM"));
+                intent.putExtra("stationID", stations.getJSONObject(position).getString("EngineeringStationId"));
                 setResult(820, intent);
                 finish();
             }

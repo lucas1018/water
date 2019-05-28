@@ -303,14 +303,12 @@ public class Requests {
         baseJSONArray(observer, "AdInfo_GetList", requestBody);
     }
 
-
-    public static void getApproveInfo(Observer<JSONObject> observer, String userId, int state, int PageIndex, int PageSize) {
+    public static void GetCheckInfo(Observer<JSONObject> observer, String CheckUserId, int  state,int PageIndex, int PageSize) {
         RequestBody requestBody = new FormBody.Builder()
-                .add("ApplyUserId", userId)
+                .add("CheckUserId", CheckUserId)
                 .add("State", String.valueOf(state))
                 .add("PageIndex", String.valueOf(PageIndex))
                 .add("PageSize", String.valueOf(PageSize))
-
                 .build();
         baseJSONObject(observer, "GeneralCheck_GetPageInfo", requestBody);
     }
@@ -327,6 +325,5 @@ public class Requests {
                 .build();
         baseString(observer, "ConstructionLog_SaveBLL", requestBody);
     }
-
 
 }
