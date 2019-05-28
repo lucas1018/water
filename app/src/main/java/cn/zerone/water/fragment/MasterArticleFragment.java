@@ -43,6 +43,7 @@ import cn.zerone.water.activity.ConstructionLog;
 import cn.zerone.water.activity.LiteActivity;
 import cn.zerone.water.activity.NewsWebActivity;
 import cn.zerone.water.activity.NoticeActivity;
+import cn.zerone.water.activity.ProblemActivity;
 import cn.zerone.water.http.Requests;
 import cn.zerone.water.map.PoiSearchActivity;
 import cn.zerone.water.model.HeaderAdapter;
@@ -78,6 +79,7 @@ public class MasterArticleFragment extends Fragment {
 
     private ImageButton mButNavi = null;
     private ImageButton contruction_log = null;
+    private ImageButton problem_record = null;
 
     //定时轮播图片，需要在主线程里面修改 UI
     private Handler mHandler = new Handler(){
@@ -158,6 +160,16 @@ public class MasterArticleFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getContext(), ConstructionLog.class);
+                getContext().startActivity(intent);
+            }
+        });
+
+        //问题上报
+        problem_record = view.findViewById(R.id.problem_record);
+        problem_record.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getContext(), ProblemActivity.class);
                 getContext().startActivity(intent);
             }
         });

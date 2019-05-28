@@ -313,4 +313,21 @@ public class Requests {
         baseJSONObject(observer, "GeneralCheck_GetPageInfo", requestBody);
     }
 
+    //获取所有问题类型
+    public static void getProblemTypeList(Observer<JSONArray> observer, String id) {
+        RequestBody requestBody = new FormBody.Builder()
+                .add("ID", id)
+                .add("field","Type")
+                .add("value","6").build();
+        baseJSONArray(observer, "TreeInfo_GetListByField", requestBody);
+    }
+
+    //调用任务列表接口
+    public static void TaskInfo_GetList(Observer<JSONArray> observer) {
+
+        RequestBody requestBody = new FormBody.Builder().build();
+        baseJSONArray(observer, "TaskInfo_GetList", requestBody);
+    }
+
+
 }
