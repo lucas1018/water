@@ -20,7 +20,8 @@
             android:paddingTop="15sp"
             android:text="@string/title_myself"
             android:textColor="#fff"
-            android:textSize="16sp" />
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
         <LinearLayout
             android:layout_width="match_parent"

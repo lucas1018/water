@@ -112,6 +112,7 @@
         <activity android:name=".activity.PhoneNumberModifiedActivity"    android:configChanges="keyboard|keyboardHidden|orientation|screenSize" />
         <activity android:name=".activity.SystemUpdateActivity"    android:configChanges="keyboard|keyboardHidden|orientation|screenSize" />
         <activity android:name=".activity.MealActivity"    android:configChanges="keyboard|keyboardHidden|orientation|screenSize" />
+        <activity android:name=".activity.MealDetailActivity"    android:configChanges="keyboard|keyboardHidden|orientation|screenSize" />
         <activity android:name=".activity.MealTypeActivity"    android:configChanges="keyboard|keyboardHidden|orientation|screenSize" />
         <activity android:name=".activity.NoticeActivity"    android:configChanges="keyboard|keyboardHidden|orientation|screenSize" />
         <activity android:name=".activity.NewsWebActivity"    android:configChanges="keyboard|keyboardHidden|orientation|screenSize" />

@@ -47,6 +47,7 @@ import static cn.zerone.water.utils.HttpUtil.baseString;
 public class Requests {
 
     public static <T> void login(Observer<JSONObject> observer, String username, String password) {
+        System.out.println("jjjjjj" + username + "kkkk" + password);
         RequestBody requestBody = new FormBody.Builder()
                 .add("LOGIN_NAME", username)
                 .add("PASSWORD", password)
