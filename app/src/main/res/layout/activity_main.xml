@@ -48,7 +48,7 @@
             android:layout_weight="1"
             android:layout_marginTop="4dp"
 
-            android:src="@mipmap/homepage_blue" />
+            android:src="@drawable/home_blue" />
 
         <View
             android:layout_width="0dp"
