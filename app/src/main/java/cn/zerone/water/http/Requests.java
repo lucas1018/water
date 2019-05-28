@@ -313,19 +313,4 @@ public class Requests {
         baseJSONObject(observer, "GeneralCheck_GetPageInfo", requestBody);
     }
 
-        //调用施工日志接口
-        //项目施工表
-        public static void ProjectLog_GetList(Observer<JSONArray>observer){
-
-            RequestBody requestBody = new FormBody.Builder().build();
-            baseJSONArray(observer, "ProjectLog_GetList", requestBody);
-        }
-        //项目信息表
-        public static void PROJECT_INFO_GetList (Observer < JSONArray > observer) {
-            RequestBody requestBody = new FormBody.Builder().build();
-            baseJSONArray(observer, "PROJECT_INFO_GetList", requestBody);
-
-        }
-
-
 }

@@ -46,7 +46,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_marginTop="10dp"
-                android:layout_marginRight="10dp"
+                android:layout_marginRight="20dp"
                 android:text="确定"
                 android:textColor="#fff"
                 android:textSize="18sp" />
@@ -78,7 +78,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="21dp"
                     android:layout_marginLeft="20dp"
-                    android:text="九支渠79号闸"
+                    android:text=""
                     android:layout_weight="5"
                     android:textColor="#ff000000" />
 
@@ -128,9 +128,16 @@
                     android:layout_width="wrap_content"
                     android:layout_height="21dp"
                     android:layout_marginLeft="20dp"
-                    android:text="九支渠79号闸"
+                    android:text=""
                     android:layout_weight="5"
                     android:textColor="#ff000000" />
+
+                <ImageView
+                    android:id="@+id/station_go"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:src="@mipmap/log_back" />
 
 
             </LinearLayout>
@@ -149,11 +156,12 @@
 
             </LinearLayout>
 
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="20dp"
                 android:layout_marginRight="20dp"
                 android:orientation="horizontal">
 
@@ -166,19 +174,32 @@
                     android:textColor="#ff999999"
                     android:textSize="16sp" />
 
-                <EditText
+                <TextView
+                    android:id="@+id/project_date"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="6"
-                    android:textColor="#C7C7C7"
-                    android:textColorHint="#C7C7C7"
-                    android:textSize="16sp"
-                    android:hint="请输入施工日期"
-                    android:id="@+id/log_date"
-                    />
-
+                    android:layout_height="21dp"
+                    android:layout_marginLeft="20dp"
+                    android:text=""
+                    android:layout_weight="5"
+                    android:textColor="#ff000000" />
 
             </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="11dp"
+                    android:layout_marginRight="20dp"
+                    android:background="#ffeeeeee"></View>
+
+            </LinearLayout>
+
+
 
 
             <LinearLayout
@@ -187,6 +208,8 @@
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="5dp"
                 android:layout_marginRight="20dp"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
                 android:orientation="horizontal">
 
                 <TextView
@@ -201,7 +224,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="6"
-                    android:textColor="#C7C7C7"
+                    android:textColor="#ff999999"
                     android:textColorHint="#C7C7C7"
                     android:textSize="16sp"
                     android:hint="请输入今日天气"
@@ -220,19 +243,19 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
-                android:text="明日安排"
+                android:text="工程内容"
                 android:textColor="#000"
                 android:textSize="16sp" />
 
             <EditText
-                android:id="@+id/edit_tomorrow"
+                android:id="@+id/edit_content"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:layout_marginTop="10dp"
                 android:background="@drawable/edit_sytle"
                 android:gravity="left|top"
-                android:hint="请输入明日安排"
+                android:hint="请输入工程内容"
                 android:minLines="5"
                 android:padding="5dp"
                 android:textColor="#C7C7C7"
@@ -250,19 +273,19 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
-                android:text="备注"
+                android:text="安全情况"
                 android:textColor="#000"
                 android:textSize="18sp" />
 
             <EditText
-                android:id="@+id/edit_remark"
+                android:id="@+id/edit_safe"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:layout_marginTop="10dp"
                 android:background="@drawable/edit_sytle"
                 android:gravity="left|top"
-                android:hint="请输入备注"
+                android:hint="请输入安全情况"
                 android:minLines="5"
                 android:padding="5dp"
                 android:textColor="#C7C7C7"
