@@ -13,6 +13,7 @@ import android.support.design.internal.BottomNavigationItemView;
 import android.support.design.internal.BottomNavigationMenuView;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -20,6 +21,7 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -40,6 +42,7 @@ import io.reactivex.annotations.NonNull;
 
 public class MainActivity extends AppCompatActivity {
     public static MainActivity activity;
+    private ImageView home;
 
     List<String> mViewList = new ArrayList<String>();//顶部用于循环的布局集合
     Fragment[] fragments = new Fragment[]{new NoticeFragment(),new TaskListFragment(),new HomeFragment(),new LiveFragment(),new MyselfFragment()};
@@ -53,6 +56,12 @@ public class MainActivity extends AppCompatActivity {
             }else{
                 transaction.hide(fragments[i]);
             }
+        }
+        if (index == 2 ){
+            home.setImageResource(R.drawable.home_blue);
+        }
+        else{
+            home.setImageResource(R.drawable.home_gray);
         }
         transaction.commit();
 
@@ -125,6 +134,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        home = (ImageView)findViewById(R.id.navigation_center_image);
 
         ((App)getApplication()).mapInit();
 
@@ -145,6 +155,7 @@ public class MainActivity extends AppCompatActivity {
         int b=navigation.getMaxItemCount();
         BottomNavigationMenuView menuView  = (BottomNavigationMenuView) navigation.getChildAt(0);
         navigation.setSelectedItemId(navigation.getMenu().getItem(2).getItemId());
+        home.setImageResource(R.drawable.home_blue);
         View tab = menuView.getChildAt(1);
         BottomNavigationItemView itemView = (BottomNavigationItemView) tab;
          badge = LayoutInflater.from(this).inflate(R.layout.menu_badge, null, false);

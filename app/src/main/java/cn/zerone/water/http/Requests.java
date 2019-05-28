@@ -12,6 +12,7 @@ import java.io.File;
 import java.io.IOException;
 import java.text.DecimalFormat;
 import java.sql.SQLOutput;
+import java.util.Date;
 import java.util.List;
 
 import cn.zerone.water.model.EngineeringStation;
@@ -46,6 +47,7 @@ import static cn.zerone.water.utils.HttpUtil.baseString;
 public class Requests {
 
     public static <T> void login(Observer<JSONObject> observer, String username, String password) {
+        System.out.println("jjjjjj" + username + "kkkk" + password);
         RequestBody requestBody = new FormBody.Builder()
                 .add("LOGIN_NAME", username)
                 .add("PASSWORD", password)
@@ -312,6 +314,19 @@ public class Requests {
                 .build();
         baseJSONObject(observer, "GeneralCheck_GetPageInfo", requestBody);
     }
+    // 施工日志
+    public static void ConstructionLog_SaveBLL(Observer<String> observer, String User_id, String project_id, String station_id, String time, String weather, String content, String safety) {
+        RequestBody requestBody = new FormBody.Builder()
+                .add("UserId", User_id)
+                .add("EngineeringId", project_id)
+                .add("EngineeringStationId", station_id)
+                .add("Date", time)
+                .add("Weather", weather)
+                .add("EngineeringContent", content)
+                .add("SafetySituation", safety)
+                .build();
+        baseString(observer, "ConstructionLog_SaveBLL", requestBody);
+    }
 
     //获取所有问题类型
     public static void getProblemTypeList(Observer<JSONArray> observer, String id) {
@@ -330,4 +345,27 @@ public class Requests {
     }
 
 
+    public static void CarClockIn_SaveBLL(Observer<String> observer, String id, String add_time, String latitude, String longitude,
+                                          String data_type, String pic, String address,String EnID, String StID, String CarID) {
+        RequestBody requestBody = new FormBody.Builder()
+                .add("UserId", id)
+                .add("AddTime", add_time)
+                .add("Lat", latitude)
+                .add("Lng", longitude)
+                .add("DataType", data_type)
+                .add("Path", pic)
+                .add("Address", address)
+                .add("EngineeringId", EnID)
+                .add("EngineeringStationId", StID)
+                .add("CarInfoId", CarID)
+                .build();
+        baseString(observer, "CarGpsPhoto_SaveBLL", requestBody);
+    }
+
+    public static void getCarClockInList(Observer<JSONArray> observer, String id) {
+        RequestBody requestBody = new FormBody.Builder()
+                .add("field", "UserId")
+                .add("value", id).build();
+        baseJSONArray(observer, "CarGpsPhoto_GetListByField", requestBody);
+    }
 }

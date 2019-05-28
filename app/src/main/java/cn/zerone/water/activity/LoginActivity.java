@@ -174,6 +174,7 @@ public class LoginActivity extends AppCompatActivity  {
 
                 @Override
                 public void onNext(JSONObject jsonObject) {
+
                     if (jsonObject.getString("Flag").equals("true")) {
                         if(jsonObject.getString("NewId")==null){
                             throw new JSONException("NewId");
