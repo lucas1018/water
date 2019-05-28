@@ -22,6 +22,7 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -29,6 +30,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import cn.zerone.water.App;
 import cn.zerone.water.R;
 import cn.zerone.water.http.Requests;
 import cn.zerone.water.model.ListViewAdapter;
@@ -51,6 +53,8 @@ public class ConstructionLog extends Activity {
     private Boolean isStation = false;
     String station_name ;
     String result;
+    String station_id;
+    String get_time;
 
 
 
@@ -147,6 +151,7 @@ public class ConstructionLog extends Activity {
 
             }
         });
+        get_time = date.getText().toString();
 
 
         // 确定
@@ -164,19 +169,39 @@ public class ConstructionLog extends Activity {
                 else if(isSafe.getText().length()==0)
                     Toast.makeText(ConstructionLog.this,"“安全情况”不能为空！", Toast.LENGTH_SHORT).show();
                 else {
-                    construction_save();
-                    Toast.makeText(ConstructionLog.this,"“添加成功！", Toast.LENGTH_SHORT).show();
-                    finish();
+                    construction_save(projectID,station_id,get_time,weather.getText().toString(),isContent.getText().toString(),isSafe.getText().toString());
                 }
             }
         });
 
     }
 
-    private void construction_save() {
+    private void construction_save(String projectID,String stationId,String date,String weather,String content,String safe) {
+        Requests.ConstructionLog_SaveBLL(new Observer<String>() {
+            @Override
+            public void onSubscribe(Disposable d) {
+
+            }
+
+            @Override
+            public void onNext(String s) {
+
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+
+            @Override
+            public void onComplete() {
+                Toast.makeText(ConstructionLog.this,"施工日志添加成功！", Toast.LENGTH_SHORT).show();
+                finish();
+
+            }
+        },App.userId,projectID,stationId,date,weather,content,safe);
 
     }
-
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         //此处可以根据两个Code进行判断，本页面和结果页面跳过来的值
@@ -188,6 +213,7 @@ public class ConstructionLog extends Activity {
         }
         if (requestCode == 2 && resultCode == 820) {
             station_name = data.getStringExtra("station");
+            station_id = data.getStringExtra("stationID");
             project_station.setText(station_name);
             isStation = true;
         }

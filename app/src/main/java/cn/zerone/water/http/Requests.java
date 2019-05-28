@@ -12,6 +12,7 @@ import java.io.File;
 import java.io.IOException;
 import java.text.DecimalFormat;
 import java.sql.SQLOutput;
+import java.util.Date;
 import java.util.List;
 
 import cn.zerone.water.model.EngineeringStation;
@@ -313,7 +314,7 @@ public class Requests {
         baseJSONObject(observer, "GeneralCheck_GetPageInfo", requestBody);
     }
     // 施工日志
-    public static void ConstructionLog_SaveBLL(Observer<String> observer,String User_id, String project_id,String station_id, String time, String weather, String content, String safety) {
+    public static void ConstructionLog_SaveBLL(Observer<String> observer, String User_id, String project_id, String station_id, String time, String weather, String content, String safety) {
         RequestBody requestBody = new FormBody.Builder()
                 .add("UserId", User_id)
                 .add("EngineeringId", project_id)
