@@ -70,6 +70,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:layout_gravity="center"
+            android:paddingLeft="40dp"
             android:gravity="center"
             android:text="@string/meal_date" />
 
@@ -78,6 +79,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:layout_gravity="center"
+            android:layout_marginLeft="85dp"
             android:gravity="center"
             android:text="@string/meal_type" />
 
@@ -86,6 +88,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:layout_gravity="center"
+            android:layout_marginLeft="40dp"
             android:gravity="center"
             android:text="@string/meal_fee" />
     </LinearLayout>
