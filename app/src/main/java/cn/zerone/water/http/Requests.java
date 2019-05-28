@@ -314,5 +314,19 @@ public class Requests {
                 .build();
         baseJSONObject(observer, "GeneralCheck_GetPageInfo", requestBody);
     }
+    // 施工日志
+    public static void ConstructionLog_SaveBLL(Observer<String> observer,String User_id, String project_id,String station_id, String time, String weather, String content, String safety) {
+        RequestBody requestBody = new FormBody.Builder()
+                .add("UserId", User_id)
+                .add("EngineeringId", project_id)
+                .add("EngineeringStationId", station_id)
+                .add("Date", time)
+                .add("Weather", weather)
+                .add("EngineeringContent", content)
+                .add("SafetySituation", safety)
+                .build();
+        baseString(observer, "ConstructionLog_SaveBLL", requestBody);
+    }
+
 
 }

@@ -49,6 +49,8 @@ public class ConstructionLog extends Activity {
     private String projectID="";
     private Boolean isProject = false;
     private Boolean isStation = false;
+    String station_name ;
+    String result;
 
 
 
@@ -162,6 +164,7 @@ public class ConstructionLog extends Activity {
                 else if(isSafe.getText().length()==0)
                     Toast.makeText(ConstructionLog.this,"“安全情况”不能为空！", Toast.LENGTH_SHORT).show();
                 else {
+                    construction_save();
                     Toast.makeText(ConstructionLog.this,"“添加成功！", Toast.LENGTH_SHORT).show();
                     finish();
                 }
@@ -170,17 +173,21 @@ public class ConstructionLog extends Activity {
 
     }
 
+    private void construction_save() {
+
+    }
+
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         //此处可以根据两个Code进行判断，本页面和结果页面跳过来的值
         if (requestCode == 1 && resultCode == 720) {
-            String result = data.getStringExtra("project");
+            result = data.getStringExtra("project");
             projectID = data.getStringExtra("projectID");
             project_name.setText(result);
             isProject = true;
         }
         if (requestCode == 2 && resultCode == 820) {
-            String station_name = data.getStringExtra("station");
+            station_name = data.getStringExtra("station");
             project_station.setText(station_name);
             isStation = true;
         }
