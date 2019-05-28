@@ -90,6 +90,7 @@ public class ClockInGetCatNumberActivity extends AppCompatActivity {
                 Intent intent = new Intent();
                 intent.putExtra("number", cars.getJSONObject(position).getString("CarNember"));
                 intent.putExtra("type", cars.getJSONObject(position).getString("CarType"));
+                intent.putExtra("carID", cars.getJSONObject(position).getString("ID"));
                 setResult(620, intent);
                 finish();
             }

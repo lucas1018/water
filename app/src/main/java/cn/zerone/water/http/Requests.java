@@ -328,4 +328,27 @@ public class Requests {
         baseString(observer, "ConstructionLog_SaveBLL", requestBody);
     }
 
+    public static void CarClockIn_SaveBLL(Observer<String> observer, String id, String add_time, String latitude, String longitude,
+                                          String data_type, String pic, String address,String EnID, String StID, String CarID) {
+        RequestBody requestBody = new FormBody.Builder()
+                .add("UserId", id)
+                .add("AddTime", add_time)
+                .add("Lat", latitude)
+                .add("Lng", longitude)
+                .add("DataType", data_type)
+                .add("Path", pic)
+                .add("Address", address)
+                .add("EngineeringId", EnID)
+                .add("EngineeringStationId", StID)
+                .add("CarInfoId", CarID)
+                .build();
+        baseString(observer, "CarGpsPhoto_SaveBLL", requestBody);
+    }
+
+    public static void getCarClockInList(Observer<JSONArray> observer, String id) {
+        RequestBody requestBody = new FormBody.Builder()
+                .add("field", "UserId")
+                .add("value", id).build();
+        baseJSONArray(observer, "CarGpsPhoto_GetListByField", requestBody);
+    }
 }
