@@ -71,6 +71,9 @@ public class ClockInWorkActivity extends AppCompatActivity {
     private String afternoonPictureCapturedPath;
     private String basicPicturePath = "/storage/emulated/0/JCamera/picture_";
 
+    private Boolean dateChanged = false;
+    private String selectedDateByCalendar;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -120,6 +123,10 @@ public class ClockInWorkActivity extends AppCompatActivity {
             public void onNext(JSONArray objects) {
                 Boolean isClockInMorning = false;
                 Boolean isClockInAfternoon = false;
+
+                // 通过选择日历获取历史
+                if(dateChanged)
+                    datetime = selectedDateByCalendar;
 
                 for(int i = 0; i<objects.size();i++){
                     JSONObject jsonObject = objects.getJSONObject(i);

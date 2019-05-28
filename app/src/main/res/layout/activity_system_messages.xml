@@ -31,6 +31,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:divider="@color/black_overlay"
+        android:footerDividersEnabled="true"
         android:dividerHeight="1px"
 
        ></ListView>
