@@ -25,6 +25,8 @@
             android:layout_height="60dp"
             android:background="?android:attr/windowBackground"
             android:layout_alignParentBottom="true"
+            app:itemIconTint="@color/selector_item_color"
+            app:itemTextColor="@color/selector_item_color"
             app:menu="@menu/navigation" />
 
     <LinearLayout
