@@ -70,7 +70,7 @@
             android:layout_weight="1"
             android:ems="10"
             android:hint="请选择餐费日期"
-            android:textColorHint="#000"
+            android:textColorHint="#999"
             android:textColor="#000"
             android:textSize="14sp"
             android:background="@null"
@@ -115,7 +115,7 @@
             android:layout_weight="4.5"
             android:ems="10"
             android:hint="请选择餐费类型"
-            android:textColorHint="#000"
+            android:textColorHint="#999"
             android:textColor="#000"
             android:textSize="14sp"
             android:background="@null"/>
@@ -168,7 +168,7 @@
             android:layout_weight="1"
             android:ems="10"
             android:hint="请输入金额"
-            android:textColorHint="#000"
+            android:textColorHint="#999"
             android:textColor="#000"
             android:textSize="14sp"
             android:background="@null"/>
@@ -213,7 +213,7 @@
             android:ems="10"
             android:textSize="14sp"
             android:background="@null"
-            android:textColorHint="#000"
+            android:textColorHint="#999"
             android:textColor="#000"
             android:hint="请输入餐馆" />
 
@@ -270,7 +270,7 @@
         android:enabled="true"
         android:gravity="top"
         android:inputType="textMultiLine"
-        android:textColorHint="#000"
+        android:textColorHint="#999"
         android:textColor="#000"
         android:hint="请输入备注"
         android:textSize="14sp"
@@ -281,7 +281,7 @@
 
     <Button
         android:id="@+id/add_meal"
-        android:layout_width="350dp"
+        android:layout_width="300dp"
         android:layout_height="50dp"
         android:layout_marginRight="20dp"
         android:layout_marginLeft="20dp"
