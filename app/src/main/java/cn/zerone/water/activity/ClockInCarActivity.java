@@ -117,12 +117,20 @@ public class ClockInCarActivity extends AppCompatActivity {
         date = new Date(System.currentTimeMillis());
         datetime = simpleDateFormat.format(date);
 
-        whetherRepeat();
         setListener();
 
     }
 
     void setListener(){
+        Button car_history = findViewById(R.id.car_history);
+        car_history.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(ClockInCarActivity.this, HistoryCarClockInActivity.class));
+            }
+        });
+
+
         carNumberButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -299,12 +307,14 @@ public class ClockInCarActivity extends AppCompatActivity {
                             isRepeatFinish=true;
                     }
                 }
+                System.out.println("AAAAAAAAAAAAAAAAAAAAAA"+ Boolean.toString(isRepeatArrival)+Boolean.toString(isRepeatDepart)+Boolean.toString(isRepeatFinish));
+
                 // Toast.makeText(ClockInCarActivity.this,Boolean.toString(isRepeatArrival) + Boolean.toString(isRepeatFinish) +Boolean.toString(isRepeatDepart), Toast.LENGTH_SHORT).show();
-                if(isRepeatDepart)
+                if(isRepeatDepart&&type.equals("0"))
                     Toast.makeText(ClockInCarActivity.this,"您今天已出发打卡，请勿重复操作", Toast.LENGTH_SHORT).show();
-                else if(isRepeatArrival)
+                else if(isRepeatArrival&&type.equals("1"))
                     Toast.makeText(ClockInCarActivity.this,"您今天已到达打卡，请勿重复操作", Toast.LENGTH_SHORT).show();
-                else if(isRepeatFinish)
+                else if(isRepeatFinish&&type.equals("2"))
                     Toast.makeText(ClockInCarActivity.this,"您今天已完工打卡，请勿重复操作", Toast.LENGTH_SHORT).show();
                 else {
                     Pattern pattern = Pattern.compile("[0-9][0-9].+");
