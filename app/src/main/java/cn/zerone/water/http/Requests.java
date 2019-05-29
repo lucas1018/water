@@ -379,6 +379,16 @@ public class Requests {
 
     }
 
+    //根据问题获取附件信息
+    public static JSONArray getAttachmentsByProId(String ProId){
+        RequestBody requestBody = new FormBody.Builder()
+                .add("field","NewQuestionId")
+                .add("value",ProId)
+                .build();
+        JSONArray objects = baseJSONArray("NewFile_GetListByField", requestBody);
+        return objects;
+    }
+
 
     //调用任务列表接口
     public static void TaskInfo_GetList(Observer<JSONArray> observer) {

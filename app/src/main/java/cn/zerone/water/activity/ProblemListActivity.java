@@ -1,7 +1,10 @@
 package cn.zerone.water.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.alibaba.fastjson.JSON;
@@ -61,11 +64,36 @@ public class ProblemListActivity extends AppCompatActivity {
             String typeName = proTypeNameById.getString("Name");
             json1.put("typeName", typeName);
 
+            //获取问题的主键ID
+            String id = jsonObject.getString("ID");
+            json1.put("ID",id);
+
             list.add(json1);
         }
 
         listView.setAdapter(new ProblemAdapter(ProblemListActivity.this, list));
 
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Bundle bundle = new Bundle();
+
+                JSONObject list1 = JSONObject.parseObject(adapterView.getItemAtPosition(i).toString());
+
+                bundle.putString("Title", list1.get("Title").toString());
+                bundle.putString("AddTime", list1.get("AddTime").toString());
+                bundle.putString("Remark", list1.get("Remark").toString());
+                bundle.putString("typeName", list1.get("typeName").toString());
+
+                bundle.putString("ID",list1.get("ID").toString());
+
+                Intent intent = new Intent();
+                intent.putExtras(bundle);
+                intent.setClass(ProblemListActivity.this, ProblemDetailActivity.class);
+                startActivity(intent);
+
+            }
+        });
 
 
     }
