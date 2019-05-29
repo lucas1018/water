@@ -40,19 +40,24 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-
-        <EditText
-            android:id="@+id/edit_opinion_content"
+        <ScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/edit_sytle"
-            android:gravity="left|top"
-            android:hint="驳回原因/同意"
-            android:minLines="5"
-            android:padding="5dp"
-            android:textSize="16sp"/>
+            android:layout_weight="1">
+
+            <EditText
+                android:id="@+id/edit_opinion_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/edit_sytle"
+                android:gravity="left|top"
+                android:hint="驳回原因/同意"
+                android:minLines="5"
+                android:padding="5dp"
+                android:textSize="16sp"/>
+        </ScrollView>
 
 
 
@@ -66,7 +71,7 @@
             android:layout_marginTop="10dp"
             android:layout_gravity="center"
             android:background="#1AAD19"
-            android:textColor="#fff"
+            android:textColor="#ffffffff"
             android:text="提交"
 
             />

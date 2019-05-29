@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/activity_modify_psw"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#e4e2e2">
+    android:background="#e4e2e2"
+    tools:context="cn.zerone.water.activity.ApproveActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -34,37 +35,18 @@
             android:text="办公审批" />
     </RelativeLayout>
 
-    <LinearLayout
-        android:orientation="horizontal"
+
+
+    <android.support.design.widget.TabLayout
+        android:id="@+id/tablayout"
+        style="@style/MyTablayoutstyle"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"/>
 
-        <Button
-            android:id="@+id/wait_approve"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="未审批"
-        />
-
-        <Button
-            android:id="@+id/approved"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="已审批"
-            />
-
-    </LinearLayout>
-
-    <ListView
-        android:id="@+id/appr_list_view"
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewpager"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-    </ListView>
-
-
+        android:layout_height="match_parent"/>
 
 </LinearLayout>
 

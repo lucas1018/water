@@ -352,6 +352,18 @@ public class Requests {
     }
 
 
+    //审批提交
+    public static void Submit_GeneralCheck(Observer<JSONObject> observer, int ID, String Remark, int State){
+        RequestBody requestBody = new FormBody.Builder()
+                .add("ID", String.valueOf(ID))
+                .add("Remark", Remark)
+                .add("State", String.valueOf(State))
+                .build();
+        baseJSONObject(observer, "GeneralCheck", requestBody);
+
+
+    }
+    
     //工作餐详情
     public static void FeesForMeals_GetPageInfo(Observer<JSONObject> observer, String id, String start, String end) {
         RequestBody requestBody = new  FormBody.Builder()
