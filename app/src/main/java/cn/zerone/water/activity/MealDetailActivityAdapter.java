@@ -22,7 +22,7 @@ public class MealDetailActivityAdapter extends ArrayAdapter<MealDetailItem>{
 
     public MealDetailActivityAdapter(@NonNull Context context, int resource, @NonNull List<MealDetailItem> objects) {
         super(context, resource, objects);
-        this.resourceId=resource;
+        this.resourceId = resource;
         this.mMealDetailItemList=objects;
     }
 

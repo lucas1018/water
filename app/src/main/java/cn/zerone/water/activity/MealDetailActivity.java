@@ -74,7 +74,6 @@ public class MealDetailActivity extends AppCompatActivity {
         }
         mealListView = findViewById(R.id.list_view);
         initData();
-        mealListView.setAdapter(new MealDetailActivityAdapter(getContext(),R.layout.mealdetailitem, mealDetailItemList));
     }
 
     public void initData(){
@@ -87,8 +86,7 @@ public class MealDetailActivity extends AppCompatActivity {
             @Override
             public void onNext(JSONObject objects) {
                 jsonArray = JSON.parseArray(objects.getString("ModelList"));
-                System.out.println("99999" + jsonArray);
-                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
                 for (int i =0 ;i < jsonArray.size(); i++) {
                     JSONObject jsonObject = jsonArray.getJSONObject(i);
                     String time = jsonObject.getString("AddTime");
@@ -98,10 +96,9 @@ public class MealDetailActivity extends AppCompatActivity {
                     String return_date = simpleDateFormat.format(tmp);
                     String type = jsonObject.getString("Name");
                     String fee = jsonObject.getString("Cost");
-                    System.out.println("nnnnnnnn" + return_date + "ccccc" + type + "bbbbbbbbbbb" + fee);
                     mealDetailItemList.add(new MealDetailItem(return_date,type,fee));
-                    System.out.println("mmmmmmmmmm" + mealDetailItemList);
                 }
+                mealListView.setAdapter(new MealDetailActivityAdapter(getContext(),R.layout.mealdetailitem, mealDetailItemList));
             }
             @Override
             public void onError(Throwable e) {
@@ -111,16 +108,6 @@ public class MealDetailActivity extends AppCompatActivity {
 
             }
         }, App.userId, firstDay, endDay );
-
-/*
-        MealDetailItem mealDetailItem_1=new MealDetailItem("2019-05-01","商务餐", "100");
-        mealDetailItemList.add(mealDetailItem_1);
-        MealDetailItem mealDetailItem_2=new MealDetailItem("2019-05-01","商务餐", "100");
-        mealDetailItemList.add(mealDetailItem_2);
-        MealDetailItem mealDetailItem_3=new MealDetailItem("2019-05-01","商务餐", "100");
-        mealDetailItemList.add(mealDetailItem_3);
-        MealDetailItem mealDetailItem_4=new MealDetailItem("2019-05-01","商务餐", "100");
-        mealDetailItemList.add(mealDetailItem_4);*/
     }
 
 }
