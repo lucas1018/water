@@ -1,4 +1,4 @@
-package cn.zerone.water.model;
+package cn.zerone.water.adapter;
 
 import android.app.Activity;
 import android.net.Uri;
@@ -11,6 +11,8 @@ import com.facebook.drawee.view.SimpleDraweeView;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import cn.zerone.water.model.ItemArticle;
 
 public class HeaderAdapter extends PagerAdapter {
     private static final String LOG = "NEWS_LOG";

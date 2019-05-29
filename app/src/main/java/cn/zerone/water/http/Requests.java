@@ -1,26 +1,11 @@
 package cn.zerone.water.http;
 
-import android.util.Base64;
-
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-
-import org.apache.commons.io.FileUtils;
-import org.ksoap2.serialization.SoapObject;
-
-import java.io.File;
-import java.io.IOException;
-import java.text.DecimalFormat;
-import java.sql.SQLOutput;
-import java.util.Date;
-import java.util.List;
-
-import cn.zerone.water.model.EngineeringStation;
 
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 import okhttp3.FormBody;
-import okhttp3.Request;
 import okhttp3.RequestBody;
 
 import static cn.zerone.water.utils.HttpUtil.baseJSONArray;
@@ -46,11 +31,11 @@ import static cn.zerone.water.utils.HttpUtil.baseString;
 
 public class Requests {
 
-    public static <T> void login(Observer<JSONObject> observer, String username, String password) {
-        System.out.println("jjjjjj" + username + "kkkk" + password);
+    public static <T> void login(Observer<JSONObject> observer, String username, String password,String device_tokens) {
         RequestBody requestBody = new FormBody.Builder()
                 .add("LOGIN_NAME", username)
                 .add("PASSWORD", password)
+                .add("device_tokens",device_tokens)
                 .build();
         baseJSONObject(observer, "Loging", requestBody);
     }

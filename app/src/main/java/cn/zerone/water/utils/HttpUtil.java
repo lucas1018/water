@@ -4,11 +4,6 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 
-import org.greenrobot.greendao.annotation.Index;
-import org.ksoap2.serialization.SoapObject;
-import org.ksoap2.serialization.SoapSerializationEnvelope;
-import org.ksoap2.transport.HttpTransportSE;
-
 import java.io.IOException;
 
 import io.reactivex.Observable;
@@ -18,7 +13,6 @@ import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.schedulers.Schedulers;
-import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
@@ -72,12 +66,16 @@ public class HttpUtil {
     }
 
     public static <T>  void baseJSONObject(final Observer<JSONObject> observer, final String cmd, final RequestBody requestBody){
+        System.out.println("aaaaaaaaaaaaaa" + cmd);
+        System.out.println("aaaaaaaaaaaaaa" + requestBody);
         Observable<T> oble = Observable.create(new ObservableOnSubscribe<T>() {
             @Override
             public void subscribe(@NonNull ObservableEmitter<T> e) throws Exception {
                 Response response = post(cmd, requestBody);
+                System.out.println(response.toString());
                 if(response != null && response.code() == 200){
                     String json = response.body().string();
+
                     e.onNext((T) JSON.parseObject(json));
                     e.onComplete();
                 }else{

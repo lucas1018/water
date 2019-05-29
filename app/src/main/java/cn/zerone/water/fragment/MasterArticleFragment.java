@@ -46,7 +46,7 @@ import cn.zerone.water.activity.NewsWebActivity;
 import cn.zerone.water.activity.NoticeActivity;
 import cn.zerone.water.http.Requests;
 import cn.zerone.water.map.PoiSearchActivity;
-import cn.zerone.water.model.HeaderAdapter;
+import cn.zerone.water.adapter.HeaderAdapter;
 import cn.zerone.water.model.ItemArticle;
 import cn.zerone.water.R;
 import io.reactivex.Observer;
