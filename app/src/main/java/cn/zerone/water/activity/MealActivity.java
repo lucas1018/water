@@ -121,8 +121,24 @@ public class MealActivity extends AppCompatActivity {
             public void onClick(View v) {
                 //获取参数值
                 getEditString();
-                //调用接口请求
-                addFeeForMeal( meal_date, meal_type, meal_mount, meal_resturant, meal_remark);
+                if(dateText.getText().length() == 0){
+                    Toast.makeText(MealActivity.this,"“餐费日期”不能为空！", Toast.LENGTH_SHORT).show();
+                }
+                else if(mealType.getText().length()==0){
+                    Toast.makeText(MealActivity.this,"“餐费类型”不能为空！", Toast.LENGTH_SHORT).show();
+                }
+                else if(mealMoney.getText().length()==0){
+                    Toast.makeText(MealActivity.this,"“餐费金额”不能为空！", Toast.LENGTH_SHORT).show();
+                }
+                else if(mealResturant.getText().length()==0){
+                    Toast.makeText(MealActivity.this,"“餐馆”不能为空！", Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    //调用接口请求
+                    addFeeForMeal( meal_date, meal_type, meal_mount, meal_resturant, meal_remark);
+
+                }
+
             }
         });
     }
@@ -238,7 +254,7 @@ public class MealActivity extends AppCompatActivity {
     }
 
     //    修改登录成功后保存在SharedPreferences中的密码
-    private void addFeeForMeal(String meal_date, String meal_type, String meal_mount, String meal_resturant, String meal_remark) {
+    private void addFeeForMeal(String meal_date, final String meal_type, String meal_mount, String meal_resturant, String meal_remark) {
         Requests.feesForMeals_SaveBLL(new Observer<String>() {
             @Override
             public void onSubscribe(Disposable d) {
@@ -257,7 +273,8 @@ public class MealActivity extends AppCompatActivity {
 
             @Override
             public void onComplete() {
-                Toast.makeText(MealActivity.this,"工作餐添加成功", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MealActivity.this,"工作餐添加成功", Toast.LENGTH_SHORT).show();
+                    finish();
             }
         },App.userId, App.username, meal_date, meal_type, meal_mount, meal_resturant, meal_remark);
 

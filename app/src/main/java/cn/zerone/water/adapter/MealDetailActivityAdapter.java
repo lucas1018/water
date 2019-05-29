@@ -1,4 +1,4 @@
-package cn.zerone.water.activity;
+package cn.zerone.water.adapter;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
