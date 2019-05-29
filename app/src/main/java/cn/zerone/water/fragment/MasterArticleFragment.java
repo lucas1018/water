@@ -3,7 +3,6 @@ package cn.zerone.water.fragment;
 import android.app.Activity;
 
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -16,7 +15,6 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewConfiguration;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -40,13 +38,12 @@ import cn.zerone.water.activity.ClockInHomeActivity;
 import cn.zerone.water.activity.ClockInWorkActivity;
 
 import cn.zerone.water.activity.ConstructionLog;
-import cn.zerone.water.activity.LiteActivity;
+import cn.zerone.water.activity.MealActivity;
 import cn.zerone.water.activity.NewsWebActivity;
-import cn.zerone.water.activity.NoticeActivity;
 import cn.zerone.water.http.Requests;
 import cn.zerone.water.map.PoiSearchActivity;
-import cn.zerone.water.model.HeaderAdapter;
-import cn.zerone.water.model.ItemArticle;
+import cn.zerone.water.adapter.HeaderAdapter;
+import cn.zerone.water.adapter.ItemArticle;
 import cn.zerone.water.R;
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
@@ -78,6 +75,7 @@ public class MasterArticleFragment extends Fragment {
 
     private ImageButton mButNavi = null;
     private ImageButton contruction_log = null;
+    private ImageButton meal = null;
 
     //定时轮播图片，需要在主线程里面修改 UI
     private Handler mHandler = new Handler(){
@@ -173,6 +171,17 @@ public class MasterArticleFragment extends Fragment {
             }
 
         });
+
+        //工作餐
+        meal = view.findViewById(R.id.imageButton9);
+        meal.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), MealActivity.class);
+                getContext().startActivity(intent);
+            }
+        });
+
 
         return view;
     }

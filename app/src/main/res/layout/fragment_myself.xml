@@ -20,7 +20,8 @@
             android:paddingTop="15sp"
             android:text="@string/title_myself"
             android:textColor="#fff"
-            android:textSize="16sp" />
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -54,7 +55,7 @@
                     android:layout_marginTop="5dp"
                     android:layout_weight="1"
                     android:textColor="#fff"
-                    android:textSize="16dp" />
+                    android:textSize="16sp" />
 
                 <TextView
                     android:id="@+id/phone_number"
@@ -63,7 +64,7 @@
                     android:layout_marginTop="10dp"
                     android:layout_weight="1"
                     android:textColor="#fff"
-                    android:textSize="12dp" />
+                    android:textSize="12sp" />
             </LinearLayout>
 
         </LinearLayout>

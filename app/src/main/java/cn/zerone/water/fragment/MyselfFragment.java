@@ -75,7 +75,7 @@ public class MyselfFragment extends Fragment {
             StrictMode.setThreadPolicy(policy);
         }
         initData();
-        listView=view.findViewById(R.id.list_view);
+        listView = view.findViewById(R.id.list_view);
         userName = view.findViewById(R.id.user_name);
         phoneNum = view.findViewById(R.id.phone_number);
         photo1=view.findViewById(R.id.image_1);
