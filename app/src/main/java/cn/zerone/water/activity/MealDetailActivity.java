@@ -35,6 +35,8 @@ public class MealDetailActivity extends AppCompatActivity {
     private String firstDay;
     private String endDay;
     private JSONArray jsonArray;
+    private TextView fee_total;
+    private int sum = 0;
 
 
     @Override
@@ -56,6 +58,9 @@ public class MealDetailActivity extends AppCompatActivity {
         String currentTime = intent.getStringExtra("currentDate");
         detail_title = findViewById(R.id.detail_title);
         detail_title.setText(currentTime + "月餐费详情");
+
+        //餐费总计
+        fee_total = findViewById(R.id.fee_total);
 
         firstDay = currentTime + "-01";
         String years = currentTime.substring(0,4);
@@ -94,10 +99,22 @@ public class MealDetailActivity extends AppCompatActivity {
                     Long timeLong = Long.parseLong(t);
                     Date tmp = new Date(timeLong);
                     String return_date = simpleDateFormat.format(tmp);
-                    String type = jsonObject.getString("Name");
-                    String fee = jsonObject.getString("Cost");
+                    String str = jsonObject.getString("DataType");
+                    String type;
+                    if (str.equals("0")) {
+                        //工作餐=0,商务餐=1,其他=2
+                        type = "工作餐";
+                    } else if(str.equals("1")) {
+                        type = "商务餐";
+                    } else {
+                        type = "其他";
+                    }
+                    String fee = jsonObject.getString("Cost").substring(0,jsonObject.getString("Cost").indexOf("."));
+                    sum += Integer.parseInt(fee);
                     mealDetailItemList.add(new MealDetailItem(return_date,type,fee));
                 }
+                String total = String.valueOf(sum);
+                fee_total.setText(total);
                 mealListView.setAdapter(new MealDetailActivityAdapter(getContext(),R.layout.mealdetailitem, mealDetailItemList));
             }
             @Override
@@ -107,7 +124,7 @@ public class MealDetailActivity extends AppCompatActivity {
             public void onComplete() {
 
             }
-        }, App.userId, firstDay, endDay );
+        }, App.userId, firstDay, endDay);
     }
 
 }
