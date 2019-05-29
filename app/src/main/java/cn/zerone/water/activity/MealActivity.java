@@ -302,7 +302,7 @@ public class MealActivity extends AppCompatActivity {
     }
 
     public void initData(){
-        dateList=new ArrayList<>();
+        dateList = new ArrayList<>();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM");
         String curDate = sdf.format(new Date());//当前月份
         String preDate = getPreMonth();//上一个月份

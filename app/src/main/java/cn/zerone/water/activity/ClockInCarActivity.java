@@ -11,8 +11,10 @@ import android.text.InputType;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.GridView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,7 +24,13 @@ import com.zxing.cameraapplication.CameraActivity;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import cn.zerone.water.App;
 import cn.zerone.water.R;
@@ -55,12 +63,14 @@ public class ClockInCarActivity extends AppCompatActivity {
     private String datetime;
 
     private String[] types = {"出发","到达","收工"};
+    private SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
     private String number;
     private String cartype;
     private String project;
     private String projectID="";
     private String stationID="";
+    private String carID = "";
     private String station;
     private String type;
     private String basicPicturePath = "/storage/emulated/0/JCamera/picture_";
@@ -71,6 +81,11 @@ public class ClockInCarActivity extends AppCompatActivity {
     private Boolean isStation = false;
     private Boolean isType = false;
     private Boolean isPictureCaptured = false;
+    private Boolean isRepeatArrival = false;
+    private Boolean isRepeatFinish = false;
+    private Boolean isRepeatDepart = false;
+
+    private LocationUtil loc;
 
 
     @Override
@@ -93,11 +108,14 @@ public class ClockInCarActivity extends AppCompatActivity {
         location = findViewById(R.id.location);
         clockInButton = findViewById(R.id.clockInButton);
 
-        LocationUtil loc = new LocationUtil();
+        loc = new LocationUtil();
         loc.initLocationOption(getApplicationContext());
         location.setText(loc.GetAddrStr());
 
         car_back = (ImageView) findViewById(R.id.car_back);
+
+        date = new Date(System.currentTimeMillis());
+        datetime = simpleDateFormat.format(date);
 
         setListener();
 
@@ -178,8 +196,22 @@ public class ClockInCarActivity extends AppCompatActivity {
                     Toast.makeText(ClockInCarActivity.this,"“现场照片”不能为空！", Toast.LENGTH_SHORT).show();
                 else{
                     // 判断今天是否已打卡
-                    // 打卡接口
-                    Toast.makeText(ClockInCarActivity.this,"“打卡成功", Toast.LENGTH_SHORT).show();
+                    whetherRepeat();
+                    if(isRepeatDepart)
+                        Toast.makeText(ClockInCarActivity.this,"您今天已出发打卡，请勿重复操作", Toast.LENGTH_SHORT).show();
+                    else if(isRepeatArrival)
+                        Toast.makeText(ClockInCarActivity.this,"您今天已到达打卡，请勿重复操作", Toast.LENGTH_SHORT).show();
+                    else if(isRepeatFinish)
+                        Toast.makeText(ClockInCarActivity.this,"您今天已完工打卡，请勿重复操作", Toast.LENGTH_SHORT).show();
+                    else{
+                        Pattern pattern = Pattern.compile("[0-9][0-9].+");
+                        Matcher matcher = pattern.matcher(carPictureCapturedPath);
+                        if(matcher.find())
+                            carPictureCapturedPath = matcher.group(0);
+                        addClockIn(datetime, String.valueOf(loc.GetLat()),
+                                String.valueOf(loc.GetLng()), type,carPictureCapturedPath, "", projectID, stationID, carID);
+                        Toast.makeText(ClockInCarActivity.this,"打卡成功", Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
         });
@@ -192,6 +224,7 @@ public class ClockInCarActivity extends AppCompatActivity {
         if (requestCode == 1 && resultCode == 620) {
             number = data.getStringExtra("number");
             cartype = data.getStringExtra("type");
+            carID = data.getStringExtra("carID");
             carNumber.setText(number);
             carType.setText(cartype);
             isNumber=true;
@@ -224,5 +257,67 @@ public class ClockInCarActivity extends AppCompatActivity {
             carImage.setImageURI(Uri.fromFile(new File(path)));
             isPictureCaptured=true;
         }
+    }
+
+    private void addClockIn(String add_time, String latitude, String longitude, String data_type,
+                            String pic, String address, String enID, String stID, String carID) {
+        Requests.CarClockIn_SaveBLL(new Observer<String>() {
+            @Override
+            public void onSubscribe(Disposable d) {
+
+            }
+
+            @Override
+            public void onNext(String str) {
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+
+            @Override
+            public void onComplete() {
+            }
+        },App.userId, add_time, latitude, longitude, data_type, pic, address, enID, stID, carID);
+
+    }
+
+    private void whetherRepeat(){
+        Requests.getCarClockInList(new Observer<JSONArray>() {
+            @Override
+            public void onSubscribe(Disposable d) {
+            }
+            @Override
+            public void onNext(JSONArray objects) {
+                isRepeatArrival=false;
+                isRepeatDepart=false;
+                isRepeatFinish=false;
+                for(int i = 0; i<objects.size();i++){
+                    JSONObject jsonObject = objects.getJSONObject(i);
+                    String time = jsonObject.getString("AddTime");
+                    String thisType = jsonObject.getString("DataType");
+                    String t = time.substring(6, 19);
+                    Long timeLong = Long.parseLong(t);
+                    Calendar c = Calendar.getInstance();
+                    c.setTimeInMillis(timeLong);
+                    String tt = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(c.getTime());
+                    if(tt.substring(0,10).equals(datetime.substring(0, 10))){
+                        if(thisType=="0")
+                            isRepeatDepart=true;
+                        if(thisType=="1")
+                            isRepeatArrival=true;
+                        if(thisType=="2")
+                            isRepeatFinish=true;
+                    }
+                }
+            }
+            @Override
+            public void onError(Throwable e) {
+            }
+            @Override
+            public void onComplete() {
+            }
+        },App.userId);
     }
 }
