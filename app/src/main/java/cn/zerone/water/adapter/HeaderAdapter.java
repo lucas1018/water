@@ -1,4 +1,4 @@
-package cn.zerone.water.model;
+package cn.zerone.water.adapter;
 
 import android.app.Activity;
 import android.net.Uri;
