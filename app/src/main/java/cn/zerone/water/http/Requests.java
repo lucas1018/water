@@ -337,6 +337,49 @@ public class Requests {
         baseJSONArray(observer, "TreeInfo_GetListByField", requestBody);
     }
 
+    //上传保存问题
+    public static void NewQuestion_SaveBLL(Observer<JSONObject> observer, String User_id, String Title, String Remark, String TreeInfoId) {
+        RequestBody requestBody = new FormBody.Builder()
+                .add("UserId", User_id)
+                .add("Title", Title)
+                .add("Remark", Remark)
+                .add("TreeInfoId", TreeInfoId)
+                .build();
+        baseJSONObject(observer, "NewQuestion_SaveBLL", requestBody);
+    }
+
+    //上传问题的图片视频或者文档
+    public static void NewFile_SaveBLL(Observer<JSONObject> observer, String User_id, String FileType, String Path, String FileName,String NewQuestionId) {
+        RequestBody requestBody = new FormBody.Builder()
+                .add("UserId", User_id)
+                .add("FileType", FileType)
+                .add("Path", Path)
+                .add("FileName", FileName)
+                .add("NewQuestionId", NewQuestionId)
+                .build();
+        baseJSONObject(observer, "NewFile_SaveBLL", requestBody);
+    }
+
+    //根据问题类型ID获取问题类型名称
+    public static JSONObject getProTypeNameById(String ID){
+        RequestBody requestBody = new FormBody.Builder()
+                .add("ID",ID)
+                .build();
+        JSONObject jsonObject = baseJSONObject("TreeInfo_GetModel", requestBody);
+        return jsonObject;
+    }
+
+    //获取所有问题信息的接口
+    public static JSONArray getProblems(String User_id){
+        RequestBody requestBody = new FormBody.Builder()
+                .add("UserId",User_id)
+                .build();
+        JSONArray objects = baseJSONArray("NewQuestion_GetList", requestBody);
+        return objects;
+
+    }
+
+
     //调用任务列表接口
     public static void TaskInfo_GetList(Observer<JSONArray> observer) {
 
@@ -367,5 +410,16 @@ public class Requests {
                 .add("field", "UserId")
                 .add("value", id).build();
         baseJSONArray(observer, "CarGpsPhoto_GetListByField", requestBody);
+    }
+
+
+    //工作餐详情
+    public static void FeesForMeals_GetPageInfo(Observer<JSONObject> observer, String id, String start, String end) {
+        RequestBody requestBody = new  FormBody.Builder()
+                .add("UserId", id)
+                .add("BeginTime", start)
+                .add("EndTime", end)
+                .build();
+        baseJSONObject(observer,"FeesForMeals_GetPageInfo",requestBody);
     }
 }

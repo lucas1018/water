@@ -41,7 +41,7 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/tv_save"
+                android:id="@+id/pr_save"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
@@ -90,7 +90,7 @@
                     android:textColorHint="#C7C7C7"
                     android:textSize="16sp"
                     android:hint="请输入问题概述"
-                    android:id="@+id/log_weather"
+                    android:id="@+id/pro_title"
                     />
             </LinearLayout>
 
@@ -274,7 +274,7 @@
                     android:textSize="16sp" />
 
                 <EditText
-                    android:id="@+id/edit_content"
+                    android:id="@+id/pro_content"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"

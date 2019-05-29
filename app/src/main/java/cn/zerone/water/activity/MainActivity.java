@@ -5,6 +5,7 @@ package cn.zerone.water.activity;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Handler;
@@ -175,6 +176,12 @@ public class MainActivity extends AppCompatActivity {
         } else {
             setMsgReadView(false);
         }
+        try {
+            String version = getPackageManager().getPackageInfo(getPackageName(),0).versionName + "";
+        }catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+
     }
 
     @Override

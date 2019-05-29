@@ -5,17 +5,24 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.MediaController;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.VideoView;
 
+import com.alibaba.fastjson.JSONObject;
 import com.zxing.cameraapplication.CameraActivity;
 
 import java.io.File;
 
+import cn.zerone.water.App;
 import cn.zerone.water.R;
+import cn.zerone.water.http.Requests;
+import io.reactivex.Observer;
+import io.reactivex.disposables.Disposable;
 
 /**
  * Created by litinghui on 2019/5/28.
@@ -29,6 +36,17 @@ public class ProblemActivity extends AppCompatActivity {
     private String problem_typeID = "";
     private ImageButton pic = null;
     private ImageButton video = null;
+    private TextView save = null;
+    private EditText pro_title = null;
+    private EditText pro_content = null;
+    private boolean has_type = false;
+    private boolean has_pic = false;
+    private boolean has_video = false;
+
+    private String problem_newId = null;
+
+    private String pic_path = "";
+    private String video_path = "";
 
     public  void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,6 +55,9 @@ public class ProblemActivity extends AppCompatActivity {
         log_back = (ImageView)findViewById(R.id.log_back);
         problem_go = (ImageView)findViewById(R.id.problem_go);
         problem_type = (TextView)findViewById(R.id.problem_type);
+        save = (TextView) findViewById(R.id.pr_save);
+        pro_title = (EditText) findViewById(R.id.pro_title);
+        pro_content = (EditText) findViewById(R.id.pro_content);
 
         log_back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -73,7 +94,95 @@ public class ProblemActivity extends AppCompatActivity {
             }
         });
 
+        // 上传问题
+        save.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(pro_title.getText().length() == 0)
+                    Toast.makeText(ProblemActivity.this,"“问题概述”不能为空！", Toast.LENGTH_SHORT).show();
+                else if(pro_content.getText().length()==0)
+                    Toast.makeText(ProblemActivity.this,"“问题描述”不能为空！", Toast.LENGTH_SHORT).show();
+                else if(!has_type)
+                    Toast.makeText(ProblemActivity.this,"“问题类型”不能为空！", Toast.LENGTH_SHORT).show();
+                else {
+                    problem_save(pro_title.getText().toString(),pro_content.getText().toString(),problem_typeID);
+                }
 
+            }
+        });
+
+
+    }
+
+    //上传问题的具体实现
+    private void problem_save(String Title,String Remark,String TreeInfoId) {
+
+        Requests.NewQuestion_SaveBLL(new Observer<JSONObject>() {
+            @Override
+            public void onSubscribe(Disposable d) {
+
+            }
+
+            @Override
+            public void onNext(JSONObject jsonObject) {
+                String newId = jsonObject.getString("NewId");
+                problem_newId = newId;
+
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+
+            @Override
+            public void onComplete() {
+                Toast.makeText(ProblemActivity.this,"问题上报成功！", Toast.LENGTH_SHORT).show();
+                if (has_pic){
+                    attachment_save("0",pic_path,problem_newId);
+                }
+                if (has_video){
+                    attachment_save("2",video_path,problem_newId);
+                }
+
+                //上传完成之后进入问题列表
+                startActivityForResult(new Intent(ProblemActivity.this,ProblemListActivity.class),1);
+
+            }
+        }, App.userId,Title,Remark,TreeInfoId);
+
+    }
+
+    //上传图片视频或者文档的方法
+    private void attachment_save(String FileType,String path,String problem_newId){
+        String file_name = "未命名";
+
+        //通过路径解析文件名
+        if (!path.isEmpty()){
+            file_name = path.substring(path.lastIndexOf('/')+1);
+        }
+
+        Requests.NewFile_SaveBLL(new Observer<JSONObject>() {
+             @Override
+             public void onSubscribe(Disposable d) {
+
+             }
+
+             @Override
+             public void onNext(JSONObject jsonObject) {
+
+             }
+
+             @Override
+             public void onError(Throwable e) {
+
+             }
+
+             @Override
+             public void onComplete() {
+
+             }
+         }, App.userId,FileType,path,file_name,problem_newId);
 
     }
 
@@ -82,26 +191,29 @@ public class ProblemActivity extends AppCompatActivity {
         //此处可以根据两个Code进行判断，获取问题类型
         if (requestCode == 1 && resultCode == 720) {
             String result = data.getStringExtra("Name");
-            problem_typeID = data.getStringExtra("ID");
+            problem_typeID = data.getStringExtra("problem_typeID");
             problem_type.setText(result);
+            has_type = true;
         }
 
         //获取拍照图片
         if (requestCode == 1 && resultCode == 101) {
-            String path = data.getStringExtra("path");
+            pic_path = data.getStringExtra("path");
 
             ImageButton newPic = findViewById(R.id.problemImageButton);
             newPic.setVisibility(View.GONE);
 
             ImageView image = findViewById(R.id.problemImage);
             image.setVisibility(View.VISIBLE);
-            image.setImageURI(Uri.fromFile(new File(path)));
+            image.setImageURI(Uri.fromFile(new File(pic_path)));
+
+            has_pic = true;
 
         }
 
         //获取拍摄视频
         if (requestCode == 1 && resultCode == 102) {
-            String path = data.getStringExtra("path");
+            video_path = data.getStringExtra("path");
 
             ImageButton newVideo = findViewById(R.id.problemVideoButton);
             newVideo.setVisibility(View.GONE);
@@ -111,9 +223,11 @@ public class ProblemActivity extends AppCompatActivity {
 
             video.setMediaController(new MediaController(this));
 
-            video.setVideoPath(path);
+            video.setVideoPath(video_path);
 
             video.start();
+
+            has_video = true;
 
         }
 
