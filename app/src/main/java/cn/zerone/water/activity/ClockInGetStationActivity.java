@@ -90,7 +90,7 @@ public class ClockInGetStationActivity extends AppCompatActivity {
                 //Toast.makeText(ClockInGetCatNumberActivity.this,cars.getJSONObject(position).getString("CarNember") , Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent();
                 intent.putExtra("station", stations.getJSONObject(position).getString("STNM"));
-                intent.putExtra("stationID", stations.getJSONObject(position).getString("EngineeringStationId"));
+                intent.putExtra("stationID", stations.getJSONObject(position).getString("ID"));
                 setResult(820, intent);
                 finish();
             }
