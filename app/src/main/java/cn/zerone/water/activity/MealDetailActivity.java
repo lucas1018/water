@@ -95,7 +95,7 @@ public class MealDetailActivity extends AppCompatActivity {
                     Date tmp = new Date(timeLong);
                     String return_date = simpleDateFormat.format(tmp);
                     String type = jsonObject.getString("Name");
-                    String fee = jsonObject.getString("Cost");
+                    String fee = jsonObject.getString("Cost").substring(0,jsonObject.getString("Cost").indexOf("."));
                     mealDetailItemList.add(new MealDetailItem(return_date,type,fee));
                 }
                 mealListView.setAdapter(new MealDetailActivityAdapter(getContext(),R.layout.mealdetailitem, mealDetailItemList));

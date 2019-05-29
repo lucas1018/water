@@ -359,6 +359,7 @@ public class Requests {
                 .add("UserId", id)
                 .add("BeginTime", start)
                 .add("EndTime", end)
+                .add("PageSize", "1000")
                 .build();
         baseJSONObject(observer,"FeesForMeals_GetPageInfo",requestBody);
     }
