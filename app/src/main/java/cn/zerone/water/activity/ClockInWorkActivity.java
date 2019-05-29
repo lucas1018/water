@@ -157,6 +157,12 @@ public class ClockInWorkActivity extends AppCompatActivity {
                     TextView dateString = findViewById(R.id.dateString);
                     dateString.setText(datetime.substring(0,10));
 
+                    ImageView morningIcon = findViewById(R.id.morningBall);
+                    morningIcon.setImageResource(R.mipmap.blue_ball);
+
+                    ImageView afternoonIcon = findViewById(R.id.afternoonBall);
+                    afternoonIcon.setImageResource(R.mipmap.grey_ball);
+
                     TextView morningNow = findViewById(R.id.morningNow);
                     morningNow.setText("打卡时间 "+ datetime.substring(11,16));
 
@@ -222,6 +228,12 @@ public class ClockInWorkActivity extends AppCompatActivity {
                     // 上午已打
                     TextView morningNow = findViewById(R.id.morningNow);
                     morningNow.setText("打卡时间 "+ morningtime.substring(11,16));
+
+                    ImageView morningIcon = findViewById(R.id.morningBall);
+                    morningIcon.setImageResource(R.mipmap.grey_ball);
+
+                    ImageView afternoonIcon = findViewById(R.id.afternoonBall);
+                    afternoonIcon.setImageResource(R.mipmap.blue_ball);
 
                     TextView morninglocation = findViewById(R.id.morninglocation);
                     morninglocation.setText(clocklist.get(0).getString("Address"));
@@ -310,6 +322,12 @@ public class ClockInWorkActivity extends AppCompatActivity {
 
                     TextView morninglocation = findViewById(R.id.morninglocation);
                     morninglocation.setText(clocklist.get(0).getString("Address"));
+
+                    ImageView morningIcon = findViewById(R.id.morningBall);
+                    morningIcon.setImageResource(R.mipmap.grey_ball);
+
+                    ImageView afternoonIcon = findViewById(R.id.afternoonBall);
+                    afternoonIcon.setImageResource(R.mipmap.grey_ball);
 
                     TextView morningrelocation = findViewById(R.id.morningrelocation);
                     morningrelocation.setVisibility(View.INVISIBLE);
