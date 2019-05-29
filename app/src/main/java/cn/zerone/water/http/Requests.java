@@ -326,6 +326,18 @@ public class Requests {
             baseJSONArray(observer, "PROJECT_INFO_GetList", requestBody);
 
         }
+        //审批提交
+    public static void Submit_GeneralCheck(Observer<JSONObject> observer, int ID, String Remark, int State){
+        RequestBody requestBody = new FormBody.Builder()
+                .add("ID", String.valueOf(ID))
+                .add("Remark", Remark)
+                .add("State", String.valueOf(State))
+                .build();
+        baseJSONObject(observer, "GeneralCheck", requestBody);
+
+
+    }
+
 
 
 }
