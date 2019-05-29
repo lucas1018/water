@@ -18,16 +18,17 @@ import cn.zerone.water.fragment.MyItem;
 public class MealDetailActivityAdapter extends ArrayAdapter<MealDetailItem>{
 
     private int resourceId;
+    private List<MealDetailItem> mMealDetailItemList;
 
     public MealDetailActivityAdapter(@NonNull Context context, int resource, @NonNull List<MealDetailItem> objects) {
         super(context, resource, objects);
         this.resourceId=resource;
+        this.mMealDetailItemList=objects;
     }
 
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-        MealDetailItem mealDetailItem = getItem(position);
         View view;
         ViewHolder viewHolder;
         if (convertView == null){
@@ -41,9 +42,9 @@ public class MealDetailActivityAdapter extends ArrayAdapter<MealDetailItem>{
             view=convertView;
             viewHolder= (ViewHolder) view.getTag();
         }
-        viewHolder.itemDate.setText(mealDetailItem.getItemDate());
-        viewHolder.itemType.setText(mealDetailItem.getItemType());
-        viewHolder.itemFee.setText(mealDetailItem.getItemFee());
+        viewHolder.itemDate.setText(mMealDetailItemList.get(position).getItemDate());
+        viewHolder.itemType.setText(mMealDetailItemList.get(position).getItemType());
+        viewHolder.itemFee.setText(mMealDetailItemList.get(position).getItemFee());
         return view;
     }
     class ViewHolder{
