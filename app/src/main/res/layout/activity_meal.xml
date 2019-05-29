@@ -37,11 +37,11 @@
             android:id="@+id/meal_detail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
             android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:background="@android:color/transparent"
             android:text="月份详情"
             android:textSize="18dp"
-            android:background="#008aca"
             android:textColor="#fff"/>
     </RelativeLayout>
 
@@ -50,6 +50,8 @@
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:layout_marginTop="10dp"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
         android:orientation="horizontal">
 
         <TextView
@@ -106,7 +108,7 @@
             android:textColor="#999"
             android:textSize="16sp" />
 
-        <EditText
+        <TextView
             android:id="@+id/meal_type"
             android:layout_width="wrap_content"
             android:layout_height="40dp"
@@ -119,6 +121,7 @@
             android:background="@null"/>
 
         <ImageView
+            android:id="@+id/type_back"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="0.3"
@@ -144,6 +147,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="40dp"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
         android:orientation="horizontal"
         android:layout_marginTop="8dp">
 
@@ -187,6 +192,8 @@
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:layout_marginTop="8dp"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
         android:orientation="horizontal">
 
         <TextView
@@ -274,14 +281,16 @@
 
     <Button
         android:id="@+id/add_meal"
-        android:layout_width="190dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_width="350dp"
+        android:layout_height="50dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
         android:background="#008ACA"
         android:gravity="center"
-        android:layout_gravity="center"
+        android:text="添加"
         android:textColor="#FFFFFF"
-        android:textSize="16dp"
-        android:text="添加" />
+        android:textSize="16dp" />
 
 </LinearLayout>

@@ -1,4 +1,4 @@
-package cn.zerone.water.activity;
+package cn.zerone.water.adapter;
 
 public class MealDetailItem {
     private String itemDate;

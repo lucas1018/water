@@ -21,8 +21,7 @@
         android:layout_weight="1"
         android:layout_gravity="center"
         android:gravity="center"
-        android:layout_toRightOf="@id/meal_dates"
-        android:layout_marginLeft="12dp" />
+        android:layout_toRightOf="@id/meal_dates" />
 
     <TextView
         android:id="@+id/meal_fees"
@@ -31,7 +30,6 @@
         android:layout_weight="1"
         android:layout_gravity="center"
         android:gravity="center"
-        android:layout_toRightOf="@id/meal_types"
-        android:layout_marginLeft="12dp" />
+        android:layout_toRightOf="@id/meal_types" />
 
 </LinearLayout>

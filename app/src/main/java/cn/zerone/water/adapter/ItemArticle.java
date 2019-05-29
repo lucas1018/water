@@ -1,4 +1,4 @@
-package cn.zerone.water.model;
+package cn.zerone.water.adapter;
 
 public class ItemArticle {
     // 新闻的 id

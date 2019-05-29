@@ -351,4 +351,15 @@ public class Requests {
                 .add("value", id).build();
         baseJSONArray(observer, "CarGpsPhoto_GetListByField", requestBody);
     }
+
+
+    //工作餐详情
+    public static void FeesForMeals_GetPageInfo(Observer<JSONObject> observer, String id, String start, String end) {
+        RequestBody requestBody = new  FormBody.Builder()
+                .add("UserId", id)
+                .add("BeginTime", start)
+                .add("EndTime", end)
+                .build();
+        baseJSONObject(observer,"FeesForMeals_GetPageInfo",requestBody);
+    }
 }
