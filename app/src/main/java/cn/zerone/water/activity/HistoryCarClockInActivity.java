@@ -25,6 +25,8 @@ import cn.zerone.water.http.Requests;
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 
+import static com.baidu.vi.VIContext.getContext;
+
 public class HistoryCarClockInActivity extends AppCompatActivity {
 
     List<Map<String,String>> carItem;
@@ -32,12 +34,12 @@ public class HistoryCarClockInActivity extends AppCompatActivity {
     Map<String,String> stationIds;
     Map<String,String> projectIds;
 
+    private List<HistoryCarItem> carItems;
+
     private ListView carList;
 
     Map<String, String> nowitem;
-    private String[] types = {"出发","到达","收工"};
-
-    int size;
+    private String[] types = {"出发打卡","到达打卡","收工打卡"};
 
     private String basicPicturePath = "/storage/emulated/0/JCamera/picture_";
 
@@ -53,10 +55,18 @@ public class HistoryCarClockInActivity extends AppCompatActivity {
             }
         });
 
+        carTypes= new HashMap<String,String>();
+        projectIds = new HashMap<String,String>();
+        stationIds= new HashMap<String,String>();
+        carTypes.put("0","未知车牌号");
+        projectIds.put("0", "未知项目");
+        stationIds.put("0", "未知站点");
+
         TextView title = findViewById(R.id.title);
         title.setText("车辆打卡记录");
 
         carList = findViewById(R.id.carClockInList);
+        carItems = new ArrayList<>();
 
         Requests.getCarList(new Observer<JSONArray>() {
             @Override
@@ -65,7 +75,6 @@ public class HistoryCarClockInActivity extends AppCompatActivity {
 
             @Override
             public void onNext(JSONArray objects) {
-                carTypes= new HashMap<String,String>();
                 for(int i = 0; i<objects.size();i++){
                     JSONObject jsonObject = objects.getJSONObject(i);
                     String id = jsonObject.getString("ID");
@@ -88,7 +97,6 @@ public class HistoryCarClockInActivity extends AppCompatActivity {
 
                     @Override
                     public void onNext(JSONArray objects) {
-                        projectIds = new HashMap<String,String>();
                         for(int i = 0; i<objects.size();i++){
                             JSONObject jsonObject = objects.getJSONObject(i);
                             String id = jsonObject.getString("ID");
@@ -111,7 +119,6 @@ public class HistoryCarClockInActivity extends AppCompatActivity {
 
                             @Override
                             public void onNext(JSONArray objects) {
-                                stationIds= new HashMap<String,String>();
                                 for(int i = 0; i<objects.size();i++){
                                     JSONObject jsonObject = objects.getJSONObject(i);
                                     String station = jsonObject.getString("STNM");
@@ -135,7 +142,6 @@ public class HistoryCarClockInActivity extends AppCompatActivity {
                                     @Override
                                     public void onNext(JSONArray objects) {
                                         carItem= new ArrayList<Map<String,String>>();
-                                        size=objects.size();
                                         for(int i = 0; i<objects.size();i++){
                                             Map<String, String> item = new HashMap<String, String>();
                                             JSONObject jsonObject = objects.getJSONObject(i);
@@ -151,23 +157,30 @@ public class HistoryCarClockInActivity extends AppCompatActivity {
                                             Calendar c = Calendar.getInstance();
                                             c.setTimeInMillis(timeLong);
                                             String tt = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(c.getTime());
-                                            item.put("Time",tt);
+                                            if(address==null)
+                                                address="未能成功获取定位";
+
+                                            item.put("Time",tt.substring(0,10));
                                             item.put("Type", types[Integer.parseInt(type)]);
                                             item.put("Address", address);
-                                            item.put("Path", picpath);
-                                            if(stationIds.get(stationid)=="0")
-                                                item.put("StationName", "未知站点");
-                                            else
-                                                item.put("StationName", stationIds.get(stationid));
-                                            if(projectIds.get(projectid)=="0")
-                                                item.put("EngineeringId", "未知项目");
-                                            else
-                                                item.put("EngineeringId", projectIds.get(projectid));
-                                            if(carTypes.get(carType)=="0")
-                                                item.put("CarInfoId", "未知车牌号");
-                                            else
-                                                item.put("CarInfoId", carTypes.get(carType));
+                                            item.put("Path", basicPicturePath + picpath);
+                                            item.put("StationName", stationIds.get(stationid));
+                                            item.put("EngineeringId", projectIds.get(projectid));
+                                            item.put("CarInfoId", carTypes.get(carType));
                                             carItem.add(item);
+                                        }
+                                        for(int i= 0; i<objects.size();i++){
+                                            HistoryCarItem item = new HistoryCarItem(carItem.get(i).get("Address"),carItem.get(i).get("Path"),carItem.get(i).get("Time"),
+                                                    carItem.get(i).get("Type"),carItem.get(i).get("EngineeringId"),carItem.get(i).get("StationName"),carItem.get(i).get("CarInfoId"));
+                                            carItems.add(item);
+                                            System.out.println("AAAAAAAAAAAAAAAAAAAAAAA"+ carItem.get(i).get("Address"));
+                                            System.out.println("AAAAAAAAAAAAAAAAAAAAAAA"+ carItem.get(i).get("Path"));
+                                            System.out.println("AAAAAAAAAAAAAAAAAAAAAAA"+ carItem.get(i).get("Type"));
+                                            System.out.println("AAAAAAAAAAAAAAAAAAAAAAA"+ carItem.get(i).get("Time"));
+                                            System.out.println("AAAAAAAAAAAAAAAAAAAAAAA"+ carItem.get(i).get("EngineeringId"));
+                                            System.out.println("AAAAAAAAAAAAAAAAAAAAAAA"+ carItem.get(i).get("StationName"));
+                                            System.out.println("AAAAAAAAAAAAAAAAAAAAAAA"+ carItem.get(i).get("CarInfoId"));
+
                                         }
                                     }
 
@@ -178,9 +191,10 @@ public class HistoryCarClockInActivity extends AppCompatActivity {
 
                                     @Override
                                     public void onComplete() {
-                                        carList.setAdapter(new SimpleAdapter(getApplicationContext(), carItem,
-                                                R.layout.clock_in_item, new String[]{"Time","Address","Path","StationName","EngineeringId","CarInfoId","Type"},
-                                                new int[]{R.id.datetime,R.id.location,R.id.Pic,R.id.relatedStation,R.id.relatedProject,R.id.carNumber,R.id.clockInType}));
+                                        carList.setAdapter(new HistoryCarClockInAdapter(getApplicationContext(),R.layout.car_history_item, carItems));
+//                                        carList.setAdapter(new SimpleAdapter(getApplicationContext(), carItem,
+//                                                R.layout.car_history_item, new String[]{"Time","Address","Path","StationName","EngineeringId","CarInfoId","Type"},
+//                                                new int[]{R.id.datetime,R.id.location,R.id.Pic,R.id.relatedStation,R.id.relatedProject,R.id.carNumber,R.id.clockInType}));
                                     }
                                 },App.userId);
                             }
