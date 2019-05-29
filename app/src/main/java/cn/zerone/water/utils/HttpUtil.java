@@ -30,7 +30,6 @@ public class HttpUtil {
             @Override
             public void subscribe(@NonNull ObservableEmitter<JSONArray> e) throws Exception {
                 Response response = post(cmd, requestBody);
-                System.out.println("LLLLLLLLLLLLLLLLLLL"+response);
                 if(response.code() == 200) {
                     String json = response.body().string();
                     e.onNext(JSON.parseArray(json));
@@ -91,7 +90,6 @@ public class HttpUtil {
     //post请求服务端接口
     public static Response post(String cmd, RequestBody requestBody){
         String url = ADVANCED_URL + cmd;//实际url
-        System.out.println("sssssssssss" + url);
         OkHttpClient okHttpClient = new OkHttpClient();
         try {
             Request request = new Request.Builder()

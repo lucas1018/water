@@ -12,8 +12,6 @@ import com.facebook.drawee.view.SimpleDraweeView;
 import java.util.ArrayList;
 import java.util.List;
 
-import cn.zerone.water.model.ItemArticle;
-
 public class HeaderAdapter extends PagerAdapter {
     private static final String LOG = "NEWS_LOG";
 
