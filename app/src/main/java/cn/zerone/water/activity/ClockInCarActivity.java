@@ -123,6 +123,15 @@ public class ClockInCarActivity extends AppCompatActivity {
     }
 
     void setListener(){
+//        Button car_history = findViewById(R.id.car_history);
+//        car_history.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                startActivity(new Intent(ClockInCarActivity.this, HistoryCarClockInActivity.class));
+//            }
+//        });
+
+
         carNumberButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

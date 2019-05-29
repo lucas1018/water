@@ -64,7 +64,7 @@ public class ClockInGetStationActivity extends AppCompatActivity {
                     Map<String, String> item = new HashMap<String, String>();
                     JSONObject jsonObject = objects.getJSONObject(i);
                     String car = jsonObject.getString("STNM");
-                    String stationid = jsonObject.getString("EngineeringStationId");
+                    String stationid = jsonObject.getString("ID");
                     item.put("Item",car);
                     stationItem.add(item);
                 }
