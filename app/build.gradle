@@ -49,14 +49,14 @@ android {
         disable 'RestrictedApi'
         abortOnError false
     }
-    /*
-    sourceSets{
-        main{
-            jniLibs.srcDir 'libs'
-            //jni.srcDirs = []    //disable automatic ndk-build
-        }
-    }
-    */
+
+//    sourceSets{
+//        main{
+//            jniLibs.srcDirs = ['libs']
+//            //jni.srcDirs = []    //disable automatic ndk-build
+//        }
+//    }
+
 
     // apache包
     useLibrary 'org.apache.http.legacy'

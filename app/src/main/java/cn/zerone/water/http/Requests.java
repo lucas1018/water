@@ -8,7 +8,6 @@ import io.reactivex.disposables.Disposable;
 import okhttp3.FormBody;
 import okhttp3.RequestBody;
 
-import static cn.zerone.water.App.device_tokens;
 import static cn.zerone.water.utils.HttpUtil.baseJSONArray;
 import static cn.zerone.water.utils.HttpUtil.baseJSONObject;
 import static cn.zerone.water.utils.HttpUtil.baseString;
@@ -32,7 +31,7 @@ import static cn.zerone.water.utils.HttpUtil.baseString;
 
 public class Requests {
 
-    public static <T> void login(Observer<JSONObject> observer, String username, String password) {
+    public static <T> void login(Observer<JSONObject> observer, String username, String password,String device_tokens) {
 
         RequestBody requestBody = new FormBody.Builder()
                 .add("LOGIN_NAME", username)

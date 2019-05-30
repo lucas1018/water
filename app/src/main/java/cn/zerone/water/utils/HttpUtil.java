@@ -71,7 +71,7 @@ public class HttpUtil {
             @Override
             public void subscribe(@NonNull ObservableEmitter<T> e) throws Exception {
                 Response response = post(cmd, requestBody);
-                System.out.println(response.toString());
+                System.out.println("sssssssssssss"+response.toString());
                 if(response != null && response.code() == 200){
                     String json = response.body().string();
 
