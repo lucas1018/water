@@ -6,53 +6,46 @@
     android:orientation="vertical"
     android:background="#FFFFFF">
 
-    <TextView
-        android:id="@+id/title"
-        android:layout_width="wrap_content"
-        android:background="@drawable/top"
-        android:gravity="center"
-        android:textSize="18dp"
-        android:textStyle="bold"
-        android:layout_height="wrap_content"
-        android:paddingBottom="10dp"
-        android:minHeight="50dp"
-        android:text="@string/title_task"
-        />
+
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
-        android:background="#fff">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="#008aca">
 
 
-        <Button
-            android:id="@+id/button_nvi"
+            <TextView
+                android:id="@+id/tv_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_centerVertical="true"
+                android:text="任务"
+                android:textColor="#fff"
+                android:textSize="16dp"
+                android:textStyle="bold" />
+
+        </RelativeLayout>
+
+        <ListView
+            android:id="@+id/task_list_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Navigation" />
+            android:divider="@color/black_overlay"
+            android:footerDividersEnabled="true"
+            android:dividerHeight="1px"
 
+            ></ListView>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-
+        </LinearLayout>
 
     </LinearLayout>
-
-    <Button
-        android:id="@+id/button_map"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="baidu map" />
-
-    <Button
-        android:id="@+id/button_location"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="baidu location" />
-
-
-
-    <ListView
-        android:id="@+id/task_list_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
 </LinearLayout>

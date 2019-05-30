@@ -256,7 +256,7 @@
             android:orientation="vertical">
 
             <ImageButton
-                android:id="@+id/imageButton7"
+                android:id="@+id/problem_record"
                 android:background="#FFFFFF"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

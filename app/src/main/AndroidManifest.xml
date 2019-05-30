@@ -129,6 +129,10 @@
 
         <activity android:name=".activity.ConstructionLog"    android:configChanges="keyboard|keyboardHidden|orientation|screenSize" />
         <activity android:name=".activity.LogContentActivity"    android:configChanges="keyboard|keyboardHidden|orientation|screenSize" />
+        <activity android:name=".activity.ProblemActivity"    android:configChanges="keyboard|keyboardHidden|orientation|screenSize" />
+        <activity android:name=".activity.ProblemTypeActivity"    android:configChanges="keyboard|keyboardHidden|orientation|screenSize" />
+        <activity android:name=".activity.ProblemListActivity"    android:configChanges="keyboard|keyboardHidden|orientation|screenSize" />
+        <activity android:name=".activity.ProblemDetailActivity"    android:configChanges="keyboard|keyboardHidden|orientation|screenSize" />
 
         <service android:name="com.baidu.location.f" android:enabled="true" android:process=":remote">
             <intent-filter>

@@ -99,4 +99,38 @@ public class HttpUtil {
         }
         return null;
     }
+
+    //无需观察者模式的JSONObject接口
+    public static <T>  JSONObject baseJSONObject(final String cmd, final RequestBody requestBody){
+        Response response = post(cmd, requestBody);
+        if(response != null && response.code() == 200){
+            try {
+                String json = response.body().string();
+                JSONObject jsonObject = JSON.parseObject(json);
+                return jsonObject;
+            }catch (IOException e){
+                e.printStackTrace();
+            }
+
+        }
+        return null;
+    }
+
+    //无需观察者模式的JSONObjectArray接口
+    public static <T>  JSONArray baseJSONArray(final String cmd, final RequestBody requestBody){
+        System.out.println("-----"+requestBody);
+        Response response = post(cmd, requestBody);
+        System.out.println("~~~~~~~~~~~"+response);
+        if(response != null && response.code() == 200){
+            try {
+                String json = response.body().string();
+                JSONArray objects = JSON.parseArray(json);
+                return objects;
+            }catch (IOException e){
+                e.printStackTrace();
+            }
+
+        }
+        return null;
+    }
 }

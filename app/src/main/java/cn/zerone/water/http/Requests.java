@@ -314,6 +314,76 @@ public class Requests {
         baseString(observer, "ConstructionLog_SaveBLL", requestBody);
     }
 
+    //获取所有问题类型
+    public static void getProblemTypeList(Observer<JSONArray> observer, String id) {
+        RequestBody requestBody = new FormBody.Builder()
+                .add("ID", id)
+                .add("field","Type")
+                .add("value","6").build();
+        baseJSONArray(observer, "TreeInfo_GetListByField", requestBody);
+    }
+
+    //上传保存问题
+    public static void NewQuestion_SaveBLL(Observer<JSONObject> observer, String User_id, String Title, String Remark, String TreeInfoId) {
+        RequestBody requestBody = new FormBody.Builder()
+                .add("UserId", User_id)
+                .add("Title", Title)
+                .add("Remark", Remark)
+                .add("TreeInfoId", TreeInfoId)
+                .build();
+        baseJSONObject(observer, "NewQuestion_SaveBLL", requestBody);
+    }
+
+    //上传问题的图片视频或者文档
+    public static void NewFile_SaveBLL(Observer<JSONObject> observer, String User_id, String FileType, String Path, String FileName,String NewQuestionId) {
+        RequestBody requestBody = new FormBody.Builder()
+                .add("UserId", User_id)
+                .add("FileType", FileType)
+                .add("Path", Path)
+                .add("FileName", FileName)
+                .add("NewQuestionId", NewQuestionId)
+                .build();
+        baseJSONObject(observer, "NewFile_SaveBLL", requestBody);
+    }
+
+    //根据问题类型ID获取问题类型名称
+    public static JSONObject getProTypeNameById(String ID){
+        RequestBody requestBody = new FormBody.Builder()
+                .add("ID",ID)
+                .build();
+        JSONObject jsonObject = baseJSONObject("TreeInfo_GetModel", requestBody);
+        return jsonObject;
+    }
+
+    //获取所有问题信息的接口
+    public static JSONArray getProblems(String User_id){
+        RequestBody requestBody = new FormBody.Builder()
+                .add("UserId",User_id)
+                .build();
+        JSONArray objects = baseJSONArray("NewQuestion_GetList", requestBody);
+        return objects;
+
+    }
+
+    //根据问题获取附件信息
+    public static JSONArray getAttachmentsByProId(String ProId){
+        RequestBody requestBody = new FormBody.Builder()
+                .add("field","NewQuestionId")
+                .add("value",ProId)
+                .build();
+        JSONArray objects = baseJSONArray("NewFile_GetListByField", requestBody);
+        return objects;
+    }
+
+
+    //调用任务列表接口
+    public static void TaskInfo_GetList(Observer<JSONArray> observer) {
+
+        RequestBody requestBody = new FormBody.Builder().build();
+        baseJSONArray(observer, "TaskInfo_GetList", requestBody);
+    }
+
+
     public static void CarClockIn_SaveBLL(Observer<String> observer, String id, String add_time, String latitude, String longitude,
                                           String data_type, String pic, String address,String EnID, String StID, String CarID) {
         RequestBody requestBody = new FormBody.Builder()
@@ -361,4 +431,14 @@ public class Requests {
                 .build();
         baseJSONObject(observer,"FeesForMeals_GetPageInfo",requestBody);
     }
+
+//    //获取任务列表
+//    public static JSONArray EngineeringStation_GetList(String User_id){
+//        RequestBody requestBody = new FormBody.Builder()
+//                .add("field","UserId")
+//                .add("value",User_id)
+//                .build();
+//        JSONArray jsons = baseJSONArray("EngineeringStation_GetListByField", requestBody);
+//        return jsons;
+//    }
 }
