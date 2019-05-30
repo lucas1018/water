@@ -275,22 +275,17 @@ public class ClockInCarActivity extends AppCompatActivity {
 
                 @Override
                 public void onComplete() {
-                    carPictureCapturedPath = "http://47.105.187.185:8011/" + carPictureCapturedPath;
-                    System.out.println("AAAAAAAAAAAAAA"+carPictureCapturedPath);
+                    carPictureCapturedPath = "http://47.105.187.185:8011" + carPictureCapturedPath;
                     base64 = img2base.encodeImageToBase64(carPictureCapturedPath);
-                    System.out.println("AAAAAAAAAAAAAAAA"+base64);
                     carImage = findViewById(R.id.carImage);
                     carImage.setVisibility(View.VISIBLE);
                     byte[] decodedString = Base64.decode(base64, Base64.DEFAULT);
                     Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
                     carImage.setImageBitmap(decodedByte);
+                    isPictureCaptured=true;
                 }
             },pic2base64,"jpg");
 
-//            carImage = findViewById(R.id.carImage);
-//            carImage.setVisibility(View.VISIBLE);
-//            carImage.setImageURI(Uri.fromFile(new File(path)));
-//            isPictureCaptured=true;
         }
     }
 
@@ -357,10 +352,7 @@ public class ClockInCarActivity extends AppCompatActivity {
                 else if(isRepeatFinish&&type.equals("2"))
                     Toast.makeText(ClockInCarActivity.this,"您今天已完工打卡，请勿重复操作", Toast.LENGTH_SHORT).show();
                 else {
-                    Pattern pattern = Pattern.compile("[0-9][0-9].+");
-                    Matcher matcher = pattern.matcher(carPictureCapturedPath);
-                    if (matcher.find())
-                        carPictureCapturedPath = matcher.group(0);
+                    carPictureCapturedPath = img2base.getPicName(carPictureCapturedPath);
                     addClockIn(datetime, String.valueOf(loc.GetLat()),
                             String.valueOf(loc.GetLng()), type, carPictureCapturedPath, "", projectID, stationID, carID);
                     Toast.makeText(ClockInCarActivity.this, "打卡成功", Toast.LENGTH_SHORT).show();

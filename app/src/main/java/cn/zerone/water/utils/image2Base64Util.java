@@ -21,6 +21,7 @@ import sun.misc.BASE64Encoder;
 public class image2Base64Util {
 
 
+    // 将本地图片url转成Base64格式
     public String getBase64(String path) {
         if (TextUtils.isEmpty(path)) {
             return null;
@@ -50,7 +51,7 @@ public class image2Base64Util {
         return result;
     }
 
-
+    // 将网络上的图片转成Base64格式（这样的格式能够用ImageView显示出来）
     public String encodeImageToBase64(String imgUrl){
         HttpURLConnection conn = null;
         String base64 = "";
@@ -58,27 +59,27 @@ public class image2Base64Util {
             URL url = new URL(imgUrl);
 
             conn = (HttpURLConnection) url.openConnection();
-//设置请求方式为"GET"
+            //设置请求方式为"GET"
             conn.setRequestMethod("GET");
-//超时响应时间为5秒
+            //超时响应时间为5秒
             conn.setConnectTimeout(5 * 1000);
-//通过输入流获取图片数据
+            //通过输入流获取图片数据
             InputStream inStream = conn.getInputStream();
-//得到图片的二进制数据，以二进制封装得到数据，具有通用性
+            //得到图片的二进制数据，以二进制封装得到数据，具有通用性
             ByteArrayOutputStream outStream = new ByteArrayOutputStream();
-//创建一个Buffer字符串
+            //创建一个Buffer字符串
             byte[] buffer = new byte[1024];
-//每次读取的字符串长度，如果为-1，代表全部读取完毕
+            //每次读取的字符串长度，如果为-1，代表全部读取完毕
             int len = 0;
-//使用一个输入流从buffer里把数据读取出来
+            //使用一个输入流从buffer里把数据读取出来
             while ((len = inStream.read(buffer)) != -1) {
-//用输出流往buffer里写入数据，中间参数代表从哪个位置开始读，len代表读取的长度
+            //用输出流往buffer里写入数据，中间参数代表从哪个位置开始读，len代表读取的长度
                 outStream.write(buffer, 0, len);
             }
-//关闭输入流
+            //关闭输入流
             inStream.close();
             byte[] data = outStream.toByteArray();
-//对字节数组Base64编码
+            //对字节数组Base64编码
             BASE64Encoder encoder = new BASE64Encoder();
             base64 = encoder.encode(data);
             //返回Base64编码过的字节数组字符串
@@ -88,107 +89,12 @@ public class image2Base64Util {
         return base64;
     }
 
-    public String image2Base64(String imgUrl) {
-        URL url;
-        HttpURLConnection urlConnection = null;
-        InputStream inputStream = null;
-        ByteArrayOutputStream baos = null;
-        try {
-            url = new URL(imgUrl);
-            urlConnection = ( HttpURLConnection ) url.openConnection();
-            urlConnection.connect();
-            inputStream = urlConnection.getInputStream();
-            baos = new ByteArrayOutputStream();
-
-            byte[] buffer = new byte[1024];
-
-            int len = 0;
-
-            //使用一个输入流从buffer里把数据读取出来
-
-            while ((len = inputStream.read(buffer)) != -1) {
-                //用输出流往buffer里写入数据，中间参数代表从哪个位置开始读，len代表读取的长度
-                baos.write(buffer, 0, len);
-
-            }
-
-            // 对字节数组Base64编码
-            return encode(baos.toByteArray());
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            if (inputStream != null) {
-                try {
-                    inputStream.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-
-            if (baos != null) {
-                try {
-                    baos.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-
-            if (urlConnection != null) {
-                urlConnection.disconnect();
-            }
-        }
-        return imgUrl;
-    }
-
-
-
-    public static String encode(byte[] image){
-        BASE64Encoder decoder = new BASE64Encoder();
-        return replaceEnter(decoder.encode(image));
-
-    }
-
-    public static String replaceEnter(String str){
-        String reg ="[\n-\r]";
-        Pattern p = Pattern.compile(reg);
-        Matcher m = p.matcher(str);
-        return m.replaceAll("");
-    }
-
-
-
-    /**
-
-     * 字符串转图片
-
-     * @param base64Str
-
-     * @return
-
-     */
-    private static byte[] decode(String base64Str){
-        byte[] b = null;
-        BASE64Decoder decoder = new BASE64Decoder();
-
-        try {
-
-            b = decoder.decodeBuffer(replaceEnter(base64Str));
-
-        } catch (IOException e) {
-
-            e.printStackTrace();
-        }
-        return b;
-    }
-
-    private static ByteBuffer decodeBuffer(String base64Str) {
-        ByteBuffer buffer = null;
-        BASE64Decoder decoder = new BASE64Decoder();
-        try {
-            buffer = decoder.decodeBufferToByteBuffer(base64Str);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return buffer;
+    // 获取文件路径中的文件名
+    public String getPicName(String path){
+        Pattern pattern = Pattern.compile("[0-9][0-9].+");
+        Matcher matcher = pattern.matcher(path);
+        if (matcher.find())
+            path = matcher.group(0);
+        return path;
     }
 }
