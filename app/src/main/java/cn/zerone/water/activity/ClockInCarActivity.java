@@ -276,6 +276,7 @@ public class ClockInCarActivity extends AppCompatActivity {
                 @Override
                 public void onComplete() {
                     carPictureCapturedPath = "http://47.105.187.185:8011/" + carPictureCapturedPath;
+                    System.out.println("AAAAAAAAAAAAAA"+carPictureCapturedPath);
                     base64 = img2base.encodeImageToBase64(carPictureCapturedPath);
                     System.out.println("AAAAAAAAAAAAAAAA"+base64);
                     carImage = findViewById(R.id.carImage);
