@@ -39,7 +39,7 @@ import cn.zerone.water.App;
 import cn.zerone.water.R;
 import cn.zerone.water.http.Requests;
 import cn.zerone.water.utils.LocationUtil;
-import cn.zerone.water.utils.imageToBase64;
+import cn.zerone.water.utils.image2Base64Util;
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 
@@ -90,7 +90,11 @@ public class ClockInCarActivity extends AppCompatActivity {
     private Boolean isRepeatDepart = false;
 
     private LocationUtil loc;
+    private String picBase64;
     private String pic2base64;
+    private String base64;
+
+    private image2Base64Util img2base;
 
 
     @Override
@@ -118,6 +122,7 @@ public class ClockInCarActivity extends AppCompatActivity {
         location.setText(loc.GetAddrStr());
 
         car_back = (ImageView) findViewById(R.id.car_back);
+        img2base = new image2Base64Util();
 
         date = new Date(System.currentTimeMillis());
         datetime = simpleDateFormat.format(date);
@@ -251,9 +256,7 @@ public class ClockInCarActivity extends AppCompatActivity {
 
             carPictureButton.setVisibility(View.GONE);
 
-            imageToBase64 carPic = new imageToBase64(carPictureCapturedPath);
-            pic2base64 = carPic.getBase64();
-            System.out.println("AAAAAAAAAAAAAAAAAAAAA"+pic2base64);
+            pic2base64 = img2base.getBase64(carPictureCapturedPath);
             Requests.Picture_SaveBLL(new Observer<JSONObject>() {
                 @Override
                 public void onSubscribe(Disposable d) {
@@ -272,10 +275,12 @@ public class ClockInCarActivity extends AppCompatActivity {
 
                 @Override
                 public void onComplete() {
-                    System.out.println("AAAAAAAAAAAAAAAAAAAAA"+carPictureCapturedPath);
+                    carPictureCapturedPath = "http://47.105.187.185:8011/" + carPictureCapturedPath;
+                    base64 = img2base.encodeImageToBase64(carPictureCapturedPath);
+                    System.out.println("AAAAAAAAAAAAAAAA"+base64);
                     carImage = findViewById(R.id.carImage);
                     carImage.setVisibility(View.VISIBLE);
-                    byte[] decodedString = Base64.decode(carPictureCapturedPath, Base64.DEFAULT);
+                    byte[] decodedString = Base64.decode(base64, Base64.DEFAULT);
                     Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
                     carImage.setImageBitmap(decodedByte);
                 }
