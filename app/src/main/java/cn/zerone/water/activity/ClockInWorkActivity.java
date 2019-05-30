@@ -1,12 +1,15 @@
 package cn.zerone.water.activity;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Base64;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -33,6 +36,7 @@ import cn.zerone.water.App;
 import cn.zerone.water.R;
 import cn.zerone.water.http.Requests;
 import cn.zerone.water.utils.LocationUtil;
+import cn.zerone.water.utils.image2Base64Util;
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 
@@ -69,10 +73,16 @@ public class ClockInWorkActivity extends AppCompatActivity {
 
     private String morningPictureCapturedPath;
     private String afternoonPictureCapturedPath;
-    private String basicPicturePath = "/storage/emulated/0/JCamera/picture_";
+    private String basicPicturePath = "http://47.105.187.185:8011/Content/img/WebImg/";
+    private String fakeMorningPic;
+    private String fakeAfternoonPic;
+    private String morningBase64;
+    private String afternoonBase64;
 
     private Boolean dateChanged = false;
     private String selectedDateByCalendar;
+
+    private image2Base64Util img2base;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -91,6 +101,8 @@ public class ClockInWorkActivity extends AppCompatActivity {
 
         morningtime = datetime.replaceAll(".{2}:.{2}:.{2}", morningClockPermissionTime);
         afternoontime = datetime.replaceAll(".{2}:.{2}:.{2}", afterClockEndTime);
+
+        img2base = new image2Base64Util();
 
         afterpermission = null;
         morningpermission = null;
@@ -141,11 +153,13 @@ public class ClockInWorkActivity extends AppCompatActivity {
                             isClockInMorning = true;
                             clocklist.add(jsonObject);
                             morningtime = return_date;
+                            morningPictureCapturedPath = jsonObject.getString("Path");
                         }
                         if(tmp.getTime() > afterpermission.getTime()){
                             isClockInAfternoon = true;
                             clocklist.add(jsonObject);
                             afternoontime = return_date;
+                            afternoonPictureCapturedPath = jsonObject.getString("Path");
                             break;
                         }
                     }
@@ -157,7 +171,7 @@ public class ClockInWorkActivity extends AppCompatActivity {
                     TextView dateString = findViewById(R.id.dateString);
                     dateString.setText(datetime.substring(0,10));
 
-                    ImageView morningIcon = findViewById(R.id.morningBall);
+                    final ImageView morningIcon = findViewById(R.id.morningBall);
                     morningIcon.setImageResource(R.mipmap.blue_ball);
 
                     ImageView afternoonIcon = findViewById(R.id.afternoonBall);
@@ -205,11 +219,28 @@ public class ClockInWorkActivity extends AppCompatActivity {
                             else{
                                 if(!morningClockIn){
                                     morningClockIn = true;
-                                    Pattern pattern = Pattern.compile("[0-9][0-9].+");
-                                    Matcher matcher = pattern.matcher(morningPictureCapturedPath);
-                                    if(matcher.find())
-                                        morningPictureCapturedPath = matcher.group(0);
-                                    addClockIn(datetime, String.valueOf(morningloc.GetLat()), String.valueOf(morningloc.GetLng()), "0",morningPictureCapturedPath, "");
+                                    morningBase64 = img2base.getBase64(morningPictureCapturedPath);
+                                    Requests.Picture_SaveBLL(new Observer<JSONObject>() {
+                                        @Override
+                                        public void onSubscribe(Disposable d) {
+
+                                        }
+
+                                        @Override
+                                        public void onNext(JSONObject object) {
+                                            morningPictureCapturedPath = object.getString("Temp");
+                                            fakeMorningPic = img2base.getPicName(morningPictureCapturedPath);
+                                        }
+
+                                        @Override
+                                        public void onError(Throwable e) {
+                                        }
+
+                                        @Override
+                                        public void onComplete() {
+                                            addClockIn(datetime, String.valueOf(morningloc.GetLat()), String.valueOf(morningloc.GetLng()), "0",fakeMorningPic, "");
+                                        }
+                                    },morningBase64,"jpg");
                                     Toast.makeText(ClockInWorkActivity.this,"上班打卡成功", Toast.LENGTH_SHORT).show();
                                 }
                                 else
@@ -244,7 +275,13 @@ public class ClockInWorkActivity extends AppCompatActivity {
 
                     ImageView morningImage = findViewById(R.id.morningImage);
                     morningImage.setVisibility(View.VISIBLE);
-                    morningImage.setImageURI(Uri.fromFile(new File(basicPicturePath + clocklist.get(0).getString("Path"))));
+
+                    morningPictureCapturedPath = basicPicturePath + morningPictureCapturedPath;
+                    morningBase64 = img2base.encodeImageToBase64(morningPictureCapturedPath);
+                    byte[] decodedString = Base64.decode(morningBase64, Base64.DEFAULT);
+                    Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+                    morningImage.setImageBitmap(decodedByte);
+
 
                     TextView morningrelocation = findViewById(R.id.morningrelocation);
                     morningrelocation.setVisibility(View.INVISIBLE);
@@ -295,12 +332,30 @@ public class ClockInWorkActivity extends AppCompatActivity {
                             else{
                                 if(!afternoonClockIn){
                                     afternoonClockIn = true;
-                                    Pattern pattern = Pattern.compile("[0-9][0-9].+");
-                                    Matcher matcher = pattern.matcher(afternoonPictureCapturedPath);
-                                    if(matcher.find())
-                                        afternoonPictureCapturedPath = matcher.group(0);
-                                    addClockIn(datetime, String.valueOf(afternoonloc.GetLat()),
-                                            String.valueOf(afternoonloc.GetLng()), "0",afternoonPictureCapturedPath, "");
+                                    afternoonBase64 = img2base.getBase64(afternoonPictureCapturedPath);
+                                    Requests.Picture_SaveBLL(new Observer<JSONObject>() {
+                                        @Override
+                                        public void onSubscribe(Disposable d) {
+
+                                        }
+
+                                        @Override
+                                        public void onNext(JSONObject object) {
+                                            afternoonPictureCapturedPath = object.getString("Temp");
+                                            fakeAfternoonPic = img2base.getPicName(afternoonPictureCapturedPath);
+                                        }
+
+                                        @Override
+                                        public void onError(Throwable e) {
+
+                                        }
+
+                                        @Override
+                                        public void onComplete() {
+                                            addClockIn(datetime, String.valueOf(afternoonloc.GetLat()),
+                                                    String.valueOf(afternoonloc.GetLng()), "0",fakeAfternoonPic, "");
+                                        }
+                                    },afternoonBase64,"jpg");
                                     Toast.makeText(ClockInWorkActivity.this,"下班打卡成功", Toast.LENGTH_SHORT).show();
                                 }
                                 else
@@ -337,7 +392,11 @@ public class ClockInWorkActivity extends AppCompatActivity {
 
                     ImageView morningImage = findViewById(R.id.morningImage);
                     morningImage.setVisibility(View.VISIBLE);
-                    morningImage.setImageURI(Uri.fromFile(new File(basicPicturePath + clocklist.get(0).getString("Path"))));
+                    morningPictureCapturedPath = basicPicturePath + morningPictureCapturedPath;
+                    morningBase64 = img2base.encodeImageToBase64(morningPictureCapturedPath);
+                    byte[] decodedString = Base64.decode(morningBase64, Base64.DEFAULT);
+                    Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+                    morningImage.setImageBitmap(decodedByte);
 
                     // 下午已打
                     LinearLayout afterLayout = findViewById(R.id.afterLayout);
@@ -357,7 +416,12 @@ public class ClockInWorkActivity extends AppCompatActivity {
 
                     ImageView afterImage = findViewById(R.id.afterImage);
                     afterImage.setVisibility(View.VISIBLE);
-                    afterImage.setImageURI(Uri.fromFile(new File(basicPicturePath + clocklist.get(1).getString("Path"))));
+
+                    afternoonPictureCapturedPath = basicPicturePath + afternoonPictureCapturedPath;
+                    afternoonBase64 = img2base.encodeImageToBase64(afternoonPictureCapturedPath);
+                    byte[] decodedStringAfter = Base64.decode(afternoonBase64, Base64.DEFAULT);
+                    Bitmap decodedByteAfter = BitmapFactory.decodeByteArray(decodedStringAfter, 0, decodedStringAfter.length);
+                    afterImage.setImageBitmap(decodedByteAfter);
 
 
                     // 查看
