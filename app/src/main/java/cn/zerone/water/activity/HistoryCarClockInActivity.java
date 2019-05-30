@@ -163,7 +163,7 @@ public class HistoryCarClockInActivity extends AppCompatActivity {
                                             item.put("Time",tt.substring(0,10));
                                             item.put("Type", types[Integer.parseInt(type)]);
                                             item.put("Address", address);
-                                            item.put("Path", basicPicturePath + picpath);
+                                            item.put("Path", picpath);
                                             item.put("StationName", stationIds.get(stationid));
                                             item.put("EngineeringId", projectIds.get(projectid));
                                             item.put("CarInfoId", carTypes.get(carType));
@@ -173,14 +173,13 @@ public class HistoryCarClockInActivity extends AppCompatActivity {
                                             HistoryCarItem item = new HistoryCarItem(carItem.get(i).get("Address"),carItem.get(i).get("Path"),carItem.get(i).get("Time"),
                                                     carItem.get(i).get("Type"),carItem.get(i).get("EngineeringId"),carItem.get(i).get("StationName"),carItem.get(i).get("CarInfoId"));
                                             carItems.add(item);
-                                            System.out.println("AAAAAAAAAAAAAAAAAAAAAAA"+ carItem.get(i).get("Address"));
-                                            System.out.println("AAAAAAAAAAAAAAAAAAAAAAA"+ carItem.get(i).get("Path"));
-                                            System.out.println("AAAAAAAAAAAAAAAAAAAAAAA"+ carItem.get(i).get("Type"));
-                                            System.out.println("AAAAAAAAAAAAAAAAAAAAAAA"+ carItem.get(i).get("Time"));
-                                            System.out.println("AAAAAAAAAAAAAAAAAAAAAAA"+ carItem.get(i).get("EngineeringId"));
-                                            System.out.println("AAAAAAAAAAAAAAAAAAAAAAA"+ carItem.get(i).get("StationName"));
-                                            System.out.println("AAAAAAAAAAAAAAAAAAAAAAA"+ carItem.get(i).get("CarInfoId"));
-
+//                                            System.out.println("AAAAAAAAAAAAAAAAAAAAAAA"+ carItem.get(i).get("Address"));
+//                                            System.out.println("AAAAAAAAAAAAAAAAAAAAAAA"+ carItem.get(i).get("Path"));
+//                                            System.out.println("AAAAAAAAAAAAAAAAAAAAAAA"+ carItem.get(i).get("Type"));
+//                                            System.out.println("AAAAAAAAAAAAAAAAAAAAAAA"+ carItem.get(i).get("Time"));
+//                                            System.out.println("AAAAAAAAAAAAAAAAAAAAAAA"+ carItem.get(i).get("EngineeringId"));
+//                                            System.out.println("AAAAAAAAAAAAAAAAAAAAAAA"+ carItem.get(i).get("StationName"));
+//                                            System.out.println("AAAAAAAAAAAAAAAAAAAAAAA"+ carItem.get(i).get("CarInfoId"));
                                         }
                                     }
 

@@ -89,12 +89,13 @@ public class image2Base64Util {
         return base64;
     }
 
-    // 获取文件路径中的文件名
+    // 获取文件路径中的文件名(xxx.jpg)，直接将url路径插入数据库会失效
     public String getPicName(String path){
         Pattern pattern = Pattern.compile("[0-9][0-9].+");
         Matcher matcher = pattern.matcher(path);
         if (matcher.find())
             path = matcher.group(0);
+        System.out.println("AAAAAAAAAAAAAAAAA"+ matcher.group(0));
         return path;
     }
 }

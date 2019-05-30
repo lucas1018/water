@@ -78,6 +78,7 @@ public class ClockInCarActivity extends AppCompatActivity {
     private String station;
     private String type;
     private String basicPicturePath = "/storage/emulated/0/JCamera/picture_";
+    private String fakePath;
     private String carPictureCapturedPath;
 
     private Boolean isNumber = false;
@@ -256,35 +257,11 @@ public class ClockInCarActivity extends AppCompatActivity {
 
             carPictureButton.setVisibility(View.GONE);
 
-            pic2base64 = img2base.getBase64(carPictureCapturedPath);
-            Requests.Picture_SaveBLL(new Observer<JSONObject>() {
-                @Override
-                public void onSubscribe(Disposable d) {
+            carImage = findViewById(R.id.carImage);
+            carImage.setVisibility(View.VISIBLE);
+            carImage.setImageURI(Uri.fromFile(new File(path)));
 
-                }
-
-                @Override
-                public void onNext(JSONObject object) {
-                    carPictureCapturedPath = object.getString("Temp");
-                }
-
-                @Override
-                public void onError(Throwable e) {
-
-                }
-
-                @Override
-                public void onComplete() {
-                    carPictureCapturedPath = "http://47.105.187.185:8011" + carPictureCapturedPath;
-                    base64 = img2base.encodeImageToBase64(carPictureCapturedPath);
-                    carImage = findViewById(R.id.carImage);
-                    carImage.setVisibility(View.VISIBLE);
-                    byte[] decodedString = Base64.decode(base64, Base64.DEFAULT);
-                    Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
-                    carImage.setImageBitmap(decodedByte);
-                    isPictureCaptured=true;
-                }
-            },pic2base64,"jpg");
+            isPictureCaptured = true;
 
         }
     }
@@ -352,9 +329,31 @@ public class ClockInCarActivity extends AppCompatActivity {
                 else if(isRepeatFinish&&type.equals("2"))
                     Toast.makeText(ClockInCarActivity.this,"您今天已完工打卡，请勿重复操作", Toast.LENGTH_SHORT).show();
                 else {
-                    carPictureCapturedPath = img2base.getPicName(carPictureCapturedPath);
-                    addClockIn(datetime, String.valueOf(loc.GetLat()),
-                            String.valueOf(loc.GetLng()), type, carPictureCapturedPath, "", projectID, stationID, carID);
+
+                    pic2base64 = img2base.getBase64(carPictureCapturedPath);
+                    Requests.Picture_SaveBLL(new Observer<JSONObject>() {
+                        @Override
+                        public void onSubscribe(Disposable d) {
+
+                        }
+
+                        @Override
+                        public void onNext(JSONObject object) {
+                            carPictureCapturedPath = object.getString("Temp");
+                            fakePath = img2base.getPicName(carPictureCapturedPath);
+                        }
+
+                        @Override
+                        public void onError(Throwable e) {
+
+                        }
+
+                        @Override
+                        public void onComplete() {
+                            addClockIn(datetime, String.valueOf(loc.GetLat()),
+                                    String.valueOf(loc.GetLng()), type, fakePath, "", projectID, stationID, carID);
+                        }
+                    },pic2base64,"jpg");
                     Toast.makeText(ClockInCarActivity.this, "打卡成功", Toast.LENGTH_SHORT).show();
                 }
             }
