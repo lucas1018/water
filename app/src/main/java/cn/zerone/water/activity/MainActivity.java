@@ -181,12 +181,6 @@ public class MainActivity extends AppCompatActivity {
         } else {
             setMsgReadView(false);
         }
-        try {
-            String version = getPackageManager().getPackageInfo(getPackageName(),0).versionName + "";
-        }catch (PackageManager.NameNotFoundException e) {
-            e.printStackTrace();
-        }
-
     }
 
     @Override

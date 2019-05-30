@@ -40,6 +40,8 @@ public class App extends Application {
     public LocationService locationService;
     public EngineeringStation  engineeringStation = null;
     private static final String TAG = "JIGUANG-Example";
+    public final static String mPreUrl = "http://47.105.187.185:8011";
+
     @Override
     public void onCreate() {
         Logger.d(TAG, "[ExampleApplication] onCreate");

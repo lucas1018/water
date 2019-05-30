@@ -8,6 +8,7 @@ import io.reactivex.disposables.Disposable;
 import okhttp3.FormBody;
 import okhttp3.RequestBody;
 
+import static cn.zerone.water.App.device_tokens;
 import static cn.zerone.water.utils.HttpUtil.baseJSONArray;
 import static cn.zerone.water.utils.HttpUtil.baseJSONObject;
 import static cn.zerone.water.utils.HttpUtil.baseString;
@@ -31,7 +32,8 @@ import static cn.zerone.water.utils.HttpUtil.baseString;
 
 public class Requests {
 
-    public static <T> void login(Observer<JSONObject> observer, String username, String password,String device_tokens) {
+    public static <T> void login(Observer<JSONObject> observer, String username, String password) {
+
         RequestBody requestBody = new FormBody.Builder()
                 .add("LOGIN_NAME", username)
                 .add("PASSWORD", password)
@@ -277,9 +279,9 @@ public class Requests {
     }
 
     //调用消息列表接口
-    public static void UserMessage_GetList(Observer<JSONArray> observer) {
-
-        RequestBody requestBody = new FormBody.Builder().build();
+    public static void UserMessage_GetList(Observer<JSONArray> observer,String userid) {
+        RequestBody requestBody = new FormBody.Builder()
+                .add("UserId",userid).build();
         baseJSONArray(observer, "UserMessage_GetList", requestBody);
     }
 
@@ -338,12 +340,25 @@ public class Requests {
     }
 
 
+    //审批提交
+    public static void Submit_GeneralCheck(Observer<JSONObject> observer, int ID, String Remark, int State){
+        RequestBody requestBody = new FormBody.Builder()
+                .add("ID", String.valueOf(ID))
+                .add("Remark", Remark)
+                .add("State", String.valueOf(State))
+                .build();
+        baseJSONObject(observer, "GeneralCheck", requestBody);
+
+
+    }
+    
     //工作餐详情
     public static void FeesForMeals_GetPageInfo(Observer<JSONObject> observer, String id, String start, String end) {
         RequestBody requestBody = new  FormBody.Builder()
                 .add("UserId", id)
                 .add("BeginTime", start)
                 .add("EndTime", end)
+                .add("PageSize", "1000")
                 .build();
         baseJSONObject(observer,"FeesForMeals_GetPageInfo",requestBody);
     }
