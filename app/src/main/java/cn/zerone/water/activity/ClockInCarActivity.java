@@ -78,6 +78,7 @@ public class ClockInCarActivity extends AppCompatActivity {
     private String station;
     private String type;
     private String basicPicturePath = "/storage/emulated/0/JCamera/picture_";
+    private String fakePath;
     private String carPictureCapturedPath;
 
     private Boolean isNumber = false;
@@ -266,6 +267,7 @@ public class ClockInCarActivity extends AppCompatActivity {
                 @Override
                 public void onNext(JSONObject object) {
                     carPictureCapturedPath = object.getString("Temp");
+                    fakePath = img2base.getPicName(carPictureCapturedPath);
                 }
 
                 @Override
@@ -352,9 +354,9 @@ public class ClockInCarActivity extends AppCompatActivity {
                 else if(isRepeatFinish&&type.equals("2"))
                     Toast.makeText(ClockInCarActivity.this,"您今天已完工打卡，请勿重复操作", Toast.LENGTH_SHORT).show();
                 else {
-                    carPictureCapturedPath = img2base.getPicName(carPictureCapturedPath);
+                    System.out.println("AAAAAAAAAAAAAAAAAAAA"+fakePath+projectID+datetime);
                     addClockIn(datetime, String.valueOf(loc.GetLat()),
-                            String.valueOf(loc.GetLng()), type, carPictureCapturedPath, "", projectID, stationID, carID);
+                            String.valueOf(loc.GetLng()), type, fakePath, "", projectID, stationID, carID);
                     Toast.makeText(ClockInCarActivity.this, "打卡成功", Toast.LENGTH_SHORT).show();
                 }
             }
