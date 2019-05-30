@@ -41,7 +41,7 @@ public class NoticeFragment extends Fragment {
 
     public void getData() {
 
-        Requests.UserMessage_GetList(new Observer<JSONArray>() {
+        Requests.UserMessage_GetListByField(new Observer<JSONArray>() {
             @Override
             public void onSubscribe(Disposable d) {
             }
