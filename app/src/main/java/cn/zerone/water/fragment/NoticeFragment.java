@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import cn.zerone.water.App;
 import cn.zerone.water.R;
 import cn.zerone.water.activity.NoticeActivity;
 import cn.zerone.water.http.Requests;
@@ -54,7 +55,7 @@ public class NoticeFragment extends Fragment {
                     String Title = jsonObject.getString("Title");
                     json1.put("title", Title);
                     String time = jsonObject.getString("AddTime");
-                    String realTime = time.substring(6, 18);
+                    String realTime = time.substring(6, 19);
                     Long longtime = Long.parseLong(realTime);
                     SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
                     String d = format.format(longtime);
@@ -78,7 +79,7 @@ public class NoticeFragment extends Fragment {
             public void onComplete() {
 
             }
-        });
+        }, App.userId);
 
     }
     private void UpdateAdapter(List<Map<String, Object>> list) {
