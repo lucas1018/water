@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -53,8 +54,8 @@ public class HistoryFinishActiviyt extends AppCompatActivity implements DatePick
         seleted_date.setText(basic_date);
 
 
-        TextView select_date = findViewById(R.id.select_date);
-        select_date.setOnClickListener(new View.OnClickListener() {
+        LinearLayout selected_layout = findViewById(R.id.selected_layout);
+        selected_layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //                datePicker.bringToFront();

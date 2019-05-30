@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.GridView;
 import android.widget.HorizontalScrollView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.ImageView;
 import android.widget.SimpleAdapter;
@@ -57,8 +58,8 @@ public class HistoryHomeActivity extends AppCompatActivity implements DatePicker
         seleted_date.setText(basic_date);
 
 
-        TextView select_date = findViewById(R.id.select_date);
-        select_date.setOnClickListener(new View.OnClickListener() {
+        LinearLayout selected_layout = findViewById(R.id.selected_layout);
+        selected_layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
