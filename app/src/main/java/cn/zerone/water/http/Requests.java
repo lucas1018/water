@@ -277,10 +277,11 @@ public class Requests {
     }
 
     //调用消息列表接口
-    public static void UserMessage_GetList(Observer<JSONArray> observer,String userid) {
+    public static void UserMessage_GetListByField(Observer<JSONArray> observer,String userid) {
         RequestBody requestBody = new FormBody.Builder()
-                .add("UserId",userid).build();
-        baseJSONArray(observer, "UserMessage_GetList", requestBody);
+                .add("field","UserId")
+                .add("value",userid).build();
+        baseJSONArray(observer, "UserMessage_GetListByField", requestBody);
     }
 
     //调用轮播图片接口
