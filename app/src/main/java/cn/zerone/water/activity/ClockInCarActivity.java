@@ -3,11 +3,14 @@ package cn.zerone.water.activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.text.InputType;
+import android.util.Base64;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
@@ -36,6 +39,7 @@ import cn.zerone.water.App;
 import cn.zerone.water.R;
 import cn.zerone.water.http.Requests;
 import cn.zerone.water.utils.LocationUtil;
+import cn.zerone.water.utils.imageToBase64;
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 
@@ -86,6 +90,7 @@ public class ClockInCarActivity extends AppCompatActivity {
     private Boolean isRepeatDepart = false;
 
     private LocationUtil loc;
+    private String pic2base64;
 
 
     @Override
@@ -246,10 +251,40 @@ public class ClockInCarActivity extends AppCompatActivity {
 
             carPictureButton.setVisibility(View.GONE);
 
-            carImage = findViewById(R.id.carImage);
-            carImage.setVisibility(View.VISIBLE);
-            carImage.setImageURI(Uri.fromFile(new File(path)));
-            isPictureCaptured=true;
+            imageToBase64 carPic = new imageToBase64(carPictureCapturedPath);
+            pic2base64 = carPic.getBase64();
+            System.out.println("AAAAAAAAAAAAAAAAAAAAA"+pic2base64);
+            Requests.Picture_SaveBLL(new Observer<JSONObject>() {
+                @Override
+                public void onSubscribe(Disposable d) {
+
+                }
+
+                @Override
+                public void onNext(JSONObject object) {
+                    carPictureCapturedPath = object.getString("Temp");
+                }
+
+                @Override
+                public void onError(Throwable e) {
+
+                }
+
+                @Override
+                public void onComplete() {
+                    System.out.println("AAAAAAAAAAAAAAAAAAAAA"+carPictureCapturedPath);
+                    carImage = findViewById(R.id.carImage);
+                    carImage.setVisibility(View.VISIBLE);
+                    byte[] decodedString = Base64.decode(carPictureCapturedPath, Base64.DEFAULT);
+                    Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+                    carImage.setImageBitmap(decodedByte);
+                }
+            },pic2base64,"jpg");
+
+//            carImage = findViewById(R.id.carImage);
+//            carImage.setVisibility(View.VISIBLE);
+//            carImage.setImageURI(Uri.fromFile(new File(path)));
+//            isPictureCaptured=true;
         }
     }
 
@@ -307,7 +342,6 @@ public class ClockInCarActivity extends AppCompatActivity {
                             isRepeatFinish=true;
                     }
                 }
-                System.out.println("AAAAAAAAAAAAAAAAAAAAAA"+ Boolean.toString(isRepeatArrival)+Boolean.toString(isRepeatDepart)+Boolean.toString(isRepeatFinish));
 
                 // Toast.makeText(ClockInCarActivity.this,Boolean.toString(isRepeatArrival) + Boolean.toString(isRepeatFinish) +Boolean.toString(isRepeatDepart), Toast.LENGTH_SHORT).show();
                 if(isRepeatDepart&&type.equals("0"))
