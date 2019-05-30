@@ -2,15 +2,16 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal"
     android:layout_width="match_parent"
-    android:layout_height="50dp"
+    android:layout_height="60dp"
     android:gravity="center_vertical">
-    <ImageView
+    <cn.zerone.water.views.RoundImageView
         android:id="@+id/item_user_icon"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
+        android:layout_width="42dp"
+        android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_alignParentLeft="true"
         android:layout_marginLeft="8dp"
+        android:layout_weight="1"
         />
 
     <LinearLayout
@@ -28,8 +29,8 @@
             android:layout_toRightOf="@id/item_user_icon"
             android:layout_marginLeft="12dp"
             android:layout_centerVertical="true"
-            android:textSize="18sp"
-            android:textColor="#544e4e"
+            android:textSize="16sp"
+            android:textColor="#000000"
             android:text = "采购单申请审批"/>
 
         <TextView
@@ -40,19 +41,18 @@
             android:layout_marginLeft="12dp"
             android:layout_centerVertical="true"
             android:textSize="12sp"
-            android:textColor="#544e4e"
+            android:textColor="#999999"
             android:text = "张三"/>
 
     </LinearLayout>
 
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation = "vertical"
         android:layout_centerVertical="true"
         android:layout_alignParentRight="true"
-        android:layout_marginRight="8dp">
+        android:layout_marginRight="20dp">
 
         <TextView
             android:id="@+id/item_time"
@@ -60,20 +60,29 @@
             android:layout_height="wrap_content"
             android:layout_marginRight="8dp"
             android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
+            android:textColor="#999999"
+            android:textSize="10sp"
             android:text = "2019/06/01"/>
 
         <ImageView
             android:id="@+id/item_go"
+            android:layout_below="@+id/item_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
+            android:layout_marginTop="8dp"
             android:layout_marginRight="8dp"
-            android:src="@mipmap/my_right"
-            />
+            android:src="@drawable/group111" />
 
-    </LinearLayout>
+    </RelativeLayout>
+<!--
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="55dp"
+        android:background="#EEEEEE"/>
+-->
 
 
 </RelativeLayout>
