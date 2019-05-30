@@ -33,12 +33,14 @@ import io.reactivex.disposables.Disposable;
 public class ClockInFinishActivity extends AppCompatActivity {
 
     private List<Map<String,String>> datalist;
+    private List<Map<String,String>> title;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_clock_in_finish);
 
+        setTitle();
         getList();
 
         ImageView finish_back = (ImageView) findViewById(R.id.finish_back);
@@ -115,6 +117,19 @@ public class ClockInFinishActivity extends AppCompatActivity {
         },App.userId, "2");
     }
 
+    void setTitle(){
+        GridView home_title=(GridView) findViewById(R.id.finish_title);
+        title = new ArrayList<Map<String,String>>();
+        Map<String,String> item=new HashMap<String,String>();
+        item.put("Item", "日期");
+        title.add(item);
+        Map<String,String> item2=new HashMap<String,String>();
+        item2.put("Item", "完工时间");
+        title.add(item2);
+        home_title.setAdapter(new SimpleAdapter(getApplicationContext(), title,
+                R.layout.clock_in_grid, new String[]{"Item"}, new int[]{R.id.ItemText}));
+    }
+
     private void getList(){
         Requests.getClockInList(new Observer<JSONArray>() {
             @Override
@@ -127,29 +142,19 @@ public class ClockInFinishActivity extends AppCompatActivity {
                 GridView home_list=(GridView) findViewById(R.id.finish_list);
                 datalist = new ArrayList<Map<String,String>>();
                 for(int i = 0; i<objects.size();i++){
-                    if(i == 0){
-                        Map<String,String> item=new HashMap<String,String>();
-                        item.put("Item", "日期");
-                        datalist.add(item);
-                        Map<String,String> item2=new HashMap<String,String>();
-                        item2.put("Item", "完工时间");
-                        datalist.add(item2);
-                    }
-                    else {
-                        Map<String, String> item = new HashMap<String, String>();
-                        Map<String,String> item2=new HashMap<String,String>();
-                        JSONObject jsonObject = objects.getJSONObject(i);
-                        String time = jsonObject.getString("AddTime");
-                        String t = time.substring(6, 19);
-                        Long timeLong = Long.parseLong(t);
-                        Calendar c = Calendar.getInstance();
-                        c.setTimeInMillis(timeLong);
-                        String tt = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(c.getTime());
-                        item.put("Item", tt.substring(0, 10));
-                        datalist.add(item);
-                        item2.put("Item", tt.substring(11, 19));
-                        datalist.add(item2);
-                    }
+                    Map<String,String> item=new HashMap<String,String>();
+                    Map<String,String> item2=new HashMap<String,String>();
+                    JSONObject jsonObject = objects.getJSONObject(i);
+                    String time = jsonObject.getString("AddTime");
+                    String t = time.substring(6, 19);
+                    Long timeLong = Long.parseLong(t);
+                    Calendar c = Calendar.getInstance();
+                    c.setTimeInMillis(timeLong);
+                    String tt = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(c.getTime());
+                    item.put("Item", tt.substring(0, 10));
+                    datalist.add(item);
+                    item2.put("Item", tt.substring(11, 19));
+                    datalist.add(item2);
                 }
                 home_list.setAdapter(new SimpleAdapter(getApplicationContext(), datalist,
                         R.layout.clock_in_grid, new String[]{"Item"}, new int[]{R.id.ItemText}));
