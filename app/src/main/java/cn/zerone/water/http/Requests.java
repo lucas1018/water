@@ -31,10 +31,11 @@ import static cn.zerone.water.utils.HttpUtil.baseString;
 
 public class Requests {
 
-    public static <T> void login(Observer<JSONObject> observer, String username, String password) {
+    public static <T> void login(Observer<JSONObject> observer, String username, String password,String device_tokens) {
         RequestBody requestBody = new FormBody.Builder()
                 .add("LOGIN_NAME", username)
                 .add("PASSWORD", password)
+                .add("device_tokens",device_tokens)
                 .build();
         baseJSONObject(observer, "Loging", requestBody);
     }
