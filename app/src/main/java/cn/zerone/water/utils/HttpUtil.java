@@ -123,7 +123,9 @@ public class HttpUtil {
 
     //无需观察者模式的JSONObjectArray接口
     public static <T>  JSONArray baseJSONArray(final String cmd, final RequestBody requestBody){
+        System.out.println("-----"+requestBody);
         Response response = post(cmd, requestBody);
+        System.out.println("~~~~~~~~~~~"+response);
         if(response != null && response.code() == 200){
             try {
                 String json = response.body().string();

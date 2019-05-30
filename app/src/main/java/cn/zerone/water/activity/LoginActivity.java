@@ -174,12 +174,14 @@ public class LoginActivity extends AppCompatActivity  {
 
                 @Override
                 public void onNext(JSONObject jsonObject) {
+                    System.out.println("登录中");
 
                     if (jsonObject.getString("Flag").equals("true")) {
                         if(jsonObject.getString("NewId")==null){
                             throw new JSONException("NewId");
                         }
                         App.userId = jsonObject.getString("NewId");
+                        System.out.println("aaaaaa + " + App.userId);
                         ((App) getApplication()).saveUserId(App.userId);
                         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                         startActivity(intent);

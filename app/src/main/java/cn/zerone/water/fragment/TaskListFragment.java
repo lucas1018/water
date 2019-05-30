@@ -20,8 +20,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import cn.zerone.water.App;
 import cn.zerone.water.R;
 import cn.zerone.water.activity.LiteActivity;
+import cn.zerone.water.adapter.TaskAdapter;
 import cn.zerone.water.http.Requests;
 import cn.zerone.water.map.LocationActivity;
 import cn.zerone.water.map.MarkerClusterActivity;
@@ -49,53 +51,31 @@ public class TaskListFragment extends Fragment {
     }
 
     public void getData() {
+//        JSONArray objects = Requests.EngineeringStation_GetList(App.userId);
+//        for (int i = 0 ; i < objects.size() ; i++){
+//            JSONObject json1 = new JSONObject();
+//            JSONObject jsonObject = objects.getJSONObject(i);
+//            String StationName = jsonObject.getString("StationName");
+//            json1.put("StationName",StationName);
+//
+//            String Address = jsonObject.getString("Address");
+//            json1.put("Address",Address);
+//
+//            String State = jsonObject.getString("State");
+//            json1.put("State",State);
+//
+//            String BeginDate = jsonObject.getString("BeginDate");
+//            String realTime = BeginDate.substring(6, 19);
+//            Long longtime = Long.parseLong(realTime);
+//            SimpleDateFormat format = new SimpleDateFormat("yyyy-mm-dd  HH:mm:ss");
+//            String showTime = format.format(longtime);
+//            json1.put("BeginDate",showTime);
+//
+//            list.add(json1);
+//        }
+//
+//        task_list_view.setAdapter(new TaskAdapter(this.getActivity(),list));
 
-        Requests.TaskInfo_GetList(new Observer<JSONArray>() {
-            @Override
-            public void onSubscribe(Disposable d) {
-            }
-
-            @Override
-            public void onNext(JSONArray objects) {
-                for (int i = 0; i < objects.size(); i++) {
-
-                    JSONObject json1 = new JSONObject();
-                    JSONObject jsonObject = objects.getJSONObject(i);
-                    //任务名称
-                    String TaskName = jsonObject.getString("TaskName");
-                    json1.put("TaskName", TaskName);
-                    //任务时间
-                    String time = jsonObject.getString("AddTime");
-                    String realTime = time.substring(6, 18);
-                    Long longtime = Long.parseLong(realTime);
-                    SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-                    String d = format.format(longtime);
-                    json1.put("AddTime", d);
-                    //任务介绍
-                    String TaskIntro = jsonObject.getString("TaskIntro");
-                    json1.put("TaskIntro", TaskIntro);
-                    //任务类型
-                    String TaskType = jsonObject.getString("TaskType");
-                    json1.put("TaskType", TaskType);
-                    //站点名称
-                    String stationId = jsonObject.getString("StationId");
-                    json1.put("stationId",stationId);
-                    list.add(json1);
-
-                }
-//                UpdateAdapter(list);
-            }
-
-            @Override
-            public void onError(Throwable e) {
-
-            }
-
-            @Override
-            public void onComplete() {
-
-            }
-        });
 
     }
 
