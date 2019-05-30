@@ -1,26 +1,11 @@
 package cn.zerone.water.http;
 
-import android.util.Base64;
-
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-
-import org.apache.commons.io.FileUtils;
-import org.ksoap2.serialization.SoapObject;
-
-import java.io.File;
-import java.io.IOException;
-import java.text.DecimalFormat;
-import java.sql.SQLOutput;
-import java.util.Date;
-import java.util.List;
-
-import cn.zerone.water.model.EngineeringStation;
 
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 import okhttp3.FormBody;
-import okhttp3.Request;
 import okhttp3.RequestBody;
 
 import static cn.zerone.water.utils.HttpUtil.baseJSONArray;
@@ -291,9 +276,9 @@ public class Requests {
     }
 
     //调用消息列表接口
-    public static void UserMessage_GetList(Observer<JSONArray> observer) {
-
-        RequestBody requestBody = new FormBody.Builder().build();
+    public static void UserMessage_GetList(Observer<JSONArray> observer,String userid) {
+        RequestBody requestBody = new FormBody.Builder()
+                .add("UserId",userid).build();
         baseJSONArray(observer, "UserMessage_GetList", requestBody);
     }
 
