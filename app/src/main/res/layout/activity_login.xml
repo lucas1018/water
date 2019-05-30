@@ -16,17 +16,15 @@
 
 
         <TextView
-            android:layout_marginTop="15dp"
             android:id="@+id/title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
+            android:layout_centerInParent="true"
             android:layout_centerVertical="true"
-            android:paddingBottom="10dp"
-            android:text="登录"
             android:textColor="#fff"
             android:textSize="18dp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:text="登录" />
 
     </RelativeLayout>
     <!-- Login progress -->
@@ -86,6 +84,19 @@
             </LinearLayout>
 
             <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginLeft="40dp"
+                    android:layout_marginRight="35dp"
+                    android:background="#ffeeeeee"></View>
+
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp">
@@ -110,6 +121,20 @@
                     />
 
             </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginLeft="40dp"
+                    android:layout_marginRight="35dp"
+                    android:background="#ffeeeeee"></View>
+
+            </LinearLayout>
+
 
             <TextView
                 android:id="@+id/email_sign_in_button"

@@ -1,25 +1,11 @@
 package cn.zerone.water.http;
 
-import android.util.Base64;
-
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-
-import org.apache.commons.io.FileUtils;
-import org.ksoap2.serialization.SoapObject;
-
-import java.io.File;
-import java.io.IOException;
-import java.text.DecimalFormat;
-import java.sql.SQLOutput;
-import java.util.List;
-
-import cn.zerone.water.model.EngineeringStation;
 
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 import okhttp3.FormBody;
-import okhttp3.Request;
 import okhttp3.RequestBody;
 
 import static cn.zerone.water.utils.HttpUtil.baseJSONArray;
@@ -45,10 +31,11 @@ import static cn.zerone.water.utils.HttpUtil.baseString;
 
 public class Requests {
 
-    public static <T> void login(Observer<JSONObject> observer, String username, String password) {
+    public static <T> void login(Observer<JSONObject> observer, String username, String password,String device_tokens) {
         RequestBody requestBody = new FormBody.Builder()
                 .add("LOGIN_NAME", username)
                 .add("PASSWORD", password)
+                .add("device_tokens",device_tokens)
                 .build();
         baseJSONObject(observer, "Loging", requestBody);
     }
@@ -258,21 +245,120 @@ public class Requests {
         baseString(observer, "ClockIn_SaveBLL", requestBody);
     }
 
-    public static void getClockInList(Observer<JSONArray> observer, String id) {
+    public static void getClockInList(Observer<JSONArray> observer, String id, String DataType) {
+        RequestBody requestBody = new FormBody.Builder()
+                .add("ID", id)
+                .add("field", "DataType")
+                .add("value", DataType).build();
+        baseJSONArray(observer, "ClockIn_GetListByField", requestBody);
+    }
+
+    // 获取车辆信息
+    public static void getCarList(Observer<JSONArray> observer, String id) {
         RequestBody requestBody = new FormBody.Builder()
                 .add("ID", id).build();
-        baseJSONArray(observer, "ClockIn_GetList", requestBody);
+        baseJSONArray(observer, "CarInfo_GetList", requestBody);
+    }
+
+    // 获取项目
+    public static void getProjectLogList(Observer<JSONArray> observer, String id) {
+        RequestBody requestBody = new FormBody.Builder()
+                .add("ID", id).build();
+        baseJSONArray(observer, "PROJECT_INFO_GetList", requestBody);
+    }
+
+    // 获取相关项目的站点信息
+    public static void getStationList(Observer<JSONArray> observer, String id, String val) {
+        RequestBody requestBody = new FormBody.Builder()
+                .add("ID", id)
+                .add("field", "PROJECT_ID")
+                .add("value", val).build();
+        baseJSONArray(observer, "STATION_INFO_GetListByField", requestBody);
     }
 
     //调用消息列表接口
-    public static void UserMessage_GetList(Observer<JSONArray> observer) {
-
-        RequestBody requestBody = new FormBody.Builder().build();
-        baseJSONArray(observer, "UserMessage_GetList", requestBody);
+    public static void UserMessage_GetListByField(Observer<JSONArray> observer,String userid) {
+        RequestBody requestBody = new FormBody.Builder()
+                .add("field","UserId")
+                .add("value",userid).build();
+        baseJSONArray(observer, "UserMessage_GetListByField", requestBody);
     }
+
+    //调用轮播图片接口
     public static void AdInfo_GetList(Observer<JSONArray> observer) {
 
         RequestBody requestBody = new FormBody.Builder().build();
         baseJSONArray(observer, "AdInfo_GetList", requestBody);
+    }
+
+    public static void GetCheckInfo(Observer<JSONObject> observer, String CheckUserId, int  state,int PageIndex, int PageSize) {
+        RequestBody requestBody = new FormBody.Builder()
+                .add("CheckUserId", CheckUserId)
+                .add("State", String.valueOf(state))
+                .add("PageIndex", String.valueOf(PageIndex))
+                .add("PageSize", String.valueOf(PageSize))
+                .build();
+        baseJSONObject(observer, "GeneralCheck_GetPageInfo", requestBody);
+    }
+    // 施工日志
+    public static void ConstructionLog_SaveBLL(Observer<String> observer, String User_id, String project_id, String station_id, String time, String weather, String content, String safety) {
+        RequestBody requestBody = new FormBody.Builder()
+                .add("UserId", User_id)
+                .add("EngineeringId", project_id)
+                .add("EngineeringStationId", station_id)
+                .add("Date", time)
+                .add("Weather", weather)
+                .add("EngineeringContent", content)
+                .add("SafetySituation", safety)
+                .build();
+        baseString(observer, "ConstructionLog_SaveBLL", requestBody);
+    }
+
+    public static void CarClockIn_SaveBLL(Observer<String> observer, String id, String add_time, String latitude, String longitude,
+                                          String data_type, String pic, String address,String EnID, String StID, String CarID) {
+        RequestBody requestBody = new FormBody.Builder()
+                .add("UserId", id)
+                .add("AddTime", add_time)
+                .add("Lat", latitude)
+                .add("Lng", longitude)
+                .add("DataType", data_type)
+                .add("Path", pic)
+                .add("Address", address)
+                .add("EngineeringId", EnID)
+                .add("EngineeringStationId", StID)
+                .add("CarInfoId", CarID)
+                .build();
+        baseString(observer, "CarGpsPhoto_SaveBLL", requestBody);
+    }
+
+    public static void getCarClockInList(Observer<JSONArray> observer, String id) {
+        RequestBody requestBody = new FormBody.Builder()
+                .add("field", "UserId")
+                .add("value", id).build();
+        baseJSONArray(observer, "CarGpsPhoto_GetListByField", requestBody);
+    }
+
+
+    //审批提交
+    public static void Submit_GeneralCheck(Observer<JSONObject> observer, int ID, String Remark, int State){
+        RequestBody requestBody = new FormBody.Builder()
+                .add("ID", String.valueOf(ID))
+                .add("Remark", Remark)
+                .add("State", String.valueOf(State))
+                .build();
+        baseJSONObject(observer, "GeneralCheck", requestBody);
+
+
+    }
+    
+    //工作餐详情
+    public static void FeesForMeals_GetPageInfo(Observer<JSONObject> observer, String id, String start, String end) {
+        RequestBody requestBody = new  FormBody.Builder()
+                .add("UserId", id)
+                .add("BeginTime", start)
+                .add("EndTime", end)
+                .add("PageSize", "1000")
+                .build();
+        baseJSONObject(observer,"FeesForMeals_GetPageInfo",requestBody);
     }
 }

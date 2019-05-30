@@ -29,6 +29,7 @@ import java.util.Map;
 import cn.zerone.water.App;
 import cn.zerone.water.R;
 import cn.zerone.water.http.Requests;
+import cn.zerone.water.utils.DatePickerDialog;
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 
@@ -36,6 +37,7 @@ public class HistoryHomeActivity extends AppCompatActivity implements DatePicker
 
     private List<Map<String,String>> datalist;
     private List<Map<String,String>> title;
+    private String basic_date;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -45,33 +47,35 @@ public class HistoryHomeActivity extends AppCompatActivity implements DatePicker
         setTitle();
         getList();
 
-        DatePicker datePicker = (DatePicker)findViewById(R.id.dpPicker);
-        Calendar calendar = Calendar.getInstance();
-        int year=calendar.get(Calendar.YEAR);
-        int monthOfYear=calendar.get(Calendar.MONTH);
-        int dayOfMonth=calendar.get(Calendar.DAY_OF_MONTH);
-        datePicker.init(year,monthOfYear,dayOfMonth,HistoryHomeActivity.this);
-        datePicker.bringToFront();
-
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Date date = new Date(System.currentTimeMillis());
         String datetime = simpleDateFormat.format(date);
+        basic_date = datetime.substring(0, 7);
+
 
         TextView seleted_date = findViewById(R.id.seleted_date);
-        seleted_date.setText(datetime.substring(0, 7));
+        seleted_date.setText(basic_date);
 
 
-        Button select_date = findViewById(R.id.select_date);
+        TextView select_date = findViewById(R.id.select_date);
         select_date.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DatePicker datePicker = (DatePicker)findViewById(R.id.dpPicker);
-                Calendar calendar = Calendar.getInstance();
-                int year=calendar.get(Calendar.YEAR);
-                int monthOfYear=calendar.get(Calendar.MONTH);
-                int dayOfMonth=calendar.get(Calendar.DAY_OF_MONTH);
-                datePicker.init(year,monthOfYear,dayOfMonth,HistoryHomeActivity.this);
-                datePicker.bringToFront();
+
+                Calendar c = Calendar.getInstance();
+                new DatePickerDialog(HistoryHomeActivity.this, 0, new DatePickerDialog.OnDateSetListener() {
+
+                    @Override
+                    public void onDateSet(DatePicker startDatePicker, int startYear, int startMonthOfYear, int startDayOfMonth) {
+                        basic_date = String.format("%d-0%d", startYear, startMonthOfYear + 1);
+                        TextView seleted_date = findViewById(R.id.seleted_date);
+                        seleted_date.setText(basic_date);
+                        setTitle();
+                        getList();
+                    }
+
+                }, c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DATE)).show();
+
             }
         });
 
@@ -124,10 +128,12 @@ public class HistoryHomeActivity extends AppCompatActivity implements DatePicker
                     Calendar c = Calendar.getInstance();
                     c.setTimeInMillis(timeLong);
                     String tt = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(c.getTime());
-                    item.put("Item", tt.substring(0, 10));
-                    datalist.add(item);
-                    item2.put("Item", tt.substring(11, 19));
-                    datalist.add(item2);
+                    if(tt.substring(0,7).equals(basic_date)){
+                        item.put("Item", tt.substring(0, 10));
+                        datalist.add(item);
+                        item2.put("Item", tt.substring(11, 19));
+                        datalist.add(item2);
+                    }
                 }
                 history_list.setAdapter(new SimpleAdapter(getApplicationContext(), datalist,
                         R.layout.clock_in_grid, new String[]{"Item"}, new int[]{R.id.ItemText}));
@@ -141,6 +147,6 @@ public class HistoryHomeActivity extends AppCompatActivity implements DatePicker
             public void onComplete() {
 
             }
-        },App.userId);
+        },App.userId, "3");
     }
 }

@@ -7,21 +7,26 @@
     android:orientation="vertical"
     android:layout_height="match_parent">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:orientation="vertical"
         android:background="#008aca">
+
 
         <TextView
             android:id="@+id/title"
-            android:layout_width="48dp"
-            android:layout_marginTop="10dp"
-            android:layout_height="21dp"
-            android:layout_gravity="center"
-            android:textColor="#FFFFFF"
-            android:textSize="16sp" />
-    </LinearLayout>
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_centerVertical="true"
+            android:textColor="#fff"
+            android:textSize="18dp"
+            android:textStyle="bold" />
+
+
+
+
+    </RelativeLayout>
     <FrameLayout
         android:id="@+id/group_framelayout"
         android:layout_width="match_parent"
@@ -31,7 +36,7 @@
         <android.support.v4.view.ViewPager
             android:id="@+id/vp_hottest"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="185dp"
             android:background="#FFFFFF">
         </android.support.v4.view.ViewPager>
 
@@ -49,6 +54,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         >
 
         <TextView
@@ -57,7 +63,6 @@
             android:layout_height="match_parent"
             android:textColor="#ff000000"
             android:textSize="16sp"
-            android:layout_marginTop="5dp"
             android:layout_marginLeft="20dp"
             android:paddingBottom="10dp"
             android:text="日常打卡"/>
@@ -106,6 +111,7 @@
 
     <LinearLayout
         android:orientation="horizontal"
+        android:layout_marginTop="5dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <TextView
@@ -136,7 +142,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="10dp"
+        android:layout_height="15dp"
         android:background="#FFFFFF">
     </LinearLayout>
 
@@ -169,13 +175,14 @@
 
             <ImageButton
                 android:id="@+id/imageButton5"
-                android:background="#FFFFFF"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="#FFFFFF"
                 app:srcCompat="@mipmap/approval" />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
                 android:text="办公审批"
                 android:layout_gravity="center"/>
 
@@ -196,6 +203,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="16dp"
+                android:layout_marginTop="5dp"
                 android:text="工作餐"
                 android:layout_gravity="center"/>
         </LinearLayout>
@@ -216,6 +224,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
                 android:text="工作日志"
                 android:layout_gravity="center" />
 
@@ -234,9 +243,10 @@
 
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="16dp"
-                android:text="位置导航"
-                android:layout_gravity="center" />
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="5dp"
+                android:text="位置导航" />
         </LinearLayout>
 
         <LinearLayout
@@ -255,6 +265,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
                 android:text="问题上报"
                 android:layout_gravity="center"/>
 
@@ -275,6 +286,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="16dp"
                 android:text="施工日志"
+                android:layout_marginTop="5dp"
                 android:layout_gravity="center" />
         </LinearLayout>
 
@@ -294,8 +306,9 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="发起直播"
-                android:layout_gravity="center" />
+                android:layout_gravity="center"
+                android:layout_marginTop="5dp"
+                android:text="发起直播" />
 
             <LinearLayout
                 android:layout_width="match_parent"

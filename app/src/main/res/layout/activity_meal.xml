@@ -7,6 +7,7 @@
     tools:context="cn.zerone.water.activity.MealActivity">
 
     <RelativeLayout
+        android:id="@+id/rl_title"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:background="#008aca">
@@ -33,105 +34,176 @@
             android:text="我的工作餐" />
 
         <Button
-            android:id="@+id/button2"
+            android:id="@+id/meal_detail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
             android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:background="@android:color/transparent"
             android:text="月份详情"
             android:textSize="18dp"
-            android:background="#008aca"
             android:textColor="#fff"/>
     </RelativeLayout>
 
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
+        android:layout_marginTop="10dp"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
         android:orientation="horizontal">
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:layout_weight="1"
             android:gravity="center"
-            android:minHeight="50dp"
-            android:singleLine="true"
-            android:text="工作日期"
-            android:textSize="18dp" />
+            android:text="餐费日期"
+            android:textColor="#999"
+            android:textSize="16sp" />
 
         <EditText
             android:id="@+id/current_date"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
             android:layout_weight="1"
             android:ems="10"
+            android:hint="请选择餐费日期"
+            android:textColorHint="#999"
+            android:textColor="#000"
+            android:textSize="14sp"
+            android:background="@null"
             android:inputType="date" />
+
+
     </LinearLayout>
 
     <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="23dp"
+            android:layout_marginRight="20dp"
+            android:background="#ffeeeeee"></View>
+
+    </LinearLayout>
+
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:layout_height="40dp"
+        android:orientation="horizontal"
+        android:layout_marginTop="8dp">
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_weight="7"
             android:gravity="center"
-            android:minHeight="50dp"
-            android:singleLine="true"
             android:text="餐费类型"
-            android:textSize="18dp" />
+            android:textColor="#999"
+            android:textSize="16sp" />
 
-        <EditText
+        <TextView
             android:id="@+id/meal_type"
             android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_weight="4.5"
+            android:ems="10"
+            android:hint="请选择餐费类型"
+            android:textColorHint="#999"
+            android:textColor="#000"
+            android:textSize="14sp"
+            android:background="@null"/>
+
+        <ImageView
+            android:id="@+id/type_back"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:ems="10" />
+            android:layout_weight="0.3"
+            android:layout_marginRight="20dp"
+            android:layout_gravity="center"
+            android:src="@mipmap/log_back" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="23dp"
+            android:layout_marginRight="20dp"
+            android:background="#ffeeeeee"></View>
 
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:layout_height="40dp"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:orientation="horizontal"
+        android:layout_marginTop="8dp">
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:layout_weight="1"
             android:gravity="center"
-            android:minHeight="50dp"
-            android:singleLine="true"
-            android:textSize="18dp"
-            android:text="金额" />
+            android:textColor="#999"
+            android:textSize="16sp"
+            android:text="金&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;额" />
 
         <EditText
             android:id="@+id/consume_money"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
             android:layout_weight="1"
             android:ems="10"
-            android:hint="请输入金额" />
+            android:hint="请输入金额"
+            android:textColorHint="#999"
+            android:textColor="#000"
+            android:textSize="14sp"
+            android:background="@null"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="23dp"
+            android:layout_marginRight="20dp"
+            android:background="#ffeeeeee"></View>
 
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
+        android:layout_marginTop="8dp"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
         android:orientation="horizontal">
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:layout_weight="1"
             android:gravity="center"
-            android:minHeight="50dp"
-            android:singleLine="true"
-            android:textSize="18dp"
-            android:text="餐馆" />
+            android:textColor="#999"
+            android:textSize="16sp"
+            android:text="餐&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;馆" />
 
         <EditText
             android:id="@+id/resturant"
@@ -139,44 +211,86 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:ems="10"
+            android:textSize="14sp"
+            android:background="@null"
+            android:textColorHint="#999"
+            android:textColor="#000"
             android:hint="请输入餐馆" />
 
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:minHeight="50dp"
-            android:singleLine="true"
-            android:text="备注"
-            android:textSize="18dp" />
-
-        <EditText
-            android:id="@+id/remark"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:maxLines="5"
-            android:ems="10" />
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="23dp"
+            android:layout_marginRight="20dp"
+            android:background="#ffeeeeee"></View>
 
     </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:orientation="horizontal"
+        android:layout_marginTop="8dp">
+
+        <TextView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:textColor="#999"
+            android:textSize="16sp"
+            android:text="备&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;注" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:ems="10"
+            android:textSize="14sp"
+            android:background="@null"/>
+
+
+
+    </LinearLayout>
+
+    <EditText
+        android:id="@+id/remark"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="10dp"
+        android:background="@android:drawable/edit_text"
+        android:enabled="true"
+        android:gravity="top"
+        android:inputType="textMultiLine"
+        android:textColorHint="#999"
+        android:textColor="#000"
+        android:hint="请输入备注"
+        android:textSize="14sp"
+        android:maxLines="10"
+        android:minLines="8"
+        android:scrollbars="vertical" />
+
+
     <Button
         android:id="@+id/add_meal"
-        android:layout_width="190dp"
-        android:layout_height="wrap_content"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
         android:background="#008ACA"
         android:gravity="center"
-        android:layout_gravity="center"
+        android:text="添加"
         android:textColor="#FFFFFF"
-        android:textSize="16dp"
-        android:text="添加" />
+        android:textSize="16dp" />
 
 </LinearLayout>
