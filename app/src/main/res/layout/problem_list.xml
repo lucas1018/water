@@ -10,6 +10,17 @@
         android:layout_height="50dp"
         android:background="#008aca">
 
+        <ImageView
+            android:id="@+id/pro_back"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:src="@drawable/back" />
+
         <TextView
             android:id="@+id/title"
             android:layout_width="wrap_content"
@@ -21,6 +32,16 @@
             android:textSize="18dp"
             android:textStyle="bold" />
 
+        <TextView
+            android:id="@+id/pro_add"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="20dp"
+            android:text="新增"
+            android:textColor="#fff"
+            android:textSize="18sp" />
 
 
 

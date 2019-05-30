@@ -5,7 +5,9 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
@@ -20,6 +22,7 @@ import cn.zerone.water.App;
 import cn.zerone.water.R;
 import cn.zerone.water.adapter.ListViewAdapter;
 import cn.zerone.water.adapter.ProblemAdapter;
+import cn.zerone.water.fragment.MasterArticleFragment;
 import cn.zerone.water.http.Requests;
 import okhttp3.RequestBody;
 
@@ -39,6 +42,22 @@ public class ProblemListActivity extends AppCompatActivity {
 
         listView = (ListView) findViewById(R.id.problem_listView);
         list = new ArrayList<Map<String, Object>>();
+
+        ImageView iv = (ImageView)findViewById(R.id.pro_back);
+        iv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(ProblemListActivity.this, MainActivity.class));
+            }
+        });
+
+        TextView tv = (TextView)findViewById(R.id.pro_add);
+        tv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(ProblemListActivity.this, ProblemActivity.class));
+            }
+        });
 
         //获取所有的问题列表，填充list
         JSONArray problems = Requests.getProblems(App.userId);
