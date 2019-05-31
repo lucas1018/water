@@ -12,6 +12,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Base64;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CalendarView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -26,6 +27,7 @@ import java.io.File;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -49,7 +51,9 @@ public class ClockInWorkActivity extends AppCompatActivity {
     // 现在时间
     private Date date;
     private SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    private SimpleDateFormat simpleDateOnlyFormat =new SimpleDateFormat("yyyy-MM-dd");
     private String datetime;
+    private String restoredCalendarTime;
 
     // 早晨打卡时间
     private String morningtime;
@@ -101,6 +105,7 @@ public class ClockInWorkActivity extends AppCompatActivity {
     TextView afterrelocation;
     ImageButton afterimageButton;
     ImageView afterImage;
+    CalendarView calendarView;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -137,12 +142,31 @@ public class ClockInWorkActivity extends AppCompatActivity {
         afternoonloc = new LocationUtil();
         afternoonloc.initLocationOption(getApplicationContext());
 
-        // 日历选择
-        // calendar
-        // setClickListen()->{ calendarChange(); }
-
         showUI();
 
+        /**
+         * 如需调整日历控件，只需要修改下面的控件以及将日历选取的日期值传入selectedDateByCalendar即可
+         * selectedDateByCalendar的格式为：2019-05-31
+         */
+
+        calendarView = findViewById(R.id.calendarView);
+        calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
+            @Override
+            public void onSelectedDayChange( CalendarView view, int year, int month, int dayOfMonth) {
+                //显示用户选择的日期
+                month = month + 1;
+                if(month<10&&dayOfMonth<10)
+                    selectedDateByCalendar = String.valueOf(year)+"-0"+String.valueOf(month)+"-0"+String.valueOf(dayOfMonth);
+                else if(month<10&&dayOfMonth>10)
+                    selectedDateByCalendar = String.valueOf(year)+"-0"+String.valueOf(month)+"-"+String.valueOf(dayOfMonth);
+                else if(month>10&&dayOfMonth<10)
+                    selectedDateByCalendar = String.valueOf(year)+"-"+String.valueOf(month)+"-0"+String.valueOf(dayOfMonth);
+                else
+                    selectedDateByCalendar = String.valueOf(year)+"-"+String.valueOf(month)+"-"+String.valueOf(dayOfMonth);
+                calendarChange();
+                // Toast.makeText(ClockInWorkActivity.this,selectedDateByCalendar, Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     void calendarChange(){
@@ -158,9 +182,6 @@ public class ClockInWorkActivity extends AppCompatActivity {
 
                 clocklist = new ArrayList<JSONObject>();
 
-                // 通过选择日历获取日期
-                // datetime = selectedDateByCalendar; 2019-05-02
-
                 for(int i = 0; i<objects.size();i++){
                     JSONObject jsonObject = objects.getJSONObject(i);
                     String time = jsonObject.getString("AddTime");
@@ -169,7 +190,7 @@ public class ClockInWorkActivity extends AppCompatActivity {
                     Date tmp = new Date(timeLong);
                     String return_date = simpleDateFormat.format(tmp);
 
-                    if(return_date.substring(0, 10).equals(datetime.substring(0,10))){
+                    if(return_date.substring(0, 10).equals(selectedDateByCalendar.substring(0,10))){
                         if(tmp.getTime() < morningpermission.getTime()){
                             isClockInMorning = true;
                             clocklist.add(jsonObject);
@@ -205,10 +226,13 @@ public class ClockInWorkActivity extends AppCompatActivity {
                     morninglocation.setText("未知地点");
 
                     morningrelocation = findViewById(R.id.morningrelocation);
-                    morningrelocation.setVisibility(View.GONE);
+                    morningrelocation.setVisibility(View.INVISIBLE);
 
                     morningimageButton = findViewById(R.id.morningimageButton);
                     morningimageButton.setVisibility(View.GONE);
+
+                    morningImage = findViewById(R.id.morningImage);
+                    morningImage.setVisibility(View.INVISIBLE);
 
                     // 下午
                     afterLayout = findViewById(R.id.afterLayout);
@@ -218,13 +242,16 @@ public class ClockInWorkActivity extends AppCompatActivity {
                     afternoonNow.setText("该天未打卡");
 
                     afterrelocation = findViewById(R.id.afterrelocation);
-                    afterrelocation.setVisibility(View.GONE);
+                    afterrelocation.setVisibility(View.INVISIBLE);
 
                     afternoonlocation = findViewById(R.id.afterlocation);
                     afternoonlocation.setText("未知地点");
 
                     afterimageButton = findViewById(R.id.afterimageButton);
                     afterimageButton.setVisibility(View.GONE);
+
+                    afterImage = findViewById(R.id.afterImage);
+                    afterImage.setVisibility(View.INVISIBLE);
 
                 }
                 else if(isClockInMorning&&!isClockInAfternoon){
@@ -269,13 +296,16 @@ public class ClockInWorkActivity extends AppCompatActivity {
                     afternoonNow.setText("该天未打卡");
 
                     afterrelocation = findViewById(R.id.afterrelocation);
-                    afterrelocation.setVisibility(View.GONE);
+                    afterrelocation.setVisibility(View.INVISIBLE);
 
                     afternoonlocation = findViewById(R.id.afterlocation);
                     afternoonlocation.setText("未知地点");
 
                     afterimageButton = findViewById(R.id.afterimageButton);
                     afterimageButton.setVisibility(View.GONE);
+
+                    afterImage = findViewById(R.id.afterImage);
+                    afterImage.setVisibility(View.INVISIBLE);
                 }
                 else{
                     dateString = findViewById(R.id.dateString);
@@ -361,7 +391,6 @@ public class ClockInWorkActivity extends AppCompatActivity {
 
                 clocklist = new ArrayList<JSONObject>();
 
-                // 通过选择日历获取历史
                 if(dateChanged)
                     datetime = selectedDateByCalendar;
 
