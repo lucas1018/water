@@ -7,6 +7,7 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.support.annotation.DrawableRes;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
@@ -57,7 +58,7 @@ public class MyselfFragment extends Fragment {
 
     private Button action_sign_out;
 
-    private String imgUrl;
+    private String imgUrl = null;
 
 
     @Nullable
@@ -88,17 +89,26 @@ public class MyselfFragment extends Fragment {
             }
             @Override
             public void onNext(JSONObject json) {
+                System.out.println("bbbbbb" + json);
+                //设置用户名
                 String username = json.getString("NAME");
                 App.username = username;
                 userName.setText(username);
+                //设置头像
                 imgUrl = json.getString("Photo");
-                String url = "http://47.105.187.185:8011" + imgUrl;
-                ImageUtil imageUtil = ImageUtil.getInstance();
-                Bitmap temp_bitmap = ImageUtil.getBitMBitmap(url);
-                Bitmap bitmap = imageUtil.comp(temp_bitmap);
-                photo1.setImageBitmap(bitmap);
+                if (imgUrl == null || imgUrl.equals("")) {
+                    photo1.setImageResource(R.mipmap.logo);
+                } else {
+                    String url = "http://47.105.187.185:8011" + imgUrl;
+                    ImageUtil imageUtil = ImageUtil.getInstance();
+                    Bitmap temp_bitmap = ImageUtil.getBitMBitmap(url);
+                    Bitmap bitmap = imageUtil.comp(temp_bitmap);
+                    photo1.setImageBitmap(bitmap);
+                }
+                //设置登录名
                 String login_name = json.getString("LOGIN_NAME");
                 phoneNum.setText(login_name);
+                //获取密码
                 String pwd = json.getString("PASSWORD");
                 App.pwd = pwd;
             }

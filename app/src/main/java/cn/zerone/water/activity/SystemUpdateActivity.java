@@ -41,21 +41,21 @@ public class SystemUpdateActivity extends AppCompatActivity {
                 btn_refresh.setVisibility(View.INVISIBLE);
             } else {
                 btn_refresh.setVisibility(View.VISIBLE);
-                btn_refresh.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        System.out.println("pppppppppppp");
-                        /**调用系统自带的浏览器去下载最新apk*/
-                        updateUrl = "http://47.33333333";
-                        Intent intent = new Intent();
-                        intent.setAction("android.intent.action.VIEW");
-                        if (updateUrl != null && updateUrl.startsWith("http")) {
-                            Uri content_url = Uri.parse(updateUrl);
-                            intent.setData(content_url);
-                            startActivity(intent);
-                        }
-                    }
-                });
+//                btn_refresh.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//                        System.out.println("pppppppppppp");
+//                        /**调用系统自带的浏览器去下载最新apk*/
+//                        updateUrl = "http://47.33333333";
+//                        Intent intent = new Intent();
+//                        intent.setAction("android.intent.action.VIEW");
+//                        if (updateUrl != null && updateUrl.startsWith("http")) {
+//                            Uri content_url = Uri.parse(updateUrl);
+//                            intent.setData(content_url);
+//                            startActivity(intent);
+//                        }
+//                    }
+//                });
             }
         }catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
