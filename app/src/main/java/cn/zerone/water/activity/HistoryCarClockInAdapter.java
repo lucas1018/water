@@ -49,6 +49,8 @@ public class HistoryCarClockInAdapter extends ArrayAdapter<HistoryCarItem> {
             viewHolder.StationName = view.findViewById(R.id.relatedStation);
             viewHolder.EngineeringId = view.findViewById(R.id.relatedProject);
             viewHolder.AddTime = view.findViewById(R.id.datetime);
+            viewHolder.Location = view.findViewById(R.id.locationIcon);
+            viewHolder.Datetime = view.findViewById(R.id.datetimeIcon);
             view.setTag(viewHolder);
         } else {
             view=convertView;
@@ -69,16 +71,20 @@ public class HistoryCarClockInAdapter extends ArrayAdapter<HistoryCarItem> {
         viewHolder.StationName.setText(carItem.getStationName());
         viewHolder.DataType.setText(carItem.getDataType());
         viewHolder.CarInfoId.setText(carItem.getCarInfoId());
+        viewHolder.Location.setImageResource(R.mipmap.location);
+        viewHolder.Datetime.setImageResource(R.drawable.icon_time);
         return view;
     }
     class ViewHolder{
 
-        public ImageView Pic;
-        public TextView Address;
-        public TextView AddTime;
-        public TextView DataType;
-        public TextView EngineeringId;
-        public TextView StationName;
-        public TextView CarInfoId;
+        private ImageView Pic;
+        private TextView Address;
+        private TextView AddTime;
+        private TextView DataType;
+        private TextView EngineeringId;
+        private TextView StationName;
+        private TextView CarInfoId;
+        private ImageView Location;
+        private ImageView Datetime;
     }
 }

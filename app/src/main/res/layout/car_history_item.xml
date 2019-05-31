@@ -152,7 +152,7 @@
                 android:layout_marginBottom="10dp">
 
                 <ImageView
-                    android:id="@+id/imageView5"
+                    android:id="@+id/locationIcon"
                     android:layout_width="16dp"
                     android:layout_height="16dp"
                     android:layout_marginRight="10dp"
@@ -167,11 +167,11 @@
                     android:textSize="12dp" />
 
                 <ImageView
-                    android:id="@+id/imageView6"
+                    android:id="@+id/datetimeIcon"
                     android:layout_width="16dp"
                     android:layout_height="16dp"
                     android:layout_marginRight="10dp"
-                    app:srcCompat="@android:drawable/ic_menu_my_calendar" />
+                    app:srcCompat="@drawable/icon_time" />
 
                 <TextView
                     android:id="@+id/datetime"
