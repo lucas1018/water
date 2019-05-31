@@ -21,12 +21,15 @@ import cn.zerone.water.activity.ApproveActivity;
 import cn.zerone.water.activity.CheckDetailsActivity;
 import cn.zerone.water.activity.CheckSubmitActivity;
 
-public class ApproveAdapter extends RecyclerView.Adapter<ApproveAdapter.ViewHolder> {
+public class ApproveAdapter extends RecyclerView.Adapter<ApproveAdapter.ViewHolder> implements View.OnClickListener{
 
     private int resourceId;
-    private List<ApproveItem> mObjects;
+    private List<ApproveItem> mObjects;//数据源
+    private Context context;//上下文
 
-    static class ViewHolder extends RecyclerView.ViewHolder{
+
+
+    class ViewHolder extends RecyclerView.ViewHolder{
         ImageView itemIcon;
         TextView itemAbstruct;
         TextView itemApplyUser;
@@ -43,11 +46,15 @@ public class ApproveAdapter extends RecyclerView.Adapter<ApproveAdapter.ViewHold
             itemTime = view.findViewById(R.id.item_time);
             itemGo = view.findViewById(R.id.item_go);
 
+            view.setOnClickListener(ApproveAdapter.this);
+            itemGo.setOnClickListener(ApproveAdapter.this);
+
         }
     }
 
     public ApproveAdapter(List<ApproveItem> objects) {
-        mObjects = objects;
+        this.mObjects = objects;
+        //this.context = context;
     }
 
     public void setData(List<ApproveItem> objects) {
@@ -59,7 +66,7 @@ public class ApproveAdapter extends RecyclerView.Adapter<ApproveAdapter.ViewHold
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.approve_item, parent, false);
         final ViewHolder holder = new ViewHolder(view);
-        holder.myView.setOnClickListener(new View.OnClickListener(){
+      /*  holder.myView.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
                 int position = holder.getAdapterPosition();
@@ -80,7 +87,7 @@ public class ApproveAdapter extends RecyclerView.Adapter<ApproveAdapter.ViewHold
 
             }
 
-        });
+        });*/
 
         return holder;
     }
@@ -93,11 +100,51 @@ public class ApproveAdapter extends RecyclerView.Adapter<ApproveAdapter.ViewHold
         holder.itemApplyUser.setText(item.getItemApplyUser());
         holder.itemTime.setText(item.getItemTime());
 
+        holder.itemView.setTag(position);
+        holder.itemGo.setTag(position);
+
     }
 
     @Override
     public int getItemCount() {
         return mObjects.size();
+    }
+
+    //item里面有多个控件可以点击（item+item内部控件）
+    public enum ViewName {
+        ITEM,
+        PRACTISE
+    }
+
+    //自定义一个回调接口来实现Click和LongClick事件
+    public interface OnItemClickListener  {
+        void onItemClick(View v, ViewName viewName, int position);
+        void onItemLongClick(View v);
+    }
+
+    private OnItemClickListener mOnItemClickListener;//声明自定义的接口
+
+    //定义方法并传给外面的使用者
+    public void setOnItemClickListener(OnItemClickListener  listener) {
+        this.mOnItemClickListener  = listener;
+    }
+
+    @Override
+    public void onClick(View v) {
+
+        int position = (int) v.getTag();      //getTag()获取数据
+        if (mOnItemClickListener != null) {
+            switch (v.getId()){
+                case R.id.item_go:
+                    mOnItemClickListener.onItemClick(v, ViewName.PRACTISE, position);
+                    break;
+                default:
+                    mOnItemClickListener.onItemClick(v, ViewName.ITEM, position);
+                    break;
+            }
+        }
+
+
     }
 
 

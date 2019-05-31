@@ -174,7 +174,7 @@
             android:orientation="vertical">
 
             <ImageButton
-                android:id="@+id/imageButton5"
+                android:id="@+id/office_check"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="#FFFFFF"
@@ -235,7 +235,7 @@
             </LinearLayout>
 
             <ImageButton
-                android:id="@+id/imageButton10"
+                android:id="@+id/pos_navi"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:background="#FFFFFF"

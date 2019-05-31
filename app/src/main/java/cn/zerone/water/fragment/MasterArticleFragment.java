@@ -32,6 +32,7 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import cn.zerone.water.activity.ApproveActivity;
 import cn.zerone.water.activity.ClockInCarActivity;
 import cn.zerone.water.activity.ClockInFinishActivity;
 import cn.zerone.water.activity.ClockInHomeActivity;
@@ -75,7 +76,8 @@ public class MasterArticleFragment extends Fragment {
 
     private Timer timer = new Timer(); //为了方便取消定时轮播，将 Timer 设为全局
 
-    private ImageButton mButNavi = null;
+    private ImageButton mNavi = null;
+    private ImageButton mCheck = null;
     private ImageButton contruction_log = null;
     private ImageButton problem_record = null;
     private ImageButton meal = null;
@@ -173,10 +175,19 @@ public class MasterArticleFragment extends Fragment {
             }
         });
 
+        mCheck = view.findViewById(R.id.office_check);
+        mCheck.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getContext(), ApproveActivity.class);
+                getContext().startActivity(intent);
+            }
+        });
+
 
         //位置导航
-        mButNavi = view.findViewById(R.id.imageButton10);
-        mButNavi.setOnClickListener(new View.OnClickListener(){
+        mNavi = view.findViewById(R.id.pos_navi);
+        mNavi.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getContext(), PoiSearchActivity.class);
