@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
         android:layout_centerVertical="true"
-        android:textSize="18sp"
+        android:textSize="16dp"
         android:textColor="#544e4e"/>
 
 
