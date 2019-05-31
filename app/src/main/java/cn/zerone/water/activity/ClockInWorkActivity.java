@@ -1,14 +1,18 @@
 package cn.zerone.water.activity;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Base64;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CalendarView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -23,6 +27,7 @@ import java.io.File;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -33,6 +38,7 @@ import cn.zerone.water.App;
 import cn.zerone.water.R;
 import cn.zerone.water.http.Requests;
 import cn.zerone.water.utils.LocationUtil;
+import cn.zerone.water.utils.image2Base64Util;
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 
@@ -45,7 +51,9 @@ public class ClockInWorkActivity extends AppCompatActivity {
     // 现在时间
     private Date date;
     private SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    private SimpleDateFormat simpleDateOnlyFormat =new SimpleDateFormat("yyyy-MM-dd");
     private String datetime;
+    private String restoredCalendarTime;
 
     // 早晨打卡时间
     private String morningtime;
@@ -69,10 +77,35 @@ public class ClockInWorkActivity extends AppCompatActivity {
 
     private String morningPictureCapturedPath;
     private String afternoonPictureCapturedPath;
-    private String basicPicturePath = "/storage/emulated/0/JCamera/picture_";
+    private String basicPicturePath = "http://47.105.187.185:8011/Content/img/WebImg/";
+    private String fakeMorningPic;
+    private String fakeAfternoonPic;
+    private String morningBase64;
+    private String afternoonBase64;
 
     private Boolean dateChanged = false;
     private String selectedDateByCalendar;
+
+    private image2Base64Util img2base;
+
+    // 各个控件
+    TextView dateString;
+    ImageView morningIcon;
+    ImageView afternoonIcon;
+    LinearLayout clockInLayout;
+    TextView morningNow;
+    TextView morningrelocation;
+    ImageButton morningimageButton;
+    Button clockIn;
+    TextView morninglocation;
+    ImageView morningImage;
+    LinearLayout afterLayout;
+    TextView afternoonNow;
+    TextView afternoonlocation;
+    TextView afterrelocation;
+    ImageButton afterimageButton;
+    ImageView afterImage;
+    CalendarView calendarView;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -92,6 +125,8 @@ public class ClockInWorkActivity extends AppCompatActivity {
         morningtime = datetime.replaceAll(".{2}:.{2}:.{2}", morningClockPermissionTime);
         afternoontime = datetime.replaceAll(".{2}:.{2}:.{2}", afterClockEndTime);
 
+        img2base = new image2Base64Util();
+
         afterpermission = null;
         morningpermission = null;
         try {
@@ -107,10 +142,240 @@ public class ClockInWorkActivity extends AppCompatActivity {
         afternoonloc = new LocationUtil();
         afternoonloc.initLocationOption(getApplicationContext());
 
-        clocklist = new ArrayList<JSONObject>();
-
         showUI();
 
+        /**
+         * 如需调整日历控件，只需要修改下面的控件以及将日历选取的日期值传入selectedDateByCalendar即可
+         * selectedDateByCalendar的格式为：2019-05-31
+         */
+
+        calendarView = findViewById(R.id.calendarView);
+        calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
+            @Override
+            public void onSelectedDayChange( CalendarView view, int year, int month, int dayOfMonth) {
+                //显示用户选择的日期
+                month = month + 1;
+                if(month<10&&dayOfMonth<10)
+                    selectedDateByCalendar = String.valueOf(year)+"-0"+String.valueOf(month)+"-0"+String.valueOf(dayOfMonth);
+                else if(month<10&&dayOfMonth>10)
+                    selectedDateByCalendar = String.valueOf(year)+"-0"+String.valueOf(month)+"-"+String.valueOf(dayOfMonth);
+                else if(month>10&&dayOfMonth<10)
+                    selectedDateByCalendar = String.valueOf(year)+"-"+String.valueOf(month)+"-0"+String.valueOf(dayOfMonth);
+                else
+                    selectedDateByCalendar = String.valueOf(year)+"-"+String.valueOf(month)+"-"+String.valueOf(dayOfMonth);
+                calendarChange();
+                // Toast.makeText(ClockInWorkActivity.this,selectedDateByCalendar, Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    void calendarChange(){
+        Requests.getClockInList(new Observer<JSONArray>() {
+            @Override
+            public void onSubscribe(Disposable d) {
+            }
+
+            @Override
+            public void onNext(JSONArray objects) {
+                Boolean isClockInMorning = false;
+                Boolean isClockInAfternoon = false;
+
+                clocklist = new ArrayList<JSONObject>();
+
+                for(int i = 0; i<objects.size();i++){
+                    JSONObject jsonObject = objects.getJSONObject(i);
+                    String time = jsonObject.getString("AddTime");
+                    String t = time.substring(6, 19);
+                    Long timeLong = Long.parseLong(t);
+                    Date tmp = new Date(timeLong);
+                    String return_date = simpleDateFormat.format(tmp);
+
+                    if(return_date.substring(0, 10).equals(selectedDateByCalendar.substring(0,10))){
+                        if(tmp.getTime() < morningpermission.getTime()){
+                            isClockInMorning = true;
+                            clocklist.add(jsonObject);
+                            morningtime = return_date;
+                            morningPictureCapturedPath = jsonObject.getString("Path");
+                        }
+                        if(tmp.getTime() > afterpermission.getTime()){
+                            isClockInAfternoon = true;
+                            clocklist.add(jsonObject);
+                            afternoontime = return_date;
+                            afternoonPictureCapturedPath = jsonObject.getString("Path");
+                            break;
+                        }
+                    }
+                }
+                clockInLayout = findViewById(R.id.clockInLayout);
+                clockInLayout.setVisibility(View.GONE);
+
+                morningIcon = findViewById(R.id.morningBall);
+                morningIcon.setImageResource(R.mipmap.grey_ball);
+
+                afternoonIcon = findViewById(R.id.afternoonBall);
+                afternoonIcon.setImageResource(R.mipmap.grey_ball);
+                if(!isClockInMorning&&!isClockInAfternoon){
+                    dateString = findViewById(R.id.dateString);
+                    dateString.setText(selectedDateByCalendar.substring(0,10));
+
+                    // 上午
+                    morningNow = findViewById(R.id.morningNow);
+                    morningNow.setText("该天未打卡");
+
+                    morninglocation = findViewById(R.id.morninglocation);
+                    morninglocation.setText("未知地点");
+
+                    morningrelocation = findViewById(R.id.morningrelocation);
+                    morningrelocation.setVisibility(View.INVISIBLE);
+
+                    morningimageButton = findViewById(R.id.morningimageButton);
+                    morningimageButton.setVisibility(View.GONE);
+
+                    morningImage = findViewById(R.id.morningImage);
+                    morningImage.setVisibility(View.INVISIBLE);
+
+                    // 下午
+                    afterLayout = findViewById(R.id.afterLayout);
+                    afterLayout.setVisibility(View.VISIBLE);
+
+                    afternoonNow = findViewById(R.id.afterNow);
+                    afternoonNow.setText("该天未打卡");
+
+                    afterrelocation = findViewById(R.id.afterrelocation);
+                    afterrelocation.setVisibility(View.INVISIBLE);
+
+                    afternoonlocation = findViewById(R.id.afterlocation);
+                    afternoonlocation.setText("未知地点");
+
+                    afterimageButton = findViewById(R.id.afterimageButton);
+                    afterimageButton.setVisibility(View.GONE);
+
+                    afterImage = findViewById(R.id.afterImage);
+                    afterImage.setVisibility(View.INVISIBLE);
+
+                }
+                else if(isClockInMorning&&!isClockInAfternoon){
+                    dateString = findViewById(R.id.dateString);
+                    dateString.setText(selectedDateByCalendar.substring(0,10));
+
+                    // 上午
+                    morningNow = findViewById(R.id.morningNow);
+                    morningNow.setText("打卡时间 "+ morningtime.substring(11,16));
+
+                    morningIcon = findViewById(R.id.morningBall);
+                    morningIcon.setImageResource(R.mipmap.grey_ball);
+
+                    afternoonIcon = findViewById(R.id.afternoonBall);
+                    afternoonIcon.setImageResource(R.mipmap.blue_ball);
+
+                    morninglocation = findViewById(R.id.morninglocation);
+                    morninglocation.setText(clocklist.get(0).getString("Address"));
+
+
+                    morningimageButton = findViewById(R.id.morningimageButton);
+                    morningimageButton.setVisibility(View.GONE);
+
+                    morningImage = findViewById(R.id.morningImage);
+                    morningImage.setVisibility(View.VISIBLE);
+
+                    morningPictureCapturedPath = basicPicturePath + morningPictureCapturedPath;
+                    morningBase64 = img2base.encodeImageToBase64(morningPictureCapturedPath);
+                    byte[] decodedString = Base64.decode(morningBase64, Base64.DEFAULT);
+                    Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+                    morningImage.setImageBitmap(decodedByte);
+
+
+                    morningrelocation = findViewById(R.id.morningrelocation);
+                    morningrelocation.setVisibility(View.INVISIBLE);
+
+                    // 下午
+                    afterLayout = findViewById(R.id.afterLayout);
+                    afterLayout.setVisibility(View.VISIBLE);
+
+                    afternoonNow = findViewById(R.id.afterNow);
+                    afternoonNow.setText("该天未打卡");
+
+                    afterrelocation = findViewById(R.id.afterrelocation);
+                    afterrelocation.setVisibility(View.INVISIBLE);
+
+                    afternoonlocation = findViewById(R.id.afterlocation);
+                    afternoonlocation.setText("未知地点");
+
+                    afterimageButton = findViewById(R.id.afterimageButton);
+                    afterimageButton.setVisibility(View.GONE);
+
+                    afterImage = findViewById(R.id.afterImage);
+                    afterImage.setVisibility(View.INVISIBLE);
+                }
+                else{
+                    dateString = findViewById(R.id.dateString);
+                    dateString.setText(datetime.substring(0,10));
+
+                    // 上午已打
+                    morningNow = findViewById(R.id.morningNow);
+                    morningNow.setText("打卡时间 "+ morningtime.substring(11,16));
+
+                    morninglocation = findViewById(R.id.morninglocation);
+                    morninglocation.setText(clocklist.get(0).getString("Address"));
+
+                    morningIcon = findViewById(R.id.morningBall);
+                    morningIcon.setImageResource(R.mipmap.grey_ball);
+
+                    afternoonIcon = findViewById(R.id.afternoonBall);
+                    afternoonIcon.setImageResource(R.mipmap.grey_ball);
+
+                    morningrelocation = findViewById(R.id.morningrelocation);
+                    morningrelocation.setVisibility(View.INVISIBLE);
+
+                    morningimageButton = findViewById(R.id.morningimageButton);
+                    morningimageButton.setVisibility(View.GONE);
+
+                    morningImage = findViewById(R.id.morningImage);
+                    morningImage.setVisibility(View.VISIBLE);
+                    morningPictureCapturedPath = basicPicturePath + morningPictureCapturedPath;
+                    morningBase64 = img2base.encodeImageToBase64(morningPictureCapturedPath);
+                    byte[] decodedString = Base64.decode(morningBase64, Base64.DEFAULT);
+                    Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+                    morningImage.setImageBitmap(decodedByte);
+
+                    // 下午已打
+                    afterLayout = findViewById(R.id.afterLayout);
+                    afterLayout.setVisibility(View.VISIBLE);
+
+                    afternoonNow = findViewById(R.id.afterNow);
+                    afternoonNow.setText("打卡时间 "+ afternoontime.substring(11,16));
+
+                    afterrelocation = findViewById(R.id.afterrelocation);
+                    afterrelocation.setVisibility(View.INVISIBLE);
+
+                    afternoonlocation = findViewById(R.id.afterlocation);
+                    afternoonlocation.setText(clocklist.get(1).getString("Address"));
+
+                    afterimageButton = findViewById(R.id.afterimageButton);
+                    afterimageButton.setVisibility(View.GONE);
+
+                    afterImage = findViewById(R.id.afterImage);
+                    afterImage.setVisibility(View.VISIBLE);
+
+                    afternoonPictureCapturedPath = basicPicturePath + afternoonPictureCapturedPath;
+                    afternoonBase64 = img2base.encodeImageToBase64(afternoonPictureCapturedPath);
+                    byte[] decodedStringAfter = Base64.decode(afternoonBase64, Base64.DEFAULT);
+                    Bitmap decodedByteAfter = BitmapFactory.decodeByteArray(decodedStringAfter, 0, decodedStringAfter.length);
+                    afterImage.setImageBitmap(decodedByteAfter);
+                }
+                dateChanged = false;
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+
+            @Override
+            public void onComplete() {
+
+            }
+        },App.userId, "0");
     }
 
     void showUI(){
@@ -124,7 +389,8 @@ public class ClockInWorkActivity extends AppCompatActivity {
                 Boolean isClockInMorning = false;
                 Boolean isClockInAfternoon = false;
 
-                // 通过选择日历获取历史
+                clocklist = new ArrayList<JSONObject>();
+
                 if(dateChanged)
                     datetime = selectedDateByCalendar;
 
@@ -141,41 +407,48 @@ public class ClockInWorkActivity extends AppCompatActivity {
                             isClockInMorning = true;
                             clocklist.add(jsonObject);
                             morningtime = return_date;
+                            morningPictureCapturedPath = jsonObject.getString("Path");
                         }
                         if(tmp.getTime() > afterpermission.getTime()){
                             isClockInAfternoon = true;
                             clocklist.add(jsonObject);
                             afternoontime = return_date;
+                            afternoonPictureCapturedPath = jsonObject.getString("Path");
                             break;
                         }
                     }
                 }
-
                 // 上班打卡
                 if(!isClockInAfternoon && !isClockInMorning ){
 
-                    TextView dateString = findViewById(R.id.dateString);
+                    dateString = findViewById(R.id.dateString);
                     dateString.setText(datetime.substring(0,10));
 
-                    TextView morningNow = findViewById(R.id.morningNow);
+                    morningIcon = findViewById(R.id.morningBall);
+                    morningIcon.setImageResource(R.mipmap.blue_ball);
+
+                    afternoonIcon = findViewById(R.id.afternoonBall);
+                    afternoonIcon.setImageResource(R.mipmap.grey_ball);
+
+                    morningNow = findViewById(R.id.morningNow);
                     morningNow.setText("打卡时间 "+ datetime.substring(11,16));
 
-                    TextView location = findViewById(R.id.morninglocation);
-                    location.setText(morningloc.GetAddrStr());
+                    morninglocation = findViewById(R.id.morninglocation);
+                    morninglocation.setText(morningloc.GetAddrStr());
 
-                    TextView morningrelocation = findViewById(R.id.morningrelocation);
+                    morningrelocation = findViewById(R.id.morningrelocation);
                     morningrelocation.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
                             morningloc = new LocationUtil();
                             morningloc.initLocationOption(getApplicationContext());
 
-                            TextView location = findViewById(R.id.morninglocation);
-                            location.setText(morningloc.GetAddrStr());
+                            morninglocation = findViewById(R.id.morninglocation);
+                            morninglocation.setText(morningloc.GetAddrStr());
                         }
                     });
 
-                    final ImageButton morningimageButton = findViewById(R.id.morningimageButton);
+                    morningimageButton = findViewById(R.id.morningimageButton);
                     morningimageButton.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
@@ -186,7 +459,7 @@ public class ClockInWorkActivity extends AppCompatActivity {
                         }
                     });
 
-                    Button clockIn = findViewById(R.id.clockIn);
+                    clockIn = findViewById(R.id.clockIn);
                     clockIn.setText("上班打卡");
                     clockIn.setOnClickListener(new View.OnClickListener() {
                         @Override
@@ -199,11 +472,28 @@ public class ClockInWorkActivity extends AppCompatActivity {
                             else{
                                 if(!morningClockIn){
                                     morningClockIn = true;
-                                    Pattern pattern = Pattern.compile("[0-9][0-9].+");
-                                    Matcher matcher = pattern.matcher(morningPictureCapturedPath);
-                                    if(matcher.find())
-                                        morningPictureCapturedPath = matcher.group(0);
-                                    addClockIn(datetime, String.valueOf(morningloc.GetLat()), String.valueOf(morningloc.GetLng()), "0",morningPictureCapturedPath, "");
+                                    morningBase64 = img2base.getBase64(morningPictureCapturedPath);
+                                    Requests.Picture_SaveBLL(new Observer<JSONObject>() {
+                                        @Override
+                                        public void onSubscribe(Disposable d) {
+
+                                        }
+
+                                        @Override
+                                        public void onNext(JSONObject object) {
+                                            morningPictureCapturedPath = object.getString("Temp");
+                                            fakeMorningPic = img2base.getPicName(morningPictureCapturedPath);
+                                        }
+
+                                        @Override
+                                        public void onError(Throwable e) {
+                                        }
+
+                                        @Override
+                                        public void onComplete() {
+                                            addClockIn(datetime, String.valueOf(morningloc.GetLat()), String.valueOf(morningloc.GetLng()), "0",fakeMorningPic, "");
+                                        }
+                                    },morningBase64,"jpg");
                                     Toast.makeText(ClockInWorkActivity.this,"上班打卡成功", Toast.LENGTH_SHORT).show();
                                 }
                                 else
@@ -216,51 +506,63 @@ public class ClockInWorkActivity extends AppCompatActivity {
                 else if(!isClockInAfternoon && isClockInMorning){
 
 
-                    TextView dateString = findViewById(R.id.dateString);
+                    dateString = findViewById(R.id.dateString);
                     dateString.setText(datetime.substring(0,10));
 
                     // 上午已打
-                    TextView morningNow = findViewById(R.id.morningNow);
+                    morningNow = findViewById(R.id.morningNow);
                     morningNow.setText("打卡时间 "+ morningtime.substring(11,16));
 
-                    TextView morninglocation = findViewById(R.id.morninglocation);
+                    morningIcon = findViewById(R.id.morningBall);
+                    morningIcon.setImageResource(R.mipmap.grey_ball);
+
+                    afternoonIcon = findViewById(R.id.afternoonBall);
+                    afternoonIcon.setImageResource(R.mipmap.blue_ball);
+
+                    morninglocation = findViewById(R.id.morninglocation);
                     morninglocation.setText(clocklist.get(0).getString("Address"));
 
 
-                    ImageButton morningimageButton = findViewById(R.id.morningimageButton);
+                    morningimageButton = findViewById(R.id.morningimageButton);
                     morningimageButton.setVisibility(View.GONE);
 
-                    ImageView morningImage = findViewById(R.id.morningImage);
+                    morningImage = findViewById(R.id.morningImage);
                     morningImage.setVisibility(View.VISIBLE);
-                    morningImage.setImageURI(Uri.fromFile(new File(basicPicturePath + clocklist.get(0).getString("Path"))));
 
-                    TextView morningrelocation = findViewById(R.id.morningrelocation);
+                    morningPictureCapturedPath = basicPicturePath + morningPictureCapturedPath;
+                    morningBase64 = img2base.encodeImageToBase64(morningPictureCapturedPath);
+                    byte[] decodedString = Base64.decode(morningBase64, Base64.DEFAULT);
+                    Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+                    morningImage.setImageBitmap(decodedByte);
+
+
+                    morningrelocation = findViewById(R.id.morningrelocation);
                     morningrelocation.setVisibility(View.INVISIBLE);
 
                     // 照片
-                    LinearLayout afterLayout = findViewById(R.id.afterLayout);
+                    afterLayout = findViewById(R.id.afterLayout);
                     afterLayout.setVisibility(View.VISIBLE);
 
                     // 下午未打
-                    TextView afternoonNow = findViewById(R.id.afterNow);
+                    afternoonNow = findViewById(R.id.afterNow);
                     afternoonNow.setText("打卡时间 "+ datetime.substring(11,16));
 
-                    TextView afternoonlocation = findViewById(R.id.afterlocation);
+                    afternoonlocation = findViewById(R.id.afterlocation);
                     afternoonlocation.setText(morningloc.GetAddrStr());
 
-                    TextView afterrelocation = findViewById(R.id.afterrelocation);
+                    afterrelocation = findViewById(R.id.afterrelocation);
                     afterrelocation.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
                             afternoonloc = new LocationUtil();
                             afternoonloc.initLocationOption(getApplicationContext());
 
-                            TextView location = findViewById(R.id.afterlocation);
-                            location.setText(afternoonloc.GetAddrStr());
+                            afternoonlocation = findViewById(R.id.afterlocation);
+                            afternoonlocation.setText(afternoonloc.GetAddrStr());
                         }
                     });
 
-                    ImageButton afterimageButton = findViewById(R.id.afterimageButton);
+                    afterimageButton = findViewById(R.id.afterimageButton);
                     afterimageButton.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
@@ -270,7 +572,7 @@ public class ClockInWorkActivity extends AppCompatActivity {
                         }
                     });
 
-                    Button clockIn = findViewById(R.id.clockIn);
+                    clockIn = findViewById(R.id.clockIn);
                     clockIn.setText("下班打卡");
                     clockIn.setOnClickListener(new View.OnClickListener() {
                         @Override
@@ -283,12 +585,30 @@ public class ClockInWorkActivity extends AppCompatActivity {
                             else{
                                 if(!afternoonClockIn){
                                     afternoonClockIn = true;
-                                    Pattern pattern = Pattern.compile("[0-9][0-9].+");
-                                    Matcher matcher = pattern.matcher(afternoonPictureCapturedPath);
-                                    if(matcher.find())
-                                        afternoonPictureCapturedPath = matcher.group(0);
-                                    addClockIn(datetime, String.valueOf(afternoonloc.GetLat()),
-                                            String.valueOf(afternoonloc.GetLng()), "0",afternoonPictureCapturedPath, "");
+                                    afternoonBase64 = img2base.getBase64(afternoonPictureCapturedPath);
+                                    Requests.Picture_SaveBLL(new Observer<JSONObject>() {
+                                        @Override
+                                        public void onSubscribe(Disposable d) {
+
+                                        }
+
+                                        @Override
+                                        public void onNext(JSONObject object) {
+                                            afternoonPictureCapturedPath = object.getString("Temp");
+                                            fakeAfternoonPic = img2base.getPicName(afternoonPictureCapturedPath);
+                                        }
+
+                                        @Override
+                                        public void onError(Throwable e) {
+
+                                        }
+
+                                        @Override
+                                        public void onComplete() {
+                                            addClockIn(datetime, String.valueOf(afternoonloc.GetLat()),
+                                                    String.valueOf(afternoonloc.GetLng()), "0",fakeAfternoonPic, "");
+                                        }
+                                    },afternoonBase64,"jpg");
                                     Toast.makeText(ClockInWorkActivity.this,"下班打卡成功", Toast.LENGTH_SHORT).show();
                                 }
                                 else
@@ -301,49 +621,64 @@ public class ClockInWorkActivity extends AppCompatActivity {
                 // 查看
                 else{
 
-                    TextView dateString = findViewById(R.id.dateString);
+                    dateString = findViewById(R.id.dateString);
                     dateString.setText(datetime.substring(0,10));
 
                     // 上午已打
-                    TextView morningNow = findViewById(R.id.morningNow);
+                    morningNow = findViewById(R.id.morningNow);
                     morningNow.setText("打卡时间 "+ morningtime.substring(11,16));
 
-                    TextView morninglocation = findViewById(R.id.morninglocation);
+                    morninglocation = findViewById(R.id.morninglocation);
                     morninglocation.setText(clocklist.get(0).getString("Address"));
 
-                    TextView morningrelocation = findViewById(R.id.morningrelocation);
+                    morningIcon = findViewById(R.id.morningBall);
+                    morningIcon.setImageResource(R.mipmap.grey_ball);
+
+                    afternoonIcon = findViewById(R.id.afternoonBall);
+                    afternoonIcon.setImageResource(R.mipmap.grey_ball);
+
+                    morningrelocation = findViewById(R.id.morningrelocation);
                     morningrelocation.setVisibility(View.INVISIBLE);
 
-                    ImageButton morningimageButton = findViewById(R.id.morningimageButton);
+                    morningimageButton = findViewById(R.id.morningimageButton);
                     morningimageButton.setVisibility(View.GONE);
 
-                    ImageView morningImage = findViewById(R.id.morningImage);
+                    morningImage = findViewById(R.id.morningImage);
                     morningImage.setVisibility(View.VISIBLE);
-                    morningImage.setImageURI(Uri.fromFile(new File(basicPicturePath + clocklist.get(0).getString("Path"))));
+                    morningPictureCapturedPath = basicPicturePath + morningPictureCapturedPath;
+                    morningBase64 = img2base.encodeImageToBase64(morningPictureCapturedPath);
+                    byte[] decodedString = Base64.decode(morningBase64, Base64.DEFAULT);
+                    Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+                    morningImage.setImageBitmap(decodedByte);
 
                     // 下午已打
-                    LinearLayout afterLayout = findViewById(R.id.afterLayout);
+                    afterLayout = findViewById(R.id.afterLayout);
                     afterLayout.setVisibility(View.VISIBLE);
 
-                    TextView afternoonNow = findViewById(R.id.afterNow);
+                    afternoonNow = findViewById(R.id.afterNow);
                     afternoonNow.setText("打卡时间 "+ afternoontime.substring(11,16));
 
-                    TextView afterrelocation = findViewById(R.id.afterrelocation);
+                    afterrelocation = findViewById(R.id.afterrelocation);
                     afterrelocation.setVisibility(View.INVISIBLE);
 
-                    TextView afternoonlocation = findViewById(R.id.afterlocation);
+                    afternoonlocation = findViewById(R.id.afterlocation);
                     afternoonlocation.setText(clocklist.get(1).getString("Address"));
 
-                    ImageButton afterimageButton = findViewById(R.id.afterimageButton);
+                    afterimageButton = findViewById(R.id.afterimageButton);
                     afterimageButton.setVisibility(View.GONE);
 
-                    ImageView afterImage = findViewById(R.id.afterImage);
+                    afterImage = findViewById(R.id.afterImage);
                     afterImage.setVisibility(View.VISIBLE);
-                    afterImage.setImageURI(Uri.fromFile(new File(basicPicturePath + clocklist.get(1).getString("Path"))));
+
+                    afternoonPictureCapturedPath = basicPicturePath + afternoonPictureCapturedPath;
+                    afternoonBase64 = img2base.encodeImageToBase64(afternoonPictureCapturedPath);
+                    byte[] decodedStringAfter = Base64.decode(afternoonBase64, Base64.DEFAULT);
+                    Bitmap decodedByteAfter = BitmapFactory.decodeByteArray(decodedStringAfter, 0, decodedStringAfter.length);
+                    afterImage.setImageBitmap(decodedByteAfter);
 
 
                     // 查看
-                    LinearLayout clockInLayout = findViewById(R.id.clockInLayout);
+                    clockInLayout = findViewById(R.id.clockInLayout);
                     clockInLayout.setVisibility(View.GONE);
 
                 }
@@ -391,20 +726,20 @@ public class ClockInWorkActivity extends AppCompatActivity {
         if (requestCode == 1 && resultCode == 101) {
             morningPictureCapturedPath = path;
 
-            ImageButton morningimageButton = findViewById(R.id.morningimageButton);
+            morningimageButton = findViewById(R.id.morningimageButton);
             morningimageButton.setVisibility(View.GONE);
 
-            ImageView morningImage = findViewById(R.id.morningImage);
+            morningImage = findViewById(R.id.morningImage);
             morningImage.setVisibility(View.VISIBLE);
             morningImage.setImageURI(Uri.fromFile(new File(path)));
         }
         if (requestCode == 2 && resultCode == 101) {
             afternoonPictureCapturedPath = path;
 
-            ImageButton afterimageButton = findViewById(R.id.afterimageButton);
+            afterimageButton = findViewById(R.id.afterimageButton);
             afterimageButton.setVisibility(View.GONE);
 
-            ImageView afterImage = findViewById(R.id.afterImage);
+            afterImage = findViewById(R.id.afterImage);
             afterImage.setVisibility(View.VISIBLE);
             afterImage.setImageURI(Uri.fromFile(new File(path)));
         }

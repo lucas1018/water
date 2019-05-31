@@ -31,8 +31,7 @@
             android:layout_centerVertical="true"
             android:text="到家历史记录"
             android:textColor="#fff"
-            android:textSize="18dp"
-            android:textStyle="bold" />
+            android:textSize="16dp"/>
 
 
     </RelativeLayout>
@@ -43,8 +42,11 @@
         android:orientation="vertical">
 
         <LinearLayout
+            android:id="@+id/selected_layout"
             android:layout_width="match_parent"
             android:layout_height="50dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
             android:gravity="center"
             android:orientation="horizontal">
 
@@ -53,9 +55,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="选择月份："
-                android:layout_marginLeft="10dp"
-                android:textSize="18dp"
-                android:textColor="#000000"/>
+                android:textColor="#000000"
+                android:textSize="16dp" />
 
             <TextView
                 android:id="@+id/seleted_date"
@@ -63,19 +64,32 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="TextView"
-                android:textSize="18dp"
-                android:textColor="#000000"/>
+                android:textColor="#000000"
+                android:textSize="16dp" />
+
+            <ImageButton
+                android:id="@+id/array_button"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:background="#ffffff"
+                app:srcCompat="@mipmap/right_array" />
+
+
         </LinearLayout>
 
         <GridView
             android:id="@+id/history_title"
             android:layout_width="match_parent"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
             android:layout_height="wrap_content"
             android:numColumns="2"
-            android:background="#cccccc"/>
+            android:background="#EEEEEE"/>
 
         <GridView
             android:id="@+id/history_list"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:numColumns="2" />

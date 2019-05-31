@@ -48,24 +48,20 @@
     <TextView
         android:id="@+id/dateString"
         android:layout_width="match_parent"
-        android:layout_height="30dp"
+        android:layout_height="50dp"
         android:gravity="center"
         android:textColor="#101010"
-        android:textSize="15dp"
+        android:textSize="16dp"
         android:text="TextView" />
 
-    <CalendarView
-        android:id="@+id/calendarView"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="104dp" />
-
-    <TextView
-        android:id="@+id/textNull"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#F4F4F4"
-        android:textSize="10dp"
-        android:text="" />
+        android:layout_height="1dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="20dp"
+        android:orientation="horizontal"
+        android:background="#EEEEEE"
+        ></LinearLayout>
 
     <ScrollView
         android:layout_width="match_parent"
@@ -76,6 +72,20 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
+
+            <CalendarView
+                android:id="@+id/calendarView"
+                android:layout_width="match_parent"
+                android:layout_height="302dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginLeft="20dp"
+                android:orientation="horizontal"
+                android:background="#EEEEEE"
+                ></LinearLayout>
 
             <LinearLayout
                 android:id="@+id/middleLayout"
@@ -90,15 +100,35 @@
                     android:layout_height="match_parent"
                     android:orientation="horizontal">
 
-                    <ImageView
-                        android:id="@+id/bar"
+                    <LinearLayout
                         android:layout_width="wrap_content"
-                        android:layout_height="194dp"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginTop="4dp"
-                        android:layout_marginRight="10dp"
+                        android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        app:srcCompat="@mipmap/clock_morning" />
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:id="@+id/morningBall"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:layout_weight="1"
+                            app:srcCompat="@mipmap/blue_ball" />
+
+                        <ImageView
+                            android:id="@+id/lineV"
+                            android:layout_width="match_parent"
+                            android:layout_height="214dp"
+                            android:layout_weight="1"
+                            app:srcCompat="@mipmap/line_vertical" />
+
+                        <ImageView
+                            android:id="@+id/afternoonBall"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            app:srcCompat="@mipmap/grey_ball" />
+
+                    </LinearLayout>
 
                     <LinearLayout
                         android:id="@+id/rightLayout"
@@ -110,8 +140,8 @@
                         <LinearLayout
                             android:id="@+id/morningLayout"
                             android:layout_width="match_parent"
-                            android:layout_height="420dp"
-                            android:layout_marginBottom="10dp"
+                            android:layout_height="510dp"
+                            android:layout_marginBottom="20dp"
                             android:layout_weight="1"
                             android:orientation="vertical">
 
@@ -119,21 +149,21 @@
                                 android:id="@+id/morning"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_marginBottom="10dp"
+                                android:layout_marginBottom="20dp"
                                 android:text="上班打卡 09:00" />
 
                             <TextView
                                 android:id="@+id/morningNow"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_marginBottom="10dp"
+                                android:layout_marginBottom="20dp"
                                 android:text="TextView"
                                 android:textColor="#000000" />
 
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_marginBottom="10dp"
+                                android:layout_marginBottom="20dp"
                                 android:orientation="horizontal">
 
                                 <ImageView
@@ -166,7 +196,7 @@
                                 android:id="@+id/TextView10"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_marginBottom="10dp"
+                                android:layout_marginBottom="20dp"
                                 android:text="现场照片" />
 
                             <LinearLayout
@@ -209,14 +239,14 @@
                                 android:id="@+id/afterNow"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_marginBottom="10dp"
+                                android:layout_marginBottom="20dp"
                                 android:text="TextView"
                                 android:textColor="#000000" />
 
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_marginBottom="10dp"
+                                android:layout_marginBottom="20dp"
                                 android:orientation="horizontal">
 
                                 <ImageView
@@ -249,7 +279,7 @@
                                 android:id="@+id/TextView12"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_marginBottom="10dp"
+                                android:layout_marginBottom="20dp"
                                 android:text="现场照片" />
 
                             <LinearLayout

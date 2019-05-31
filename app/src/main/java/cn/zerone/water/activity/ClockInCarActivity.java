@@ -3,11 +3,14 @@ package cn.zerone.water.activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.text.InputType;
+import android.util.Base64;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
@@ -36,6 +39,7 @@ import cn.zerone.water.App;
 import cn.zerone.water.R;
 import cn.zerone.water.http.Requests;
 import cn.zerone.water.utils.LocationUtil;
+import cn.zerone.water.utils.image2Base64Util;
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 
@@ -74,6 +78,7 @@ public class ClockInCarActivity extends AppCompatActivity {
     private String station;
     private String type;
     private String basicPicturePath = "/storage/emulated/0/JCamera/picture_";
+    private String fakePath;
     private String carPictureCapturedPath;
 
     private Boolean isNumber = false;
@@ -86,6 +91,11 @@ public class ClockInCarActivity extends AppCompatActivity {
     private Boolean isRepeatDepart = false;
 
     private LocationUtil loc;
+    private String picBase64;
+    private String pic2base64;
+    private String base64;
+
+    private image2Base64Util img2base;
 
 
     @Override
@@ -113,6 +123,7 @@ public class ClockInCarActivity extends AppCompatActivity {
         location.setText(loc.GetAddrStr());
 
         car_back = (ImageView) findViewById(R.id.car_back);
+        img2base = new image2Base64Util();
 
         date = new Date(System.currentTimeMillis());
         datetime = simpleDateFormat.format(date);
@@ -122,6 +133,15 @@ public class ClockInCarActivity extends AppCompatActivity {
     }
 
     void setListener(){
+        Button car_history = findViewById(R.id.car_history);
+        car_history.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(ClockInCarActivity.this, HistoryCarClockInActivity.class));
+            }
+        });
+
+
         carNumberButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -197,21 +217,6 @@ public class ClockInCarActivity extends AppCompatActivity {
                 else{
                     // 判断今天是否已打卡
                     whetherRepeat();
-                    if(isRepeatDepart)
-                        Toast.makeText(ClockInCarActivity.this,"您今天已出发打卡，请勿重复操作", Toast.LENGTH_SHORT).show();
-                    else if(isRepeatArrival)
-                        Toast.makeText(ClockInCarActivity.this,"您今天已到达打卡，请勿重复操作", Toast.LENGTH_SHORT).show();
-                    else if(isRepeatFinish)
-                        Toast.makeText(ClockInCarActivity.this,"您今天已完工打卡，请勿重复操作", Toast.LENGTH_SHORT).show();
-                    else{
-                        Pattern pattern = Pattern.compile("[0-9][0-9].+");
-                        Matcher matcher = pattern.matcher(carPictureCapturedPath);
-                        if(matcher.find())
-                            carPictureCapturedPath = matcher.group(0);
-                        addClockIn(datetime, String.valueOf(loc.GetLat()),
-                                String.valueOf(loc.GetLng()), type,carPictureCapturedPath, "", projectID, stationID, carID);
-                        Toast.makeText(ClockInCarActivity.this,"打卡成功", Toast.LENGTH_SHORT).show();
-                    }
                 }
             }
         });
@@ -255,7 +260,9 @@ public class ClockInCarActivity extends AppCompatActivity {
             carImage = findViewById(R.id.carImage);
             carImage.setVisibility(View.VISIBLE);
             carImage.setImageURI(Uri.fromFile(new File(path)));
-            isPictureCaptured=true;
+
+            isPictureCaptured = true;
+
         }
     }
 
@@ -293,6 +300,7 @@ public class ClockInCarActivity extends AppCompatActivity {
                 isRepeatArrival=false;
                 isRepeatDepart=false;
                 isRepeatFinish=false;
+                String str="";
                 for(int i = 0; i<objects.size();i++){
                     JSONObject jsonObject = objects.getJSONObject(i);
                     String time = jsonObject.getString("AddTime");
@@ -302,14 +310,51 @@ public class ClockInCarActivity extends AppCompatActivity {
                     Calendar c = Calendar.getInstance();
                     c.setTimeInMillis(timeLong);
                     String tt = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(c.getTime());
+                    str = str + tt.substring(0,10);
                     if(tt.substring(0,10).equals(datetime.substring(0, 10))){
-                        if(thisType=="0")
+                        if(thisType.equals("0"))
                             isRepeatDepart=true;
-                        if(thisType=="1")
+                        if(thisType.equals("1"))
                             isRepeatArrival=true;
-                        if(thisType=="2")
+                        if(thisType.equals("2"))
                             isRepeatFinish=true;
                     }
+                }
+
+                // Toast.makeText(ClockInCarActivity.this,Boolean.toString(isRepeatArrival) + Boolean.toString(isRepeatFinish) +Boolean.toString(isRepeatDepart), Toast.LENGTH_SHORT).show();
+                if(isRepeatDepart&&type.equals("0"))
+                    Toast.makeText(ClockInCarActivity.this,"您今天已出发打卡，请勿重复操作", Toast.LENGTH_SHORT).show();
+                else if(isRepeatArrival&&type.equals("1"))
+                    Toast.makeText(ClockInCarActivity.this,"您今天已到达打卡，请勿重复操作", Toast.LENGTH_SHORT).show();
+                else if(isRepeatFinish&&type.equals("2"))
+                    Toast.makeText(ClockInCarActivity.this,"您今天已完工打卡，请勿重复操作", Toast.LENGTH_SHORT).show();
+                else {
+
+                    pic2base64 = img2base.getBase64(carPictureCapturedPath);
+                    Requests.Picture_SaveBLL(new Observer<JSONObject>() {
+                        @Override
+                        public void onSubscribe(Disposable d) {
+
+                        }
+
+                        @Override
+                        public void onNext(JSONObject object) {
+                            carPictureCapturedPath = object.getString("Temp");
+                            fakePath = img2base.getPicName(carPictureCapturedPath);
+                        }
+
+                        @Override
+                        public void onError(Throwable e) {
+
+                        }
+
+                        @Override
+                        public void onComplete() {
+                            addClockIn(datetime, String.valueOf(loc.GetLat()),
+                                    String.valueOf(loc.GetLng()), type, fakePath, "", projectID, stationID, carID);
+                        }
+                    },pic2base64,"jpg");
+                    Toast.makeText(ClockInCarActivity.this, "打卡成功", Toast.LENGTH_SHORT).show();
                 }
             }
             @Override

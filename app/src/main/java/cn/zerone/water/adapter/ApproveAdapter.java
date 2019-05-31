@@ -19,6 +19,7 @@ import java.util.List;
 import cn.zerone.water.R;
 import cn.zerone.water.activity.ApproveActivity;
 import cn.zerone.water.activity.CheckDetailsActivity;
+import cn.zerone.water.activity.CheckSubmitActivity;
 
 public class ApproveAdapter extends RecyclerView.Adapter<ApproveAdapter.ViewHolder> {
 
@@ -74,8 +75,8 @@ public class ApproveAdapter extends RecyclerView.Adapter<ApproveAdapter.ViewHold
                     intent.putExtras(bundle);
                     intent.setClass(v.getContext(), CheckDetailsActivity.class);
                     v.getContext().startActivity(intent);
+                    //startActivityForResult(intent, 1);
                 }
-
 
             }
 

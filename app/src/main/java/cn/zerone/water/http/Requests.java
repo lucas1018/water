@@ -267,6 +267,20 @@ public class Requests {
         baseJSONArray(observer, "PROJECT_INFO_GetList", requestBody);
     }
 
+    public static void getProjectLogByField(Observer<JSONObject> observer, String projectId) {
+        RequestBody requestBody = new FormBody.Builder()
+                .add("field", "ID")
+                .add("value", projectId).build();
+        baseJSONObject(observer, "PROJECT_INFO_GetListByField", requestBody);
+    }
+
+    public static void getStationByField(Observer<JSONObject> observer, String stationId) {
+        RequestBody requestBody = new FormBody.Builder()
+                .add("field", "ID")
+                .add("value", stationId).build();
+        baseJSONObject(observer, "STATION_INFO_GetListByField", requestBody);
+    }
+
     // 获取相关项目的站点信息
     public static void getStationList(Observer<JSONArray> observer, String id, String val) {
         RequestBody requestBody = new FormBody.Builder()
@@ -274,6 +288,12 @@ public class Requests {
                 .add("field", "PROJECT_ID")
                 .add("value", val).build();
         baseJSONArray(observer, "STATION_INFO_GetListByField", requestBody);
+    }
+
+    public static void getAllStationList(Observer<JSONArray> observer, String id) {
+        RequestBody requestBody = new FormBody.Builder()
+                .add("ID", id).build();
+        baseJSONArray(observer, "STATION_INFO_GetList", requestBody);
     }
 
     //调用消息列表接口
@@ -399,6 +419,14 @@ public class Requests {
                 .add("CarInfoId", CarID)
                 .build();
         baseString(observer, "CarGpsPhoto_SaveBLL", requestBody);
+    }
+
+    public static void Picture_SaveBLL(Observer<JSONObject> observer, String strbase64, String suffix) {
+        RequestBody requestBody = new FormBody.Builder()
+                .add("strbase64", strbase64)
+                .add("suffix", suffix)
+                .build();
+        baseJSONObject(observer, "SavePic", requestBody);
     }
 
     public static void getCarClockInList(Observer<JSONArray> observer, String id) {

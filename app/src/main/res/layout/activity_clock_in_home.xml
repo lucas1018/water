@@ -31,19 +31,19 @@
             android:layout_centerVertical="true"
             android:text="安全到家"
             android:textColor="#fff"
-            android:textSize="18dp"
-            android:textStyle="bold" />
+            android:textSize="16dp" />
 
         <Button
             android:id="@+id/home_history"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
-            android:background="#008aca"
+            android:background="@null"
             android:text="历史纪录"
             android:textColor="#fff"
-            android:textSize="18dp" />
+            android:textSize="12dp" />
 
 
     </RelativeLayout>
@@ -77,7 +77,7 @@
                     android:id="@+id/textView"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:textSize="22dp"
+                    android:textSize="16dp"
                     android:layout_above="@+id/button_home"
                     android:gravity="center"
                     android:text="安全到家"
@@ -91,7 +91,7 @@
                     android:layout_gravity="center"
                     android:format24Hour="hh:mm:ss,EE"
                     android:textColor="#ffffff"
-                    android:textSize="20sp" />
+                    android:textSize="16dp" />
             </LinearLayout>
 
         </FrameLayout>
@@ -99,7 +99,6 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="#cccccc"
             android:orientation="horizontal">
 
             <ImageView
@@ -107,7 +106,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
+                android:layout_marginRight="10dp"
                 app:srcCompat="@mipmap/home_dec" />
 
             <TextView
@@ -116,24 +115,29 @@
                 android:layout_height="45dp"
                 android:gravity="center_vertical"
                 android:text="本月安全到家记录"
-                android:textColor="#626161"
-                android:textSize="20dp" />
+                android:textColor="#000000"
+                android:textStyle="bold"
+                android:textSize="16dp" />
         </LinearLayout>
 
     </LinearLayout>
 
-    <LinearLayout
+    <GridView
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:id="@+id/home_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#EEEEEE"
+        android:numColumns="2" />
+
+    <GridView
+        android:id="@+id/home_list"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="horizontal">
-
-        <GridView
-            android:id="@+id/home_list"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="center_vertical"
-            android:numColumns="2"/>
-    </LinearLayout>
+        android:numColumns="2"/>
 
 
 </LinearLayout>
