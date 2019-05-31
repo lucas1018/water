@@ -138,7 +138,7 @@ public class CalenderContentActivity extends AppCompatActivity {
     }
 
     private void SaveLog(String date, int type, final String job_content, String overtime_content, String overtime, String tomorrow, String remark) {
-//        Toast.makeText(CalenderContentActivity.this, "开始保存", Toast.LENGTH_SHORT).show();
+        Toast.makeText(CalenderContentActivity.this, "开始保存", Toast.LENGTH_SHORT).show();
         Requests.JobLog_SaveBLL(new Observer<String>() {
             @Override
             public void onSubscribe(Disposable d) {
@@ -165,7 +165,7 @@ public class CalenderContentActivity extends AppCompatActivity {
                 CalenderContentActivity.this.finish();
 
             }
-        }, App.userId, App.username, date, type, job_content, overtime_content, overtime, tomorrow, remark);
+        }, App.userId,  date, type, job_content, overtime_content, overtime, tomorrow, remark);
 
     }
 }

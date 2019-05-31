@@ -228,10 +228,10 @@ public class Requests {
     }
 
     //添加工作日志
-    public static void JobLog_SaveBLL(Observer<String> observer, String id, String username, String date, int  type, String job_content, String overtime_content, String overtime,String tomorrow,String remark) {
+    public static void JobLog_SaveBLL(Observer<String> observer, String id,  String date, int  type, String job_content, String overtime_content, String overtime,String tomorrow,String remark) {
         RequestBody requestBody = new FormBody.Builder()
                 .add("CreateUserId", id)//录入人
-                .add("Name", username)//姓名
+
                 .add("AddTime", date)//日期
                 .add("JobType", String.valueOf(type))//类型 日报=0,周报=1,月报=2,季报=3,年报=4
                 .add("JobContent", job_content)//日志内容
@@ -244,10 +244,9 @@ public class Requests {
     }
 
     //获取工作日志
-    public static void JobLog_GetModelBLL(Observer<String> observer, String id, String username) {
+    public static void JobLog_GetModelBLL(Observer<String> observer, String id) {
         RequestBody requestBody = new FormBody.Builder()
                 .add("CreateUserId", id)//录入人
-                .add("Name", username)//姓名
 
                 .build();
         baseString(observer, "JobLog_SaveBLL", requestBody);

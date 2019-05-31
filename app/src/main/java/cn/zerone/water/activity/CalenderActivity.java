@@ -147,7 +147,7 @@ public class CalenderActivity extends AppCompatActivity {
                 Intent intent = new Intent(CalenderActivity.this, CalenderContentActivity.class);
                 startActivity(intent);
             }
-        }, App.userId, App.username);
+        }, App.userId);
     }
 
     /**
@@ -179,7 +179,7 @@ public class CalenderActivity extends AppCompatActivity {
                 Intent intent = new Intent(CalenderActivity.this, CalenderContentActivity.class);
                 startActivity(intent);
             }
-        }, App.userId, App.username);
+        }, App.userId);
     }
 
     private String getSelectedDatesString() {
