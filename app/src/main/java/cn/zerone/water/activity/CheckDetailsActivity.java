@@ -55,6 +55,8 @@ public class CheckDetailsActivity extends AppCompatActivity {
         mBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent intent = new Intent();
+                setResult(720, intent);
                 finish();
             }
         });

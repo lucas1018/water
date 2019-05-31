@@ -74,6 +74,12 @@ public class ApproveActivity extends AppCompatActivity {
         initView();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        initView();
+    }
+
     public void initView() {
         mTabLayout = (TabLayout) findViewById(R.id.tablayout);
         mViewPager = (ViewPager) findViewById(R.id.viewpager);
@@ -101,6 +107,14 @@ public class ApproveActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        if (requestCode == 1 && resultCode == 720) {
+
+            //IsComplete = true;
+        }
     }
 
 }

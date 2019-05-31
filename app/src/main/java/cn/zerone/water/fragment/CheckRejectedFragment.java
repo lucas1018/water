@@ -169,7 +169,10 @@ public class CheckRejectedFragment extends Fragment {
                         Bitmap temp_bitmap = ImageUtil.getBitMBitmap(photo_url);
                         Bitmap bitmap = imageUtil.comp(temp_bitmap);
 
-                        String realTime = AddTime.substring(6,18);
+                        //String realTime = AddTime.substring(6,19);
+                        int lowIndex = AddTime.indexOf("(");
+                        int highIndex = AddTime.indexOf(")");
+                        String realTime = AddTime.substring(lowIndex + 1,highIndex);
                         Long longtime = Long.parseLong(realTime);
                         SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd");
                         String d = format.format(longtime);
