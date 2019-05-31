@@ -432,13 +432,11 @@ public class Requests {
         baseJSONObject(observer,"FeesForMeals_GetPageInfo",requestBody);
     }
 
-//    //获取任务列表
-//    public static JSONArray EngineeringStation_GetList(String User_id){
-//        RequestBody requestBody = new FormBody.Builder()
-//                .add("field","UserId")
-//                .add("value",User_id)
-//                .build();
-//        JSONArray jsons = baseJSONArray("EngineeringStation_GetListByField", requestBody);
-//        return jsons;
-//    }
+    //获取任务列表  EngineeringStation_GetList
+    public static void EngineeringStation_GetList(Observer<JSONArray> observer, String id) {
+        RequestBody requestBody = new FormBody.Builder()
+                .add("field", "UserId")
+                .add("value", id).build();
+        baseJSONArray(observer, "EngineeringStation_GetListByField", requestBody);
+    }
 }

@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.List;
@@ -34,6 +35,7 @@ public class TaskAdapter extends BaseAdapter {
         public TextView address;
         public TextView state;
         public TextView beginDate;
+        public LinearLayout mlineatLayoutItemContainer;
     }
 
 
@@ -53,7 +55,7 @@ public class TaskAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int position, View view, ViewGroup viewGroup) {
+    public View getView(final int position, View view, ViewGroup viewGroup) {
         TaskItem taskItem = null;
         if(view ==null){
             taskItem = new TaskItem();
@@ -62,6 +64,8 @@ public class TaskAdapter extends BaseAdapter {
             taskItem.stationName = (TextView)view.findViewById(R.id.station_name);
             taskItem.beginDate =(TextView)view.findViewById(R.id.begin_time);
             taskItem.state =(TextView)view.findViewById(R.id.state);
+            taskItem.address = (TextView) view.findViewById(R.id.address);
+            taskItem.mlineatLayoutItemContainer=view.findViewById(R.id.linearlayout_item_task);
 
         }
         else {
@@ -76,9 +80,28 @@ public class TaskAdapter extends BaseAdapter {
 
         taskItem.beginDate.setText((String)data.get(position).get("beginDate"));
         taskItem.state.setText((String)data.get(position).get("state"));
+        String address = (String)data.get(position).get("address");
+        if (address != null)
+            taskItem.address.setText(address);
 
         view.setTag(taskItem);
+        taskItem.mlineatLayoutItemContainer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+               if (onClickListener!=null){
+                   onClickListener.onClick(position);
+               }
+            }
+        });
 
         return view;
     }
+    public  onClickListener1 onClickListener;
+    public void setOnClickListener(onClickListener1 onClickListener){
+        this.onClickListener=onClickListener;
+    }
+    public  interface  onClickListener1{
+        void onClick(int position);
+    }
+
 }
