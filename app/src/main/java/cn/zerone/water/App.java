@@ -2,39 +2,21 @@ package cn.zerone.water;
 
 import android.app.Application;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
-import android.database.sqlite.SQLiteDatabase;
-import android.os.Handler;
-import android.os.Looper;
-import android.widget.Toast;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.JSONObject;
 import com.baidu.location.BDAbstractLocationListener;
 import com.baidu.location.BDLocation;
 import com.baidu.location.service.LocationService;
+import com.baidu.mapapi.CoordType;
 import com.baidu.mapapi.SDKInitializer;
 import com.example.jpushdemo.Logger;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.uuzuche.lib_zxing.activity.ZXingLibrary;
-import java.util.ArrayList;
-import java.util.List;
 
 import cn.jpush.android.api.JPushInterface;
-import cn.zerone.water.activity.DialogActivity;
-import cn.zerone.water.activity.MainActivity;
 import cn.zerone.water.http.Requests;
-import cn.zerone.water.model.DaoMaster;
-import cn.zerone.water.model.DaoSession;
 import cn.zerone.water.model.EngineeringStation;
-
 import cn.zerone.water.utils.MD5Utils;
-import io.reactivex.Observer;
-import io.reactivex.disposables.Disposable;
-import com.baidu.mapapi.CoordType;
-import com.baidu.mapapi.SDKInitializer;
 
 
 
@@ -53,13 +35,17 @@ public class App extends Application {
     private static Context context;
     private long lastUpdateGps = System.currentTimeMillis();
     boolean isTest =false;
-    private LocationService locationService;
+    public LocationService locationService;
     public EngineeringStation  engineeringStation = null;
     private static final String TAG = "JIGUANG-Example";
+    public final static String mPreUrl = "http://47.105.187.185:8011";
+    public static String device_tokens = null;
+
     @Override
     public void onCreate() {
         Logger.d(TAG, "[ExampleApplication] onCreate");
         super.onCreate();
+        device_tokens = JPushInterface.ACTION_REGISTRATION_ID;
         JPushInterface.setDebugMode(true); //正式环境时去掉此行代码
         JPushInterface.init(this);
 

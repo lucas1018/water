@@ -5,6 +5,7 @@ package cn.zerone.water.activity;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Handler;
@@ -13,6 +14,7 @@ import android.support.design.internal.BottomNavigationItemView;
 import android.support.design.internal.BottomNavigationMenuView;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -20,9 +22,10 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-import com.alibaba.fastjson.JSONObject;
+
 import com.uuzuche.lib_zxing.activity.CodeUtils;
 
 import java.util.ArrayList;
@@ -30,24 +33,20 @@ import java.util.List;
 
 import cn.zerone.water.App;
 import cn.zerone.water.R;
-import cn.zerone.water.fragment.FriendsFragment;
 import cn.zerone.water.fragment.HomeFragment;
-import cn.zerone.water.fragment.JobListFragment;
+import cn.zerone.water.fragment.TaskListFragment;
 import cn.zerone.water.fragment.LiveFragment;
-import cn.zerone.water.fragment.MasterArticleFragment;
 import cn.zerone.water.fragment.MyselfFragment;
 import cn.zerone.water.fragment.NoticeFragment;
-import cn.zerone.water.http.Requests;
 import cn.zerone.water.utils.BottomNavigationViewHelper;
-import io.reactivex.Observer;
 import io.reactivex.annotations.NonNull;
-import io.reactivex.disposables.Disposable;
 
 public class MainActivity extends AppCompatActivity {
     public static MainActivity activity;
+    private ImageView home;
 
     List<String> mViewList = new ArrayList<String>();//顶部用于循环的布局集合
-    Fragment[] fragments = new Fragment[]{new NoticeFragment(),new JobListFragment(),new HomeFragment(),new LiveFragment(),new MyselfFragment()};
+    Fragment[] fragments = new Fragment[]{new NoticeFragment(),new TaskListFragment(),new HomeFragment(),new LiveFragment(),new MyselfFragment()};
     //切换底部导航
 
     public synchronized void changeTab(int index,String url){
@@ -58,6 +57,12 @@ public class MainActivity extends AppCompatActivity {
             }else{
                 transaction.hide(fragments[i]);
             }
+        }
+        if (index == 2 ){
+            home.setImageResource(R.drawable.home_blue);
+        }
+        else{
+            home.setImageResource(R.drawable.home_gray);
         }
         transaction.commit();
 
@@ -130,6 +135,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        home = (ImageView)findViewById(R.id.navigation_center_image);
 
         ((App)getApplication()).mapInit();
 
@@ -146,12 +152,16 @@ public class MainActivity extends AppCompatActivity {
         changeTab(2,null);
 
         MainActivity.activity = this;
+        int a=  navigation.getChildCount();
+        int b=navigation.getMaxItemCount();
         BottomNavigationMenuView menuView  = (BottomNavigationMenuView) navigation.getChildAt(0);
+        navigation.setSelectedItemId(navigation.getMenu().getItem(2).getItemId());
+        home.setImageResource(R.drawable.home_blue);
         View tab = menuView.getChildAt(1);
         BottomNavigationItemView itemView = (BottomNavigationItemView) tab;
          badge = LayoutInflater.from(this).inflate(R.layout.menu_badge, null, false);
         itemView.addView(badge);
-         tab = menuView.getChildAt(3);
+         tab = menuView.getChildAt(1);
          itemView = (BottomNavigationItemView) tab;
         msgBadge= LayoutInflater.from(this).inflate(R.layout.menu_badge, null, false);
         itemView.addView(msgBadge);

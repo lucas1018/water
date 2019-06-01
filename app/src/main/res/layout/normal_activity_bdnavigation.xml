@@ -6,16 +6,51 @@
     android:orientation="vertical"
      >
 
-
-    <Button
-        android:id="@+id/NaviBtnOK"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="确定导航" />
+        android:layout_height="50dp"
+        android:background="#008aca">
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:id="@+id/navi_sure_back"
+            android:src="@drawable/back"
+            android:clickable="true"
+            android:layout_centerVertical="true"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="10dp"/>
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18dp"
+            android:layout_centerInParent="true"
+            android:textStyle="bold"
+            android:textColor="#fff"
+            android:paddingBottom="10dp"
+            android:text="导航" />
+
+        <Button
+            android:id="@+id/NaviBtnOK"
+            android:layout_width="40dp"
+            android:layout_height="20dp"
+            android:layout_marginRight="10dp"
+            android:layout_centerVertical="true"
+            android:background="#008aca"
+            android:textColor="#fff"
+            android:textSize="18dp"
+            android:layout_alignParentRight="true"
+            android:text="@string/action_sign_navi" />
+
+    </RelativeLayout>
+
 
     <com.baidu.mapapi.map.MapView
         android:id="@+id/desmapView"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent" />
+
+
 
 </LinearLayout>

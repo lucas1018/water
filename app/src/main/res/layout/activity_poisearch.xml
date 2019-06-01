@@ -4,20 +4,53 @@
     android:layout_height="fill_parent"
     android:orientation="vertical">
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="#008aca">
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:id="@+id/navi_search_back"
+            android:src="@drawable/back"
+            android:clickable="true"
+            android:layout_centerVertical="true"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="10dp"/>
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18dp"
+            android:layout_centerInParent="true"
+            android:textStyle="bold"
+            android:textColor="#fff"
+            android:paddingBottom="10dp"
+            android:text="导航" />
+
+    </RelativeLayout>
+
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="fill_parent"
         android:layout_height="50dip"
+        android:layout_margin="8dp"
+        android:layout_marginTop="8dp"
         android:orientation="horizontal">
 
-        <TextView
+        <ImageView
+            android:id="@+id/image_search"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="到"></TextView>
+            android:layout_height="match_parent"
+            android:src="@drawable/search1"
+            ></ImageView>
 
         <EditText
             android:id="@+id/city"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:layout_weight="0.5"
+            android:background="@drawable/edit_sytle"
             android:text="北京" />
 
         <TextView
@@ -28,7 +61,8 @@
         <AutoCompleteTextView
             android:id="@+id/searchkey"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@drawable/edit_sytle"
             android:layout_weight="0.88"
             android:text="天安门广场" />
 
@@ -37,9 +71,10 @@
             android:id="@+id/nvi"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="0.1"
             android:onClick="searchButtonProcess"
             android:padding="10dip"
+            android:background="#008aca"
+            android:textColor="#fff"
             android:text="搜索" />
     </LinearLayout>
 <!--
@@ -76,10 +111,14 @@
             android:text="区域搜索" />
     </LinearLayout>
 -->
+
+
     <fragment
         android:id="@+id/map"
         class="com.baidu.mapapi.map.SupportMapFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
+
+
 
 </LinearLayout>

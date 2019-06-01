@@ -2,8 +2,6 @@ package cn.zerone.water.map;
 
 import android.Manifest;
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
@@ -16,23 +14,19 @@ import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
 import android.support.v4.app.ActivityCompat;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.baidu.clusterutil.clustering.ClusterItem;
 import com.baidu.clusterutil.clustering.ClusterManager;
-import com.baidu.location.BDAbstractLocationListener;
-import com.baidu.location.BDLocation;
 import com.baidu.mapapi.map.BaiduMap;
 import com.baidu.mapapi.map.BitmapDescriptor;
 import com.baidu.mapapi.map.BitmapDescriptorFactory;
 import com.baidu.mapapi.map.MapStatus;
 import com.baidu.mapapi.map.MapStatusUpdateFactory;
 import com.baidu.mapapi.map.MapView;
-import com.baidu.mapapi.map.MyLocationData;
 import com.baidu.mapapi.model.LatLng;
 import com.baidu.navigation.service.ForegroundService;
 import com.baidu.navigation.service.NormalUtils;
@@ -47,8 +41,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cn.zerone.water.R;
-import cn.zerone.water.activity.DemoExtGpsActivity;
-import cn.zerone.water.activity.DemoGuideActivity;
+import cn.zerone.water.activity.BDExtGpsActivity;
+import cn.zerone.water.activity.BDGuideActivity;
+import cn.zerone.water.fragment.MasterArticleFragment;
 
 
 public class BDNavigationActivity extends Activity implements OnMapLoadedCallback {
@@ -76,6 +71,7 @@ public class BDNavigationActivity extends Activity implements OnMapLoadedCallbac
     private LocationManager mLocationManager;
 
     private Button mNaviBtn = null;
+    private ImageView mNavi_sure_back = null; //返回
     MapView mMapView;
     BaiduMap mBaiduMap;
     MapStatus ms;
@@ -136,6 +132,7 @@ public class BDNavigationActivity extends Activity implements OnMapLoadedCallbac
         }
 
         mNaviBtn = findViewById(R.id.NaviBtnOK);
+        mNavi_sure_back = findViewById(R.id.navi_sure_back);
         mMapView = (MapView) findViewById(R.id.desmapView);
 
         Intent it = getIntent();
@@ -143,7 +140,7 @@ public class BDNavigationActivity extends Activity implements OnMapLoadedCallbac
         mDestinationLng = it.getDoubleExtra("lng",0.0);
         mPlaceName = it.getStringExtra("place");
 
-        ms = new MapStatus.Builder().target(new LatLng(mDestinationLat, mDestinationLng)).zoom(8).build();
+        ms = new MapStatus.Builder().target(new LatLng(mDestinationLat, mDestinationLng)).zoom(12.0f).build();
         mBaiduMap = mMapView.getMap();
         mBaiduMap.setOnMapLoadedCallback(this);
         mBaiduMap.animateMapStatus(MapStatusUpdateFactory.newMapStatus(ms));
@@ -251,12 +248,23 @@ public class BDNavigationActivity extends Activity implements OnMapLoadedCallbac
     @Override
     public void onMapLoaded() {
         // TODO Auto-generated method stub
-        ms = new MapStatus.Builder().zoom(9).build();
+        ms = new MapStatus.Builder().zoom(12.0f).build();
         mBaiduMap.animateMapStatus(MapStatusUpdateFactory.newMapStatus(ms));
     }
 
 
     private void initListener() {
+        if(mNavi_sure_back != null){
+            mNavi_sure_back.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    finish();
+                    //Intent it =new Intent(BDNavigationActivity.this, PoiSearchActivity.class);
+                    //startActivity(it);
+                }
+            });
+
+        }
 
         if (mNaviBtn != null) {
             mNaviBtn.setOnClickListener(new View.OnClickListener() {
@@ -419,10 +427,10 @@ public class BDNavigationActivity extends Activity implements OnMapLoadedCallbac
                                 Intent intent = null;
                                 if (from == NORMAL) {
                                     intent = new Intent(BDNavigationActivity.this,
-                                            DemoGuideActivity.class);
+                                            BDGuideActivity.class);
                                 } else if (from == EXTERNAL) {
                                     intent = new Intent(BDNavigationActivity.this,
-                                            DemoExtGpsActivity.class);
+                                            BDExtGpsActivity.class);
                                 }
 
                                 startActivity(intent);

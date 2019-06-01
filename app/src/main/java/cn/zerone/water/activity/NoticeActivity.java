@@ -20,7 +20,6 @@ public class NoticeActivity extends Activity {
         TextView notice_content = (TextView)findViewById(R.id.notice_content) ;
         TextView notice_type = (TextView)findViewById(R.id.notice_type) ;
 
-
         Bundle bundle = getIntent().getExtras();
         String title = bundle.getString("title");
 
@@ -64,9 +63,5 @@ public class NoticeActivity extends Activity {
                 finish();
             }
         });
-
-
-
-
     }
 }

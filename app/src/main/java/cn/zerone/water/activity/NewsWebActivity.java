@@ -39,7 +39,7 @@ public class NewsWebActivity extends Activity {
     public void initView() {
         // TODO Auto-generated method stub
         mWebView = (WebView) findViewById(R.id.news_web);
-        mWebView.loadUrl(mBundle.getString("url"));
+        mWebView.loadUrl(mBundle.getString("Href"));
         mWebView.requestFocusFromTouch();
         mWebView.getSettings().setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
         /**覆盖调用系统或自带浏览器行为打开网页*/

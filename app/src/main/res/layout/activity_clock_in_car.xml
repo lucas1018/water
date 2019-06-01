@@ -31,234 +31,309 @@
             android:layout_centerVertical="true"
             android:text="车辆打卡"
             android:textColor="#fff"
-            android:textSize="18dp"
-            android:textStyle="bold" />
+            android:textSize="16dp" />
 
         <Button
-            android:id="@+id/button2"
+            android:id="@+id/car_history"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
-            android:background="#008aca"
+            android:background="@android:color/transparent"
             android:text="历史纪录"
             android:textColor="#fff"
-            android:textSize="18dp" />
+            android:textSize="12dp" />
 
 
     </RelativeLayout>
 
-    <LinearLayout
+    <TableLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="20dp"
+        android:stretchColumns="1">
 
-        <TextView
-            android:layout_width="54dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:minHeight="50dp"
-            android:singleLine="true"
-            android:text="车牌号码"
-            android:textSize="18dp" />
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-        <EditText
-            android:id="@+id/brand_number"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:ems="10"
-            android:inputType="text" />
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:gravity="center"
+                android:text="车牌号码"
+                android:layout_marginRight="20dp"
+                android:textColor="#999999"
+                android:textSize="16dp" />
 
-    </LinearLayout>
+            <TextView
+                android:id="@+id/carNumber"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:gravity="left"
+                android:textColor="#000000"
+                android:textSize="16dp" />
+
+            <ImageButton
+                android:id="@+id/carNumberButton"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="#ffffff"
+                app:srcCompat="@mipmap/right_array" />
+        </TableRow>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="fill_parent"
+            android:background="#EEEEEE"
+            android:layout_height="1dp"/>
+
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/textView5"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:gravity="center"
+                android:text="车         型"
+                android:layout_marginRight="20dp"
+                android:textColor="#999999"
+                android:textSize="16dp" />
+
+            <TextView
+                android:id="@+id/carType"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:gravity="left"
+                android:textColor="#000000"
+                android:textSize="16dp" />
+
+            <ImageButton
+                android:id="@+id/imageButton"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:visibility="invisible"
+                app:srcCompat="@mipmap/right_array" />
+        </TableRow>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="fill_parent"
+            android:background="#EEEEEE"
+            android:layout_height="1dp"/>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/textView7"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:text="所属项目"
+                android:layout_marginRight="20dp"
+                android:gravity="center"
+                android:textColor="#999999"
+                android:textSize="16dp" />
+
+            <TextView
+                android:id="@+id/relatedProject"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:gravity="left"
+                android:textColor="#000000"
+                android:textSize="16dp" />
+
+            <ImageButton
+                android:id="@+id/relatedProjectButton"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="#ffffff"
+                app:srcCompat="@mipmap/right_array" />
+        </TableRow>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="fill_parent"
+            android:background="#EEEEEE"
+            android:layout_height="1dp"/>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/textView9"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:gravity="center"
+                android:text="所在站点"
+                android:layout_marginRight="20dp"
+                android:textColor="#999999"
+                android:textSize="16dp" />
+
+            <TextView
+                android:id="@+id/relatedStation"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:gravity="left"
+                android:textColor="#000000"
+                android:textSize="16dp" />
+
+            <ImageButton
+                android:id="@+id/relatedStationButton"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="#ffffff"
+                app:srcCompat="@mipmap/right_array" />
+        </TableRow>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="fill_parent"
+            android:background="#EEEEEE"
+            android:layout_height="1dp"/>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/textView8"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:gravity="center"
+                android:text="打卡类型"
+                android:layout_marginRight="20dp"
+                android:textColor="#999999"
+                android:textSize="16dp" />
+
+            <TextView
+                android:id="@+id/clockInType"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:gravity="left"
+                android:textColor="#000000"
+                android:textSize="16dp" />
+
+            <ImageButton
+                android:id="@+id/clockInTypeButton"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="#ffffff"
+                app:srcCompat="@mipmap/right_array" />
+        </TableRow>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="fill_parent"
+            android:background="#EEEEEE"
+            android:layout_height="1dp"/>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/textView6"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:gravity="center"
+                android:layout_marginRight="20dp"
+                android:text="当前位置"
+                android:textColor="#999999"
+                android:textSize="16dp" />
+
+            <TextView
+                android:id="@+id/location"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:gravity="left"
+                android:textColor="#000000"
+                android:textSize="16dp" />
+
+            <TextView
+                android:id="@+id/relocation"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:textColor="#008ACA"
+                android:textSize="10dp"
+                android:text="重新定位" />
+        </TableRow>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="fill_parent"
+            android:background="#EEEEEE"
+            android:layout_height="1dp"/>
+
+    </TableLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:layout_height="match_parent"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_weight="1"
+        android:orientation="vertical">
 
         <TextView
-            android:layout_width="54dp"
+            android:id="@+id/textView18"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:minHeight="50dp"
-            android:singleLine="true"
-            android:text="车型"
-            android:textSize="18dp" />
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:textSize="16dp"
+            android:textColor="#999999"
+            android:text="现场照片" />
 
-        <EditText
-            android:id="@+id/car_type"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:ems="10"
-            android:inputType="text" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="54dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:minHeight="50dp"
-            android:singleLine="true"
-            android:text="所属项目"
-            android:textSize="18dp" />
-
-        <EditText
-            android:id="@+id/related_project"
-            android:layout_width="182dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:ems="10"
-            android:inputType="text" />
-
-        <ImageView
-            android:id="@+id/item_go"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="8dp"
-            android:src="@mipmap/my_approval"/>
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/carPictureButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="#ffffff"
+                app:srcCompat="@mipmap/camera" />
+
+            <ImageView
+                android:id="@+id/carImage"
+                android:layout_width="match_parent"
+                android:layout_height="156dp"
+                android:layout_weight="1"
+                android:visibility="invisible"
+                app:srcCompat="@mipmap/attendance" />
+        </LinearLayout>
 
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="54dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:minHeight="50dp"
-            android:singleLine="true"
-            android:text="所在站点"
-            android:textSize="18dp" />
-
-        <EditText
-            android:id="@+id/related_station"
-            android:layout_width="182dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:ems="10"
-            android:inputType="text" />
-
-        <ImageView
-            android:id="@+id/item2_go"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="8dp"
-            android:src="@mipmap/my_approval" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="54dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:minHeight="50dp"
-            android:singleLine="true"
-            android:text="打卡类型"
-            android:textSize="18dp" />
-
-        <EditText
-            android:id="@+id/clock_in_type"
-            android:layout_width="182dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:ems="10"
-            android:inputType="text" />
-
-        <ImageView
-            android:id="@+id/item3_go"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="8dp"
-            android:src="@mipmap/my_approval"/>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="54dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:minHeight="50dp"
-            android:singleLine="true"
-            android:text="所在位置"
-            android:textSize="18dp" />
-
-        <EditText
-            android:id="@+id/location"
-            android:layout_width="182dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:ems="10"
-            android:inputType="text" />
-
-        <ImageView
-            android:id="@+id/item4_go"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="8dp"
-            android:src="@mipmap/my_approval"/>
-
-    </LinearLayout>
-
-    <TextView
-        android:layout_width="112dp"
         android:layout_height="50dp"
-        android:gravity="center"
-        android:singleLine="true"
-        android:text="现场照片"
-        android:textSize="18dp" />
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:orientation="vertical">
 
-    <ImageButton
-        android:id="@+id/imageButton3"
-        android:layout_margin="20dp"
-        android:layout_width="60dp"
-        android:layout_height="wrap_content"
-        app:srcCompat="@drawable/ic_camera" />
-
-    <Button
-        android:id="@+id/button"
-        android:layout_width="190dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:background="#008ACA"
-        android:gravity="center"
-        android:text="车辆打卡"
-        android:textColor="#FFFFFF"
-        android:textSize="16dp" />
+        <Button
+            android:id="@+id/clockInButton"
+            android:layout_width="380dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:background="#008ACA"
+            android:gravity="center"
+            android:text="添加"
+            android:textColor="#FFFFFF"
+            android:textSize="16dp" />
+    </LinearLayout>
 
 
 </LinearLayout>

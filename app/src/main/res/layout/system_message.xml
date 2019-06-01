@@ -62,14 +62,14 @@
 
         <ImageView
             android:id="@+id/imageView3"
-            android:layout_width="20dp"
-            android:layout_height="25dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
-            android:layout_marginTop="0dp"
-            android:layout_marginEnd="140dp"
-            android:visibility="visible"
-            app:srcCompat="@drawable/time1" />
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="110dp"
+            android:src="@mipmap/notice_time"
+            android:visibility="visible" />
 
         <TextView
             android:id="@+id/create_time"
@@ -78,30 +78,32 @@
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
             android:layout_marginTop="1dp"
-
             android:layout_marginEnd="20dp"
             android:textSize="16sp" />
+        
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/relative4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/relative3"
+        android:layout_alignParentStart="true">
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_marginStart="0dp"
-            android:layout_marginTop="10dp"
-            android:tint="#ff0000"
-            app:srcCompat="@mipmap/line" />
-
-
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="3px"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:background="#ffeeeeee"></View>
     </RelativeLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/relative3"
+        android:layout_below="@+id/relative4"
         android:layout_alignParentStart="true"
         android:layout_marginStart="0dp"
         android:layout_marginTop="19dp">
-
         <TextView
             android:id="@+id/notice_content"
             android:layout_width="match_parent"
@@ -112,7 +114,4 @@
             android:textColor="#ff999999"
             android:textSize="12sp" />
     </RelativeLayout>
-
-
-
 </RelativeLayout>
