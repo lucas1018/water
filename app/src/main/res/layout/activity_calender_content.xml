@@ -151,7 +151,7 @@
                         android:src="@drawable/minus" />
 
                     <TextView
-                        android:id="@+id/edit_overtime"
+                        android:id="@+id/tv_overtime"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="10dp"
