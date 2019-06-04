@@ -336,7 +336,9 @@
 
         <!--百度导航-->
         <service android:name="com.baidu.navigation.service.ForegroundService" />
-
+        <service
+            android:name=".service.UpdateService"
+            android:exported="false" />
     </application>
 
 </manifest>
