@@ -283,6 +283,16 @@
             android:name="cn.jpush.android.service.DownloadProvider"
             android:exported="true"
             />
+
+        <provider
+            android:name=".service.UpdateApkFileProvider"
+            android:authorities="update.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/update_apk_paths" />
+        </provider>
         <!-- Required SDK核心功能-->
         <receiver
             android:name="cn.jpush.android.service.PushReceiver"
