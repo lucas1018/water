@@ -89,7 +89,6 @@ public class MyselfFragment extends Fragment {
             }
             @Override
             public void onNext(JSONObject json) {
-                System.out.println("bbbbbb" + json);
                 //设置用户名
                 String username = json.getString("NAME");
                 App.username = username;

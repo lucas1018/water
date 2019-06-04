@@ -49,53 +49,52 @@ public class SystemUpdateActivity extends AppCompatActivity {
         //获取当前版本号
         try {
             String version = getPackageManager().getPackageInfo(getPackageName(),0).versionName + "";
-            old_version.setText("当前版本：" + version);
-//            String result = Requests.UpdateProgram();
-//            System.out.println("mmmmmmmmm" + result);
-//            if (result != null) {
-//                com.alibaba.fastjson.JSONObject jsonObject = com.alibaba.fastjson.JSONObject.parseObject(result);
-//                String new_version = jsonObject.getString("Version");
-//                System.out.println("new_version->>>>" + new_version);
-//                final String path = jsonObject.getString("Path");
-//                final String remark = jsonObject.getString("Remark");
-//                if (version.equals(new_version)) {
-//                    btn_refresh.setVisibility(View.INVISIBLE);
-//                } else {
-//                    btn_refresh.setVisibility(View.VISIBLE);
-//                    //todo isAutoUpdate   updateUrl  都是从接口获取的 这要发起一个数据请求
-//                    btn_refresh.setOnClickListener(new View.OnClickListener() {
-//                        @Override
-//                        public void onClick(View v) {
-//                            updataDialog = new UpdataDialog(SystemUpdateActivity.this, R.layout.dialog_updataversion,
-//                                    new int[]{R.id.dialog_sure, R.id.relative_imagv_dialog_cancel}, isAutoUpdate);
-//                            updataDialog.show();
-//                            tvmsg = (TextView) updataDialog.findViewById(R.id.updataversion_msg);
-//                            tvmsg.setText(remark);
-//                            updataDialog.setOnCenterItemClickListener(new UpdataDialog.OnCenterItemClickListener() {
-//                                @Override
-//                                public void OnCenterItemClick(UpdataDialog dialog, View view) {
-//                                    switch (view.getId()) {
-//                                        case R.id.dialog_sure:
-//
-////                            /**调用系统自带的浏览器去下载最新apk*/
-////                            Intent intent = new Intent();
-////                            intent.setAction("android.intent.action.VIEW");
-////                            if (updateUrl != null && updateUrl.startsWith("http")) {
-////                                Uri content_url = Uri.parse(updateUrl);
-////                                intent.setData(content_url);
-////                                startActivity(intent);
-////                            }
-//                                            goToDownload(SystemUpdateActivity.this, updateUrl+path);
-//                                            break;
-//                                    }
-//
-//                                }
-//                            });
-//                        }
-//                    });
-//
-//                }
-//            }
+            String result = Requests.UpdateProgram();
+            if (result != null) {
+                com.alibaba.fastjson.JSONObject jsonObject = com.alibaba.fastjson.JSONObject.parseObject(result);
+                String new_version = jsonObject.getString("Version");
+                final String path = jsonObject.getString("Path");
+                final String remark = jsonObject.getString("Remark");
+                if (version.equals(new_version)) {
+                    old_version.setText("当前版本：" + version + "已是最新版本");
+                    btn_refresh.setVisibility(View.INVISIBLE);
+                } else {
+                    old_version.setText("当前版本：" + version);
+                    btn_refresh.setVisibility(View.VISIBLE);
+                    //todo isAutoUpdate   updateUrl  都是从接口获取的 这要发起一个数据请求
+                    btn_refresh.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            updataDialog = new UpdataDialog(SystemUpdateActivity.this, R.layout.dialog_updataversion,
+                                    new int[]{R.id.dialog_sure, R.id.relative_imagv_dialog_cancel}, isAutoUpdate);
+                            updataDialog.show();
+                            tvmsg = (TextView) updataDialog.findViewById(R.id.updataversion_msg);
+                            tvmsg.setText(remark);
+                            updataDialog.setOnCenterItemClickListener(new UpdataDialog.OnCenterItemClickListener() {
+                                @Override
+                                public void OnCenterItemClick(UpdataDialog dialog, View view) {
+                                    switch (view.getId()) {
+                                        case R.id.dialog_sure:
+
+//                            /**调用系统自带的浏览器去下载最新apk*/
+//                            Intent intent = new Intent();
+//                            intent.setAction("android.intent.action.VIEW");
+//                            if (updateUrl != null && updateUrl.startsWith("http")) {
+//                                Uri content_url = Uri.parse(updateUrl);
+//                                intent.setData(content_url);
+//                                startActivity(intent);
+//                            }
+                                            goToDownload(SystemUpdateActivity.this, updateUrl+path);
+                                            break;
+                                    }
+
+                                }
+                            });
+                        }
+                    });
+
+                }
+            }
 
         }catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
@@ -103,7 +102,6 @@ public class SystemUpdateActivity extends AppCompatActivity {
     }
 
     private void goToDownload(Context context, String updateUrl) {
-        System.out.println("vvvvvvvvv" + updateUrl);
         Intent intent = new Intent();
         intent.setClass(context, UpdateService.class);
         intent.putExtra(APK_DOWNLOAD_URL, updateUrl);
