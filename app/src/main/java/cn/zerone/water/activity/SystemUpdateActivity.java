@@ -13,15 +13,19 @@ import android.widget.TextView;
 
 import com.baidu.baidumaps.common.Constant;
 
+import org.json.JSONObject;
 import org.w3c.dom.Text;
 
+import java.util.Observer;
+
 import cn.zerone.water.R;
+import cn.zerone.water.http.Requests;
 import cn.zerone.water.service.UpdateService;
 import cn.zerone.water.views.UpdataDialog;
 
 public class SystemUpdateActivity extends AppCompatActivity {
 
-    private String updateUrl;
+    private String updateUrl = "http://47.105.187.185:8011";
     private UpdataDialog updataDialog;
     private int  isAutoUpdate=0;
     private TextView tvmsg;
@@ -46,7 +50,12 @@ public class SystemUpdateActivity extends AppCompatActivity {
         try {
             String version = getPackageManager().getPackageInfo(getPackageName(),0).versionName + "";
             old_version.setText("当前版本：" + version);
-            if (version.equals("1.1")) {
+            String result = Requests.UpdateProgram();
+            com.alibaba.fastjson.JSONObject jsonObject = com.alibaba.fastjson.JSONObject.parseObject(result);
+            String new_version = jsonObject.getString("Version");
+            final String path = jsonObject.getString("Path");
+            final String remark = jsonObject.getString("Remark");
+            if (version.equals(new_version)) {
                 btn_refresh.setVisibility(View.INVISIBLE);
             } else {
                 btn_refresh.setVisibility(View.VISIBLE);
@@ -58,7 +67,7 @@ public class SystemUpdateActivity extends AppCompatActivity {
                                 new int[]{R.id.dialog_sure, R.id.relative_imagv_dialog_cancel}, isAutoUpdate);
                         updataDialog.show();
                         tvmsg = (TextView) updataDialog.findViewById(R.id.updataversion_msg);
-                        tvmsg.setText("更改了bug");
+                        tvmsg.setText(remark);
                         updataDialog.setOnCenterItemClickListener(new UpdataDialog.OnCenterItemClickListener() {
                             @Override
                             public void OnCenterItemClick(UpdataDialog dialog, View view) {
@@ -73,7 +82,7 @@ public class SystemUpdateActivity extends AppCompatActivity {
 //                                intent.setData(content_url);
 //                                startActivity(intent);
 //                            }
-                                        goToDownload(SystemUpdateActivity.this, updateUrl);
+                                        goToDownload(SystemUpdateActivity.this, updateUrl+path);
                                         break;
                                 }
 
@@ -89,6 +98,7 @@ public class SystemUpdateActivity extends AppCompatActivity {
     }
 
     private void goToDownload(Context context, String updateUrl) {
+        System.out.println("vvvvvvvvv" + updateUrl);
         Intent intent = new Intent();
         intent.setClass(context, UpdateService.class);
         intent.putExtra(APK_DOWNLOAD_URL, updateUrl);
