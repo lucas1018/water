@@ -55,17 +55,21 @@ public class NoticeFragment extends Fragment {
                     String Title = jsonObject.getString("Title");
                     json1.put("title", Title);
                     String time = jsonObject.getString("AddTime");
-                    String realTime = time.substring(6, 19);
-                    Long longtime = Long.parseLong(realTime);
-                    SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-                    String d = format.format(longtime);
-                    json1.put("AddTime", d);
+                    if (time ==null){
+                        json1.put("AddTime", "");
+                    }
+                    else{
+                        String realTime = time.substring(6, 19);
+                        Long longtime = Long.parseLong(realTime);
+                        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+                        String d = format.format(longtime);
+                        json1.put("AddTime", d);
+                    }
                     String content = jsonObject.getString("Msg");
                     json1.put("Msg", content);
                     String Type = jsonObject.getString("DataType");
                     json1.put("DataType", Type);
                     list.add(json1);
-
                 }
                 UpdateAdapter(list);
             }
@@ -89,7 +93,6 @@ public class NoticeFragment extends Fragment {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Bundle bundle = new Bundle();
                 JSONObject list1 = JSONObject.parseObject(adapterView.getItemAtPosition(i).toString());
-
                 bundle.putString("title", list1.get("title").toString());
                 bundle.putString("AddTime", list1.get("AddTime").toString());
                 bundle.putString("Msg", list1.get("Msg").toString());
