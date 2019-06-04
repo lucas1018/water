@@ -1,7 +1,6 @@
 package cn.zerone.water.activity;
 
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.internal.BottomNavigationItemView;
 import android.support.design.internal.BottomNavigationMenuView;
@@ -15,8 +14,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
-
-import com.uuzuche.lib_zxing.activity.CodeUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -184,43 +181,43 @@ public class MainActivity extends AppCompatActivity {
 
         return super.onKeyDown(keyCode, event);
     }
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode==3){
-                //处理扫描结果（在界面上显示）
-                if (null != data) {
-                    Bundle bundle = data.getExtras();
-                    if (bundle == null) {
-                        return;
-                    }
-                    if (bundle.getInt(CodeUtils.RESULT_TYPE) == CodeUtils.RESULT_SUCCESS) {
-                        final String result = bundle.getString(CodeUtils.RESULT_STRING);
-//                        Requests.scan(new Observer<JSONObject>() {
-//                            @Override
-//                            public void onSubscribe(Disposable d) {
-//
-//                            }
-//
-//                            @Override
-//                            public void onNext(JSONObject jsonObject) {
-//
-//                            }
-//
-//                            @Override
-//                            public void onError(Throwable e) {
-//                                Toast.makeText(MainActivity.this, "解析上传失败结果:" + result, Toast.LENGTH_LONG).show();
-//                            }
-//
-//                            @Override
-//                            public void onComplete() {
-//                                Toast.makeText(MainActivity.this, "解析结果:" + result, Toast.LENGTH_LONG).show();
-//                            }
-//                        },App.userId,result);
-                    } else if (bundle.getInt(CodeUtils.RESULT_TYPE) == CodeUtils.RESULT_FAILED) {
-                        Toast.makeText(MainActivity.this, "解析二维码失败", Toast.LENGTH_LONG).show();
-                    }
-                }
-            }
-    }
+//    @Override
+//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+//        super.onActivityResult(requestCode, resultCode, data);
+//        if(requestCode==3){
+//                //处理扫描结果（在界面上显示）
+//                if (null != data) {
+//                    Bundle bundle = data.getExtras();
+//                    if (bundle == null) {
+//                        return;
+//                    }
+//                    if (bundle.getInt(CodeUtils.RESULT_TYPE) == CodeUtils.RESULT_SUCCESS) {
+//                        final String result = bundle.getString(CodeUtils.RESULT_STRING);
+////                        Requests.scan(new Observer<JSONObject>() {
+////                            @Override
+////                            public void onSubscribe(Disposable d) {
+////
+////                            }
+////
+////                            @Override
+////                            public void onNext(JSONObject jsonObject) {
+////
+////                            }
+////
+////                            @Override
+////                            public void onError(Throwable e) {
+////                                Toast.makeText(MainActivity.this, "解析上传失败结果:" + result, Toast.LENGTH_LONG).show();
+////                            }
+////
+////                            @Override
+////                            public void onComplete() {
+////                                Toast.makeText(MainActivity.this, "解析结果:" + result, Toast.LENGTH_LONG).show();
+////                            }
+////                        },App.userId,result);
+//                    } else if (bundle.getInt(CodeUtils.RESULT_TYPE) == CodeUtils.RESULT_FAILED) {
+//                        Toast.makeText(MainActivity.this, "解析二维码失败", Toast.LENGTH_LONG).show();
+//                    }
+//                }
+//            }
+//    }
 }
