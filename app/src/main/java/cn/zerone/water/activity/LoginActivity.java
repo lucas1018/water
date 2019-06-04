@@ -189,7 +189,7 @@ public class LoginActivity extends AppCompatActivity  {
                 @Override
                 public void onComplete() {
                 }
-            },email,password,"546f135e-c038-38ca-81cd-909ebfc1a765");
+            },email,password,App.device_tokens);
         }
     }
 

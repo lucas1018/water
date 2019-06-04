@@ -9,7 +9,6 @@ import com.baidu.location.BDLocation;
 import com.baidu.location.service.LocationService;
 import com.baidu.mapapi.CoordType;
 import com.baidu.mapapi.SDKInitializer;
-import com.example.jpushdemo.Logger;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.uuzuche.lib_zxing.activity.ZXingLibrary;
 
@@ -46,7 +45,6 @@ public class App extends Application {
     public void onCreate() {
         super.onCreate();
         device_tokens = DeviceUuidFactory.GetDeviceUuidFactory(this)+"";
-        Logger.d("device_tokens-->", device_tokens);
         JPushInterface.setDebugMode(true); //正式环境时去掉此行代码
         JPushInterface.init(this);
 
