@@ -7,12 +7,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.ListView;
-import android.view.View.OnClickListener;
-import android.widget.Switch;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
@@ -24,15 +19,9 @@ import java.util.Map;
 
 import cn.zerone.water.App;
 import cn.zerone.water.R;
-import cn.zerone.water.activity.LiteActivity;
-import cn.zerone.water.activity.NoticeActivity;
 import cn.zerone.water.activity.TaskDetailActivity;
-import cn.zerone.water.adapter.ListViewAdapter;
 import cn.zerone.water.adapter.TaskAdapter;
 import cn.zerone.water.http.Requests;
-import cn.zerone.water.map.LocationActivity;
-import cn.zerone.water.map.MarkerClusterActivity;
-import cn.zerone.water.map.PoiSearchActivity;
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 
@@ -91,11 +80,19 @@ public class TaskListFragment extends Fragment {
                     json1.put("state",stateName);
 
                     String BeginDate = jsonObject.getString("BeginDate");
-                    String realTime = BeginDate.substring(6, 19);
-                    Long longtime = Long.parseLong(realTime);
-                    SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd  HH:mm:ss");
-                    String showTime = format.format(longtime);
-                    json1.put("beginDate",showTime);
+                    if (BeginDate == null){
+                        json1.put("beginDate","");
+
+                    }
+                    else{
+                        String realTime = BeginDate.substring(6, 19);
+                        Long longtime = Long.parseLong(realTime);
+                        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd  HH:mm:ss");
+                        String showTime = format.format(longtime);
+                        json1.put("beginDate",showTime);
+
+                    }
+
 
                     list.add(json1);
 
