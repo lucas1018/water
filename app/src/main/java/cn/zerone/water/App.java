@@ -14,6 +14,7 @@ import com.facebook.drawee.backends.pipeline.Fresco;
 import com.uuzuche.lib_zxing.activity.ZXingLibrary;
 
 import cn.jpush.android.api.JPushInterface;
+import cn.zerone.water.adapter.DeviceUuidFactory;
 import cn.zerone.water.http.Requests;
 import cn.zerone.water.model.EngineeringStation;
 import cn.zerone.water.utils.MD5Utils;
@@ -43,9 +44,9 @@ public class App extends Application {
 
     @Override
     public void onCreate() {
-        Logger.d(TAG, "[ExampleApplication] onCreate");
         super.onCreate();
-        device_tokens = JPushInterface.ACTION_REGISTRATION_ID;
+        device_tokens = DeviceUuidFactory.GetDeviceUuidFactory(this)+"";
+        Logger.d("device_tokens-->", device_tokens);
         JPushInterface.setDebugMode(true); //正式环境时去掉此行代码
         JPushInterface.init(this);
 

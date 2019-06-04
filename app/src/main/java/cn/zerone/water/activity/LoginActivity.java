@@ -22,6 +22,7 @@ import android.widget.Toast;
 
 import com.alibaba.fastjson.JSONException;
 import com.alibaba.fastjson.JSONObject;
+import com.example.jpushdemo.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -117,7 +118,7 @@ public class LoginActivity extends AppCompatActivity  {
      * errors are presented and no actual login attempt is made.
      */
     private void attemptLogin() {
-
+        Logger.d("device_tokens-111->", App.device_tokens);
         // Reset errors.
         mAccountView.setError(null);
         mPasswordView.setError(null);
@@ -188,7 +189,7 @@ public class LoginActivity extends AppCompatActivity  {
                 @Override
                 public void onComplete() {
                 }
-            },email,password,App.device_tokens);
+            },email,password,"546f135e-c038-38ca-81cd-909ebfc1a765");
         }
     }
 
