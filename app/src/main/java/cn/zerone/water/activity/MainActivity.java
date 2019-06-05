@@ -1,32 +1,19 @@
 package cn.zerone.water.activity;
 
 
-
-
-import android.app.Dialog;
-import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
 import android.support.design.internal.BottomNavigationItemView;
 import android.support.design.internal.BottomNavigationMenuView;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
-
-import com.uuzuche.lib_zxing.activity.CodeUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,10 +21,10 @@ import java.util.List;
 import cn.zerone.water.App;
 import cn.zerone.water.R;
 import cn.zerone.water.fragment.HomeFragment;
-import cn.zerone.water.fragment.TaskListFragment;
 import cn.zerone.water.fragment.LiveFragment;
 import cn.zerone.water.fragment.MyselfFragment;
 import cn.zerone.water.fragment.NoticeFragment;
+import cn.zerone.water.fragment.TaskListFragment;
 import cn.zerone.water.utils.BottomNavigationViewHelper;
 import io.reactivex.annotations.NonNull;
 
@@ -177,94 +164,60 @@ public class MainActivity extends AppCompatActivity {
             setMsgReadView(false);
         }
     }
-
+    Long exitTime = 0l;
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_BACK) {
-            if(dialog==null){
-                showBack("确定要退出吗！");
-                return true;
-            }else{
-                return true;
+        if (keyCode == KeyEvent.KEYCODE_BACK
+                && event.getAction() == KeyEvent.ACTION_DOWN) {
+            if ((System.currentTimeMillis() - exitTime) > 2000) {
+                //弹出提示，可以有多种方式
+                Toast.makeText(getApplicationContext(), "再按一次退出程序", Toast.LENGTH_SHORT).show();
+                exitTime = System.currentTimeMillis();
+            } else {
+                finish();
             }
+            return true;
         }
+
         return super.onKeyDown(keyCode, event);
-
     }
-
-    Dialog dialog = null;
-    Handler handler = new Handler(Looper.getMainLooper());
-    public void showBack(String message){
-        if(dialog!=null){
-            dialog.dismiss();
-            dialog = null;
-        }
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        View view = View.inflate(this, R.layout.dialog_back, null);
-//        builder.setView(view,-1,-1,-1,-1);
-        dialog = builder.create();
-        dialog.setCancelable(false);
-        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(0x00000000));
-        ((TextView)view.findViewById(R.id.message)).setText(message);
-        view.findViewById(R.id.cancel).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(dialog!=null){
-                    dialog.dismiss();
-                    dialog =null;
-                }
-            }
-        });
-        view.findViewById(R.id.dismiss).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(dialog!=null){
-                    dialog.dismiss();
-                    dialog =null;
-                    finish();
-                    System.exit(0);
-                }
-            }
-        });
-        dialog.show();
-    }
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode==3){
-                //处理扫描结果（在界面上显示）
-                if (null != data) {
-                    Bundle bundle = data.getExtras();
-                    if (bundle == null) {
-                        return;
-                    }
-                    if (bundle.getInt(CodeUtils.RESULT_TYPE) == CodeUtils.RESULT_SUCCESS) {
-                        final String result = bundle.getString(CodeUtils.RESULT_STRING);
-//                        Requests.scan(new Observer<JSONObject>() {
-//                            @Override
-//                            public void onSubscribe(Disposable d) {
-//
-//                            }
-//
-//                            @Override
-//                            public void onNext(JSONObject jsonObject) {
-//
-//                            }
-//
-//                            @Override
-//                            public void onError(Throwable e) {
-//                                Toast.makeText(MainActivity.this, "解析上传失败结果:" + result, Toast.LENGTH_LONG).show();
-//                            }
-//
-//                            @Override
-//                            public void onComplete() {
-//                                Toast.makeText(MainActivity.this, "解析结果:" + result, Toast.LENGTH_LONG).show();
-//                            }
-//                        },App.userId,result);
-                    } else if (bundle.getInt(CodeUtils.RESULT_TYPE) == CodeUtils.RESULT_FAILED) {
-                        Toast.makeText(MainActivity.this, "解析二维码失败", Toast.LENGTH_LONG).show();
-                    }
-                }
-            }
-    }
+//    @Override
+//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+//        super.onActivityResult(requestCode, resultCode, data);
+//        if(requestCode==3){
+//                //处理扫描结果（在界面上显示）
+//                if (null != data) {
+//                    Bundle bundle = data.getExtras();
+//                    if (bundle == null) {
+//                        return;
+//                    }
+//                    if (bundle.getInt(CodeUtils.RESULT_TYPE) == CodeUtils.RESULT_SUCCESS) {
+//                        final String result = bundle.getString(CodeUtils.RESULT_STRING);
+////                        Requests.scan(new Observer<JSONObject>() {
+////                            @Override
+////                            public void onSubscribe(Disposable d) {
+////
+////                            }
+////
+////                            @Override
+////                            public void onNext(JSONObject jsonObject) {
+////
+////                            }
+////
+////                            @Override
+////                            public void onError(Throwable e) {
+////                                Toast.makeText(MainActivity.this, "解析上传失败结果:" + result, Toast.LENGTH_LONG).show();
+////                            }
+////
+////                            @Override
+////                            public void onComplete() {
+////                                Toast.makeText(MainActivity.this, "解析结果:" + result, Toast.LENGTH_LONG).show();
+////                            }
+////                        },App.userId,result);
+//                    } else if (bundle.getInt(CodeUtils.RESULT_TYPE) == CodeUtils.RESULT_FAILED) {
+//                        Toast.makeText(MainActivity.this, "解析二维码失败", Toast.LENGTH_LONG).show();
+//                    }
+//                }
+//            }
+//    }
 }

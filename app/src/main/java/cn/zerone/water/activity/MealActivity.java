@@ -323,9 +323,9 @@ public class MealActivity extends AppCompatActivity {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM");
         String curDate = sdf.format(new Date());//当前月份
         String preDate = getPreMonth();//上一个月份
-        String lastDate = getLastMonth();//下一个月份
-        dateList.add(lastDate);
+        String lastDate = getLastMonth();//qian2个月份
         dateList.add(curDate);
+        dateList.add(lastDate);
         dateList.add(preDate);
     }
 
@@ -344,13 +344,13 @@ public class MealActivity extends AppCompatActivity {
 
     /**
      *
-     * 描述:获取下一个月.
+     * 描述:获取前两个月.
      *
      * @return
      */
     public static String getPreMonth() {
         Calendar cal = Calendar.getInstance();
-        cal.add(cal.MONTH, 1);
+        cal.add(cal.MONTH, -2);
         SimpleDateFormat dft = new SimpleDateFormat("yyyy-MM");
         String preMonth = dft.format(cal.getTime());
         return preMonth;

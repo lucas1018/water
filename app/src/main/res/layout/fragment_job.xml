@@ -25,9 +25,9 @@
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:layout_centerVertical="true"
-                android:text="任务"
+                android:text="任　务"
                 android:textColor="#fff"
-                android:textSize="16dp"
+                android:textSize="16sp"
                 android:textStyle="bold" />
 
         </RelativeLayout>

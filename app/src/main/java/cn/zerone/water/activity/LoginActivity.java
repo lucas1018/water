@@ -22,6 +22,7 @@ import android.widget.Toast;
 
 import com.alibaba.fastjson.JSONException;
 import com.alibaba.fastjson.JSONObject;
+import com.example.jpushdemo.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -117,7 +118,7 @@ public class LoginActivity extends AppCompatActivity  {
      * errors are presented and no actual login attempt is made.
      */
     private void attemptLogin() {
-
+        Logger.d("device_tokens-111->", App.device_tokens);
         // Reset errors.
         mAccountView.setError(null);
         mPasswordView.setError(null);
@@ -159,14 +160,12 @@ public class LoginActivity extends AppCompatActivity  {
 
                 @Override
                 public void onNext(JSONObject jsonObject) {
-                    System.out.println("登录中");
 
                     if (jsonObject.getString("Flag").equals("true")) {
                         if(jsonObject.getString("NewId")==null){
                             throw new JSONException("NewId");
                         }
                         App.userId = jsonObject.getString("NewId");
-                        System.out.println("aaaaaa + " + App.userId);
                         ((App) getApplication()).saveUserId(App.userId);
                         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                         startActivity(intent);

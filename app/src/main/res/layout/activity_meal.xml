@@ -171,6 +171,7 @@
             android:textColorHint="#999"
             android:textColor="#000"
             android:textSize="14sp"
+            android:inputType="number"
             android:background="@null"/>
 
     </LinearLayout>

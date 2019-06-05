@@ -77,7 +77,20 @@ public class ApproveActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        initView();
+        //initFragment();//每次返回到此activity更新fragment
+    }
+    public void initFragment(){
+        fragments.clear();
+        fragments.add(new WaitCheckFragment());//待审批
+        fragments.add(new CheckAgreedFragment());//已同意
+        fragments.add(new CheckRejectedFragment());//已拒绝
+        pagerAdapter = new FmPagerAdapter(fragments, getSupportFragmentManager());
+        mViewPager.setAdapter(pagerAdapter);
+        for (int i = 0; i < titles.length; i++) {
+            mTabLayout.getTabAt(i).setText(titles[i]);
+        }
+
+
     }
 
     public void initView() {
@@ -111,9 +124,9 @@ public class ApproveActivity extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        if (requestCode == 1 && resultCode == 720) {
+        if (requestCode == 11 && resultCode == 720) {
 
-            //IsComplete = true;
+            initFragment();//每次返回到此activity更新fragment
         }
     }
 

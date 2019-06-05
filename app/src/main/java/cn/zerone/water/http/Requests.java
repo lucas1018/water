@@ -2,6 +2,14 @@ package cn.zerone.water.http;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.facebook.common.util.StreamUtil;
+
+import org.apache.commons.io.IOUtils;
+
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.nio.charset.StandardCharsets;
 
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
@@ -460,13 +468,40 @@ public class Requests {
         baseJSONObject(observer,"FeesForMeals_GetPageInfo",requestBody);
     }
 
-//    //获取任务列表
-//    public static JSONArray EngineeringStation_GetList(String User_id){
-//        RequestBody requestBody = new FormBody.Builder()
-//                .add("field","UserId")
-//                .add("value",User_id)
-//                .build();
-//        JSONArray jsons = baseJSONArray("EngineeringStation_GetListByField", requestBody);
-//        return jsons;
-//    }
+    //获取任务列表  EngineeringStation_GetList
+    public static void EngineeringStation_GetList(Observer<JSONArray> observer, String id) {
+        RequestBody requestBody = new FormBody.Builder()
+                .add("field", "UserId")
+                .add("value", id).build();
+        baseJSONArray(observer, "EngineeringStation_GetListByField", requestBody);
+    }
+
+
+    /**
+     * 採用get请求的方式 获取apk信息
+     *
+     * @return null表示求得的路径有问题,text返回请求得到的数据
+     */
+    public static String UpdateProgram() {
+        try {
+            String path = "http://47.105.187.185:8011/api1/UpdateProgram?id=1";
+            URL url = new URL(path);
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setReadTimeout(500000);
+            conn.setRequestMethod("GET");
+            int code = conn.getResponseCode();
+            if (code == 200) {
+                // 请求成功
+                InputStream is = conn.getInputStream();
+                String result = IOUtils.toString(is, StandardCharsets.UTF_8);
+                return result;
+            } else {
+                // 请求失败
+                return null;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 }

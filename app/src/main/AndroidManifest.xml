@@ -242,6 +242,7 @@
         <activity android:name=".activity.ApproveActivity" />
         <activity android:name=".activity.CheckDetailsActivity" />
         <activity android:name=".activity.CheckSubmitActivity" />
+        <activity android:name=".activity.TaskDetailActivity" />
 
         <!-- Required SDK 核心功能-->
         <!-- 可配置android:process参数将PushService放在其他进程中 -->
@@ -282,6 +283,16 @@
             android:name="cn.jpush.android.service.DownloadProvider"
             android:exported="true"
             />
+
+        <provider
+            android:name=".service.UpdateApkFileProvider"
+            android:authorities="update.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/update_apk_paths" />
+        </provider>
         <!-- Required SDK核心功能-->
         <receiver
             android:name="cn.jpush.android.service.PushReceiver"
@@ -335,7 +346,9 @@
 
         <!--百度导航-->
         <service android:name="com.baidu.navigation.service.ForegroundService" />
-
+        <service
+            android:name=".service.UpdateService"
+            android:exported="false" />
     </application>
 
 </manifest>
