@@ -36,6 +36,7 @@ import io.reactivex.disposables.Disposable;
 import static android.Manifest.permission.ACCESS_FINE_LOCATION;
 import static android.Manifest.permission.ACCESS_WIFI_STATE;
 import static android.Manifest.permission.READ_PHONE_STATE;
+import static cn.zerone.water.App.device_tokens;
 
 /**
  * A login screen that offers login via email/password.
@@ -118,7 +119,6 @@ public class LoginActivity extends AppCompatActivity  {
      * errors are presented and no actual login attempt is made.
      */
     private void attemptLogin() {
-        Logger.d("device_tokens-111->", App.device_tokens);
         // Reset errors.
         mAccountView.setError(null);
         mPasswordView.setError(null);
@@ -189,7 +189,7 @@ public class LoginActivity extends AppCompatActivity  {
                 @Override
                 public void onComplete() {
                 }
-            },email,password,App.device_tokens);
+            },email,password, device_tokens);
         }
     }
 

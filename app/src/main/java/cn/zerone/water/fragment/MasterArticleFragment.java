@@ -1,7 +1,6 @@
 package cn.zerone.water.fragment;
 
 import android.app.Activity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -23,30 +22,26 @@ import android.widget.TextView;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 
-import butterknife.ButterKnife;
-import butterknife.InjectView;
-
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import butterknife.ButterKnife;
+import butterknife.InjectView;
+import cn.zerone.water.R;
 import cn.zerone.water.activity.ClockInCarActivity;
 import cn.zerone.water.activity.ClockInFinishActivity;
 import cn.zerone.water.activity.ClockInHomeActivity;
 import cn.zerone.water.activity.ClockInWorkActivity;
-
 import cn.zerone.water.activity.ConstructionLog;
 import cn.zerone.water.activity.MealActivity;
 import cn.zerone.water.activity.NewsWebActivity;
-import cn.zerone.water.activity.NoticeActivity;
 import cn.zerone.water.activity.ProblemActivity;
-import cn.zerone.water.http.Requests;
-import cn.zerone.water.map.PoiSearchActivity;
 import cn.zerone.water.adapter.HeaderAdapter;
 import cn.zerone.water.adapter.ItemArticle;
-import cn.zerone.water.R;
+import cn.zerone.water.http.Requests;
+import cn.zerone.water.map.PoiSearchActivity;
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 
@@ -338,6 +333,7 @@ public class MasterArticleFragment extends Fragment {
                         JSONObject jsonObject = objects.getJSONObject(i);
                         System.out.println();
                         int ID = jsonObject.getInteger("ID");
+
                         String imagepath = jsonObject.getString("ImgPath");
                         String imageUrl = Image + imagepath;
                         String href = jsonObject.getString("Href");
