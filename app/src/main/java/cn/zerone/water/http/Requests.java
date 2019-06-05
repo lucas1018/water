@@ -1,19 +1,22 @@
 package cn.zerone.water.http;
 
-import android.util.Base64;
 import android.util.Log;
+
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.facebook.common.util.StreamUtil;
+
 import org.apache.commons.io.IOUtils;
+
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
+
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 import okhttp3.FormBody;
 import okhttp3.RequestBody;
+
 import static cn.zerone.water.utils.HttpUtil.baseGetString;
 import static cn.zerone.water.utils.HttpUtil.baseJSONArray;
 import static cn.zerone.water.utils.HttpUtil.baseJSONObject;
@@ -309,6 +312,22 @@ public class Requests {
                 .add("ID", id).build();
         baseJSONArray(observer, "PROJECT_INFO_GetList", requestBody);
     }
+    //获取建设项目
+    public static void EngineeringListZtree(Observer<JSONArray> observer, String id) {
+        RequestBody requestBody = new FormBody.Builder()
+                .add("ID", id).build();
+        baseJSONArray(observer, "Engineering_GetList", requestBody);
+    }
+    //获取建设站点
+    public static void EngineeringStationList(Observer<JSONArray> observer, String id, String val) {
+        RequestBody requestBody = new FormBody.Builder()
+                .add("ID", id)
+                .add("field", "EngineeringId")
+                .add("value", val).build();
+        baseJSONArray(observer, "EngineeringStation_GetListByField", requestBody);
+    }
+
+
 
     public static void getProjectLogByField(Observer<JSONObject> observer, String projectId) {
         RequestBody requestBody = new FormBody.Builder()
