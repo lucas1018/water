@@ -1,27 +1,19 @@
 package cn.zerone.water.http;
 
-<<<<<<< HEAD
-=======
 import android.util.Base64;
 import android.util.Log;
-
->>>>>>> xlq_1
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.facebook.common.util.StreamUtil;
-
 import org.apache.commons.io.IOUtils;
-
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
-
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 import okhttp3.FormBody;
 import okhttp3.RequestBody;
-
 import static cn.zerone.water.utils.HttpUtil.baseGetString;
 import static cn.zerone.water.utils.HttpUtil.baseJSONArray;
 import static cn.zerone.water.utils.HttpUtil.baseJSONObject;

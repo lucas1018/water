@@ -1,22 +1,15 @@
 package cn.zerone.water.utils;
 
 import android.util.Log;
-
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-
-<<<<<<< HEAD
 import java.io.BufferedReader;
-=======
-
->>>>>>> xlq_1
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
@@ -24,22 +17,16 @@ import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.schedulers.Schedulers;
-<<<<<<< HEAD
-=======
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.FormBody;
->>>>>>> xlq_1
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
-
-<<<<<<< HEAD
 import static com.baidu.platform.comapi.newsearch.EngineParams.HttpMethod.GET;
 
-=======
->>>>>>> xlq_1
+
 /**
  * created by qhk
  * on 2019/5/11
@@ -89,11 +76,11 @@ public class HttpUtil {
         oble.subscribe(oser);
     }
 
-    public static void baseGetString(Observer<String> observer, final String cmd, final  String userId , final String date) {
+    public static void baseGetString(Observer<String> observer, final String cmd, final String userId, final String date) {
         Observable oble = Observable.create(new ObservableOnSubscribe<String>() {
             @Override
             public void subscribe(@NonNull ObservableEmitter<String> e) throws Exception {
-                Response response = Get(cmd,userId, date);
+                Response response = Get(cmd, userId, date);
                 int code = response.code();
                 if (code == 200) {
                     String json = response.body().string();
@@ -147,16 +134,15 @@ public class HttpUtil {
         return null;
     }
 
-<<<<<<< HEAD
     //无需观察者模式的JSONObject接口
-    public static <T>  JSONObject baseJSONObject(final String cmd, final RequestBody requestBody){
+    public static <T> JSONObject baseJSONObject(final String cmd, final RequestBody requestBody) {
         Response response = post(cmd, requestBody);
-        if(response != null && response.code() == 200){
+        if (response != null && response.code() == 200) {
             try {
                 String json = response.body().string();
                 JSONObject jsonObject = JSON.parseObject(json);
                 return jsonObject;
-            }catch (IOException e){
+            } catch (IOException e) {
                 e.printStackTrace();
             }
 
@@ -165,22 +151,23 @@ public class HttpUtil {
     }
 
     //无需观察者模式的JSONObjectArray接口
-    public static <T>  JSONArray baseJSONArray(final String cmd, final RequestBody requestBody){
+    public static <T> JSONArray baseJSONArray(final String cmd, final RequestBody requestBody) {
         Response response = post(cmd, requestBody);
-        if(response != null && response.code() == 200){
+        if (response != null && response.code() == 200) {
             try {
                 String json = response.body().string();
                 JSONArray objects = JSON.parseArray(json);
                 return objects;
-            }catch (IOException e){
+            } catch (IOException e) {
                 e.printStackTrace();
             }
 
         }
         return null;
-=======
+
+    }
     //get请求服务端接口
-    public static Response Get(String cmd, String userId, String date) {
+    public static Response Get(String cmd, String userId, String date){
         String url = ADVANCED_URL + cmd + "?" + "UserId=" + userId + "&Date=" + date;//实际url
         OkHttpClient okHttpClient = new OkHttpClient();
         Request request = new Request.Builder().get().url(url).build();
@@ -190,8 +177,7 @@ public class HttpUtil {
             e.printStackTrace();
         }
         return null;
+        }
 
->>>>>>> xlq_1
     }
 
-}

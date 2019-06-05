@@ -345,15 +345,13 @@
 
         <!--百度导航-->
         <service android:name="com.baidu.navigation.service.ForegroundService" />
-<<<<<<< HEAD
+
         <service
             android:name=".service.UpdateService"
             android:exported="false" />
-=======
 
         <activity android:name=".activity.CalenderActivity" />
         <activity android:name=".activity.CalenderContentActivity" />
->>>>>>> xlq_1
     </application>
 
 </manifest>

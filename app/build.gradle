@@ -95,12 +95,11 @@ dependencies {
 
     implementation 'com.youth.banner:banner:1.4.10'
     implementation 'com.github.bumptech.glide:glide:3.7.0'
-<<<<<<< HEAD
     implementation files('libs/commons-io-2.5.jar')
-=======
 
 
->>>>>>> xlq_1
+
+
     implementation files('libs/jcore-android-1.2.7.jar')
     implementation files('libs/jpush-android-3.2.0.jar')
     // recyclerview-v7包，导航SDK必要的依赖
@@ -115,10 +114,8 @@ dependencies {
     implementation files('libs/javapoet-1.9.0.jar')
     implementation files('libs/protobuf-java-2.3.0-micro.jar')
     implementation files('libs/BaiduLBS_Android.jar')
-<<<<<<< HEAD
     implementation files('libs/butterknife-6.1.0.jar')
     implementation files('libs/BASE64Encoder.jar')
-=======
     implementation 'com.prolificinteractive:material-calendarview:1.4.0'
 
 
@@ -134,5 +131,5 @@ dependencies {
     implementation 'com.alibaba:fastjson:1.1.70.android'
     implementation files('libs/commons-io-2.5.jar')
 
->>>>>>> xlq_1
+
 }

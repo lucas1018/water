@@ -19,25 +19,18 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
-
 import cn.zerone.water.App;
 import cn.zerone.water.R;
-<<<<<<< HEAD
 import cn.zerone.water.activity.ApproveActivity;
-=======
 import cn.zerone.water.activity.CalenderActivity;
-import cn.zerone.water.activity.CheckActivity;
->>>>>>> xlq_1
 import cn.zerone.water.activity.MealActivity;
 import cn.zerone.water.activity.PasswordModifiedActivity;
 import cn.zerone.water.activity.PhoneNumberModifiedActivity;
