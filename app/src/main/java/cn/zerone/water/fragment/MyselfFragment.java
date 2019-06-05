@@ -32,7 +32,12 @@ import java.util.List;
 
 import cn.zerone.water.App;
 import cn.zerone.water.R;
+<<<<<<< HEAD
 import cn.zerone.water.activity.ApproveActivity;
+=======
+import cn.zerone.water.activity.CalenderActivity;
+import cn.zerone.water.activity.CheckActivity;
+>>>>>>> xlq_1
 import cn.zerone.water.activity.MealActivity;
 import cn.zerone.water.activity.PasswordModifiedActivity;
 import cn.zerone.water.activity.PhoneNumberModifiedActivity;
@@ -142,6 +147,10 @@ public class MyselfFragment extends Fragment {
                 switch (position) {
                     case 0:
                         i = new Intent(getContext(), ApproveActivity.class);
+                        getContext().startActivity(i);
+                        break;
+                    case 1:
+                        i = new Intent(getContext(), CalenderActivity.class);
                         getContext().startActivity(i);
                         break;
                     case 3:

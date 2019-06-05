@@ -1,5 +1,11 @@
 package cn.zerone.water.http;
 
+<<<<<<< HEAD
+=======
+import android.util.Base64;
+import android.util.Log;
+
+>>>>>>> xlq_1
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.facebook.common.util.StreamUtil;
@@ -16,6 +22,7 @@ import io.reactivex.disposables.Disposable;
 import okhttp3.FormBody;
 import okhttp3.RequestBody;
 
+import static cn.zerone.water.utils.HttpUtil.baseGetString;
 import static cn.zerone.water.utils.HttpUtil.baseJSONArray;
 import static cn.zerone.water.utils.HttpUtil.baseJSONObject;
 import static cn.zerone.water.utils.HttpUtil.baseString;
@@ -222,7 +229,43 @@ public class Requests {
         baseString(observer, "feesForMeals_SaveBLL", requestBody);
     }
 
+    //添加工作日志
+    public static void JobLog_SaveBLL(Observer<String> observer, String userid,  String date, int  type, String job_content, String overtime_content, String overtime,String tomorrow,String remark) {
+        Log.i("myTag", "开始保存 userid->" +userid +" date ->"+ date +" type ->"+ type +" job_content->"+job_content+" overtime_content->"+ overtime_content +" overtime->"+ overtime +" tomorrow->"+ tomorrow +" remark->"+ remark);
+        RequestBody requestBody = new FormBody.Builder()
+                .add("ID", "0")
+                .add("UserId", userid)//录入人
+                .add("AddTime", "")//日期
+                .add("JobType", String.valueOf(type))//类型 日报=0,周报=1,月报=2,季报=3,年报=4
+                .add("JobContent", job_content)//日志内容
+                .add("OvertimeContent", overtime_content)//加班内容
+                .add("Overtime", overtime)//加班时间
+                .add("Tomorrow", tomorrow)//明日安排
+                .add("Remark", remark)//备注
+                .add("JobDate", date)//工作日期
+                .build();
+        baseString(observer, "JobLog_SaveBLL", requestBody);
+    }
 
+
+    //编辑工作日志
+    public static void JobLog_GetModelByDate(Observer<String> observer, String userid,  String date) {
+        Log.i("myTag", "开始编辑工作日志 userid->" +userid +" date ->"+ date );
+        RequestBody requestBody = new FormBody.Builder()
+                .add("UserId", userid)//录入人
+                .add("Date", date)//日期
+                .build();
+        baseGetString(observer, "JobLog_GetModelByDate", userid,date);
+    }
+
+    //获取工作日志
+    public static void JobLog_GetModelBLL(Observer<String> observer, String id) {
+        RequestBody requestBody = new FormBody.Builder()
+                .add("CreateUserId", id)//录入人
+
+                .build();
+        baseString(observer, "JobLog_SaveBLL", requestBody);
+    }
     //修改手机号
     public static void UpdataPHONE(Observer<JSONObject> observer, String phone, String id, String code) {
         RequestBody requestBody = new FormBody.Builder()

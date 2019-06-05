@@ -1,10 +1,16 @@
 package cn.zerone.water.utils;
 
+import android.util.Log;
+
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 
+<<<<<<< HEAD
 import java.io.BufferedReader;
+=======
+
+>>>>>>> xlq_1
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -18,13 +24,22 @@ import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.schedulers.Schedulers;
+<<<<<<< HEAD
+=======
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.FormBody;
+>>>>>>> xlq_1
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
+<<<<<<< HEAD
 import static com.baidu.platform.comapi.newsearch.EngineParams.HttpMethod.GET;
 
+=======
+>>>>>>> xlq_1
 /**
  * created by qhk
  * on 2019/5/11
@@ -38,7 +53,7 @@ public class HttpUtil {
             @Override
             public void subscribe(@NonNull ObservableEmitter<JSONArray> e) throws Exception {
                 Response response = post(cmd, requestBody);
-                if(response.code() == 200) {
+                if (response.code() == 200) {
                     String json = response.body().string();
                     e.onNext(JSON.parseArray(json));
                     e.onComplete();
@@ -58,12 +73,14 @@ public class HttpUtil {
             public void subscribe(@NonNull ObservableEmitter<String> e) throws Exception {
                 Response response = post(cmd, requestBody);
                 int code = response.code();
-                if(code == 200) {
+                if (code == 200) {
                     String json = response.body().string();
+                    Log.i("myTag", "json" + json);
                     e.onNext(json);
                     e.onComplete();
                 } else {
-                    throw new IOException();
+                    throw new IOException(
+                    );
                 }
             }
         }).subscribeOn(Schedulers.newThread())
@@ -72,16 +89,39 @@ public class HttpUtil {
         oble.subscribe(oser);
     }
 
-    public static <T>  void baseJSONObject(final Observer<JSONObject> observer, final String cmd, final RequestBody requestBody){
+    public static void baseGetString(Observer<String> observer, final String cmd, final  String userId , final String date) {
+        Observable oble = Observable.create(new ObservableOnSubscribe<String>() {
+            @Override
+            public void subscribe(@NonNull ObservableEmitter<String> e) throws Exception {
+                Response response = Get(cmd,userId, date);
+                int code = response.code();
+                if (code == 200) {
+                    String json = response.body().string();
+                    Log.i("myTag", "json" + json);
+                    e.onNext(json);
+                    e.onComplete();
+                } else {
+                    throw new IOException(
+                    );
+                }
+            }
+        }).subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread());
+        Observer oser = observer;
+        oble.subscribe(oser);
+    }
+
+
+    public static <T> void baseJSONObject(final Observer<JSONObject> observer, final String cmd, final RequestBody requestBody) {
         Observable<T> oble = Observable.create(new ObservableOnSubscribe<T>() {
             @Override
             public void subscribe(@NonNull ObservableEmitter<T> e) throws Exception {
                 Response response = post(cmd, requestBody);
-                if(response != null && response.code() == 200){
+                if (response != null && response.code() == 200) {
                     String json = response.body().string();
                     e.onNext((T) JSON.parseObject(json));
                     e.onComplete();
-                }else{
+                } else {
                     e.onError(new IOException());
                 }
             }
@@ -92,7 +132,7 @@ public class HttpUtil {
     }
 
     //post请求服务端接口
-    public static Response post(String cmd, RequestBody requestBody){
+    public static Response post(String cmd, RequestBody requestBody) {
         String url = ADVANCED_URL + cmd;//实际url
         OkHttpClient okHttpClient = new OkHttpClient();
         try {
@@ -107,6 +147,7 @@ public class HttpUtil {
         return null;
     }
 
+<<<<<<< HEAD
     //无需观察者模式的JSONObject接口
     public static <T>  JSONObject baseJSONObject(final String cmd, final RequestBody requestBody){
         Response response = post(cmd, requestBody);
@@ -137,6 +178,20 @@ public class HttpUtil {
 
         }
         return null;
+=======
+    //get请求服务端接口
+    public static Response Get(String cmd, String userId, String date) {
+        String url = ADVANCED_URL + cmd + "?" + "UserId=" + userId + "&Date=" + date;//实际url
+        OkHttpClient okHttpClient = new OkHttpClient();
+        Request request = new Request.Builder().get().url(url).build();
+        try {
+            return okHttpClient.newCall(request).execute();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+
+>>>>>>> xlq_1
     }
 
 }
