@@ -49,6 +49,7 @@ public class CalenderActivity extends AppCompatActivity {
     String userid;
     private String calenderContent;
     private SharedPreferences sharedPreferences;
+    private int mLogID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -167,6 +168,8 @@ public class CalenderActivity extends AppCompatActivity {
                     CalenderContent calenderContent = JSON.parseObject(str, CalenderContent.class);
                     //获取今日工作
                     edit.setText(calenderContent.getJobContent());
+                    //mLogID = calenderContent.getID();
+
                 } else {
                     Toast.makeText(CalenderActivity.this, "没有工作安排", Toast.LENGTH_SHORT).show();
                 }

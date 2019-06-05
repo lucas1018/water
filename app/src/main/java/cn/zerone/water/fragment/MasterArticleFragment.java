@@ -33,6 +33,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import cn.zerone.water.activity.ApproveActivity;
+import cn.zerone.water.activity.CalenderActivity;
 import cn.zerone.water.activity.ClockInCarActivity;
 import cn.zerone.water.activity.ClockInFinishActivity;
 import cn.zerone.water.activity.ClockInHomeActivity;
@@ -81,6 +82,7 @@ public class MasterArticleFragment extends Fragment {
     private ImageButton contruction_log = null;
     private ImageButton problem_record = null;
     private ImageButton meal = null;
+    private ImageButton joblog = null;
 
     //定时轮播图片，需要在主线程里面修改 UI
     private Handler mHandler = new Handler(){
@@ -171,6 +173,16 @@ public class MasterArticleFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getContext(), ProblemActivity.class);
+                getContext().startActivity(intent);
+            }
+        });
+
+        //工作日志
+        joblog = view.findViewById(R.id.imageButton6);
+        joblog.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getContext(), CalenderActivity.class);
                 getContext().startActivity(intent);
             }
         });
