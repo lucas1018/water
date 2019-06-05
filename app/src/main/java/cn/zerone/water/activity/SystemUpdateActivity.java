@@ -84,9 +84,11 @@ public class SystemUpdateActivity extends AppCompatActivity {
 //                                intent.setData(content_url);
 //                                startActivity(intent);
 //                            }
-                                            goToDownload(SystemUpdateActivity.this,"http://api.drcnet.com.cn/app/android");
+//                                            goToDownload(SystemUpdateActivity.this,"http://api.drcnet.com.cn/app/android");
+                                            goToDownload(SystemUpdateActivity.this,updateUrl+path);
                                             break;
                                     }
+
                                 }
                             });
                         }
