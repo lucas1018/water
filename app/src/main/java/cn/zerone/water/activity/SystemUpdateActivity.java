@@ -30,7 +30,7 @@ public class SystemUpdateActivity extends AppCompatActivity {
     private int  isAutoUpdate=0;
     private TextView tvmsg;
     //todo 这个参数要提取全局变量 要不然当activity杀死之后 其他地方存在他的引用，容易造成内存泄漏
-    public static String APK_DOWNLOAD_URL="";
+    public static String APK_DOWNLOAD_URL="1111";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -77,15 +77,16 @@ public class SystemUpdateActivity extends AppCompatActivity {
                                         case R.id.dialog_sure:
 
 //                            /**调用系统自带的浏览器去下载最新apk*/
-//                            Intent intent = new Intent();
-//                            intent.setAction("android.intent.action.VIEW");
-//                            if (updateUrl != null && updateUrl.startsWith("http")) {
-//                                Uri content_url = Uri.parse(updateUrl);
-//                                intent.setData(content_url);
-//                                startActivity(intent);
-//                            }
-//                                            goToDownload(SystemUpdateActivity.this,"http://api.drcnet.com.cn/app/android");
-                                            goToDownload(SystemUpdateActivity.this,updateUrl+path);
+                            Intent intent = new Intent();
+                            intent.setAction("android.intent.action.VIEW");
+                            if (updateUrl != null && (updateUrl+path).startsWith("http")) {
+                                Uri content_url = Uri.parse(updateUrl+path);
+                                intent.setData(content_url);
+                                startActivity(intent);
+                            }
+//
+                                         //  goToDownload(SystemUpdateActivity.this,updateUrl+path  );
+                                            //goToDownload(SystemUpdateActivity.this,"http://api.drcnet.com.cn/app/android");
                                             break;
                                     }
 
