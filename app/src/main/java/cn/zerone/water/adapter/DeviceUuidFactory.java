@@ -33,6 +33,7 @@ public class DeviceUuidFactory {
                             } else {
                                 final String deviceId = ((TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE)).getDeviceId();
                                 uuid = deviceId != null ? UUID.nameUUIDFromBytes(deviceId.getBytes("utf8")) : UUID.randomUUID();
+
                             }
                             return uuid;
                         } catch (UnsupportedEncodingException e) {

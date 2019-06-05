@@ -33,60 +33,62 @@ public class MainActivity extends AppCompatActivity {
     private ImageView home;
 
     List<String> mViewList = new ArrayList<String>();//顶部用于循环的布局集合
-    Fragment[] fragments = new Fragment[]{new NoticeFragment(),new TaskListFragment(),new HomeFragment(),new LiveFragment(),new MyselfFragment()};
+    Fragment[] fragments = new Fragment[]{new NoticeFragment(), new TaskListFragment(), new HomeFragment(), new LiveFragment(), new MyselfFragment()};
     //切换底部导航
 
-    public synchronized void changeTab(int index,String url){
+    public synchronized void changeTab(int index, String url) {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         for (int i = 0; i < 5; ++i) {
-            if(i == index) {
+            if (i == index) {
                 transaction.show(fragments[i]);
-            }else{
+            } else {
                 transaction.hide(fragments[i]);
             }
         }
-        if (index == 2 ){
+        if (index == 2) {
             home.setImageResource(R.drawable.home_blue);
-        }
-        else{
+        } else {
             home.setImageResource(R.drawable.home_gray);
         }
         transaction.commit();
 
     }
-    public void setNotifyReadView(final boolean isShow){
-        if(activity!=null)
-        activity.runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                if(isShow){
-                    badge.setVisibility(View.VISIBLE);
-                }else{
-                    App.sharedPreferences.edit().putBoolean("isRead",false).commit();
-                    badge.setVisibility(View.GONE);
-                }
-            }
-        });
-    }
-    public void setMsgReadView(final boolean isShow){
-        if(activity != null)
+
+    public void setNotifyReadView(final boolean isShow) {
+        if (activity != null)
             activity.runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    if(isShow){
+                    if (isShow) {
+                        badge.setVisibility(View.VISIBLE);
+                    } else {
+                        App.sharedPreferences.edit().putBoolean("isRead", false).commit();
+                        badge.setVisibility(View.GONE);
+                    }
+                }
+            });
+    }
+
+    public void setMsgReadView(final boolean isShow) {
+        if (activity != null)
+            activity.runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    if (isShow) {
                         msgBadge.setVisibility(View.VISIBLE);
-                        App.sharedPreferences.edit().putBoolean("isMsgRead",true).commit();
-                    }else{
-                        App.sharedPreferences.edit().putBoolean("isMsgRead",false).commit();
+                        App.sharedPreferences.edit().putBoolean("isMsgRead", true).commit();
+                    } else {
+                        App.sharedPreferences.edit().putBoolean("isMsgRead", false).commit();
                         msgBadge.setVisibility(View.GONE);
                     }
                 }
             });
     }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        activity= null;
+        activity = null;
     }
 
 
@@ -96,75 +98,78 @@ public class MainActivity extends AppCompatActivity {
             switch (item.getItemId()) {
                 case R.id.navigation_notify:
                     setNotifyReadView(false);
-                    changeTab(0,null);
+                    changeTab(0, null);
                     return true;
                 case R.id.navigation_task:
-                    changeTab(1,null);
+                    changeTab(1, null);
                     return true;
                 case R.id.navigation_home:
-                    changeTab(2,null);
+                    changeTab(2, null);
                     return true;
                 case R.id.navigation_broadcast:
                     setMsgReadView(false);
-                    changeTab(3,null);
+                    changeTab(3, null);
                     return true;
                 case R.id.navigation_myself:
-                    changeTab(4,null);
+                    changeTab(4, null);
                     return true;
             }
             return false;
         }
     };
-    BottomNavigationView navigation =null;
+    BottomNavigationView navigation = null;
     View badge = null;
     View msgBadge = null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        home = (ImageView)findViewById(R.id.navigation_center_image);
+        home = (ImageView) findViewById(R.id.navigation_center_image);
 
-        ((App)getApplication()).mapInit();
+        ((App) getApplication()).mapInit();
 
         navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         BottomNavigationViewHelper.disableShiftMode(navigation);
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.add(R.id.fragment_container,fragments[0] );
-        transaction.add(R.id.fragment_container,fragments[1] );
-        transaction.add(R.id.fragment_container,fragments[2] );
-        transaction.add(R.id.fragment_container,fragments[3] );
-        transaction.add(R.id.fragment_container,fragments[4] );
+        transaction.add(R.id.fragment_container, fragments[0]);
+        transaction.add(R.id.fragment_container, fragments[1]);
+        transaction.add(R.id.fragment_container, fragments[2]);
+        transaction.add(R.id.fragment_container, fragments[3]);
+        transaction.add(R.id.fragment_container, fragments[4]);
         transaction.commit();
-        changeTab(2,null);
-
+        changeTab(2, null);
+       // setTagAndAlias();
         MainActivity.activity = this;
-        int a=  navigation.getChildCount();
-        int b=navigation.getMaxItemCount();
-        BottomNavigationMenuView menuView  = (BottomNavigationMenuView) navigation.getChildAt(0);
+        int a = navigation.getChildCount();
+        int b = navigation.getMaxItemCount();
+        BottomNavigationMenuView menuView = (BottomNavigationMenuView) navigation.getChildAt(0);
         navigation.setSelectedItemId(navigation.getMenu().getItem(2).getItemId());
         home.setImageResource(R.drawable.home_blue);
         View tab = menuView.getChildAt(1);
         BottomNavigationItemView itemView = (BottomNavigationItemView) tab;
-         badge = LayoutInflater.from(this).inflate(R.layout.menu_badge, null, false);
+        badge = LayoutInflater.from(this).inflate(R.layout.menu_badge, null, false);
         itemView.addView(badge);
-         tab = menuView.getChildAt(1);
-         itemView = (BottomNavigationItemView) tab;
-        msgBadge= LayoutInflater.from(this).inflate(R.layout.menu_badge, null, false);
+        tab = menuView.getChildAt(1);
+        itemView = (BottomNavigationItemView) tab;
+        msgBadge = LayoutInflater.from(this).inflate(R.layout.menu_badge, null, false);
         itemView.addView(msgBadge);
 
-        if( App.sharedPreferences.getBoolean("isRead",false)){
+        if (App.sharedPreferences.getBoolean("isRead", false)) {
             setNotifyReadView(true);
         } else {
             setNotifyReadView(false);
         }
-        if( App.sharedPreferences.getBoolean("isMsgRead",false)){
+        if (App.sharedPreferences.getBoolean("isMsgRead", false)) {
             setMsgReadView(true);
         } else {
             setMsgReadView(false);
         }
     }
+
     Long exitTime = 0l;
+
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK
@@ -181,7 +186,9 @@ public class MainActivity extends AppCompatActivity {
 
         return super.onKeyDown(keyCode, event);
     }
-//    @Override
+
+
+    //    @Override
 //    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 //        super.onActivityResult(requestCode, resultCode, data);
 //        if(requestCode==3){
@@ -220,4 +227,5 @@ public class MainActivity extends AppCompatActivity {
 //                }
 //            }
 //    }
+
 }
