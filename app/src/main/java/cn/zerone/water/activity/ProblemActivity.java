@@ -37,6 +37,7 @@ public class ProblemActivity extends AppCompatActivity {
     private ImageButton pic = null;
     private ImageButton video = null;
     private TextView save = null;
+    private TextView pro_list = null;
     private EditText pro_title = null;
     private EditText pro_content = null;
     private boolean has_type = false;
@@ -56,6 +57,7 @@ public class ProblemActivity extends AppCompatActivity {
         problem_go = (ImageView)findViewById(R.id.problem_go);
         problem_type = (TextView)findViewById(R.id.problem_type);
         save = (TextView) findViewById(R.id.pr_save);
+        pro_list = findViewById(R.id.pr_list);
         pro_title = (EditText) findViewById(R.id.pro_title);
         pro_content = (EditText) findViewById(R.id.pro_content);
 
@@ -63,6 +65,15 @@ public class ProblemActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 finish();
+            }
+        });
+
+        //进入问题列表
+        pro_list.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivityForResult(new Intent(ProblemActivity.this, ProblemListActivity.class), 1);
+
             }
         });
 

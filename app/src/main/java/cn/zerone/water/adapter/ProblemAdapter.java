@@ -70,7 +70,7 @@ public class ProblemAdapter extends BaseAdapter {
         //绑定数据
 
         String typeName = (String) data.get(position).get("typeName");
-        if (!typeName.isEmpty()){
+        if (typeName != null){
             problemItem.pro_type.setText(typeName);
         }
 

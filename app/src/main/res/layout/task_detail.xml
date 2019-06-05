@@ -42,10 +42,6 @@
         </RelativeLayout>
 
 
-        <ScrollView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -146,10 +142,92 @@
 
                 </LinearLayout>
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <LinearLayout
+                            android:layout_width="178dp"
+                            android:layout_height="80dp"
+                            android:layout_marginLeft="20dp"
+                            android:background="#FF008ACA">
+
+                            <ImageView
+                                android:layout_width="14dp"
+                                android:layout_height="13dp"
+                                android:layout_marginLeft="59dp"
+                                android:layout_marginTop="19dp"
+                                android:src="@drawable/task_loc"
+                                />
+
+                            <TextView
+                                android:layout_marginLeft="11dp"
+                                android:layout_marginTop="16dp"
+                                android:layout_width="46dp"
+                                android:layout_height="16dp"
+                                android:text="已定位"
+                                android:textColor="#ffffffff"
+                                android:textSize="14sp"
+                                />
+
+                            <TextView
+                                android:layout_marginLeft="-80dp"
+                                android:layout_marginTop="42dp"
+                                android:layout_width="70dp"
+                                android:layout_height="22dp"
+                                android:text="站点定位"
+                                android:textColor="#ffffffff"
+                                android:textSize="16sp"
+                                />
+
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_marginLeft="20dp"
+                            android:layout_width="178dp"
+                            android:layout_height="80dp"
+                            android:background="#FF1AAD19">
+
+                            <TextView
+                                android:layout_marginLeft="83dp"
+                                android:layout_marginTop="16dp"
+                                android:layout_width="46dp"
+                                android:layout_height="16dp"
+                                android:text="未上传"
+                                android:textColor="#ffffffff"
+                                android:textSize="14sp"
+                                />
+
+                            <TextView
+                                android:layout_marginLeft="-71dp"
+                                android:layout_marginTop="42dp"
+                                android:layout_width="70dp"
+                                android:layout_height="22dp"
+                                android:text="施工照片"
+                                android:textColor="#ffffffff"
+                                android:textSize="16sp"
+                                />
+
+
+
+                        </LinearLayout>
+
+
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
             </LinearLayout>
 
 
-        </ScrollView>
+
+
 
     </LinearLayout>
 
