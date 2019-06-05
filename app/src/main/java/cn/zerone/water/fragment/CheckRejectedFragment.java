@@ -20,6 +20,7 @@ import cn.zerone.water.App;
 import cn.zerone.water.R;
 import cn.zerone.water.activity.ApproveActivity;
 import cn.zerone.water.activity.CheckDetailsActivity;
+import cn.zerone.water.activity.CheckedInfoActivity;
 import cn.zerone.water.adapter.ApproveAdapter;
 import cn.zerone.water.adapter.ApproveItem;
 import cn.zerone.water.http.Requests;
@@ -68,8 +69,8 @@ public class CheckRejectedFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         //初始化分隔线、添加分隔线
-        mDivider = new DividerItemDecoration(getContext(),DividerItemDecoration.VERTICAL);
-        recyclerView.addItemDecoration(mDivider);
+        //mDivider = new DividerItemDecoration(getContext(),DividerItemDecoration.VERTICAL);
+        //recyclerView.addItemDecoration(mDivider);
         mMyItemList_rejected = new ArrayList<>();
         //mAdapter = new ApproveAdapter(mylist);
         //recyclerView.setAdapter(mAdapter);
@@ -136,8 +137,62 @@ public class CheckRejectedFragment extends Fragment {
         mAdapter = new ApproveAdapter(mylist);
         recyclerView.setAdapter(mAdapter);
 
+        // 设置item及item中控件的点击事件
+        mAdapter.setOnItemClickListener(MyItemClickListener);
+
 
     }
+
+    /**
+     * item＋item里的控件点击监听事件
+     */
+    private ApproveAdapter.OnItemClickListener MyItemClickListener = new ApproveAdapter.OnItemClickListener() {
+
+        @Override
+        public void onItemClick(View v, ApproveAdapter.ViewName viewName, int position) {
+            //viewName可区分item及item内部控件
+            switch (v.getId()){
+                case R.id.item_go:
+                    ApproveItem item = mMyItemList_rejected.get(position);
+                    int status = item.getItemStatus();
+                    if(status == 2){
+                        Bundle bundle = new Bundle();
+                        bundle.putString("Url", item.getWebUrl());
+                        bundle.putInt("checkID", item.getCheckID());
+                        bundle.putString("CheckName", item.getItemAbstruct());
+
+                        Intent intent = new Intent();
+                        intent.putExtras(bundle);
+                        intent.setClass(getContext(), CheckedInfoActivity.class);
+                        //getContext().startActivity(intent);
+                        startActivity(intent);
+                    }
+                    break;
+                default:
+                    ApproveItem item1 = mMyItemList_rejected.get(position);
+                    int status1 = item1.getItemStatus();
+                    if(status1 == 2){
+                        Bundle bundle = new Bundle();
+                        bundle.putString("Url", item1.getWebUrl());
+                        bundle.putInt("checkID", item1.getCheckID());
+                        bundle.putString("CheckName", item1.getItemAbstruct());
+
+                        Intent intent = new Intent();
+                        intent.putExtras(bundle);
+                        intent.setClass(getContext(), CheckedInfoActivity.class);
+                        //getContext().startActivity(intent);
+                        startActivity(intent);
+                    }
+                    break;
+            }
+        }
+
+        @Override
+        public void onItemLongClick(View v) {
+
+        }
+    };
+
 
     public void getDatas(int pindex){
 

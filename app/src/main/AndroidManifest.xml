@@ -242,7 +242,10 @@
         <activity android:name=".activity.ApproveActivity" />
         <activity android:name=".activity.CheckDetailsActivity" />
         <activity android:name=".activity.CheckSubmitActivity" />
+        <activity android:name=".activity.CheckedInfoActivity" />
+
         <activity android:name=".activity.TaskDetailActivity" />
+
 
         <!-- Required SDK 核心功能-->
         <!-- 可配置android:process参数将PushService放在其他进程中 -->
