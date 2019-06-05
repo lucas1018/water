@@ -19,20 +19,18 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
-
 import cn.zerone.water.App;
 import cn.zerone.water.R;
 import cn.zerone.water.activity.ApproveActivity;
+import cn.zerone.water.activity.CalenderActivity;
 import cn.zerone.water.activity.MealActivity;
 import cn.zerone.water.activity.PasswordModifiedActivity;
 import cn.zerone.water.activity.PhoneNumberModifiedActivity;
@@ -89,7 +87,6 @@ public class MyselfFragment extends Fragment {
             }
             @Override
             public void onNext(JSONObject json) {
-                System.out.println("bbbbbb" + json);
                 //设置用户名
                 String username = json.getString("NAME");
                 App.username = username;
@@ -143,6 +140,10 @@ public class MyselfFragment extends Fragment {
                 switch (position) {
                     case 0:
                         i = new Intent(getContext(), ApproveActivity.class);
+                        getContext().startActivity(i);
+                        break;
+                    case 1:
+                        i = new Intent(getContext(), CalenderActivity.class);
                         getContext().startActivity(i);
                         break;
                     case 3:

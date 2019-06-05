@@ -12,7 +12,6 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.VIBRATE" />
-
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" >    </uses-permission>
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" >    </uses-permission>
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" >    </uses-permission>
@@ -283,6 +282,16 @@
             android:name="cn.jpush.android.service.DownloadProvider"
             android:exported="true"
             />
+
+        <provider
+            android:name=".service.UpdateApkFileProvider"
+            android:authorities="update.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/update_apk_paths" />
+        </provider>
         <!-- Required SDK核心功能-->
         <receiver
             android:name="cn.jpush.android.service.PushReceiver"
@@ -337,6 +346,12 @@
         <!--百度导航-->
         <service android:name="com.baidu.navigation.service.ForegroundService" />
 
+        <service
+            android:name=".service.UpdateService"
+            android:exported="false" />
+
+        <activity android:name=".activity.CalenderActivity" />
+        <activity android:name=".activity.CalenderContentActivity" />
     </application>
 
 </manifest>
