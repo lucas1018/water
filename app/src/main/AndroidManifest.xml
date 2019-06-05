@@ -128,7 +128,9 @@
         <activity android:name=".activity.HistoryCarClockInActivity"    android:configChanges="keyboard|keyboardHidden|orientation|screenSize" />
 
         <activity android:name=".activity.ConstructionLog"    android:configChanges="keyboard|keyboardHidden|orientation|screenSize" />
+        <!--
         <activity android:name=".activity.LogContentActivity"    android:configChanges="keyboard|keyboardHidden|orientation|screenSize" />
+        -->
         <activity android:name=".activity.ProblemActivity"    android:configChanges="keyboard|keyboardHidden|orientation|screenSize" />
         <activity android:name=".activity.ProblemTypeActivity"    android:configChanges="keyboard|keyboardHidden|orientation|screenSize" />
         <activity android:name=".activity.ProblemListActivity"    android:configChanges="keyboard|keyboardHidden|orientation|screenSize" />
@@ -345,7 +347,6 @@
 
         <!--百度导航-->
         <service android:name="com.baidu.navigation.service.ForegroundService" />
-
         <service
             android:name=".service.UpdateService"
             android:exported="false" />
