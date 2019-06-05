@@ -135,9 +135,62 @@ public class WaitCheckFragment extends Fragment {
 
         mAdapter = new ApproveAdapter(mylist);
         recyclerView.setAdapter(mAdapter);
+        // 设置item及item中控件的点击事件
+        mAdapter.setOnItemClickListener(MyItemClickListener);
 
 
     }
+
+    /**
+     * item＋item里的控件点击监听事件
+     */
+    private ApproveAdapter.OnItemClickListener MyItemClickListener = new ApproveAdapter.OnItemClickListener() {
+
+        @Override
+        public void onItemClick(View v, ApproveAdapter.ViewName viewName, int position) {
+            //viewName可区分item及item内部控件
+            switch (v.getId()){
+                case R.id.item_go:
+                    ApproveItem item = mMyItemList_wait.get(position);
+                    int status = item.getItemStatus();
+                    if(status == 0){
+                        Bundle bundle = new Bundle();
+                        bundle.putString("Url", item.getWebUrl());
+                        bundle.putInt("checkID", item.getCheckID());
+                        bundle.putString("CheckName", item.getItemAbstruct());
+
+                        Intent intent = new Intent();
+                        intent.putExtras(bundle);
+                        intent.setClass(getContext(), CheckDetailsActivity.class);
+                        //getContext().startActivity(intent);
+                        startActivityForResult(intent, 11);
+                    }
+                    break;
+                default:
+                    ApproveItem item1 = mMyItemList_wait.get(position);
+                    int status1 = item1.getItemStatus();
+                    if(status1 == 0){
+                        Bundle bundle = new Bundle();
+                        bundle.putString("Url", item1.getWebUrl());
+                        bundle.putInt("checkID", item1.getCheckID());
+                        bundle.putString("CheckName", item1.getItemAbstruct());
+
+                        Intent intent = new Intent();
+                        intent.putExtras(bundle);
+                        intent.setClass(getContext(), CheckDetailsActivity.class);
+                        //getContext().startActivity(intent);
+                        startActivityForResult(intent, 11);
+                    }
+                    break;
+            }
+        }
+
+        @Override
+        public void onItemLongClick(View v) {
+
+        }
+    };
+
 
     public void getDatas(int pindex){
 
