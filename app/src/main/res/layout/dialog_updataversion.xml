@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    >
+    <RelativeLayout
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:background="@drawable/roctet_bg"
+        android:layout_centerInParent="true"
+        android:minHeight="300dp"
+        >
+        <ImageView
+            android:id="@+id/iamgv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/sj"/>
+        <RelativeLayout
+            android:id="@+id/relative_imagv_dialog_cancel"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="20dp"
+            android:gravity="center"
+            android:layout_marginRight="26dp">
+            <ImageView
+                android:id="@+id/imagv_dialog_cancel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:src="@drawable/gb"/>
+        </RelativeLayout>
+
+        <TextView
+            android:layout_below="@+id/iamgv"
+            android:id="@+id/updataversion_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="亲，发现新版本了！"
+            android:layout_centerHorizontal="true"
+            android:textColor="#6ab7ff"
+            android:layout_marginTop="10dp"
+            android:textSize="18sp"/>
+
+        <TextView
+            android:id="@+id/updataversion_title_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="更新内容"
+            android:layout_below="@+id/updataversion_title"
+            android:paddingLeft="5dp"
+            android:layout_marginTop="10dp"
+            android:paddingRight="5dp"
+            android:layout_marginLeft="50dp"
+            android:layout_marginRight="5dp"
+            android:textColor="#333333"
+            android:textSize="13sp" />
+        <TextView
+            android:layout_below="@+id/updataversion_title_content"
+            android:id="@+id/updataversion_msg"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:layout_marginLeft="50dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=" "
+            android:textColor="#8e8e8e"
+            android:textSize="13sp" />
+
+        <RelativeLayout
+            android:id="@+id/dialog_sure"
+            android:clickable="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="26dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:minWidth="240dp"
+                android:minHeight="42dp"
+                android:gravity="center"
+                android:text="马上更新"
+                android:background="@drawable/updataversionbut_bg"
+                android:textColor="#ffffff"
+                android:textSize="18sp" />
+
+        </RelativeLayout>
+    </RelativeLayout>
+
+
+</RelativeLayout>

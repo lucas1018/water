@@ -4,7 +4,12 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
@@ -17,6 +22,9 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
+
+import static com.baidu.platform.comapi.newsearch.EngineParams.HttpMethod.GET;
+
 /**
  * created by qhk
  * on 2019/5/11
@@ -69,7 +77,6 @@ public class HttpUtil {
             @Override
             public void subscribe(@NonNull ObservableEmitter<T> e) throws Exception {
                 Response response = post(cmd, requestBody);
-                System.out.println("mmmmmmmmm" + response);
                 if(response != null && response.code() == 200){
                     String json = response.body().string();
                     e.onNext((T) JSON.parseObject(json));
@@ -131,4 +138,5 @@ public class HttpUtil {
         }
         return null;
     }
+
 }
