@@ -33,6 +33,7 @@ import java.util.List;
 import cn.zerone.water.App;
 import cn.zerone.water.R;
 import cn.zerone.water.activity.ApproveActivity;
+import cn.zerone.water.activity.LoginActivity;
 import cn.zerone.water.activity.MealActivity;
 import cn.zerone.water.activity.PasswordModifiedActivity;
 import cn.zerone.water.activity.PhoneNumberModifiedActivity;
@@ -126,7 +127,9 @@ public class MyselfFragment extends Fragment {
         action_sign_out.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                System.exit(0);
+//                System.exit(0);
+                Intent i = new Intent(getContext(), LoginActivity.class);
+                getContext().startActivity(i);
             }
         });
 

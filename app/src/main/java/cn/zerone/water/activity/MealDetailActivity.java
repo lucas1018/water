@@ -94,7 +94,7 @@ public class MealDetailActivity extends AppCompatActivity {
                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
                 for (int i =0 ;i < jsonArray.size(); i++) {
                     JSONObject jsonObject = jsonArray.getJSONObject(i);
-                    String time = jsonObject.getString("AddTime");
+                    String time = jsonObject.getString("Date");
                     String t = time.substring(6, 19);
                     Long timeLong = Long.parseLong(t);
                     Date tmp = new Date(timeLong);
