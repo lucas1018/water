@@ -67,7 +67,7 @@
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
             android:layout_marginTop="5dp"
-            android:layout_marginEnd="110dp"
+            android:layout_marginEnd="125dp"
             android:src="@mipmap/notice_time"
             android:visibility="visible" />
 

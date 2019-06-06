@@ -69,7 +69,7 @@ public class ConstructionLog extends Activity {
         log_go.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivityForResult(new Intent(ConstructionLog.this, ClockInGetProjectActivity.class), 1);
+                startActivityForResult(new Intent(ConstructionLog.this, LogGetProjectActivity.class), 1);
 
             }
         });
@@ -82,7 +82,7 @@ public class ConstructionLog extends Activity {
                 else {
                     Intent intent = new Intent();
                     intent.putExtra("projectID", projectID);
-                    startActivityForResult(intent.setClass(ConstructionLog.this, ClockInGetStationActivity.class), 2);
+                    startActivityForResult(intent.setClass(ConstructionLog.this, LogInGetStationActivity.class), 2);
                 }
 
             }
