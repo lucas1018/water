@@ -1,16 +1,11 @@
 package cn.zerone.water.fragment;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.StrictMode;
-import android.support.annotation.DrawableRes;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,24 +14,24 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-import com.alibaba.fastjson.JSONArray;
+
 import com.alibaba.fastjson.JSONObject;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import cn.zerone.water.App;
 import cn.zerone.water.R;
 import cn.zerone.water.activity.ApproveActivity;
 import cn.zerone.water.activity.CalenderActivity;
+import cn.zerone.water.activity.LoginActivity;
 import cn.zerone.water.activity.MealActivity;
 import cn.zerone.water.activity.PasswordModifiedActivity;
 import cn.zerone.water.activity.PhoneNumberModifiedActivity;
 import cn.zerone.water.activity.SystemUpdateActivity;
 import cn.zerone.water.http.Requests;
 import cn.zerone.water.utils.ImageUtil;
+import cn.zerone.water.utils.SPUtils;
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 
@@ -124,6 +119,11 @@ public class MyselfFragment extends Fragment {
         action_sign_out.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                SPUtils.deleteBean(getActivity(),SPUtils.KEY_USER);
+                Intent intent = new Intent(getActivity(),LoginActivity.class);
+//                App.userId =null;
+//                App.username =null;
+//                App.pwd = null;
                 System.exit(0);
             }
         });

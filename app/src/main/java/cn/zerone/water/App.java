@@ -23,7 +23,7 @@ import cn.zerone.water.adapter.DeviceUuidFactory;
 import cn.zerone.water.http.Requests;
 import cn.zerone.water.model.EngineeringStation;
 import cn.zerone.water.utils.MD5Utils;
-
+import cn.zerone.water.utils.SPUtils;
 
 
 /**
@@ -50,8 +50,9 @@ public class App extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-       device_tokens = DeviceUuidFactory.GetDeviceUuidFactory(this)+"";
-       device_tokens = device_tokens.replaceAll("-","");
+        device_tokens = DeviceUuidFactory.GetDeviceUuidFactory(this)+"";
+        device_tokens = device_tokens.replaceAll("-","");
+        SPUtils.init(this);
 
         JPushInterface.setDebugMode(true); //正式环境时去掉此行代码
         JPushInterface.init(this);
@@ -75,7 +76,7 @@ public class App extends Application {
         //自4.3.0起，百度地图SDK所有接口均支持百度坐标和国测局坐标，用此方法设置您使用的坐标类型.
         //包括BD09LL和GCJ02两种坐标，默认是BD09LL坐标。
         SDKInitializer.setCoordType(CoordType.BD09LL);
-     setTagAndAlias();
+        setTagAndAlias();
 
 
     }
@@ -136,18 +137,18 @@ public class App extends Application {
             @Override
             public void onReceiveLocation(BDLocation bdLocation) {
                 try{
-                lastDBLocation = bdLocation;
-                if (isUploadGps && (System.currentTimeMillis() - lastUpdateGps > 15 * 1000)) {
-                    lastUpdateGps = System.currentTimeMillis();
-                    System.out.println("上传 GPS中");
-                    try {
-                        Requests.uploadGps(App.userId, bdLocation.getLatitude(), bdLocation.getLongitude());
-                    } catch (Exception e) {
-                        e.printStackTrace();
+                    lastDBLocation = bdLocation;
+                    if (isUploadGps && (System.currentTimeMillis() - lastUpdateGps > 15 * 1000)) {
+                        lastUpdateGps = System.currentTimeMillis();
+                        System.out.println("上传 GPS中");
+                        try {
+                            Requests.uploadGps(App.userId, bdLocation.getLatitude(), bdLocation.getLongitude());
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    } else {
+                        System.out.println("未上传GPS");
                     }
-                } else {
-                    System.out.println("未上传GPS");
-                }
                 }catch (Exception e){
                     e.printStackTrace();
                 }
@@ -169,14 +170,14 @@ public class App extends Application {
     }
 
     public void saveEngineeringStation(EngineeringStation engineeringStation) {
-       try{
-           this. engineeringStation = engineeringStation;
-           System.out.println("saveEngineeringStation:"+engineeringStation);
-           SharedPreferences sp = getSharedPreferences(MD5Utils.encode2hex(App.username), Context.MODE_PRIVATE);
-           sp.edit().putString("engineeringStation", engineeringStation.toString()).commit();
-       }catch (Exception e){
-           e.printStackTrace();
-       }
+        try{
+            this. engineeringStation = engineeringStation;
+            System.out.println("saveEngineeringStation:"+engineeringStation);
+            SharedPreferences sp = getSharedPreferences(MD5Utils.encode2hex(App.username), Context.MODE_PRIVATE);
+            sp.edit().putString("engineeringStation", engineeringStation.toString()).commit();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
 
 
     }
