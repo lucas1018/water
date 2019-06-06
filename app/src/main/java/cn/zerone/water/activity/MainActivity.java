@@ -1,6 +1,7 @@
 package cn.zerone.water.activity;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.internal.BottomNavigationItemView;
 import android.support.design.internal.BottomNavigationMenuView;
@@ -20,12 +21,14 @@ import java.util.List;
 
 import cn.zerone.water.App;
 import cn.zerone.water.R;
+import cn.zerone.water.adapter.UserMode;
 import cn.zerone.water.fragment.HomeFragment;
 import cn.zerone.water.fragment.LiveFragment;
 import cn.zerone.water.fragment.MyselfFragment;
 import cn.zerone.water.fragment.NoticeFragment;
 import cn.zerone.water.fragment.TaskListFragment;
 import cn.zerone.water.utils.BottomNavigationViewHelper;
+import cn.zerone.water.utils.SPUtils;
 import io.reactivex.annotations.NonNull;
 
 public class MainActivity extends AppCompatActivity {
@@ -33,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
     private ImageView home;
 
     List<String> mViewList = new ArrayList<String>();//顶部用于循环的布局集合
-    Fragment[] fragments = new Fragment[]{new NoticeFragment(), new TaskListFragment(), new HomeFragment(), new LiveFragment(), new MyselfFragment()};
+    Fragment[] fragments = new Fragment[]{ new NoticeFragment(),new TaskListFragment(), new HomeFragment(), new LiveFragment(), new MyselfFragment()};
     //切换底部导航
 
     public synchronized void changeTab(int index, String url) {
@@ -125,6 +128,12 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        UserMode user = (UserMode)SPUtils.getBean(this,SPUtils.KEY_USER);
+        if (user == null){
+            Intent intent = new Intent(this,LoginActivity.class);
+            startActivity(intent);
+        }
+
         home = (ImageView) findViewById(R.id.navigation_center_image);
 
         ((App) getApplication()).mapInit();

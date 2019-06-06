@@ -23,7 +23,7 @@ import cn.zerone.water.adapter.DeviceUuidFactory;
 import cn.zerone.water.http.Requests;
 import cn.zerone.water.model.EngineeringStation;
 import cn.zerone.water.utils.MD5Utils;
-
+import cn.zerone.water.utils.SPUtils;
 
 
 /**
@@ -52,6 +52,7 @@ public class App extends Application {
         super.onCreate();
        device_tokens = DeviceUuidFactory.GetDeviceUuidFactory(this)+"";
        device_tokens = device_tokens.replaceAll("-","");
+        SPUtils.init(this);
 
         JPushInterface.setDebugMode(true); //正式环境时去掉此行代码
         JPushInterface.init(this);

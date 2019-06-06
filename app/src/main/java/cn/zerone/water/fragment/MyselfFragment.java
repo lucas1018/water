@@ -1,16 +1,10 @@
 package cn.zerone.water.fragment;
 
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.StrictMode;
-import android.support.annotation.DrawableRes;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,26 +13,20 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.JSONObject;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import cn.zerone.water.App;
 import cn.zerone.water.R;
 import cn.zerone.water.activity.ApproveActivity;
 import cn.zerone.water.activity.CalenderActivity;
+import cn.zerone.water.activity.LoginActivity;
 import cn.zerone.water.activity.MealActivity;
 import cn.zerone.water.activity.PasswordModifiedActivity;
 import cn.zerone.water.activity.PhoneNumberModifiedActivity;
 import cn.zerone.water.activity.SystemUpdateActivity;
-import cn.zerone.water.http.Requests;
-import cn.zerone.water.utils.ImageUtil;
-import io.reactivex.Observer;
-import io.reactivex.disposables.Disposable;
+import cn.zerone.water.utils.SPUtils;
 
 /**
  * Created by zero on 2018/12/3.
@@ -81,49 +69,54 @@ public class MyselfFragment extends Fragment {
 
         action_sign_out = view.findViewById(R.id.action_sign_out);
 
-        Requests.USER_INFO_GetModelBLL(new Observer<JSONObject>() {
-            @Override
-            public void onSubscribe(Disposable d) {
-            }
-            @Override
-            public void onNext(JSONObject json) {
-                //设置用户名
-                String username = json.getString("NAME");
-                App.username = username;
-                userName.setText(username);
-                //设置头像
-                imgUrl = json.getString("Photo");
-                if (imgUrl == null || imgUrl.equals("")) {
-                    photo1.setImageResource(R.mipmap.logo);
-                } else {
-                    String url = "http://47.105.187.185:8011" + imgUrl;
-                    ImageUtil imageUtil = ImageUtil.getInstance();
-                    Bitmap temp_bitmap = ImageUtil.getBitMBitmap(url);
-                    Bitmap bitmap = imageUtil.comp(temp_bitmap);
-                    photo1.setImageBitmap(bitmap);
-                }
-                //设置登录名
-                String login_name = json.getString("LOGIN_NAME");
-                phoneNum.setText(login_name);
-                //获取密码
-                String pwd = json.getString("PASSWORD");
-                App.pwd = pwd;
-            }
-            @Override
-            public void onError(Throwable e) {
-                e.printStackTrace();
-            }
-            @Override
-            public void onComplete() {
-
-            }
-        }, App.userId);
+//        Requests.USER_INFO_GetModelBLL(new Observer<JSONObject>() {
+//            @Override
+//            public void onSubscribe(Disposable d) {
+//            }
+//            @Override
+//            public void onNext(JSONObject json) {
+//                //设置用户名
+//                String username = json.getString("NAME");
+//                App.username = username;
+//                userName.setText(username);
+//                //设置头像
+//                imgUrl = json.getString("Photo");
+//                if (imgUrl == null || imgUrl.equals("")) {
+//                    photo1.setImageResource(R.mipmap.logo);
+//                } else {
+//                    String url = "http://47.105.187.185:8011" + imgUrl;
+//                    ImageUtil imageUtil = ImageUtil.getInstance();
+//                    Bitmap temp_bitmap = ImageUtil.getBitMBitmap(url);
+//                    Bitmap bitmap = imageUtil.comp(temp_bitmap);
+//                    photo1.setImageBitmap(bitmap);
+//                }
+//                //设置登录名
+//                String login_name = json.getString("LOGIN_NAME");
+//                phoneNum.setText(login_name);
+//                //获取密码
+//                String pwd = json.getString("PASSWORD");
+//                App.pwd = pwd;
+//            }
+//            @Override
+//            public void onError(Throwable e) {
+//                e.printStackTrace();
+//            }
+//            @Override
+//            public void onComplete() {
+//
+//            }
+//        }, App.userId);
 
 
 
         action_sign_out.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                SPUtils.deleteBean(getActivity(),SPUtils.KEY_USER);
+                Intent intent = new Intent(getActivity(),LoginActivity.class);
+                App.userId =null;
+                App.username =null;
+                App.pwd = null;
                 System.exit(0);
             }
         });

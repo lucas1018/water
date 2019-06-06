@@ -1,25 +1,19 @@
 package cn.zerone.water.activity;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Color;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
-
-import com.alibaba.fastjson.JSON;
-
-import org.json.JSONObject;
 
 import cn.zerone.water.App;
 import cn.zerone.water.R;
+import cn.zerone.water.adapter.UserMode;
 import cn.zerone.water.http.Requests;
+import cn.zerone.water.utils.SPUtils;
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 
@@ -79,7 +73,7 @@ public class PasswordModifiedActivity extends AppCompatActivity {
 
     }
 //    修改登录成功后保存在SharedPreferences中的密码
-    private void modifyPsw(String p1, String p2, String p3) {
+    private void modifyPsw(String p1, String p2, final String p3) {
         String id =  App.userId;
         Requests.updatePWD(new Observer<com.alibaba.fastjson.JSONObject>() {
             @Override
@@ -91,6 +85,8 @@ public class PasswordModifiedActivity extends AppCompatActivity {
             public void onNext(com.alibaba.fastjson.JSONObject jsonObject) {
                 String info = jsonObject.getString("Text");
                 if (info.equals("密码修改成功！")){
+                    UserMode userMode = (UserMode)SPUtils.getBean(PasswordModifiedActivity.this,SPUtils.KEY_USER);
+                    userMode.setPwd(p3);
                     Toast.makeText(PasswordModifiedActivity.this,"新密码设置成功",Toast.LENGTH_SHORT).show();
                     finish();
                 }

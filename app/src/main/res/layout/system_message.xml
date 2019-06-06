@@ -57,8 +57,7 @@
         android:layout_below="@+id/relative2"
         android:layout_alignParentStart="true"
         android:layout_marginStart="0dp"
-        android:layout_marginTop="4dp"
-        >
+        android:layout_marginTop="6dp">
 
         <ImageView
             android:id="@+id/imageView3"
@@ -67,7 +66,7 @@
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
             android:layout_marginTop="5dp"
-            android:layout_marginEnd="110dp"
+            android:layout_marginEnd="125dp"
             android:src="@mipmap/notice_time"
             android:visibility="visible" />
 
@@ -78,9 +77,10 @@
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
             android:layout_marginTop="1dp"
+            android:layout_marginLeft="15dp"
             android:layout_marginEnd="20dp"
             android:textSize="16sp" />
-        
+
     </RelativeLayout>
     <RelativeLayout
         android:id="@+id/relative4"
@@ -109,7 +109,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_alignParentTop="true"
-            android:layout_marginLeft="20dp"
+
             android:layout_marginRight="20dp"
             android:textColor="#ff999999"
             android:textSize="12sp" />

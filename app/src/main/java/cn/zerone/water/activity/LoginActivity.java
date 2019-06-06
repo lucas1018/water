@@ -22,14 +22,15 @@ import android.widget.Toast;
 
 import com.alibaba.fastjson.JSONException;
 import com.alibaba.fastjson.JSONObject;
-import com.example.jpushdemo.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import cn.zerone.water.App;
 import cn.zerone.water.R;
+import cn.zerone.water.adapter.UserMode;
 import cn.zerone.water.http.Requests;
+import cn.zerone.water.utils.SPUtils;
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 
@@ -37,6 +38,7 @@ import static android.Manifest.permission.ACCESS_FINE_LOCATION;
 import static android.Manifest.permission.ACCESS_WIFI_STATE;
 import static android.Manifest.permission.READ_PHONE_STATE;
 import static cn.zerone.water.App.device_tokens;
+import static cn.zerone.water.App.username;
 
 /**
  * A login screen that offers login via email/password.
@@ -51,6 +53,8 @@ public class LoginActivity extends AppCompatActivity  {
     private EditText mPasswordView;
     private View mProgressView;
     private View mLoginFormView;
+
+
     String[] permissions = new String[]{
             Manifest.permission.ACCESS_COARSE_LOCATION,
             ACCESS_FINE_LOCATION,
@@ -68,6 +72,7 @@ public class LoginActivity extends AppCompatActivity  {
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
          super.onCreate(savedInstanceState);
@@ -100,6 +105,8 @@ public class LoginActivity extends AppCompatActivity  {
             }
         });
 
+
+
         TextView mEmailSignInButton = findViewById(R.id.email_sign_in_button);
         mEmailSignInButton.setOnClickListener(new OnClickListener() {
             @Override
@@ -109,6 +116,7 @@ public class LoginActivity extends AppCompatActivity  {
         });
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
+
         List<String> emails = new ArrayList<>();
 //        addEmailsToAutoComplete(emails);
     }
@@ -125,7 +133,7 @@ public class LoginActivity extends AppCompatActivity  {
 
         // Store values at the time of the login attempt.
         final String email = mAccountView.getText().toString();
-        String password = mPasswordView.getText().toString();
+        final String password = mPasswordView.getText().toString();
 
         boolean cancel = false;
         View focusView = null;
@@ -167,6 +175,12 @@ public class LoginActivity extends AppCompatActivity  {
                         }
                         App.userId = jsonObject.getString("NewId");
                         ((App) getApplication()).saveUserId(App.userId);
+                        UserMode userAccount= new UserMode();
+                        userAccount.setID(jsonObject.getString("NewId"));
+                        userAccount.setUserName(username);
+                        userAccount.setPwd(password);
+
+                        SPUtils.putBean(LoginActivity.this,SPUtils.KEY_USER,userAccount);
                         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                         startActivity(intent);
                         finish();
