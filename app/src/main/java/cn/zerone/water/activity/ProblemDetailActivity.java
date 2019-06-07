@@ -2,12 +2,15 @@ package cn.zerone.water.activity;
 
 import android.app.ActionBar;
 import android.app.Dialog;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Base64;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.MediaController;
@@ -22,12 +25,16 @@ import java.io.InputStream;
 
 import cn.zerone.water.R;
 import cn.zerone.water.http.Requests;
+import cn.zerone.water.utils.image2Base64Util;
 
 /**
  * Created by litinghui on 2019/5/29.
  */
 
 public class ProblemDetailActivity extends AppCompatActivity {
+
+    private image2Base64Util img2base;
+    private String basepic = "http://47.105.187.185:8011";
 
     public  void onCreate(Bundle savedInstanceState) {
 
@@ -72,14 +79,26 @@ public class ProblemDetailActivity extends AppCompatActivity {
                 JSONObject jsonObject = jsonObjects.getJSONObject(i);
                 String fileType = jsonObject.getString("FileType");
                 String path = jsonObject.getString("Path");
+
+
                 if (fileType.equals("0")){
                     problemImage.setVisibility(View.VISIBLE);
-                    problemImage.setImageURI(Uri.fromFile(new File(path)));
+
+                    //从数据库拿到的path是从/Content开始的，必须加上前缀的IP地址才能获取到真正的图片url
+                    //解析图片的url转化为64位编码，供ImageView生成图片
+                    String path_server = basepic + path;
+
+                    img2base = new image2Base64Util();
+                    String path64 = img2base.encodeImageToBase64(path_server);
+                    byte[] decodedStringAfter = Base64.decode(path64, Base64.DEFAULT);
+                    Bitmap decodedByteAfter = BitmapFactory.decodeByteArray(decodedStringAfter, 0, decodedStringAfter.length);
+                    problemImage.setImageBitmap(decodedByteAfter);
                 }else if (fileType.equals("2")){
 
                     problemVideo.setVisibility(View.VISIBLE);
 
                     problemVideo.setMediaController(new MediaController(this));
+
 
                     problemVideo.setVideoPath(path);
 

@@ -21,6 +21,7 @@ import java.io.File;
 import cn.zerone.water.App;
 import cn.zerone.water.R;
 import cn.zerone.water.http.Requests;
+import cn.zerone.water.utils.image2Base64Util;
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 
@@ -49,6 +50,9 @@ public class ProblemActivity extends AppCompatActivity {
     private String pic_path = "";
     private String video_path = "";
 
+    private image2Base64Util img2base;
+    private String basicPicturePath = "http://47.105.187.185:8011/Content/img/WebImg/";
+
     public  void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.problem_record);
@@ -60,6 +64,8 @@ public class ProblemActivity extends AppCompatActivity {
         pro_list = findViewById(R.id.pr_list);
         pro_title = (EditText) findViewById(R.id.pro_title);
         pro_content = (EditText) findViewById(R.id.pro_content);
+
+        img2base = new image2Base64Util();
 
         log_back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -149,8 +155,14 @@ public class ProblemActivity extends AppCompatActivity {
             @Override
             public void onComplete() {
                 Toast.makeText(ProblemActivity.this,"问题上报成功！", Toast.LENGTH_SHORT).show();
+                //如果有图片 将图片上传到服务器，拿到返回的服务器上的pic_path，写到数据库中
                 if (has_pic){
-                    attachment_save("0",pic_path,problem_newId);
+                    String base64 = img2base.getBase64(pic_path);
+                    System.out.println("base64  -- >" +base64);
+                    JSONObject object = Requests.Picture_SaveBLL(base64, "jpg");
+                    String pic_path_server = object.getString("Temp");
+                    System.out.println("服务器上的pic地址 ： "+pic_path_server);
+                    attachment_save("0",pic_path_server,problem_newId);
                 }
                 if (has_video){
                     attachment_save("2",video_path,problem_newId);
@@ -169,7 +181,7 @@ public class ProblemActivity extends AppCompatActivity {
         String file_name = "未命名";
 
         //通过路径解析文件名
-        if (!path.isEmpty()){
+        if (path != null){
             file_name = path.substring(path.lastIndexOf('/')+1);
         }
 
@@ -233,6 +245,8 @@ public class ProblemActivity extends AppCompatActivity {
             video.setVisibility(View.VISIBLE);
 
             video.setMediaController(new MediaController(this));
+
+
 
             video.setVideoPath(video_path);
 

@@ -99,10 +99,29 @@ public class ProblemListActivity extends AppCompatActivity {
 
                 JSONObject list1 = JSONObject.parseObject(adapterView.getItemAtPosition(i).toString());
 
-                bundle.putString("Title", list1.get("Title").toString());
-                bundle.putString("AddTime", list1.get("AddTime").toString());
-                bundle.putString("Remark", list1.get("Remark").toString());
-                bundle.putString("typeName", list1.get("typeName").toString());
+                if(list1.get("Title") != null){
+                    bundle.putString("Title", list1.get("Title").toString());
+                }else{
+                    bundle.putString("Title", "");
+                }
+
+                if(list1.get("AddTime") != null){
+                    bundle.putString("AddTime", list1.get("AddTime").toString());
+                }else{
+                    bundle.putString("AddTime", "");
+                }
+
+                if(list1.get("Remark") != null){
+                    bundle.putString("Remark", list1.get("Remark").toString());
+                }else{
+                    bundle.putString("Remark", "");
+                }
+
+                if(list1.get("typeName") != null){
+                    bundle.putString("typeName", list1.get("typeName").toString());
+                }else{
+                    bundle.putString("typeName", "");
+                }
 
                 bundle.putString("ID",list1.get("ID").toString());
 

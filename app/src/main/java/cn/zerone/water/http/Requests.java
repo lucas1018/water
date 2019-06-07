@@ -464,6 +464,16 @@ public class Requests {
         baseString(observer, "CarGpsPhoto_SaveBLL", requestBody);
     }
 
+    //常规模式上传图片到服务器
+    public static JSONObject Picture_SaveBLL(String strbase64,String suffix){
+        RequestBody requestBody = new FormBody.Builder()
+                .add("strbase64",strbase64)
+                .add("suffix",suffix)
+                .build();
+        JSONObject jsonObject = baseJSONObject("SavePic", requestBody);
+        return jsonObject;
+    }
+
     public static void Picture_SaveBLL(Observer<JSONObject> observer, String strbase64, String suffix) {
         RequestBody requestBody = new FormBody.Builder()
                 .add("strbase64", strbase64)
