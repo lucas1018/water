@@ -49,6 +49,7 @@ public class CalenderContentActivity extends AppCompatActivity {
     private int overtime_content_int;
     private String userid;
     private ProgressDialog dialog;
+    private int mLogID = 00000;
 
 
     @Override
@@ -102,6 +103,8 @@ public class CalenderContentActivity extends AppCompatActivity {
             edit_tomorrow.setText(calenderContent.getTomorrow());
             //备注
             edit_remark.setText(calenderContent.getRemark());
+            //ID
+            mLogID = calenderContent.getID();
         }
         //给控件赋值
         tv_title.setText(date);
@@ -172,44 +175,94 @@ public class CalenderContentActivity extends AppCompatActivity {
     }
 
     private void SaveLog(String date2, int type, final String job_content, String overtime_content, String overtime, String tomorrow, String remark) {
-        Requests.JobLog_SaveBLL(new Observer<String>() {
-            @Override
-            public void onSubscribe(Disposable d) {
 
-                dialog = new ProgressDialog(CalenderContentActivity.this);
-                dialog.setTitle("正在保存请稍后......");
-                dialog.setCancelable(false);// 设置是否可以通过点击Back键取消
-                dialog.setCanceledOnTouchOutside(false);// 设置在点击Dialog外是否取消Dialog进度条
-                dialog.show();
-            }
+        if(mLogID != 00000){
+            Requests.JobLog_SaveBLL(new Observer<String>() {
+                @Override
+                public void onSubscribe(Disposable d) {
 
-            @Override
-            public void onNext(String str) {
-                Log.i("myTag", "保存结束" + str);
-
-            }
-
-            @Override
-            public void onError(Throwable e) {
-
-                if (dialog.isShowing()) {
-                    dialog.dismiss();
+                    dialog = new ProgressDialog(CalenderContentActivity.this);
+                    dialog.setTitle("正在保存请稍后......");
+                    dialog.setCancelable(false);// 设置是否可以通过点击Back键取消
+                    dialog.setCanceledOnTouchOutside(false);// 设置在点击Dialog外是否取消Dialog进度条
+                    dialog.show();
                 }
-                e.printStackTrace();
-                Toast.makeText(CalenderContentActivity.this, "日志保存失败", Toast.LENGTH_SHORT).show();
-            }
 
-            @Override
-            public void onComplete() {
-                if (dialog.isShowing()) {
-                    dialog.dismiss();
+                @Override
+                public void onNext(String str) {
+                    Log.i("myTag", "保存结束" + str);
+
                 }
-                Toast.makeText(CalenderContentActivity.this, "日志保存成功", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(CalenderContentActivity.this, CalenderActivity.class);
-                intent.putExtra("job_content", job_content);
-                startActivity(intent);
-                CalenderContentActivity.this.finish();
-            }
-        }, userid, date, type, job_content, overtime_content, overtime, tomorrow, remark);
+
+                @Override
+                public void onError(Throwable e) {
+
+                    if (dialog.isShowing()) {
+                        dialog.dismiss();
+                    }
+                    e.printStackTrace();
+                    Toast.makeText(CalenderContentActivity.this, "日志保存失败", Toast.LENGTH_SHORT).show();
+                }
+
+                @Override
+                public void onComplete() {
+                    if (dialog.isShowing()) {
+                        dialog.dismiss();
+                    }
+                    Toast.makeText(CalenderContentActivity.this, "日志保存成功", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(CalenderContentActivity.this, CalenderActivity.class);
+                    intent.putExtra("job_content", job_content);
+                    startActivity(intent);
+                    CalenderContentActivity.this.finish();
+                }
+            }, userid, date, type, job_content, overtime_content, overtime, tomorrow, remark, mLogID);
+
+        }
+        else{
+            Requests.JobLog_SaveBLL(new Observer<String>() {
+                @Override
+                public void onSubscribe(Disposable d) {
+
+                    dialog = new ProgressDialog(CalenderContentActivity.this);
+                    dialog.setTitle("正在保存请稍后......");
+                    dialog.setCancelable(false);// 设置是否可以通过点击Back键取消
+                    dialog.setCanceledOnTouchOutside(false);// 设置在点击Dialog外是否取消Dialog进度条
+                    dialog.show();
+                }
+
+                @Override
+                public void onNext(String str) {
+                    Log.i("myTag", "保存结束" + str);
+
+                }
+
+                @Override
+                public void onError(Throwable e) {
+
+                    if (dialog.isShowing()) {
+                        dialog.dismiss();
+                    }
+                    e.printStackTrace();
+                    Toast.makeText(CalenderContentActivity.this, "日志保存失败", Toast.LENGTH_SHORT).show();
+                }
+
+                @Override
+                public void onComplete() {
+                    if (dialog.isShowing()) {
+                        dialog.dismiss();
+                    }
+                    Toast.makeText(CalenderContentActivity.this, "日志保存成功", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(CalenderContentActivity.this, CalenderActivity.class);
+                    intent.putExtra("job_content", job_content);
+                    startActivity(intent);
+                    CalenderContentActivity.this.finish();
+                }
+            }, userid, date, type, job_content, overtime_content, overtime, tomorrow, remark, 0);
+        }
+
+
+
+
+
     }
 }

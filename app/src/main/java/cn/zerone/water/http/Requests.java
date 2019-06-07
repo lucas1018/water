@@ -225,10 +225,10 @@ public class Requests {
     }
 
     //添加工作日志
-    public static void JobLog_SaveBLL(Observer<String> observer, String userid,  String date, int  type, String job_content, String overtime_content, String overtime,String tomorrow,String remark) {
+    public static void JobLog_SaveBLL(Observer<String> observer, String userid,  String date, int  type, String job_content, String overtime_content, String overtime,String tomorrow,String remark, int ID) {
         Log.i("myTag", "开始保存 userid->" +userid +" date ->"+ date +" type ->"+ type +" job_content->"+job_content+" overtime_content->"+ overtime_content +" overtime->"+ overtime +" tomorrow->"+ tomorrow +" remark->"+ remark);
         RequestBody requestBody = new FormBody.Builder()
-                .add("ID", "0")
+                .add("ID", String.valueOf(ID))
                 .add("UserId", userid)//录入人
                 .add("AddTime", "")//日期
                 .add("JobType", String.valueOf(type))//类型 日报=0,周报=1,月报=2,季报=3,年报=4
