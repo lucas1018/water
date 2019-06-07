@@ -79,8 +79,12 @@ public class CheckDetailsActivity extends AppCompatActivity {
                     startActivityForResult(intent, 1);
                 }
 
-                else
-                    Toast.makeText(CheckDetailsActivity.this,"已审批",Toast.LENGTH_SHORT).show();
+                else{
+                    mAgree.setVisibility(View.INVISIBLE);
+                    //Toast.makeText(CheckDetailsActivity.this,"已审批",Toast.LENGTH_SHORT).show();
+
+                }
+
 
 
             }
@@ -102,8 +106,11 @@ public class CheckDetailsActivity extends AppCompatActivity {
                     startActivityForResult(intent, 1);
 
                 }
-                else
-                    Toast.makeText(CheckDetailsActivity.this,"已审批",Toast.LENGTH_SHORT).show();
+                else{
+                    mReject.setVisibility(View.INVISIBLE);
+                    //Toast.makeText(CheckDetailsActivity.this,"已审批",Toast.LENGTH_SHORT).show();
+                }
+
 
 
             }

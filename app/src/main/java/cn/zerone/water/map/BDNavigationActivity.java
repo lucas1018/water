@@ -17,6 +17,7 @@ import android.support.v4.app.ActivityCompat;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.baidu.clusterutil.clustering.ClusterItem;
@@ -70,7 +71,7 @@ public class BDNavigationActivity extends Activity implements OnMapLoadedCallbac
     private String mPlaceName;
     private LocationManager mLocationManager;
 
-    private Button mNaviBtn = null;
+    private TextView mNaviOK = null;
     private ImageView mNavi_sure_back = null; //返回
     MapView mMapView;
     BaiduMap mBaiduMap;
@@ -131,7 +132,7 @@ public class BDNavigationActivity extends Activity implements OnMapLoadedCallbac
             }
         }
 
-        mNaviBtn = findViewById(R.id.NaviBtnOK);
+        mNaviOK = findViewById(R.id.tv_NaviOK);
         mNavi_sure_back = findViewById(R.id.navi_sure_back);
         mMapView = (MapView) findViewById(R.id.desmapView);
 
@@ -266,8 +267,8 @@ public class BDNavigationActivity extends Activity implements OnMapLoadedCallbac
 
         }
 
-        if (mNaviBtn != null) {
-            mNaviBtn.setOnClickListener(new View.OnClickListener() {
+        if (mNaviOK != null) {
+            mNaviOK.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View arg0) {
                     if (BaiduNaviManagerFactory.getBaiduNaviManager().isInited()) {

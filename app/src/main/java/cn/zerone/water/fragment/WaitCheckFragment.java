@@ -68,8 +68,8 @@ public class WaitCheckFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         //初始化分隔线、添加分隔线
-        mDivider = new DividerItemDecoration(getContext(),DividerItemDecoration.VERTICAL);
-        recyclerView.addItemDecoration(mDivider);
+        //mDivider = new DividerItemDecoration(getContext(),DividerItemDecoration.VERTICAL);
+        //recyclerView.addItemDecoration(mDivider);
         mMyItemList_wait = new ArrayList<>();
         //mAdapter = new ApproveAdapter(mylist);
         //recyclerView.setAdapter(mAdapter);
