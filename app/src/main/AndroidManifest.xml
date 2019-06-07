@@ -131,6 +131,9 @@
         <!--
         <activity android:name=".activity.LogContentActivity"    android:configChanges="keyboard|keyboardHidden|orientation|screenSize" />
         -->
+        <activity android:name=".activity.LogInGetStationActivity"    android:configChanges="keyboard|keyboardHidden|orientation|screenSize" />
+        <activity android:name=".activity.LogGetProjectActivity"    android:configChanges="keyboard|keyboardHidden|orientation|screenSize" />
+        
         <activity android:name=".activity.ProblemActivity"    android:configChanges="keyboard|keyboardHidden|orientation|screenSize" />
         <activity android:name=".activity.ProblemTypeActivity"    android:configChanges="keyboard|keyboardHidden|orientation|screenSize" />
         <activity android:name=".activity.ProblemListActivity"    android:configChanges="keyboard|keyboardHidden|orientation|screenSize" />

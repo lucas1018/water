@@ -41,13 +41,13 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/pr_save"
+                android:id="@+id/pr_list"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_marginTop="10dp"
                 android:layout_marginRight="20dp"
-                android:text="确定"
+                android:text="历史记录"
                 android:textColor="#fff"
                 android:textSize="18sp" />
         </RelativeLayout>
@@ -288,6 +288,19 @@
                     android:textColorHint="#C7C7C7"
                     android:textSize="16sp" />
             </LinearLayout>
+
+            <TextView
+                android:id="@+id/pr_save"
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:padding="10dp"
+                android:layout_margin="5dp"
+                android:text="保存"
+                android:textColor="#FFFFFF"
+                android:background="#0090ff"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:layout_height="wrap_content" />
 
 
 

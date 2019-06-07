@@ -53,7 +53,14 @@ public class NoticeFragment extends Fragment {
                     JSONObject json1 = new JSONObject();
                     JSONObject jsonObject = objects.getJSONObject(i);
                     String Title = jsonObject.getString("Title");
-                    json1.put("title", Title);
+                    if (Title == null){
+                        json1.put("title", "");
+
+                    }
+                    else{
+                        json1.put("title", Title);
+                    }
+
                     String time = jsonObject.getString("AddTime");
                     if (time ==null){
                         json1.put("AddTime", "");
@@ -66,9 +73,23 @@ public class NoticeFragment extends Fragment {
                         json1.put("AddTime", d);
                     }
                     String content = jsonObject.getString("Msg");
-                    json1.put("Msg", content);
+                    if(content == null){
+                        json1.put("Msg", "");
+
+                    }
+                    else {
+                        json1.put("Msg", content);
+
+                    }
                     String Type = jsonObject.getString("DataType");
-                    json1.put("DataType", Type);
+                    if (Type == null){
+                        json1.put("DataType", "");
+
+                    }
+                    else {
+                        json1.put("DataType", Type);
+
+                    }
                     list.add(json1);
                 }
                 UpdateAdapter(list);
