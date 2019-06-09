@@ -30,7 +30,7 @@
             android:textColor="#fff"
             android:paddingBottom="10dp"
             android:text="导航" />
-
+        <!--
         <Button
             android:id="@+id/NaviBtnOK"
             android:layout_width="40dp"
@@ -42,6 +42,18 @@
             android:textSize="18dp"
             android:layout_alignParentRight="true"
             android:text="@string/action_sign_navi" />
+
+            -->
+        <TextView
+            android:id="@+id/tv_NaviOK"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="13dp"
+            android:layout_marginRight="21dp"
+            android:text="确定"
+            android:textColor="#ffffffff"
+            android:textSize="16sp" />
 
     </RelativeLayout>
 
