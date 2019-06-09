@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="primary">#1D1D1E</color>
+    <color name="primary_dark">#0D0D0E</color>
+    <color name="primary_light">#C8E6C9</color>
+    <color name="accent">#FFC107</color>
+    <color name="primary_text">#212121</color>
+    <color name="secondary_text">#757575</color>
+    <color name="icons">#FFFFFF</color>
+    <color name="divider">#BDBDBD</color>
+    <color name="live_color_bg">#DDDDDE</color>
+
+    <color name="live_text_color">#3D3D3E</color>
+    <color name="live_text_color_mid_light">#6D6D6E</color>
+    <color name="live_text_color_light">#9D9D9E</color>
+
+    <color name="live_white">#FFFFFF</color>
+    <color name="live_red">#FF5850</color>
+    <color name="live_red_press">#EF4840</color>
+    <color name="live_fail">#EDEDEE</color>
+    <color name="live_fail_dark">#BDBDBD</color>
+
+    <color name="live_top_bar_gradient_start">#CC000000</color>
+    <color name="live_top_bar_gradient_end">#00000000</color>
+    <color name="live_half_transparent">#88000000</color>
+    <color name="live_half_transparent_white">#88FFFFFF</color>
+    <color name="live_half_transparent_mask">#33000000</color>
+
+    <color name="live_blue">#37A4F5</color>
+    <color name="live_blue_half_transparent">#7737A4F5</color>
+    <color name="live_blue_press">#2794E5</color>
+    <color name="live_yellow">#FF9100</color>
+    <color name="live_transparent">#00000000</color>
+    <color name="live_transparent_opacity_02">#33000000</color>
+    <color name="live_transparent_opacity_06">#99000000</color>
+    <color name="live_selector_not_pressed">#dedede</color>
+    <color name="live_grey_tech_support">#CDCDCE</color>
+
+</resources>

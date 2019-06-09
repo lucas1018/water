@@ -28,8 +28,8 @@
             android:layout_centerInParent="true"
             android:layout_centerVertical="true"
             android:textColor="#fff"
-            android:textSize="18dp"
-            android:textStyle="bold" />
+            android:textSize="16sp"
+             />
 
     </RelativeLayout>
 

@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
     android:layout_height="match_parent">
 
     <RelativeLayout
@@ -13,23 +14,101 @@
             android:id="@+id/online_live"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="18dp"
+            android:textSize="16sp"
             android:layout_centerInParent="true"
             android:layout_centerVertical="true"
-            android:textStyle="bold"
+
             android:textColor="#fff"
             android:text="在线直播" />
 
         <Button
-            android:id="@+id/start_live"
+            android:id="@+id/start_live_live_fragment"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_alignParentEnd="true"
             android:text="发起直播"
-            android:textSize="18dp"
+            android:textSize="16sp"
             android:background="#008aca"
             android:textColor="#fff"/>
     </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <ImageView
+            android:id="@+id/imagv_live_fragment"
+            android:src="@drawable/nohave_live"
+            android:layout_width="match_parent"
+            android:scaleType="fitXY"
+            android:layout_height="215dp" />
 
+        <LinearLayout
+            android:id="@+id/linearlayout_have_data"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+
+            android:layout_below="@+id/imagv_live_fragment"
+            android:orientation="vertical">
+
+
+            <android.support.design.widget.TabLayout
+                android:id="@+id/tablayout_live_fragment"
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:layout_below="@+id/view_pager_layout"
+                app:tabGravity="fill"
+                app:tabIndicatorColor="#008ACA"
+                app:tabMode="fixed"
+                app:tabSelectedTextColor="@color/colorPrimary"
+                app:tabTextColor="#000000" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#EEEEEE">
+
+            </RelativeLayout>
+
+            <android.support.v4.view.ViewPager
+                android:id="@+id/viewpager_live_fragment"
+                android:layout_width="match_parent"
+                android:layout_height="0px"
+                android:layout_weight="1"
+                android:background="@android:color/white" />
+        </LinearLayout>
+
+    </RelativeLayout>
+    <!--
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="20dp">
+
+            <EditText
+                android:id="@+id/activity_entry_join_code"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="code"
+                android:text="tecq8z" />
+
+            <EditText
+                android:id="@+id/activity_entry_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:hint="name"
+                android:text="Shubo" />
+
+            <Button
+                android:id="@+id/enter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_marginTop="20dp"
+                android:text="enter" />
+
+        </LinearLayout>
+        -->
 </LinearLayout>

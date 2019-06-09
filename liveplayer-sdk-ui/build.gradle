@@ -1,0 +1,39 @@
+apply plugin: 'com.android.library'
+apply plugin: 'maven'
+
+android {
+    compileSdkVersion 25
+    buildToolsVersion '28.0.2'
+    defaultConfig {
+        minSdkVersion 14
+        targetSdkVersion 25
+        versionCode 1
+        versionName "1.0"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+
+    implementation 'com.android.support:appcompat-v7:25.3.1'
+    testImplementation 'junit:junit:4.12'
+
+    implementation 'com.squareup.picasso:picasso:2.5.2'
+
+    implementation 'com.baijia.common:common-image-crop:1.2.1' // image crop
+
+    implementation 'com.afollestad.material-dialogs:commons:0.9.4.5'
+
+    implementation 'com.baijia.live:liveplayer-sdk-core:1.1.0'
+    implementation 'com.baijia.live:liveplayer-sdk-core-ppt:1.1.0'
+}
+android {
+    lintOptions {
+        abortOnError false
+    }
+}

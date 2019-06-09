@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.baijiahulian.live.ui">
+
+    <application>
+        <activity
+            android:hardwareAccelerated="false"
+            android:name=".activity.LiveRoomActivity"
+            android:configChanges="orientation|screenSize|layoutDirection"
+            android:theme="@style/LiveAppTheme" />
+    </application>
+
+</manifest>

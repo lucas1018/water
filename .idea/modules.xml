@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/camera/camera.iml" filepath="$PROJECT_DIR$/camera/camera.iml" />
+      <module fileurl="file://$PROJECT_DIR$/liveplayer-sdk-ui/liveplayer-sdk-ui.iml" filepath="$PROJECT_DIR$/liveplayer-sdk-ui/liveplayer-sdk-ui.iml" />
       <module fileurl="file://$PROJECT_DIR$/water.iml" filepath="$PROJECT_DIR$/water.iml" />
     </modules>
   </component>

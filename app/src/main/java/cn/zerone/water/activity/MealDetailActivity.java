@@ -57,7 +57,7 @@ public class MealDetailActivity extends AppCompatActivity {
         Intent intent = getIntent();
         String currentTime = intent.getStringExtra("currentDate");
         detail_title = findViewById(R.id.detail_title);
-        detail_title.setText(currentTime + "月餐费详情");
+        detail_title.setText(currentTime + "月餐费");
 
         //餐费总计
         fee_total = findViewById(R.id.fee_total);

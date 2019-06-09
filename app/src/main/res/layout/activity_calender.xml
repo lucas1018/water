@@ -45,8 +45,8 @@
                         android:layout_centerVertical="true"
                         android:text="工作日志"
                         android:textColor="#fff"
-                        android:textSize="18dp"
-                        android:textStyle="bold" />
+                        android:textSize="16sp"
+                         />
                 </RelativeLayout>
 
                 <com.prolificinteractive.materialcalendarview.MaterialCalendarView xmlns:app="http://schemas.android.com/apk/res-auto"

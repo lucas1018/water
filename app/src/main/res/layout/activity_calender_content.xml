@@ -41,8 +41,8 @@
                     android:layout_centerVertical="true"
                     android:text="2019-5-15"
                     android:textColor="#fff"
-                    android:textSize="16dp"
-                    android:textStyle="bold" />
+                    android:textSize="16sp"
+                  />
 
                 <TextView
                     android:id="@+id/tv_save"
@@ -53,7 +53,7 @@
                     android:layout_marginRight="10dp"
                     android:text="保存"
                     android:textColor="#fff"
-                    android:textSize="18sp" />
+                    android:textSize="16sp" />
             </RelativeLayout>
 
             <LinearLayout

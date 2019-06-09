@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:id="@+id/relative_all_my_favorite"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="10dp">
+
+        <ImageView
+            android:id="@+id/imagv_user_head"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_centerVertical="true"
+             />
+
+        <TextView
+            android:id="@+id/textview_usename_live"
+            android:layout_toRightOf="@+id/imagv_user_head"
+            android:layout_marginLeft="20dp"
+            android:layout_width="wrap_content"
+            android:text="小明"
+            android:textColor="#ff000000"
+            android:textSize="16sp"
+            android:gravity="center"
+            android:layout_height="match_parent" />
+        <ImageView
+            android:id="@+id/imagv_checkbox_selection_memeber"
+            android:layout_width="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_height="wrap_content"
+            android:src="@drawable/zihao"/>
+    </RelativeLayout>
+
+</RelativeLayout>

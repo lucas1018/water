@@ -31,7 +31,7 @@
             android:layout_centerVertical="true"
             android:text="请选择所属项目"
             android:textColor="#fff"
-            android:textSize="16dp" />
+            android:textSize="16sp" />
 
     </RelativeLayout>
 

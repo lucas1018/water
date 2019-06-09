@@ -32,7 +32,7 @@
                         android:layout_width="123dp"
                         android:layout_height="21dp"
                         android:layout_marginLeft="21dp"
-                        android:layout_marginTop="20dp"
+                        android:layout_marginTop="10dp"
                         android:textColor="#000000"
                         android:textSize="16sp"
                         android:lineSpacingExtra="21dp"/>
@@ -43,7 +43,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
-                    android:layout_marginTop="20dp"
+
                     android:layout_marginRight="20dp"
                     android:orientation="horizontal">
 
@@ -54,7 +54,7 @@
                         android:layout_marginLeft="20dp"
                         android:text="进度:"
                         android:textColor="#008ACA"
-                        android:textSize="12sp"
+                        android:textSize="14sp"
                         android:lineSpacingExtra="16dp"/>
                     <TextView
                         android:id="@+id/state"
@@ -62,7 +62,7 @@
                         android:layout_height="16dp"
                         android:layout_marginTop="20dp"
                         android:textColor="#999999"
-                        android:textSize="12sp"
+                        android:textSize="14sp"
                         android:lineSpacingExtra="16dp"/>
 
 
@@ -73,7 +73,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
-                    android:layout_marginTop="20dp"
+                    android:layout_marginTop="10dp"
                     android:layout_marginRight="20dp"
                     android:orientation="horizontal">
 
@@ -84,12 +84,13 @@
                         android:layout_marginTop="10dp"
                         android:text="站点:"
                         android:textColor="#008ACA"
-                        android:textSize="12sp" />
+                        android:textSize="14sp" />
                     <TextView
                         android:id="@+id/address"
                         android:layout_width="wrap_content"
                         android:layout_height="16dp"
                         android:layout_marginTop="10dp"
+                        android:textSize="14sp"
                         android:textColor="#ff999999" />
 
 
@@ -100,7 +101,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
-                    android:layout_marginTop="20dp"
+                    android:layout_marginTop="10dp"
                     android:layout_marginRight="20dp"
                     android:layout_marginBottom="20dp"
                     android:orientation="horizontal">
@@ -112,12 +113,13 @@
                         android:layout_marginTop="10dp"
                         android:text="日期:"
                         android:textColor="#ff008aca"
-                        android:textSize="12sp"/>
+                        android:textSize="14sp"/>
                     <TextView
                         android:id="@+id/begin_time"
                         android:layout_width="wrap_content"
                         android:layout_height="16dp"
                         android:layout_marginTop="10dp"
+                        android:textSize="14sp"
                         android:textColor="#ff999999" />
 
 

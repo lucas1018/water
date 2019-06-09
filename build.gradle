@@ -8,6 +8,7 @@ buildscript {
         maven {
             url 'https://maven.google.com'
         }
+
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.2.0'
@@ -19,12 +20,18 @@ buildscript {
 
 allprojects {
     repositories {
+//        maven { url 'http://live-cdn.baijiayun.com/android-sdk/' }
+        // maven { url 'https://raw.github.com/baijia/maven/master/' }
+        maven { url 'http://live-cdn.baijiayun.com/android-sdk/' }
         mavenCentral() // add repository
         google()
         jcenter()
+
+
         maven {
             url 'https://maven.google.com'
         }
+        maven { url 'https://jitpack.io' }
     }
 }
 

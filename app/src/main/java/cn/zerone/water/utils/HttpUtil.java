@@ -33,7 +33,7 @@ import static com.baidu.platform.comapi.newsearch.EngineParams.HttpMethod.GET;
  */
 public class HttpUtil {
     // 接口调用的url
-    private static final String ADVANCED_URL = "http://47.105.187.185:8011/api1/";
+    public static final String ADVANCED_URL = "http://47.105.187.185:8011/api1/";
 
     public static void baseJSONArray(final Observer<JSONArray> observer, final String cmd, final RequestBody requestBody) {
         Observable oble = Observable.create(new ObservableOnSubscribe<JSONArray>() {
@@ -117,10 +117,27 @@ public class HttpUtil {
         Observer oser = observer;
         oble.subscribe(oser);
     }
-
+    public static <T> void baseJSONObjectLive(final Observer<JSONObject> observer, final String url, final RequestBody requestBody) {
+        Observable<T> oble = Observable.create(new ObservableOnSubscribe<T>() {
+            @Override
+            public void subscribe(@NonNull ObservableEmitter<T> e) throws Exception {
+                Response response = post(url, requestBody);
+                if (response != null && response.code() == 0) {
+                    String json = response.body().string();
+                    e.onNext((T) JSON.parseObject(json));
+                    e.onComplete();
+                } else {
+                    e.onError(new IOException());
+                }
+            }
+        }).subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread());
+        Observer oser = observer;
+        oble.subscribe(oser);
+    }
     //post请求服务端接口
-    public static Response post(String cmd, RequestBody requestBody) {
-        String url = ADVANCED_URL + cmd;//实际url
+    public static Response post(String url1, RequestBody requestBody) {
+        String url = url1;//实际url
         OkHttpClient okHttpClient = new OkHttpClient();
         try {
             Request request = new Request.Builder()

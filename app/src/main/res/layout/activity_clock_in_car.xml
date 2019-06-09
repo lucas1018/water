@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="#ffffff"
     tools:context="cn.zerone.water.activity.MealActivity">
 
     <RelativeLayout
@@ -31,7 +32,7 @@
             android:layout_centerVertical="true"
             android:text="车辆打卡"
             android:textColor="#fff"
-            android:textSize="16dp" />
+            android:textSize="16sp" />
 
         <Button
             android:id="@+id/car_history"
@@ -40,9 +41,9 @@
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
             android:background="@android:color/transparent"
-            android:text="历史纪录"
+            android:text="历史记录"
             android:textColor="#fff"
-            android:textSize="12dp" />
+            android:textSize="16sp" />
 
 
     </RelativeLayout>
@@ -262,8 +263,9 @@
                 android:id="@+id/relocation"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
+                android:gravity="center"
                 android:textColor="#008ACA"
-                android:textSize="10dp"
+                android:textSize="14sp"
                 android:text="重新定位" />
         </TableRow>
 

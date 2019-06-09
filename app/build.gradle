@@ -10,12 +10,13 @@ apply plugin: 'org.greenrobot.greendao' // apply plugin
 
 android {
     compileSdkVersion 26
+    buildToolsVersion '28.0.3'
     defaultConfig {
         applicationId "cn.zerone.water"
         minSdkVersion 19
-        targetSdkVersion 26
+        targetSdkVersion 27
         versionCode 1
-        versionName "1"
+        versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
         javaCompileOptions { annotationProcessorOptions { includeCompileClasspath = true } }
@@ -28,6 +29,7 @@ android {
         ndk {
             abiFilters "armeabi", "x86", "x86_64", "mips64", "mips"
         }
+
 
     }
     buildTypes {
@@ -45,18 +47,37 @@ android {
 
     }
 
+//    packagingOptions {
+//        exclude 'META-INFTICE'
+//        // will not include NOTICE file
+//        exclude 'META-INF/LICENSE' // will not include LICENSE file
+//        exclude 'META-INFtice'
+//        exclude 'META-INFtice.txt'
+//        exclude 'META-INFcense'
+//        exclude 'METAnse.'
+//    }
+
+    allprojects {
+        repositories {
+            //  jcenter() maven { url "https://jitpack.io" }
+
+            maven { url 'https://raw.github.com/baijia/maven/master/' }
+
+            mavenCentral()
+        }
+    }
     lintOptions {
         disable 'RestrictedApi'
         abortOnError false
     }
     /*
-    sourceSets{
-        main{
-            jniLibs.srcDir 'libs'
-            //jni.srcDirs = []    //disable automatic ndk-build
+        sourceSets{
+            main{
+                jniLibs.srcDir 'libs'
+                //jni.srcDirs = []    //disable automatic ndk-build
+            }
         }
-    }
-    */
+        */
 
     // apache包
     useLibrary 'org.apache.http.legacy'
@@ -69,17 +90,20 @@ repositories {
     }
 
 }
-configurations {
-
-    all*.exclude group: 'com.squareup.okhttp3', module: 'okhttp'
-}
-
+//configurations {
+//
+//  all*.exclude group: 'com.squareup.okhttp3'
+//   all*.exclude group: 'com.squareup.okio'
+//    all*.exclude group: 'com.android.support',module:'support-v13'
+//}
 dependencies {
     androidTestImplementation('com.android.support:support-annotations:26.1.0') {
         force = true
     }
     implementation 'in.srain.cube:grid-view-with-header-footer:1.0.12'
-    implementation 'com.facebook.fresco:fresco:0.12.0'
+    implementation('com.facebook.fresco:fresco:0.12.0', {
+        exclude module: "okhttp3"
+    })
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     //implementation fileTree(include: ['*.so'], dir: 'src/main/jniLibs/armeabi')
     //implementation fileTree(include: ['*.jar'], excludes: ['BaiduLBS_Android.jar'], dir: 'libs')
@@ -91,15 +115,18 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
-
-
+    implementation 'io.reactivex.rxjava2:rxandroid:2.1.0'
+    implementation 'io.reactivex.rxjava2:rxjava:2.2.4'
+    implementation 'com.zhy:base-adapter:3.0.3'
+    implementation 'org.greenrobot:greendao:3.2.2'
+    implementation project(':camera')
+    // add libraryo
+    implementation 'com.ashokvarma.android:bottom-navigation-bar:2.0.0'
+    implementation 'cn.yipianfengye.android:zxing-library:2.2'
+    implementation 'com.alibaba:fastjson:1.1.70.android'
     implementation 'com.youth.banner:banner:1.4.10'
     implementation 'com.github.bumptech.glide:glide:3.7.0'
     implementation files('libs/commons-io-2.5.jar')
-
-
-
-
     implementation files('libs/jcore-android-1.2.7.jar')
     implementation files('libs/jpush-android-3.2.0.jar')
     // recyclerview-v7包，导航SDK必要的依赖
@@ -116,20 +143,18 @@ dependencies {
     implementation files('libs/BaiduLBS_Android.jar')
     implementation files('libs/butterknife-6.1.0.jar')
     implementation files('libs/BASE64Encoder.jar')
+    // implementation 'com.baijia.live:liveplayer-sdk-core:1.2.6'
+    implementation project(':liveplayer-sdk-ui')
+    ///  implementation files('libs/ksoap2-android-assembly-3.6.3-jar-with-dependencies.jar')
+    // implementation 'com.squareup.okhttp3:okhttp:3.7.0'
+    implementation 'com.android.support:multidex:1.0.1'
+    /// implementation files('libs/ksoap2-android-assembly-3.6.3-jar-with-dependencies.jar')
+    implementation 'com.squareup.okhttp3:okhttp:3.7.0'
+    implementation 'com.squareup.okio:okio:1.12.0'
+//    implementation 'com.jakewharton:butterknife:8.5.1'
+//    annotationProcessor 'com.jakewharton:butterknife-compiler:8.5.1'
     implementation 'com.prolificinteractive:material-calendarview:1.4.0'
 
-
-    implementation 'io.reactivex.rxjava2:rxandroid:2.1.0'
-    implementation 'io.reactivex.rxjava2:rxjava:2.2.4'
-    implementation 'com.squareup.okhttp3:okhttp:3.12.0'
-    implementation 'com.zhy:base-adapter:3.0.3'
-    implementation 'org.greenrobot:greendao:3.2.2'
-    implementation project(':camera')
-    // add library
-    implementation 'com.ashokvarma.android:bottom-navigation-bar:2.0.0'
-    implementation 'cn.yipianfengye.android:zxing-library:2.2'
-    implementation 'com.alibaba:fastjson:1.1.70.android'
-    implementation files('libs/commons-io-2.5.jar')
-
-
+    implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.17'
+    implementation 'com.google.code.gson:gson:2.7'
 }

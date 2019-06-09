@@ -26,10 +26,10 @@
             android:id="@+id/title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="18dp"
+            android:textSize="16sp"
             android:layout_centerInParent="true"
             android:layout_centerVertical="true"
-            android:textStyle="bold"
+
             android:textColor="#fff"
             android:text="我的工作餐" />
 
@@ -41,7 +41,7 @@
             android:layout_alignParentBottom="true"
             android:background="@android:color/transparent"
             android:text="月份详情"
-            android:textSize="18dp"
+            android:textSize="16sp"
             android:textColor="#fff"/>
     </RelativeLayout>
 

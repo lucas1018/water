@@ -36,8 +36,8 @@
                 android:layout_centerInParent="true"
                 android:layout_centerVertical="true"
                 android:textColor="#fff"
-                android:textSize="16dp"
-                android:textStyle="bold" />
+                android:textSize="16sp"
+               />
 
         </RelativeLayout>
 
@@ -66,19 +66,19 @@
                         <TextView
                             android:layout_width="36dp"
                             android:layout_height="16dp"
-                            android:layout_marginTop="20dp"
+                            android:layout_marginTop="10dp"
                             android:layout_marginLeft="20dp"
                             android:text="进度:"
                             android:textColor="#008ACA"
-                            android:textSize="12sp"
+                            android:textSize="14sp"
                             android:lineSpacingExtra="16dp"/>
                         <TextView
                             android:id="@+id/state"
                             android:layout_width="48dp"
                             android:layout_height="16dp"
-                            android:layout_marginTop="20dp"
+                            android:layout_marginTop="10dp"
                             android:textColor="#999999"
-                            android:textSize="12sp"
+                            android:textSize="14sp"
                             android:lineSpacingExtra="16dp"/>
 
 
@@ -89,7 +89,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="20dp"
-                        android:layout_marginTop="20dp"
+                        android:layout_marginTop="10dp"
                         android:layout_marginRight="20dp"
                         android:orientation="horizontal">
 
@@ -100,11 +100,12 @@
                             android:layout_marginTop="10dp"
                             android:text="站点:"
                             android:textColor="#008ACA"
-                            android:textSize="12sp" />
+                            android:textSize="14sp" />
                         <TextView
                             android:id="@+id/address"
                             android:layout_width="wrap_content"
                             android:layout_height="16dp"
+                            android:textSize="14sp"
                             android:layout_marginTop="10dp"
                             android:textColor="#ff999999" />
 
@@ -116,7 +117,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="20dp"
-                        android:layout_marginTop="20dp"
+                        android:layout_marginTop="10dp"
                         android:layout_marginRight="20dp"
                         android:layout_marginBottom="20dp"
                         android:orientation="horizontal">
@@ -128,11 +129,12 @@
                             android:layout_marginTop="10dp"
                             android:text="日期:"
                             android:textColor="#ff008aca"
-                            android:textSize="12sp"/>
+                            android:textSize="14sp"/>
                         <TextView
                             android:id="@+id/begin_time"
                             android:layout_width="wrap_content"
                             android:layout_height="16dp"
+                            android:textSize="14sp"
                             android:layout_marginTop="10dp"
                             android:textColor="#ff999999" />
 
@@ -144,14 +146,11 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent">
-
+                    android:layout_height="wrap_content">
                         <LinearLayout
-                            android:layout_width="178dp"
+                            android:id="@+id/linear_photo"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
                             android:layout_height="80dp"
                             android:layout_marginLeft="20dp"
                             android:background="#FF008ACA">
@@ -188,9 +187,12 @@
                         </LinearLayout>
 
                         <LinearLayout
+                            android:layout_toRightOf="@+id/linear_photo"
                             android:layout_marginLeft="20dp"
-                            android:layout_width="178dp"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
                             android:layout_height="80dp"
+                            android:layout_marginRight="20dp"
                             android:background="#FF1AAD19">
 
                             <TextView
@@ -216,19 +218,224 @@
 
 
                         </LinearLayout>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_marginTop="10dp"
+                    android:layout_width="match_parent"
+                    android:orientation="horizontal"
+                    android:layout_marginRight="20dp"
+                    android:layout_height="80dp">
+                    <LinearLayout
+                        android:id="@+id/linear_video"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="80dp"
+                        android:layout_marginLeft="20dp"
+                        android:background="#FF008ACA">
 
+                        <ImageView
+                            android:layout_width="14dp"
+                            android:layout_height="13dp"
+                            android:layout_marginLeft="59dp"
+                            android:layout_marginTop="19dp"
+                            android:src="@drawable/task_loc"
+                            />
 
+                        <TextView
+                            android:layout_marginLeft="11dp"
+                            android:layout_marginTop="16dp"
+                            android:layout_width="46dp"
+                            android:layout_height="16dp"
+                            android:text="已上传"
+                            android:textColor="#ffffffff"
+                            android:textSize="14sp"
+                            />
+
+                        <TextView
+                            android:layout_marginLeft="-80dp"
+                            android:layout_marginTop="42dp"
+                            android:layout_width="70dp"
+                            android:layout_height="22dp"
+                            android:text="施工视频"
+                            android:textColor="#ffffffff"
+                            android:textSize="16sp"
+                            />
                     </LinearLayout>
 
+                    <LinearLayout
+                        android:layout_toRightOf="@+id/linear_video"
+                        android:layout_marginLeft="20dp"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="80dp"
+                        android:background="#FF1AAD19">
 
+                        <TextView
+                            android:layout_marginLeft="83dp"
+                            android:layout_marginTop="16dp"
+                            android:layout_width="46dp"
+                            android:layout_height="16dp"
+                            android:text="待填写"
+                            android:textColor="#ffffffff"
+                            android:textSize="14sp"
+                            />
+
+                        <TextView
+                            android:layout_marginLeft="-71dp"
+                            android:layout_marginTop="42dp"
+                            android:layout_width="70dp"
+                            android:layout_height="22dp"
+                            android:text="土建验收表"
+                            android:textColor="#ffffffff"
+                            android:textSize="16sp"
+                            />
+                    </LinearLayout>
                 </LinearLayout>
+                <LinearLayout
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal"
+                    android:layout_marginRight="20dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp">
+                    <LinearLayout
+                        android:id="@+id/linear_civilEngineeringStation"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="80dp"
+                        android:layout_marginLeft="20dp"
+                        android:background="#FF008ACA">
 
+                        <ImageView
+                            android:layout_width="14dp"
+                            android:layout_height="13dp"
+                            android:layout_marginLeft="59dp"
+                            android:layout_marginTop="19dp"
+                            android:src="@drawable/task_loc"
+                            />
+
+                        <TextView
+                            android:layout_marginLeft="11dp"
+                            android:layout_marginTop="16dp"
+                            android:layout_width="46dp"
+                            android:layout_height="16dp"
+                            android:text="待填写"
+                            android:textColor="#ffffffff"
+                            android:textSize="14sp"
+                            />
+
+                        <TextView
+                            android:layout_marginLeft="-80dp"
+                            android:layout_marginTop="42dp"
+                            android:layout_width="70dp"
+                            android:layout_height="22dp"
+                            android:text="设备验收表"
+                            android:textColor="#ffffffff"
+                            android:textSize="16sp"
+                            />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_toRightOf="@+id/linear_civilEngineeringStation"
+                        android:layout_marginLeft="20dp"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="80dp"
+                        android:background="#FF1AAD19">
+
+                        <TextView
+                            android:layout_marginLeft="83dp"
+                            android:layout_marginTop="16dp"
+                            android:layout_width="46dp"
+                            android:layout_height="16dp"
+                            android:text="待填写"
+                            android:textColor="#ffffffff"
+                            android:textSize="14sp"
+                            />
+
+                        <TextView
+                            android:layout_marginLeft="-71dp"
+                            android:layout_marginTop="42dp"
+                            android:layout_width="70dp"
+                            android:layout_height="22dp"
+                            android:text="人工费用"
+                            android:textColor="#ffffffff"
+                            android:textSize="16sp"
+                            />
+                    </LinearLayout>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal"
+                    android:layout_marginRight="20dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <LinearLayout
+                        android:id="@+id/linear_engineeringCost"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="80dp"
+                        android:layout_marginLeft="20dp"
+                        android:background="#FF008ACA">
+
+                        <ImageView
+                            android:layout_width="14dp"
+                            android:layout_height="13dp"
+                            android:layout_marginLeft="59dp"
+                            android:layout_marginTop="19dp"
+                            android:src="@drawable/task_loc"
+                            />
+
+                        <TextView
+                            android:layout_marginLeft="11dp"
+                            android:layout_marginTop="16dp"
+                            android:layout_width="46dp"
+                            android:layout_height="16dp"
+                            android:text="待填写"
+                            android:textColor="#ffffffff"
+                            android:textSize="14sp"
+                            />
+
+                        <TextView
+                            android:layout_marginLeft="-80dp"
+                            android:layout_marginTop="42dp"
+                            android:layout_width="70dp"
+                            android:layout_height="22dp"
+                            android:text="车费"
+                            android:textColor="#ffffffff"
+                            android:textSize="16sp"
+                            />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_toRightOf="@+id/linear_engineeringCost"
+                        android:layout_marginLeft="20dp"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="80dp"
+                        android:background="#FF1AAD19">
+
+                        <TextView
+                            android:layout_marginLeft="83dp"
+                            android:layout_marginTop="16dp"
+                            android:layout_width="46dp"
+                            android:layout_height="16dp"
+                            android:text="待填写"
+                            android:textColor="#ffffffff"
+                            android:textSize="14sp"
+                            />
+
+                        <TextView
+                            android:layout_marginLeft="-71dp"
+                            android:layout_marginTop="42dp"
+                            android:layout_width="70dp"
+                            android:layout_height="22dp"
+                            android:text="租车费"
+                            android:textColor="#ffffffff"
+                            android:textSize="16sp"
+                            />
+                    </LinearLayout>
+                </LinearLayout>
             </LinearLayout>
-
-
-
-
-
     </LinearLayout>
 
 

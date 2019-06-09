@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/item_ppt_rl"
+    android:layout_width="110dp"
+    android:layout_height="83dp"
+    android:layout_marginTop="20dp"
+    android:layout_marginBottom="20dp"
+    android:layout_marginRight="5dp"
+    android:layout_marginLeft="5dp"
+    android:background="@drawable/btn_dialog_disagree">
+    <ImageView
+        android:id="@+id/item_ppt_view"
+        android:layout_width="110dp"
+        android:layout_height="83dp"
+        android:scaleType="centerCrop"
+        android:layout_margin="0.5dp"/>
+
+    <TextView
+        android:id="@+id/item_ppt_order"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:textColor="@color/live_white"
+        android:textSize="9sp"
+        android:gravity="center"
+        android:background="@color/live_transparent_opacity_02"/>
+</RelativeLayout>

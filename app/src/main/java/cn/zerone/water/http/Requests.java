@@ -20,6 +20,7 @@ import okhttp3.RequestBody;
 import static cn.zerone.water.utils.HttpUtil.baseGetString;
 import static cn.zerone.water.utils.HttpUtil.baseJSONArray;
 import static cn.zerone.water.utils.HttpUtil.baseJSONObject;
+import static cn.zerone.water.utils.HttpUtil.baseJSONObjectLive;
 import static cn.zerone.water.utils.HttpUtil.baseString;
 
 /**
@@ -531,6 +532,15 @@ public class Requests {
     }
 
 
+
+    public static void selectMember(Observer<JSONArray> observer) {
+        //调用任务列表接口
+            RequestBody requestBody = new FormBody.Builder().build();
+            baseJSONArray(observer, "UserListZtree2", requestBody);
+
+    }
+
+
     /**
      * 採用get请求的方式 获取apk信息
      *
@@ -557,5 +567,22 @@ public class Requests {
             e.printStackTrace();
         }
         return null;
+
+    }
+    public static void createRoom(Observer<JSONObject> observer, String identity_id, String identity_pwd,
+                                  String title,String start_time,String  end_time,int type,int max_users,
+                                  int pre_enter_time,int is_long_term) {
+        RequestBody requestBody = new  FormBody.Builder()
+                .add("identity_id", identity_id)
+                .add("identity_pwd", identity_pwd)
+                .add("title", title)
+                .add("start_time", start_time)
+                .add("end_time", end_time)
+                .add("type", type+"")
+                .add("max_users", max_users+"")
+                .add("pre_enter_time", pre_enter_time+"")
+                .add("is_long_term", is_long_term+"")
+                .build();
+        baseJSONObjectLive(observer,"http://admin.96koo.net/common/room/create",requestBody);
     }
 }
